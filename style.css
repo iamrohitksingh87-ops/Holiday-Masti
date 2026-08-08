@@ -488,3 +488,27 @@ nav a:hover::after{
         width: 100%;
     }
 }
+/* FIX START */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* FIX END */
