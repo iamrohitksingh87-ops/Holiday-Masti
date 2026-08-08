@@ -512,3 +512,7 @@ body {
 }
 
 /* FIX END */
+.logo {
+    width: 120px !important;
+    height: auto !important;
+}
