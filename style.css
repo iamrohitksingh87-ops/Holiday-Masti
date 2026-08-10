@@ -38,7 +38,7 @@ header{
 
 .logo img{
     height:100px;
-    filter: brightness(1.5);
+    filter: brightness(0) invert(1);
 }
 
 nav a{
