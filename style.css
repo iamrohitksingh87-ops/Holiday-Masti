@@ -655,3 +655,6 @@ section {
   padding: 50px;
   height: 100vh;
 }
+section {
+  scroll-margin-top: 120px;
+}
