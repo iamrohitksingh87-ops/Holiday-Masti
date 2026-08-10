@@ -13,17 +13,12 @@ body{
 }
 
 /* HEADER */
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:12px 60px;
-    background: rgba(11, 44, 72, 0.85);
-    backdrop-filter: blur(10px);
-    position:fixed;
-    width:100%;
-    top:0;
-    z-index:1000;
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100px;   /* FIXED HEIGHT */
+  z-index: 1000;
 }
 
 .logo img {
