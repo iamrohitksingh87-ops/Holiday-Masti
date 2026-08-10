@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holiday Masti</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+<title>Travel Website</title>
 
-    <!-- FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<!-- FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
 <!-- ===== HEADER ===== -->
 <header class="header">
     <div class="logo">
-        <img src="images/logo.png" alt="Logo">
+        <img src="images/logo.png" alt="logo">
     </div>
 
     <nav class="nav">
@@ -34,102 +34,93 @@
     <div class="hero-content">
         <h1>Discover Your Next Dream Destination</h1>
         <p>Explore the world with best deals</p>
-        <a href="#packages" class="hero-btn">Explore Now</a>
+
+        <!-- SEARCH -->
+        <div class="search-box">
+            <input type="text" placeholder="📍 Destination">
+            <input type="date">
+            <input type="date">
+
+            <select>
+                <option>1 Traveller</option>
+                <option>2 Travellers</option>
+                <option>Family</option>
+                <option>Group</option>
+            </select>
+
+            <button class="search-btn">Search</button>
+        </div>
     </div>
-</section>
-
-<!-- ===== SEARCH ===== -->
-<section>
-<div class="search-box">
-
-    <h2>Find Your Dream Holiday</h2>
-
-    <div class="search-form">
-        <input type="text" placeholder="📍 Destination">
-        <input type="date">
-        <input type="date">
-
-        <select>
-            <option>1 Traveller</option>
-            <option>2 Travellers</option>
-            <option>Family</option>
-            <option>Group</option>
-        </select>
-
-        <button>Search</button>
-    </div>
-
-</div>
 </section>
 
 <!-- ===== PACKAGES ===== -->
-<section id="packages" class="packages">
+<section class="packages" id="packages">
+    <h2>Popular Packages</h2>
 
-<h2>Featured Holiday Packages</h2>
+    <div class="package-grid">
 
-<div class="package-grid">
+        <div class="package-card">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+            <div class="price-tag">₹18,999</div>
+            <div class="card-content">
+                <h3>🏖️ Goa Beach Escape</h3>
+                <p>⭐ 4.8 | 3 Nights / 4 Days</p>
+                <button>View Details</button>
+            </div>
+        </div>
 
-    <div class="package-card">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="">
-        <div class="price-tag">₹18,999</div>
-        <h3>🏖️ Goa Beach Escape</h3>
-        <p>⭐ 4.8 | 3 Nights / 4 Days</p>
-        <button>View Details</button>
+        <div class="package-card">
+            <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4">
+            <div class="price-tag">₹42,999</div>
+            <div class="card-content">
+                <h3>🌴 Bali Paradise</h3>
+                <p>⭐ 4.9 | 5 Nights / 6 Days</p>
+                <button>View Details</button>
+            </div>
+        </div>
+
+        <div class="package-card">
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c">
+            <div class="price-tag">₹39,999</div>
+            <div class="card-content">
+                <h3>🌆 Dubai Luxury</h3>
+                <p>⭐ 4.7 | 4 Nights / 5 Days</p>
+                <button>View Details</button>
+            </div>
+        </div>
+
     </div>
-
-    <div class="package-card">
-        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4" alt="">
-        <div class="price-tag">₹42,999</div>
-        <h3>🌴 Bali Paradise</h3>
-        <p>⭐ 4.9 | 5 Nights / 6 Days</p>
-        <button>View Details</button>
-    </div>
-
-    <div class="package-card">
-        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c" alt="">
-        <div class="price-tag">₹39,999</div>
-        <h3>🌆 Dubai Luxury</h3>
-        <p>⭐ 4.7 | 4 Nights / 5 Days</p>
-        <button>View Details</button>
-    </div>
-
-</div>
 </section>
 
 <!-- ===== DESTINATIONS ===== -->
-<section id="destinations" class="destinations">
+<section class="destinations" id="destinations">
+    <h2>Top Destinations</h2>
 
-<h2>Popular Destinations</h2>
+    <div class="destination-grid">
 
-<div class="destination-grid">
+        <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+            <h3>🏖️ Goa</h3>
+            <p>Starting ₹18,999</p>
+        </div>
 
-    <div class="destination-card">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="">
-        <h3>🏖️ Goa</h3>
-        <p>Starting from ₹18,999</p>
+        <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4">
+            <h3>🌴 Bali</h3>
+            <p>Starting ₹42,999</p>
+        </div>
+
+        <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c">
+            <h3>🌆 Dubai</h3>
+            <p>Starting ₹39,999</p>
+        </div>
+
     </div>
-
-    <div class="destination-card">
-        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4" alt="">
-        <h3>🌴 Bali</h3>
-        <p>Starting from ₹42,999</p>
-    </div>
-
-    <div class="destination-card">
-        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c" alt="">
-        <h3>🌆 Dubai</h3>
-        <p>Starting from ₹39,999</p>
-    </div>
-
-</div>
 </section>
 
 <!-- ===== FEATURES ===== -->
-<section id="features">
-
-<h2 style="text-align:center;">Why Choose Holiday Masti?</h2>
-
-<div class="features">
+<section class="features" id="features">
 
     <div class="feature-box">
         <h3>✈️ Best Flights</h3>
@@ -150,8 +141,6 @@
         <h3>📞 24×7 Support</h3>
         <p>We are always here to help.</p>
     </div>
-
-</div>
 
 </section>
 
