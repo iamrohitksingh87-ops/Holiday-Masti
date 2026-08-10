@@ -74,22 +74,14 @@ nav a:hover{
 
 /* ===== HERO ===== */
 
-.hero{
-    height:90vh;
-
-    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
-                url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
-
-    background-size: 110%;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    animation: zoomBg 8s ease-in-out infinite alternate;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+.hero {
+    background: linear-gradient(to right, #0a2540, #1e3c72);
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
 }
 
 @keyframes zoomBg{
