@@ -12,28 +12,39 @@ body{
     color:#333;
 }
 
-/* ===== HEADER ===== */
-
+/* HEADER */
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:15px 40px;
-    background:#0b2c48 !important;
+    background:#0b2c48;
 }
 
+/* LOGO */
 .logo img{
-    height:80px;
+    height:60px;
+    width:auto;
     filter: brightness(0) invert(1);
+}
+
+/* NAV */
+nav{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    background: transparent; /* IMPORTANT */
 }
 
 nav a{
     color:white;
-    margin:0 18px;
+    text-decoration:none;
     font-size:18px;
     font-weight:600;
+    transition:.3s;
 }
 
+/* HOVER */
 nav a:hover{
     color:#58b947;
 }
