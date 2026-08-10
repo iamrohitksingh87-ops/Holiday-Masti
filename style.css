@@ -18,38 +18,30 @@ body{
     justify-content:space-between;
     align-items:center;
     padding:12px 60px;
-    
-    background: rgba(11, 44, 72, 0.85); /* glass effect */
+    background: rgba(11, 44, 72, 0.85);
     backdrop-filter: blur(10px);
-    
     position:fixed;
     width:100%;
     top:0;
     z-index:1000;
 }
 
-/* LOGO */
 .logo img{
     height:55px;
     filter: brightness(0) invert(1);
 }
 
-/* NAV */
 .nav{
     display:flex;
     gap:30px;
 }
 
-/* LINKS */
 .nav a{
     position:relative;
     color:white;
     text-decoration:none;
-    font-size:16px;
-    font-weight:500;
 }
 
-/* UNDERLINE ANIMATION */
 .nav a::after{
     content:'';
     position:absolute;
