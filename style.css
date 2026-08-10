@@ -537,29 +537,48 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* HEADER */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 50px;
-    background: #0a2540;
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 60px;
+    background: rgba(11, 44, 72, 0.85);
+    backdrop-filter: blur(10px);
+    position:fixed;
+    width:100%;
+    top:0;
+    z-index:1000;
 }
 
-header img {
-    height: 50px;
+.logo img{
+    height:55px;
+    filter: brightness(0) invert(1);
 }
 
-/* NAVBAR */
-nav a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: 500;
+.nav{
+    display:flex;
+    gap:30px;
 }
 
-nav a:hover {
-    color: #00bfff;
+.nav a{
+    position:relative;
+    color:white;
+    text-decoration:none;
+}
+
+.nav a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0%;
+    height:2px;
+    background:#58b947;
+    transition:.3s;
+}
+
+.nav a:hover::after{
+    width:100%;
 }
 
 /* HERO SECTION */
@@ -627,10 +646,4 @@ img {
 }
 header{
     background:white !important;
-}
-nav{
-    background:white !important;
-}
-header{
-    background:#0b2c48 !important;
 }
