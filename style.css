@@ -19,7 +19,7 @@ header{
     justify-content:space-between;
     align-items:center;
     padding:15px 40px;
-    background:white;
+    background:#0b2c48;  /* dark blue */
     box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
 
@@ -31,20 +31,20 @@ header{
 
 .logo img{
     height:100px;
-    width:auto;
+    filter: brightness(0) invert(1);
 }
 
 nav a{
-    color: #0b5cad;
+    color:white;
     text-decoration:none;
     margin:0 18px;
-    font: size 18px;
+    font-size:18px;
     font-weight:600;
     transition:.3s;
 }
 
 nav a:hover{
-    color: #58b947;
+    color:#58b947;
 }
 
 .book-btn{
