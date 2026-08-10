@@ -639,6 +639,6 @@ html {
   scroll-behavior: smooth;
 }
 section {
+  padding-top: 100px;
   height: 100vh;
-  border: 1px solid red; /* debug ke liye */
 }
