@@ -369,12 +369,16 @@ nav a::after{
 nav a:hover::after{
     width:100%;
 }
-/* tumhara existing CSS */
-.hero{
-   ...
+.hero {
+    background: #0a2540; /* clean background */
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
 }
-
-/* 👉 YAHAN SE ADD KARO */
 
 .hero h1{
     font-size: 48px;
