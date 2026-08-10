@@ -72,10 +72,8 @@ nav a:hover{
 
 /* ===== HERO ===== */
 
-/* ===== HERO ===== */
-
 .hero {
-    background: linear-gradient(to right, #0a2540, #1e3c72);
+    background: #0a2540; /* clean dark */
     height: 90vh;
     display: flex;
     justify-content: center;
@@ -550,10 +548,10 @@ nav a:hover {
 
 /* HERO SECTION */
 .hero {
-    background: url('images/logo.png') no-repeat center center/cover;
-    color: white;
-    text-align: center;
-    padding: 120px 20px;
+  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  padding: 120px 20px;
 }
 
 .hero h1 {
