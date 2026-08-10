@@ -61,7 +61,7 @@ body {
 
 /* ===== HERO ===== */
 .hero {
-  background: url('images/logo.png') no-repeat center center/cover;
+  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
   height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
