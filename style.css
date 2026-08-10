@@ -37,10 +37,9 @@ header{
 }
 
 .logo img{
-    height: 70px;
-    width: auto;
-    background:transparent;
-    mix-blend-mode:multiply;
+    height:70px;
+    width:auto;
+    display:block;
 }
 
 nav a{
