@@ -638,3 +638,7 @@ img {
 html {
   scroll-behavior: smooth;
 }
+section {
+  height: 100vh;
+  border: 1px solid red; /* debug ke liye */
+}
