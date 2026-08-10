@@ -658,3 +658,6 @@ section {
 section {
   scroll-margin-top: 120px;
 }
+body {
+  padding-top: 100px;
+}
