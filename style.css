@@ -645,3 +645,13 @@ section {
 section {
   scroll-margin-top: 100px;
 }
+html {
+  scroll-behavior: smooth;
+}
+
+/* Header fix hai to overlap fix karo */
+section {
+  scroll-margin-top: 100px;
+  padding: 50px;
+  height: 100vh;
+}
