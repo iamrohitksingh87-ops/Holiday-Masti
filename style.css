@@ -18,7 +18,7 @@ header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:8px 6%;
+    padding:20px 40px;
     background:#ffffff;
     box-shadow:0 2px 15px rgba(0,0,0,.08);
     position:sticky;
