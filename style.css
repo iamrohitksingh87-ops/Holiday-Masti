@@ -524,6 +524,25 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+/* HEADER FIX */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 1000;
+}
+
+/* BODY PUSH DOWN */
+body {
+  padding-top: 100px;
+}
+
+/* SCROLL FIX */
+section {
+  scroll-margin-top: 110px;
+}
+
 .header{
     display:flex;
     justify-content:space-between;
