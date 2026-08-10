@@ -10,7 +10,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #f4f9ff;
   color: #333;
-  padding-top: 80px; /* header height */
+  padding-top: 80px;
   overflow-x: hidden;
 }
 
@@ -30,10 +30,11 @@ body {
 }
 
 .logo img {
-  height: 55px;
-  filter: brightness(0) invert(1);
+  height: 70px;
+  width: auto;
 }
 
+/* ===== NAV ===== */
 .nav {
   display: flex;
   gap: 30px;
@@ -43,11 +44,7 @@ body {
   color: white;
   text-decoration: none;
   position: relative;
-}
-
-/* HOVER FIX */
-.nav a:hover::after {
-  width: 100%;
+  font-weight: 500;
 }
 
 .nav a::after {
@@ -61,11 +58,13 @@ body {
   transition: 0.3s;
 }
 
+.nav a:hover::after {
+  width: 100%;
+}
+
 /* ===== HERO ===== */
 .hero {
-  background: url('images/logo.png') no-repeat center center/cover;
-  /* Agar image alag hai to path change karo */
-
+  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
   height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
@@ -80,10 +79,10 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.4);
 }
 
-/* content fix */
+/* content */
 .hero-content {
   position: relative;
   z-index: 2;
@@ -92,6 +91,7 @@ body {
 
 .hero h1 {
   font-size: 48px;
+  font-weight: 600;
 }
 
 .hero p {
@@ -99,12 +99,48 @@ body {
   margin: 10px 0 20px;
 }
 
+/* button */
 .hero-btn {
   padding: 12px 25px;
-  background: orange;
+  background: linear-gradient(45deg, orange, #ff5e00);
   color: white;
   border-radius: 30px;
   text-decoration: none;
+  transition: 0.3s;
+}
+
+.hero-btn:hover {
+  transform: scale(1.05);
+}
+
+/* ===== SEARCH BAR ===== */
+.search-box {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  background: rgba(255,255,255,0.95);
+  padding: 12px;
+  border-radius: 40px;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.search-box input,
+.search-box select {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 20px;
+  background: #f1f5f9;
+}
+
+.search-btn {
+  background: orange;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  cursor: pointer;
 }
 
 /* ===== SECTIONS ===== */
@@ -113,15 +149,11 @@ html {
 }
 
 section {
+  padding: 60px 8%;
   scroll-margin-top: 90px;
-  padding: 60px 20px;
 }
 
 /* ===== PACKAGES ===== */
-.packages {
-  padding: 80px 8%;
-}
-
 .package-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
@@ -133,18 +165,14 @@ section {
   border-radius: 20px;
   overflow: hidden;
   transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* HOVER FIX */
 .package-card:hover {
   transform: translateY(-10px);
 }
 
 /* ===== DESTINATIONS ===== */
-.destinations {
-  padding: 80px 8%;
-}
-
 .destination-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
@@ -183,10 +211,15 @@ section {
   }
 
   .hero h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
 
   .hero p {
     font-size: 14px;
+  }
+
+  .search-box {
+    flex-direction: column;
+    border-radius: 20px;
   }
 }
