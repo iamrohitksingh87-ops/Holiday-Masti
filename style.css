@@ -26,9 +26,9 @@ body{
     z-index:1000;
 }
 
-.logo img{
-    height:100px;
-    filter: none;
+.logo img {
+    height: 80px;
+    width: auto;
 }
 
 .nav{
