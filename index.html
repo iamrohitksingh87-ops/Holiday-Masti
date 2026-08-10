@@ -4,143 +4,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Travel Website</title>
+<title>Travel Premium</title>
 
 <link rel="stylesheet" href="style.css">
 
-<!-- FONT -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
+<!-- NAVBAR -->
 <header class="header">
-    <div class="logo">
-        <img src="images/logo.png" alt="logo">
-    </div>
+  <div class="logo">Holiday</div>
 
-    <nav class="nav">
-        <a href="#home">Home</a>
-        <a href="#packages">Packages</a>
-        <a href="#destinations">Destinations</a>
-        <a href="#features">Why Us</a>
-    </nav>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Packages</a>
+    <a href="#">Destinations</a>
+    <a href="#">Contact</a>
+  </nav>
 </header>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="home">
-    <div class="hero-content">
-        <h1>Discover Your Next Dream Destination</h1>
-        <p>Explore the world with best deals</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Explore the World</h1>
+    <p>Travel premium. Travel smart.</p>
 
-        <!-- SEARCH -->
-        <div class="search-box">
-            <input type="text" placeholder="📍 Destination">
-            <input type="date">
-            <input type="date">
-
-            <select>
-                <option>1 Traveller</option>
-                <option>2 Travellers</option>
-                <option>Family</option>
-                <option>Group</option>
-            </select>
-
-            <button class="search-btn">Search</button>
-        </div>
+    <div class="search-box">
+      <input placeholder="Where to?">
+      <input type="date">
+      <button>Search</button>
     </div>
+  </div>
 </section>
 
-<!-- ===== PACKAGES ===== -->
-<section class="packages" id="packages">
-    <h2>Popular Packages</h2>
+<!-- CARDS -->
+<section class="cards">
 
-    <div class="package-grid">
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+    <h3>Goa</h3>
+  </div>
 
-        <div class="package-card">
-            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
-            <div class="price-tag">₹18,999</div>
-            <div class="card-content">
-                <h3>🏖️ Goa Beach Escape</h3>
-                <p>⭐ 4.8 | 3 Nights / 4 Days</p>
-                <button>View Details</button>
-            </div>
-        </div>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4">
+    <h3>Bali</h3>
+  </div>
 
-        <div class="package-card">
-            <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4">
-            <div class="price-tag">₹42,999</div>
-            <div class="card-content">
-                <h3>🌴 Bali Paradise</h3>
-                <p>⭐ 4.9 | 5 Nights / 6 Days</p>
-                <button>View Details</button>
-            </div>
-        </div>
-
-        <div class="package-card">
-            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c">
-            <div class="price-tag">₹39,999</div>
-            <div class="card-content">
-                <h3>🌆 Dubai Luxury</h3>
-                <p>⭐ 4.7 | 4 Nights / 5 Days</p>
-                <button>View Details</button>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ===== DESTINATIONS ===== -->
-<section class="destinations" id="destinations">
-    <h2>Top Destinations</h2>
-
-    <div class="destination-grid">
-
-        <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
-            <h3>🏖️ Goa</h3>
-            <p>Starting ₹18,999</p>
-        </div>
-
-        <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4">
-            <h3>🌴 Bali</h3>
-            <p>Starting ₹42,999</p>
-        </div>
-
-        <div class="destination-card">
-            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c">
-            <h3>🌆 Dubai</h3>
-            <p>Starting ₹39,999</p>
-        </div>
-
-    </div>
-</section>
-
-<!-- ===== FEATURES ===== -->
-<section class="features" id="features">
-
-    <div class="feature-box">
-        <h3>✈️ Best Flights</h3>
-        <p>Affordable flights to amazing destinations.</p>
-    </div>
-
-    <div class="feature-box">
-        <h3>🏨 Premium Hotels</h3>
-        <p>Handpicked luxury hotels for every trip.</p>
-    </div>
-
-    <div class="feature-box">
-        <h3>💰 Best Price</h3>
-        <p>Guaranteed lowest prices.</p>
-    </div>
-
-    <div class="feature-box">
-        <h3>📞 24×7 Support</h3>
-        <p>We are always here to help.</p>
-    </div>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c">
+    <h3>Dubai</h3>
+  </div>
 
 </section>
 
