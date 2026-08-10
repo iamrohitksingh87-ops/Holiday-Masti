@@ -37,10 +37,9 @@ header{
 }
 
 .logo img{
-    height:100px;
-    width:auto;
-    max-width: width 220px;
-    display:block;
+    height: 60px;
+    width: auto;
+    display: block;
 }
 
 nav a{
