@@ -234,23 +234,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span>Starting from</span>
                     <strong>₹${flight.price.toLocaleString("en-IN")}</strong>
                     <button class="view-flight-btn">
-                        View Flight
+                        Check Current Fare ✈️
                     </button>
                 </div>
             `;
 
             const button = card.querySelector(".view-flight-btn");
 
-            button.addEventListener("click", () => {
-                alert(
-                    `Demo Flight Selected\n\n` +
-                    `${flight.airline}\n` +
-                    `${flight.from} → ${flight.to}\n` +
-                    `${flight.departure} - ${flight.arrival}\n` +
-                    `₹${flight.price.toLocaleString("en-IN")}\n\n` +
-                    `This is a demo flight result.`
-                );
-            });
+           button.addEventListener("click", () => {
+
+    const searchUrl =
+        `https://www.google.com/travel/flights?q=Flights%20from%20${flight.from}%20to%20${flight.to}`;
+
+    window.open(searchUrl, "_blank");
+});
 
             resultsContainer.appendChild(card);
         });
