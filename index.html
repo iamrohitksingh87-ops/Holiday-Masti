@@ -31,6 +31,7 @@
 
             <nav class="main-nav" id="mainNav">
                 <a href="#home">Home</a>
+                <a href="#flights">Flights</a>
                 <a href="#packages">Packages</a>
                 <a href="#destinations">Destinations</a>
                 <a href="#features">Why Us</a>
@@ -111,6 +112,81 @@
                 </form>
 
                 <p class="search-message" id="searchMessage"></p>
+            </div>
+        </section>
+
+
+        <!-- ==================== FLIGHT SEARCH ==================== -->
+        <section class="flight-section" id="flights">
+            <div class="flight-shell">
+                <div class="flight-heading">
+                    <div>
+                        <p class="section-kicker">FLY SMART</p>
+                        <h2>Search Flights</h2>
+                        <p>Compare sample fares and find the best option for your journey.</p>
+                    </div>
+                    <span class="flight-badge">✈ Flight Finder</span>
+                </div>
+
+                <form class="flight-form" id="flightForm">
+                    <label class="flight-field">
+                        <span>From</span>
+                        <input id="flightFrom" type="text" list="airportList" placeholder="Lucknow or LKO" autocomplete="off" required>
+                    </label>
+
+                    <button class="swap-flight" id="swapFlight" type="button" aria-label="Swap departure and arrival">
+                        ⇄
+                    </button>
+
+                    <label class="flight-field">
+                        <span>To</span>
+                        <input id="flightTo" type="text" list="airportList" placeholder="Dubai or DXB" autocomplete="off" required>
+                    </label>
+
+                    <label class="flight-field">
+                        <span>Departure</span>
+                        <input id="flightDeparture" type="date" required>
+                    </label>
+
+                    <label class="flight-field">
+                        <span>Return</span>
+                        <input id="flightReturn" type="date">
+                    </label>
+
+                    <label class="flight-field">
+                        <span>Travellers</span>
+                        <select id="flightTravellers">
+                            <option value="1">1 Adult</option>
+                            <option value="2">2 Adults</option>
+                            <option value="3">3 Adults</option>
+                            <option value="4">4 Adults</option>
+                            <option value="5">5 Adults</option>
+                            <option value="6">6 Adults</option>
+                        </select>
+                    </label>
+
+                    <button class="btn btn-primary flight-search-button" type="submit">
+                        Search Flights
+                    </button>
+                </form>
+
+                <datalist id="airportList">
+                    <option value="Lucknow (LKO)"></option>
+                    <option value="Delhi (DEL)"></option>
+                    <option value="Mumbai (BOM)"></option>
+                    <option value="Bengaluru (BLR)"></option>
+                    <option value="Goa (GOI)"></option>
+                    <option value="Dubai (DXB)"></option>
+                    <option value="Singapore (SIN)"></option>
+                    <option value="Bangkok (BKK)"></option>
+                    <option value="Bali (DPS)"></option>
+                    <option value="London (LHR)"></option>
+                    <option value="Paris (CDG)"></option>
+                </datalist>
+
+                <p class="flight-note" id="flightMessage">Enter your route and date to see available sample fares.</p>
+
+                <div class="flight-results" id="flightResults" aria-live="polite"></div>
             </div>
         </section>
 
