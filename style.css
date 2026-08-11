@@ -414,6 +414,218 @@ button {
 }
 
 
+/* ---------- FLIGHT SEARCH ---------- */
+
+.flight-section {
+    padding: 20px 20px 95px;
+    background: #f6f9fc;
+}
+
+.flight-shell {
+    width: min(1240px, 100%);
+    margin: 0 auto;
+    padding: 38px;
+    border: 1px solid rgba(20, 40, 70, 0.07);
+    border-radius: 30px;
+    background: #ffffff;
+    box-shadow: 0 22px 65px rgba(20, 40, 70, 0.10);
+}
+
+.flight-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.flight-heading h2 {
+    margin-top: 7px;
+    color: #172033;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.flight-heading > div > p:last-child {
+    margin-top: 10px;
+    color: #697689;
+    font-size: 14px;
+}
+
+.flight-badge {
+    flex: 0 0 auto;
+    padding: 10px 15px;
+    color: #075eb1;
+    background: #eaf4fd;
+    border: 1px solid #d7eaf9;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.flight-form {
+    display: grid;
+    grid-template-columns: 1.15fr 42px 1.15fr 1fr 1fr 0.9fr auto;
+    gap: 10px;
+    align-items: end;
+    padding: 18px;
+    border-radius: 22px;
+    background: #f7f9fc;
+    border: 1px solid #e6ebf1;
+}
+
+.flight-field span {
+    display: block;
+    margin: 0 0 7px 5px;
+    color: #657387;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.flight-field input,
+.flight-field select {
+    width: 100%;
+    height: 50px;
+    padding: 0 13px;
+    color: #172033;
+    background: #fff;
+    border: 1px solid #dfe6ee;
+    border-radius: 13px;
+    outline: none;
+    transition: border .2s ease, box-shadow .2s ease;
+}
+
+.flight-field input:focus,
+.flight-field select:focus {
+    border-color: #4da2df;
+    box-shadow: 0 0 0 4px rgba(77, 162, 223, 0.11);
+}
+
+.swap-flight {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 4px;
+    border: 1px solid #dce4ec;
+    border-radius: 50%;
+    color: #075eb1;
+    background: #fff;
+    font-size: 20px;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.swap-flight:hover {
+    transform: rotate(180deg);
+    background: #eef7ff;
+}
+
+.flight-search-button {
+    min-height: 50px;
+    white-space: nowrap;
+}
+
+.flight-note {
+    min-height: 20px;
+    margin: 17px 3px 0;
+    color: #697689;
+    font-size: 13px;
+}
+
+.flight-results {
+    display: grid;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.flight-results:empty {
+    display: none;
+}
+
+.flight-result {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr auto;
+    align-items: center;
+    gap: 18px;
+    padding: 19px 20px;
+    border: 1px solid #e6ebf1;
+    border-radius: 18px;
+    background: #fff;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.flight-result:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(20, 40, 70, 0.08);
+}
+
+.airline-name {
+    color: #172033;
+    font-weight: 700;
+}
+
+.flight-number {
+    margin-top: 4px;
+    color: #8a96a7;
+    font-size: 11px;
+}
+
+.flight-route {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #172033;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.flight-route span {
+    color: #9aa6b5;
+    font-size: 13px;
+}
+
+.flight-meta {
+    margin-top: 4px;
+    color: #697689;
+    font-size: 12px;
+}
+
+.flight-price {
+    text-align: right;
+}
+
+.flight-price strong {
+    display: block;
+    color: #075eb1;
+    font-size: 20px;
+}
+
+.flight-price small {
+    display: block;
+    margin-top: 3px;
+    color: #8a96a7;
+    font-size: 10px;
+}
+
+.flight-open {
+    margin-top: 7px;
+    padding: 8px 13px;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    background: #172033;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.flight-demo {
+    padding: 14px 16px;
+    border-radius: 14px;
+    color: #697689;
+    background: #f7f9fc;
+    font-size: 12px;
+}
+
 /* ---------- COMMON SECTIONS ---------- */
 
 .content-section,
@@ -1032,6 +1244,48 @@ button {
     .contact-card {
         padding: 32px 22px;
         border-radius: 24px;
+    }
+
+    .flight-section {
+        padding: 0 16px 70px;
+    }
+
+    .flight-shell {
+        padding: 24px 16px;
+        border-radius: 22px;
+    }
+
+    .flight-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .flight-form {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    .swap-flight {
+        justify-self: center;
+        transform: rotate(90deg);
+        margin: -3px 0;
+    }
+
+    .swap-flight:hover {
+        transform: rotate(270deg);
+    }
+
+    .flight-result {
+        grid-template-columns: 1fr;
+        gap: 11px;
+    }
+
+    .flight-price {
+        text-align: left;
+    }
+
+    .flight-open {
+        display: inline-block;
     }
 
     .modal-box {
