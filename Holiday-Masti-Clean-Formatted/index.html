@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Holiday Masti - discover beautiful destinations and unforgettable holiday packages.">
+    <title>Holiday Masti | Travel More</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="site-header" id="header">
+        <div class="header-inner">
+            <a class="brand" href="#home" aria-label="Holiday Masti home">
+                <img src="images/logo.png" alt="Holiday Masti logo">
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" type="button"
+                    aria-label="Open navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <a href="#home">Home</a>
+                <a href="#packages">Packages</a>
+                <a href="#destinations">Destinations</a>
+                <a href="#features">Why Us</a>
+                <a href="#contact">Contact</a>
+                <a class="nav-cta" href="#search">Book Now</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- ==================== HERO ==================== -->
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+                <p class="eyebrow">HOLIDAY MASTI</p>
+
+                <h1>Discover Your Next<br>Dream Destination</h1>
+
+                <p class="hero-subtitle">
+                    Travel more. Spend less. Create unforgettable memories.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#search">Explore Packages</a>
+                    <a class="btn btn-ghost" href="#destinations">View Destinations</a>
+                </div>
+            </div>
+
+            <a class="scroll-indicator" href="#search" aria-label="Scroll to search">
+                <span></span>
+            </a>
+        </section>
+
+
+        <!-- ==================== SEARCH ==================== -->
+        <section class="search-section" id="search">
+            <div class="search-card">
+                <div class="search-heading">
+                    <p class="section-kicker">PLAN YOUR ESCAPE</p>
+                    <h2>Find Your Dream Holiday</h2>
+                    <p>Tell us where you want to go and when you want to travel.</p>
+                </div>
+
+                <form class="search-form" id="searchForm">
+                    <label>
+                        <span>Destination</span>
+                        <input id="destinationInput" type="text"
+                               placeholder="e.g. Goa, Bali, Dubai">
+                    </label>
+
+                    <label>
+                        <span>From</span>
+                        <input id="startDate" type="date">
+                    </label>
+
+                    <label>
+                        <span>To</span>
+                        <input id="endDate" type="date">
+                    </label>
+
+                    <label>
+                        <span>Travellers</span>
+                        <select id="travellers">
+                            <option value="1">1 Traveller</option>
+                            <option value="2">2 Travellers</option>
+                            <option value="3">3 Travellers</option>
+                            <option value="4">4 Travellers</option>
+                            <option value="family">Family</option>
+                            <option value="group">Group</option>
+                        </select>
+                    </label>
+
+                    <button class="btn btn-dark search-button" type="submit">
+                        Search
+                    </button>
+                </form>
+
+                <p class="search-message" id="searchMessage"></p>
+            </div>
+        </section>
+
+
+        <!-- ==================== PACKAGES ==================== -->
+        <section class="content-section packages-section" id="packages">
+            <div class="section-heading">
+                <p class="section-kicker">CURATED FOR YOU</p>
+                <h2>Featured Holiday Packages</h2>
+                <p>Handpicked experiences for your next unforgettable escape.</p>
+            </div>
+
+            <div class="package-grid" id="packageGrid">
+
+                <article class="package-card" data-name="goa beach escape" data-filter="goa india beach">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85" alt="Goa beach">
+                        <span class="price-tag">₹18,999</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-location">INDIA · 3 NIGHTS / 4 DAYS</p>
+                        <h3>Goa Beach Escape</h3>
+                        <p class="rating">★ 4.8 <span>·</span> Beach getaway</p>
+                        <button class="details-button" type="button"
+                                data-title="Goa Beach Escape"
+                                data-price="₹18,999"
+                                data-description="Relax on beautiful beaches, enjoy local food and experience the best of Goa.">
+                            View Details
+                        </button>
+                    </div>
+                </article>
+
+                <article class="package-card" data-name="bali paradise" data-filter="bali indonesia island">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85" alt="Bali tropical destination">
+                        <span class="price-tag">₹42,999</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-location">INDONESIA · 5 NIGHTS / 6 DAYS</p>
+                        <h3>Bali Paradise</h3>
+                        <p class="rating">★ 4.9 <span>·</span> Tropical escape</p>
+                        <button class="details-button" type="button"
+                                data-title="Bali Paradise"
+                                data-price="₹42,999"
+                                data-description="Discover tropical beaches, peaceful temples and unforgettable island experiences in Bali.">
+                            View Details
+                        </button>
+                    </div>
+                </article>
+
+                <article class="package-card" data-name="dubai luxury" data-filter="dubai uae city luxury">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85" alt="Dubai skyline">
+                        <span class="price-tag">₹39,999</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-location">UAE · 4 NIGHTS / 5 DAYS</p>
+                        <h3>Dubai Luxury</h3>
+                        <p class="rating">★ 4.7 <span>·</span> City adventure</p>
+                        <button class="details-button" type="button"
+                                data-title="Dubai Luxury"
+                                data-price="₹39,999"
+                                data-description="Experience Dubai's skyline, shopping, entertainment and luxury attractions.">
+                            View Details
+                        </button>
+                    </div>
+                </article>
+
+                <article class="package-card" data-name="kashmir heaven" data-filter="kashmir india mountains">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1200&q=85" alt="Kashmir mountains">
+                        <span class="price-tag">₹27,999</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-location">INDIA · 5 NIGHTS / 6 DAYS</p>
+                        <h3>Kashmir Heaven</h3>
+                        <p class="rating">★ 4.9 <span>·</span> Mountain retreat</p>
+                        <button class="details-button" type="button"
+                                data-title="Kashmir Heaven"
+                                data-price="₹27,999"
+                                data-description="Explore serene valleys, mountain views and beautiful landscapes across Kashmir.">
+                            View Details
+                        </button>
+                    </div>
+                </article>
+
+                <article class="package-card" data-name="kerala backwaters" data-filter="kerala india backwaters">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1200&q=85" alt="Kerala backwaters">
+                        <span class="price-tag">₹24,999</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-location">INDIA · 4 NIGHTS / 5 DAYS</p>
+                        <h3>Kerala Backwaters</h3>
+                        <p class="rating">★ 4.8 <span>·</span> Slow travel</p>
+                        <button class="details-button" type="button"
+                                data-title="Kerala Backwaters"
+                                data-price="₹24,999"
+                                data-description="Enjoy calm backwaters, lush greenery and a relaxing Kerala holiday.">
+                            View Details
+                        </button>
+                    </div>
+                </article>
+
+                <article class="package-card" data-name="thailand adventure" data-filter="thailand asia adventure">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1200&q=85" alt="Thailand tropical landscape">
+                        <span class="price-tag">₹34,999</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-location">THAILAND · 5 NIGHTS / 6 DAYS</p>
+                        <h3>Thailand Adventure</h3>
+                        <p class="rating">★ 4.7 <span>·</span> Island adventure</p>
+                        <button class="details-button" type="button"
+                                data-title="Thailand Adventure"
+                                data-price="₹34,999"
+                                data-description="Discover tropical islands, vibrant markets and exciting adventures in Thailand.">
+                            View Details
+                        </button>
+                    </div>
+                </article>
+
+            </div>
+
+            <p class="empty-state" id="emptyState">No packages found. Try another destination.</p>
+        </section>
+
+
+        <!-- ==================== DESTINATIONS ==================== -->
+        <section class="content-section destinations-section" id="destinations">
+            <div class="section-heading">
+                <p class="section-kicker">GO SOMEWHERE BEAUTIFUL</p>
+                <h2>Popular Destinations</h2>
+                <p>Start with a place that makes you want to pack your bags.</p>
+            </div>
+
+            <div class="destination-grid">
+
+                <button class="destination-card" type="button" data-destination="goa">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=85" alt="Goa">
+                    <span>Goa</span>
+                    <small>From ₹18,999</small>
+                </button>
+
+                <button class="destination-card" type="button" data-destination="bali">
+                    <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1000&q=85" alt="Bali">
+                    <span>Bali</span>
+                    <small>From ₹42,999</small>
+                </button>
+
+                <button class="destination-card" type="button" data-destination="dubai">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=85" alt="Dubai">
+                    <span>Dubai</span>
+                    <small>From ₹39,999</small>
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- ==================== WHY US ==================== -->
+        <section class="features-section" id="features">
+            <div class="section-heading">
+                <p class="section-kicker">TRAVEL WITH CONFIDENCE</p>
+                <h2>Why Choose Holiday Masti?</h2>
+                <p>Everything you need for a smoother, happier holiday.</p>
+            </div>
+
+            <div class="feature-grid">
+
+                <article class="feature-box">
+                    <div class="feature-icon">✈</div>
+                    <h3>Best Flights</h3>
+                    <p>Affordable flight options for amazing destinations.</p>
+                </article>
+
+                <article class="feature-box">
+                    <div class="feature-icon">⌂</div>
+                    <h3>Premium Hotels</h3>
+                    <p>Handpicked stays designed around comfort and convenience.</p>
+                </article>
+
+                <article class="feature-box">
+                    <div class="feature-icon">₹</div>
+                    <h3>Best Price</h3>
+                    <p>Great-value packages without unnecessary complications.</p>
+                </article>
+
+                <article class="feature-box">
+                    <div class="feature-icon">24</div>
+                    <h3>24×7 Support</h3>
+                    <p>Travel support whenever you need a helping hand.</p>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- ==================== CONTACT ==================== -->
+        <section class="contact-section" id="contact">
+            <div class="contact-card">
+                <div>
+                    <p class="section-kicker">LET'S PLAN IT</p>
+                    <h2>Your next adventure starts here.</h2>
+                    <p>
+                        Send us your travel idea and we'll help you turn it into
+                        a memorable holiday.
+                    </p>
+                </div>
+
+                <form id="contactForm" class="contact-form">
+                    <input id="contactName" type="text" placeholder="Your name" required>
+                    <input id="contactEmail" type="email" placeholder="Email address" required>
+                    <textarea id="contactMessage" rows="4"
+                              placeholder="Where would you like to go?" required></textarea>
+                    <button class="btn btn-primary" type="submit">Send Enquiry</button>
+                    <p class="form-success" id="contactSuccess"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <img src="images/logo.png" alt="Holiday Masti logo">
+            <p>Travel more. Spend less. Create unforgettable memories.</p>
+            <span>© <span id="year"></span> Holiday Masti</span>
+        </div>
+    </footer>
+
+
+    <!-- ==================== DETAILS MODAL ==================== -->
+    <div class="modal" id="detailsModal" aria-hidden="true">
+        <div class="modal-backdrop" data-close-modal></div>
+
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" type="button" data-close-modal aria-label="Close">
+                ×
+            </button>
+
+            <p class="section-kicker">HOLIDAY PACKAGE</p>
+            <h2 id="modalTitle">Package</h2>
+            <p id="modalDescription"></p>
+            <strong id="modalPrice"></strong>
+
+            <a href="#contact" class="btn btn-primary modal-enquire" data-close-modal>
+                Enquire Now
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
