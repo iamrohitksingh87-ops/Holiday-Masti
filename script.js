@@ -1,25 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // ==========================================
-    // HOLIDAY MASTI - FLIGHT SEARCH
-    // Free demo version
+    // FLIGHT SEARCH - HOLIDAY MASTI
     // ==========================================
 
     const form = document.getElementById("flightForm");
 
-    // Stop if flight form does not exist
+    // Check flight form
     if (!form) {
         console.error("Flight form not found.");
         return;
     }
 
-    // Find results container
+
+    // ==========================================
+    // FLIGHT RESULTS CONTAINER
+    // ==========================================
+
     let results = document.getElementById("flight-results");
 
-    // Create results container automatically if missing
+    // Create automatically if missing
     if (!results) {
+
         results = document.createElement("div");
+
         results.id = "flight-results";
+
         results.className = "flight-results";
 
         form.insertAdjacentElement("afterend", results);
@@ -27,18 +33,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // ==========================================
-    // FLIGHT SEARCH
+    // FLIGHT FORM SUBMIT
     // ==========================================
 
     form.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-        // Get values directly from HTML IDs
-        const fromElement = document.getElementById("flightFrom");
-        const toElement = document.getElementById("flightTo");
-        const departureElement = document.getElementById("flightDeparture");
-        const returnElement = document.getElementById("flightReturn");
+
+        // ------------------------------------------
+        // GET FORM VALUES
+        // ------------------------------------------
+
+        const fromElement =
+            document.getElementById("flightFrom");
+
+        const toElement =
+            document.getElementById("flightTo");
+
+        const departureElement =
+            document.getElementById("flightDeparture");
+
+        const returnElement =
+            document.getElementById("flightReturn");
 
         const travellerElement =
             document.querySelector("#flightForm select");
@@ -62,55 +79,73 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const travellers = travellerElement
             ? travellerElement.value
-            : "1 Traveller";
+            : "1 Adult";
 
 
-        // ==========================================
+        // ------------------------------------------
         // VALIDATION
-        // ==========================================
+        // ------------------------------------------
 
-        if (!from || !to) {
-            alert("Please enter your departure and destination.");
+        if (!from) {
+
+            alert("Please enter your departure city.");
+
             return;
         }
+
+
+        if (!to) {
+
+            alert("Please enter your destination.");
+
+            return;
+        }
+
 
         if (!departure) {
+
             alert("Please select your departure date.");
+
             return;
         }
 
 
-        // ==========================================
-        // LOADING
-        // ==========================================
+        // ------------------------------------------
+        // SHOW LOADING
+        // ------------------------------------------
 
         results.innerHTML = `
+
             <div class="flight-loading">
 
                 <div class="loader"></div>
 
-                <h3>Finding the best flights...</h3>
+                <h3>
+                    Finding the best flights...
+                </h3>
 
                 <p>
-                    Searching flights from
+                    Searching
                     <strong>${escapeHTML(from)}</strong>
-                    to
+                    →
                     <strong>${escapeHTML(to)}</strong>
                 </p>
 
             </div>
+
         `;
 
 
+        // Scroll to results
         results.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
 
 
-        // ==========================================
-        // DEMO SEARCH
-        // ==========================================
+        // ------------------------------------------
+        // DEMO FLIGHT RESULTS
+        // ------------------------------------------
 
         setTimeout(function () {
 
@@ -131,11 +166,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         </h2>
 
                         <p>
+                            Departure:
                             ${escapeHTML(departure)}
-                            ${returnDate
-                                ? " • Return " + escapeHTML(returnDate)
+
+                            ${
+                                returnDate
+                                ? " • Return: " + escapeHTML(returnDate)
                                 : " • One Way"
                             }
+
                             • ${escapeHTML(travellers)}
                         </p>
 
@@ -148,7 +187,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
 
 
-                <!-- FLIGHT 1 -->
+                <!-- ==================================
+                     FLIGHT 1
+                =================================== -->
 
                 <div class="flight-card">
 
@@ -159,8 +200,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
 
                         <div>
-                            <strong>IndiGo</strong>
-                            <span>Economy</span>
+
+                            <strong>
+                                IndiGo
+                            </strong>
+
+                            <span>
+                                Economy
+                            </span>
+
                         </div>
 
                     </div>
@@ -168,7 +216,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <div class="flight-time">
 
-                        <strong>09:15</strong>
+                        <strong>
+                            09:15
+                        </strong>
 
                         <span>
                             ${escapeHTML(from)}
@@ -184,7 +234,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         </span>
 
                         <div class="flight-line">
-                            <span>✈</span>
+
+                            <span>
+                                ✈
+                            </span>
+
                         </div>
 
                         <small>
@@ -196,7 +250,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <div class="flight-time">
 
-                        <strong>14:25</strong>
+                        <strong>
+                            14:25
+                        </strong>
 
                         <span>
                             ${escapeHTML(to)}
@@ -229,7 +285,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
 
 
-                <!-- FLIGHT 2 -->
+                <!-- ==================================
+                     FLIGHT 2
+                =================================== -->
 
                 <div class="flight-card">
 
@@ -240,8 +298,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
 
                         <div>
-                            <strong>Air India</strong>
-                            <span>Economy</span>
+
+                            <strong>
+                                Air India
+                            </strong>
+
+                            <span>
+                                Economy
+                            </span>
+
                         </div>
 
                     </div>
@@ -249,7 +314,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <div class="flight-time">
 
-                        <strong>06:40</strong>
+                        <strong>
+                            06:40
+                        </strong>
 
                         <span>
                             ${escapeHTML(from)}
@@ -265,7 +332,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         </span>
 
                         <div class="flight-line">
-                            <span>✈</span>
+
+                            <span>
+                                ✈
+                            </span>
+
                         </div>
 
                         <small>
@@ -277,7 +348,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <div class="flight-time">
 
-                        <strong>11:35</strong>
+                        <strong>
+                            11:35
+                        </strong>
 
                         <span>
                             ${escapeHTML(to)}
@@ -310,7 +383,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
 
 
-                <!-- DEMO NOTICE -->
+                <!-- ==================================
+                     DEMO NOTICE
+                =================================== -->
 
                 <div class="demo-note">
 
@@ -320,8 +395,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <p>
                         Prices shown are indicative.
-                        Check the current fare with our booking partner
-                        before booking.
+                        Check the current fare with our booking
+                        partner before booking.
                     </p>
 
                 </div>
@@ -329,6 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
 
 
+            // Scroll to results
             results.scrollIntoView({
                 behavior: "smooth",
                 block: "start"
@@ -346,10 +422,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.checkCurrentFare = function () {
 
-        const url =
+        const searchUrl =
             "https://www.google.com/travel/flights";
 
-        window.open(url, "_blank");
+        window.open(
+            searchUrl,
+            "_blank",
+            "noopener,noreferrer"
+        );
 
     };
 
