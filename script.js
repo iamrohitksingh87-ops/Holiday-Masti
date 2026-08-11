@@ -14,13 +14,11 @@ if (!results) {
         event.preventDefault();
 
         // Current HTML ke input fields
-        const inputs = form.querySelectorAll("input");
-        const selects = form.querySelectorAll("select");
-
-        const from = inputs[0] ? inputs[0].value.trim() : "";
-        const departure = inputs[1] ? inputs[1].value : "";
-        const returnDate = inputs[2] ? inputs[2].value : "";
-        const travellers = selects[0] ? selects[0].value : "1 Adult";
+        const from = document.getElementById("flightFrom").value.trim();
+        const to = document.getElementById("flightTo").value.trim();
+        const departure = document.getElementById("flightDeparture").value;
+        const returnDate = document.getElementById("flightReturn").value;
+        const travellers = document.querySelector("#flightForm select").value;
 
         if (!from || !departure) {
             alert("Please enter From and Departure date.");
