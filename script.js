@@ -1,322 +1,179 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    // ==========================================
-    // HOLIDAY MASTI - FLIGHT SEARCH
-    // Free demo version - No API required
-    // ==========================================
+    const form = document.querySelector(".flight-search-form");
+    const results = document.querySelector("#flight-results");
 
-    const flightForm = document.querySelector(".flight-search-form");
-    const resultsContainer = document.querySelector("#flight-results");
-
-    // Demo flight database
-    const flights = [
-        {
-            airline: "IndiGo",
-            logo: "✈️",
-            from: "LKO",
-            to: "DXB",
-            departure: "09:15",
-            arrival: "14:25",
-            duration: "6h 20m",
-            stops: "1 Stop",
-            price: 18450
-        },
-        {
-            airline: "Air India",
-            logo: "✈️",
-            from: "LKO",
-            to: "DXB",
-            departure: "06:40",
-            arrival: "11:35",
-            duration: "4h 55m",
-            stops: "Non-stop",
-            price: 21990
-        },
-        {
-            airline: "Emirates",
-            logo: "✈️",
-            from: "LKO",
-            to: "DXB",
-            departure: "20:10",
-            arrival: "01:35",
-            duration: "5h 25m",
-            stops: "Non-stop",
-            price: 28650
-        },
-
-        {
-            airline: "IndiGo",
-            logo: "✈️",
-            from: "DEL",
-            to: "BOM",
-            departure: "07:10",
-            arrival: "09:20",
-            duration: "2h 10m",
-            stops: "Non-stop",
-            price: 5299
-        },
-        {
-            airline: "Air India",
-            logo: "✈️",
-            from: "DEL",
-            to: "BOM",
-            departure: "11:30",
-            arrival: "13:40",
-            duration: "2h 10m",
-            stops: "Non-stop",
-            price: 6149
-        },
-        {
-            airline: "Vistara",
-            logo: "✈️",
-            from: "DEL",
-            to: "BOM",
-            departure: "18:25",
-            arrival: "20:35",
-            duration: "2h 10m",
-            stops: "Non-stop",
-            price: 6899
-        },
-
-        {
-            airline: "Air India",
-            logo: "✈️",
-            from: "LKO",
-            to: "DEL",
-            departure: "08:30",
-            arrival: "09:45",
-            duration: "1h 15m",
-            stops: "Non-stop",
-            price: 3999
-        },
-        {
-            airline: "IndiGo",
-            logo: "✈️",
-            from: "LKO",
-            to: "DEL",
-            departure: "15:20",
-            arrival: "16:35",
-            duration: "1h 15m",
-            stops: "Non-stop",
-            price: 4299
-        }
-    ];
-
-    // ==========================================
-    // SEARCH
-    // ==========================================
-
-    if (flightForm) {
-
-        flightForm.addEventListener("submit", function (event) {
-
-            event.preventDefault();
-
-            const fromInput = document.querySelector("#flight-from");
-            const toInput = document.querySelector("#flight-to");
-
-            const from = fromInput
-                ? fromInput.value.trim().toUpperCase()
-                : "";
-
-            const to = toInput
-                ? toInput.value.trim().toUpperCase()
-                : "";
-
-            if (!from || !to) {
-                showMessage("Please enter departure and destination.");
-                return;
-            }
-
-            showLoading();
-
-            setTimeout(() => {
-                searchFlights(from, to);
-            }, 700);
-        });
+    if (!form) {
+        console.error("Flight search form not found.");
+        return;
     }
 
-    // ==========================================
-    // SEARCH FUNCTION
-    // ==========================================
+    form.addEventListener("submit", function (event) {
 
-    function searchFlights(from, to) {
+        event.preventDefault();
 
-        if (!resultsContainer) {
-            console.warn("Flight results container not found.");
+        // Current HTML ke input fields
+        const inputs = form.querySelectorAll("input");
+        const selects = form.querySelectorAll("select");
+
+        const from = inputs[0] ? inputs[0].value.trim() : "";
+        const departure = inputs[1] ? inputs[1].value : "";
+        const returnDate = inputs[2] ? inputs[2].value : "";
+        const travellers = selects[0] ? selects[0].value : "1 Adult";
+
+        if (!from || !departure) {
+            alert("Please enter From and Departure date.");
             return;
         }
 
-        const matches = flights.filter(flight =>
-            flight.from === from &&
-            flight.to === to
-        );
+        if (!results) {
+            alert("Flight results section is missing.");
+            return;
+        }
 
-        resultsContainer.innerHTML = "";
+        results.innerHTML = `
+            <div class="flight-loading">
+                <div class="loader"></div>
+                <h3>Finding the best flights...</h3>
+                <p>Please wait...</p>
+            </div>
+        `;
 
-        if (matches.length === 0) {
+        setTimeout(function () {
 
-            resultsContainer.innerHTML = `
-                <div class="no-flights">
-                    <div class="no-flight-icon">✈️</div>
-                    <h3>No demo flights found</h3>
+            results.innerHTML = `
+                <div class="flight-results-heading">
+                    <div>
+                        <span class="results-label">FLIGHT SEARCH</span>
+                        <h2>${escapeHTML(from)} → Your Destination</h2>
+                    </div>
+
+                    <span class="result-count">
+                        Demo Results
+                    </span>
+                </div>
+
+                <div class="flight-card">
+
+                    <div class="flight-airline">
+                        <div class="airline-icon">✈️</div>
+
+                        <div>
+                            <strong>IndiGo</strong>
+                            <span>Economy</span>
+                        </div>
+                    </div>
+
+                    <div class="flight-time">
+                        <strong>09:15</strong>
+                        <span>Departure</span>
+                    </div>
+
+                    <div class="flight-duration">
+                        <span>6h 20m</span>
+                        <div class="flight-line">
+                            <span>✈</span>
+                        </div>
+                        <small>1 Stop</small>
+                    </div>
+
+                    <div class="flight-time">
+                        <strong>14:25</strong>
+                        <span>Arrival</span>
+                    </div>
+
+                    <div class="flight-price">
+                        <span>Starting from</span>
+                        <strong>₹18,450</strong>
+
+                        <button
+                            class="view-flight-btn"
+                            onclick="checkCurrentFare()">
+                            Check Current Fare ✈️
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="flight-card">
+
+                    <div class="flight-airline">
+                        <div class="airline-icon">✈️</div>
+
+                        <div>
+                            <strong>Air India</strong>
+                            <span>Economy</span>
+                        </div>
+                    </div>
+
+                    <div class="flight-time">
+                        <strong>06:40</strong>
+                        <span>Departure</span>
+                    </div>
+
+                    <div class="flight-duration">
+                        <span>4h 55m</span>
+                        <div class="flight-line">
+                            <span>✈</span>
+                        </div>
+                        <small>Non-stop</small>
+                    </div>
+
+                    <div class="flight-time">
+                        <strong>11:35</strong>
+                        <span>Arrival</span>
+                    </div>
+
+                    <div class="flight-price">
+                        <span>Starting from</span>
+                        <strong>₹21,990</strong>
+
+                        <button
+                            class="view-flight-btn"
+                            onclick="checkCurrentFare()">
+                            Check Current Fare ✈️
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="demo-note">
+                    <strong>Demo flight results</strong>
                     <p>
-                        Try one of these routes:
-                        <strong>LKO → DXB</strong>,
-                        <strong>DEL → BOM</strong> or
-                        <strong>LKO → DEL</strong>.
+                        Prices shown are indicative.
+                        Check the current fare with our booking partner before booking.
                     </p>
                 </div>
             `;
 
-            resultsContainer.scrollIntoView({
+            results.scrollIntoView({
                 behavior: "smooth",
                 block: "start"
             });
 
-            return;
-        }
+        }, 700);
+    });
 
-        const heading = document.createElement("div");
 
-        heading.className = "flight-results-heading";
+    // External fare search
+    window.checkCurrentFare = function () {
 
-        heading.innerHTML = `
-            <div>
-                <span class="results-label">FLIGHT SEARCH</span>
-                <h2>${from} → ${to}</h2>
-            </div>
+        const url =
+            "https://www.google.com/travel/flights";
 
-            <span class="result-count">
-                ${matches.length} flights found
-            </span>
-        `;
+        window.open(url, "_blank");
+    };
 
-        resultsContainer.appendChild(heading);
 
-        matches.forEach(flight => {
+    // Basic HTML safety
+    function escapeHTML(value) {
 
-            const card = document.createElement("div");
-
-            card.className = "flight-card";
-
-            card.innerHTML = `
-                <div class="flight-airline">
-                    <div class="airline-icon">
-                        ${flight.logo}
-                    </div>
-
-                    <div>
-                        <strong>${flight.airline}</strong>
-                        <span>Economy</span>
-                    </div>
-                </div>
-
-                <div class="flight-time">
-                    <strong>${flight.departure}</strong>
-                    <span>${flight.from}</span>
-                </div>
-
-                <div class="flight-duration">
-                    <span>${flight.duration}</span>
-                    <div class="flight-line">
-                        <span>✈</span>
-                    </div>
-                    <small>${flight.stops}</small>
-                </div>
-
-                <div class="flight-time">
-                    <strong>${flight.arrival}</strong>
-                    <span>${flight.to}</span>
-                </div>
-
-                <div class="flight-price">
-                    <span>Starting from</span>
-                    <strong>₹${flight.price.toLocaleString("en-IN")}</strong>
-                    <button class="view-flight-btn">
-                        Check Current Fare ✈️
-                    </button>
-                </div>
-            `;
-
-            const button = card.querySelector(".view-flight-btn");
-
-           button.addEventListener("click", () => {
-
-    const searchUrl =
-        `https://www.google.com/travel/flights?q=Flights%20from%20${flight.from}%20to%20${flight.to}`;
-
-    window.open(searchUrl, "_blank");
-});
-
-            resultsContainer.appendChild(card);
-        });
-
-        resultsContainer.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }
-
-    // ==========================================
-    // LOADING
-    // ==========================================
-
-    function showLoading() {
-
-        if (!resultsContainer) return;
-
-        resultsContainer.innerHTML = `
-            <div class="flight-loading">
-                <div class="loader"></div>
-                <h3>Finding the best flights...</h3>
-                <p>Searching available demo offers</p>
-            </div>
-        `;
-
-        resultsContainer.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }
-
-    // ==========================================
-    // MESSAGE
-    // ==========================================
-
-    function showMessage(message) {
-
-        if (!resultsContainer) return;
-
-        resultsContainer.innerHTML = `
-            <div class="no-flights">
-                <div class="no-flight-icon">⚠️</div>
-                <h3>Almost there</h3>
-                <p>${message}</p>
-            </div>
-        `;
-    }
-
-    // ==========================================
-    // SWAP FROM / TO
-    // ==========================================
-
-    const swapButton = document.querySelector("#swap-flights");
-
-    if (swapButton) {
-
-        swapButton.addEventListener("click", () => {
-
-            const fromInput = document.querySelector("#flight-from");
-            const toInput = document.querySelector("#flight-to");
-
-            if (!fromInput || !toInput) return;
-
-            const temp = fromInput.value;
-
-            fromInput.value = toInput.value;
-            toInput.value = temp;
-        });
+        return value
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 
 });
