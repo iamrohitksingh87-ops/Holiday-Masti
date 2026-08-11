@@ -1,346 +1,325 @@
-/* =========================================================
-   HOLIDAY MASTI
-   Interactive functionality
-   ========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    const header = document.getElementById("header");
-    const menuToggle = document.getElementById("menuToggle");
-    const mainNav = document.getElementById("mainNav");
+    // ==========================================
+    // HOLIDAY MASTI - FLIGHT SEARCH
+    // Free demo version - No API required
+    // ==========================================
 
-    const searchForm = document.getElementById("searchForm");
-    const destinationInput = document.getElementById("destinationInput");
-    const searchMessage = document.getElementById("searchMessage");
+    const flightForm = document.querySelector(".flight-search-form");
+    const resultsContainer = document.querySelector("#flight-results");
 
-    const packageCards = Array.from(
-        document.querySelectorAll(".package-card")
-    );
+    // Demo flight database
+    const flights = [
+        {
+            airline: "IndiGo",
+            logo: "✈️",
+            from: "LKO",
+            to: "DXB",
+            departure: "09:15",
+            arrival: "14:25",
+            duration: "6h 20m",
+            stops: "1 Stop",
+            price: 18450
+        },
+        {
+            airline: "Air India",
+            logo: "✈️",
+            from: "LKO",
+            to: "DXB",
+            departure: "06:40",
+            arrival: "11:35",
+            duration: "4h 55m",
+            stops: "Non-stop",
+            price: 21990
+        },
+        {
+            airline: "Emirates",
+            logo: "✈️",
+            from: "LKO",
+            to: "DXB",
+            departure: "20:10",
+            arrival: "01:35",
+            duration: "5h 25m",
+            stops: "Non-stop",
+            price: 28650
+        },
 
-    const emptyState = document.getElementById("emptyState");
+        {
+            airline: "IndiGo",
+            logo: "✈️",
+            from: "DEL",
+            to: "BOM",
+            departure: "07:10",
+            arrival: "09:20",
+            duration: "2h 10m",
+            stops: "Non-stop",
+            price: 5299
+        },
+        {
+            airline: "Air India",
+            logo: "✈️",
+            from: "DEL",
+            to: "BOM",
+            departure: "11:30",
+            arrival: "13:40",
+            duration: "2h 10m",
+            stops: "Non-stop",
+            price: 6149
+        },
+        {
+            airline: "Vistara",
+            logo: "✈️",
+            from: "DEL",
+            to: "BOM",
+            departure: "18:25",
+            arrival: "20:35",
+            duration: "2h 10m",
+            stops: "Non-stop",
+            price: 6899
+        },
 
-    const detailsModal = document.getElementById("detailsModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalDescription = document.getElementById("modalDescription");
-    const modalPrice = document.getElementById("modalPrice");
-
-    const contactForm = document.getElementById("contactForm");
-    const contactSuccess = document.getElementById("contactSuccess");
-
-    const year = document.getElementById("year");
-
-
-    /* ---------- Current year ---------- */
-
-    year.textContent = new Date().getFullYear();
-
-
-    /* ---------- Header on scroll ---------- */
-
-    function updateHeader() {
-        if (window.scrollY > 20) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
+        {
+            airline: "Air India",
+            logo: "✈️",
+            from: "LKO",
+            to: "DEL",
+            departure: "08:30",
+            arrival: "09:45",
+            duration: "1h 15m",
+            stops: "Non-stop",
+            price: 3999
+        },
+        {
+            airline: "IndiGo",
+            logo: "✈️",
+            from: "LKO",
+            to: "DEL",
+            departure: "15:20",
+            arrival: "16:35",
+            duration: "1h 15m",
+            stops: "Non-stop",
+            price: 4299
         }
-    }
-
-    window.addEventListener("scroll", updateHeader);
-    updateHeader();
-
-
-    /* ---------- Mobile menu ---------- */
-
-    menuToggle.addEventListener("click", () => {
-        const isOpen = mainNav.classList.toggle("open");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            String(isOpen)
-        );
-    });
-
-    mainNav.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            mainNav.classList.remove("open");
-            menuToggle.setAttribute("aria-expanded", "false");
-        });
-    });
-
-
-    /* ---------- Search / package filter ---------- */
-
-    function filterPackages(query) {
-        const cleanQuery = query.toLowerCase().trim();
-
-        let visibleCount = 0;
-
-        packageCards.forEach((card) => {
-            const name = card.dataset.name.toLowerCase();
-            const filter = card.dataset.filter.toLowerCase();
-
-            const matches =
-                cleanQuery === "" ||
-                name.includes(cleanQuery) ||
-                filter.includes(cleanQuery);
-
-            if (matches) {
-                card.classList.remove("is-hidden");
-                visibleCount++;
-            } else {
-                card.classList.add("is-hidden");
-            }
-        });
-
-        emptyState.classList.toggle(
-            "visible",
-            visibleCount === 0
-        );
-
-        return visibleCount;
-    }
-
-
-    searchForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const query = destinationInput.value.trim();
-        const visibleCount = filterPackages(query);
-
-        if (query === "") {
-            searchMessage.textContent =
-                "Showing all available holiday packages.";
-        } else if (visibleCount > 0) {
-            searchMessage.textContent =
-                `Great choice! Showing packages for "${query}".`;
-        } else {
-            searchMessage.textContent =
-                `We couldn't find a package for "${query}" yet.`;
-        }
-
-        document.getElementById("packages").scrollIntoView({
-            behavior: "smooth"
-        });
-    });
-
-
-    /* ---------- Flight finder ---------- */
-
-    const flightForm = document.getElementById("flightForm");
-    const flightFrom = document.getElementById("flightFrom");
-    const flightTo = document.getElementById("flightTo");
-    const flightDeparture = document.getElementById("flightDeparture");
-    const flightReturn = document.getElementById("flightReturn");
-    const flightTravellers = document.getElementById("flightTravellers");
-    const flightMessage = document.getElementById("flightMessage");
-    const flightResults = document.getElementById("flightResults");
-    const swapFlight = document.getElementById("swapFlight");
-
-    const airportCodes = {
-        "lucknow": "LKO",
-        "lko": "LKO",
-        "delhi": "DEL",
-        "del": "DEL",
-        "mumbai": "BOM",
-        "bom": "BOM",
-        "bengaluru": "BLR",
-        "bangalore": "BLR",
-        "blr": "BLR",
-        "goa": "GOI",
-        "goi": "GOI",
-        "dubai": "DXB",
-        "dxb": "DXB",
-        "singapore": "SIN",
-        "sin": "SIN",
-        "bangkok": "BKK",
-        "bkk": "BKK",
-        "bali": "DPS",
-        "dps": "DPS",
-        "london": "LHR",
-        "lhr": "LHR",
-        "paris": "CDG",
-        "cdg": "CDG"
-    };
-
-    const sampleFlights = [
-        { airline: "Holiday Air", number: "HM 214", depart: "06:20", arrive: "08:45", duration: "2h 25m", stops: "Non-stop", base: 6499 },
-        { airline: "Sky Masti", number: "SM 482", depart: "10:15", arrive: "13:05", duration: "2h 50m", stops: "Non-stop", base: 7199 },
-        { airline: "Air Explorer", number: "AX 731", depart: "16:40", arrive: "20:10", duration: "3h 30m", stops: "1 stop", base: 5899 },
-        { airline: "Travel Wings", number: "TW 906", depart: "21:05", arrive: "23:40", duration: "2h 35m", stops: "Non-stop", base: 7899 }
     ];
 
-    function cleanAirport(value) {
-        const raw = value.toLowerCase().trim();
-        const codeMatch = raw.match(/\(([a-z]{3})\)/);
-        const code = codeMatch ? codeMatch[1] : (airportCodes[raw] || raw.slice(0, 3));
-        return code.toUpperCase();
-    }
-
-    function prettyAirport(value) {
-        const code = cleanAirport(value);
-        const names = Object.entries(airportCodes).find(([, airportCode]) => airportCode === code);
-        return names ? names[0].replace(/\b\w/g, (letter) => letter.toUpperCase()) : code;
-    }
-
-    function formatFlightDate(value) {
-        if (!value) return "";
-        return new Date(`${value}T00:00:00`).toLocaleDateString("en-IN", {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-        });
-    }
-
-    function renderFlights(fromValue, toValue, departure, travellers) {
-        const fromCode = cleanAirport(fromValue);
-        const toCode = cleanAirport(toValue);
-        const routeSeed = (fromCode.charCodeAt(0) + toCode.charCodeAt(0)) % 9;
-        const passengerCount = Number(travellers) || 1;
-
-        flightResults.innerHTML = sampleFlights.map((flight, index) => {
-            const price = flight.base + routeSeed * 350 + (passengerCount - 1) * 500;
-            const searchQuery = encodeURIComponent(
-                `Flights from ${fromCode} to ${toCode} on ${departure}`
-            );
-            const externalUrl = `https://www.google.com/travel/flights?q=${searchQuery}`;
-
-            return `
-                <article class="flight-result">
-                    <div>
-                        <div class="airline-name">✈ ${flight.airline}</div>
-                        <div class="flight-number">${flight.number} · ${index === 0 ? "Best value" : "Economy"}</div>
-                    </div>
-                    <div>
-                        <div class="flight-route">${flight.depart} <span>→</span> ${flight.arrive}</div>
-                        <div class="flight-meta">${flight.duration} · ${flight.stops}</div>
-                    </div>
-                    <div>
-                        <div class="flight-meta">${prettyAirport(fromValue)} (${fromCode}) → ${prettyAirport(toValue)} (${toCode})</div>
-                        <div class="flight-meta">${formatFlightDate(departure)}</div>
-                    </div>
-                    <div class="flight-price">
-                        <strong>₹${price.toLocaleString("en-IN")}</strong>
-                        <small>per adult · sample fare</small>
-                        <a class="flight-open" href="${externalUrl}" target="_blank" rel="noopener">Check Online</a>
-                    </div>
-                </article>
-            `;
-        }).join("");
-    }
+    // ==========================================
+    // SEARCH
+    // ==========================================
 
     if (flightForm) {
-        const today = new Date().toISOString().split("T")[0];
-        flightDeparture.min = today;
-        flightReturn.min = today;
 
-        flightDeparture.addEventListener("change", () => {
-            flightReturn.min = flightDeparture.value || today;
-            if (flightReturn.value && flightReturn.value < flightDeparture.value) {
-                flightReturn.value = flightDeparture.value;
-            }
-        });
+        flightForm.addEventListener("submit", function (event) {
 
-        swapFlight.addEventListener("click", () => {
-            const currentFrom = flightFrom.value;
-            flightFrom.value = flightTo.value;
-            flightTo.value = currentFrom;
-        });
-
-        flightForm.addEventListener("submit", (event) => {
             event.preventDefault();
 
-            if (flightReturn.value && flightReturn.value < flightDeparture.value) {
-                flightMessage.textContent = "Return date must be on or after the departure date.";
-                flightResults.innerHTML = "";
+            const fromInput = document.querySelector("#flight-from");
+            const toInput = document.querySelector("#flight-to");
+
+            const from = fromInput
+                ? fromInput.value.trim().toUpperCase()
+                : "";
+
+            const to = toInput
+                ? toInput.value.trim().toUpperCase()
+                : "";
+
+            if (!from || !to) {
+                showMessage("Please enter departure and destination.");
                 return;
             }
 
-            renderFlights(
-                flightFrom.value,
-                flightTo.value,
-                flightDeparture.value,
-                flightTravellers.value
-            );
+            showLoading();
 
-            const tripType = flightReturn.value ? "round trip" : "one way";
-            flightMessage.textContent =
-                `${flightFrom.value} → ${flightTo.value} · ${formatFlightDate(flightDeparture.value)} · ${tripType}. These are sample fares; use “Check Online” for current availability.`;
-
-            flightResults.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            setTimeout(() => {
+                searchFlights(from, to);
+            }, 700);
         });
     }
 
+    // ==========================================
+    // SEARCH FUNCTION
+    // ==========================================
 
-    /* ---------- Destination cards ---------- */
+    function searchFlights(from, to) {
 
-    document.querySelectorAll(".destination-card").forEach((card) => {
-        card.addEventListener("click", () => {
-            const destination = card.dataset.destination;
-
-            destinationInput.value =
-                destination.charAt(0).toUpperCase() +
-                destination.slice(1);
-
-            filterPackages(destination);
-
-            searchMessage.textContent =
-                `Showing our ${destination} package.`;
-
-            document.getElementById("packages").scrollIntoView({
-                behavior: "smooth"
-            });
-        });
-    });
-
-
-    /* ---------- Package details modal ---------- */
-
-    function openModal(title, price, description) {
-        modalTitle.textContent = title;
-        modalPrice.textContent = price;
-        modalDescription.textContent = description;
-
-        detailsModal.classList.add("open");
-        detailsModal.setAttribute("aria-hidden", "false");
-        document.body.classList.add("modal-open");
-    }
-
-    function closeModal() {
-        detailsModal.classList.remove("open");
-        detailsModal.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("modal-open");
-    }
-
-    document.querySelectorAll(".details-button").forEach((button) => {
-        button.addEventListener("click", () => {
-            openModal(
-                button.dataset.title,
-                button.dataset.price,
-                button.dataset.description
-            );
-        });
-    });
-
-    document.querySelectorAll("[data-close-modal]").forEach((element) => {
-        element.addEventListener("click", closeModal);
-    });
-
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-            closeModal();
+        if (!resultsContainer) {
+            console.warn("Flight results container not found.");
+            return;
         }
-    });
 
+        const matches = flights.filter(flight =>
+            flight.from === from &&
+            flight.to === to
+        );
 
-    /* ---------- Contact form ---------- */
+        resultsContainer.innerHTML = "";
 
-    contactForm.addEventListener("submit", (event) => {
-        event.preventDefault();
+        if (matches.length === 0) {
 
-        contactSuccess.textContent =
-            "Thanks! Your enquiry has been received.";
+            resultsContainer.innerHTML = `
+                <div class="no-flights">
+                    <div class="no-flight-icon">✈️</div>
+                    <h3>No demo flights found</h3>
+                    <p>
+                        Try one of these routes:
+                        <strong>LKO → DXB</strong>,
+                        <strong>DEL → BOM</strong> or
+                        <strong>LKO → DEL</strong>.
+                    </p>
+                </div>
+            `;
 
-        contactForm.reset();
-    });
+            resultsContainer.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            return;
+        }
+
+        const heading = document.createElement("div");
+
+        heading.className = "flight-results-heading";
+
+        heading.innerHTML = `
+            <div>
+                <span class="results-label">FLIGHT SEARCH</span>
+                <h2>${from} → ${to}</h2>
+            </div>
+
+            <span class="result-count">
+                ${matches.length} flights found
+            </span>
+        `;
+
+        resultsContainer.appendChild(heading);
+
+        matches.forEach(flight => {
+
+            const card = document.createElement("div");
+
+            card.className = "flight-card";
+
+            card.innerHTML = `
+                <div class="flight-airline">
+                    <div class="airline-icon">
+                        ${flight.logo}
+                    </div>
+
+                    <div>
+                        <strong>${flight.airline}</strong>
+                        <span>Economy</span>
+                    </div>
+                </div>
+
+                <div class="flight-time">
+                    <strong>${flight.departure}</strong>
+                    <span>${flight.from}</span>
+                </div>
+
+                <div class="flight-duration">
+                    <span>${flight.duration}</span>
+                    <div class="flight-line">
+                        <span>✈</span>
+                    </div>
+                    <small>${flight.stops}</small>
+                </div>
+
+                <div class="flight-time">
+                    <strong>${flight.arrival}</strong>
+                    <span>${flight.to}</span>
+                </div>
+
+                <div class="flight-price">
+                    <span>Starting from</span>
+                    <strong>₹${flight.price.toLocaleString("en-IN")}</strong>
+                    <button class="view-flight-btn">
+                        View Flight
+                    </button>
+                </div>
+            `;
+
+            const button = card.querySelector(".view-flight-btn");
+
+            button.addEventListener("click", () => {
+                alert(
+                    `Demo Flight Selected\n\n` +
+                    `${flight.airline}\n` +
+                    `${flight.from} → ${flight.to}\n` +
+                    `${flight.departure} - ${flight.arrival}\n` +
+                    `₹${flight.price.toLocaleString("en-IN")}\n\n` +
+                    `This is a demo flight result.`
+                );
+            });
+
+            resultsContainer.appendChild(card);
+        });
+
+        resultsContainer.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    // ==========================================
+    // LOADING
+    // ==========================================
+
+    function showLoading() {
+
+        if (!resultsContainer) return;
+
+        resultsContainer.innerHTML = `
+            <div class="flight-loading">
+                <div class="loader"></div>
+                <h3>Finding the best flights...</h3>
+                <p>Searching available demo offers</p>
+            </div>
+        `;
+
+        resultsContainer.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    // ==========================================
+    // MESSAGE
+    // ==========================================
+
+    function showMessage(message) {
+
+        if (!resultsContainer) return;
+
+        resultsContainer.innerHTML = `
+            <div class="no-flights">
+                <div class="no-flight-icon">⚠️</div>
+                <h3>Almost there</h3>
+                <p>${message}</p>
+            </div>
+        `;
+    }
+
+    // ==========================================
+    // SWAP FROM / TO
+    // ==========================================
+
+    const swapButton = document.querySelector("#swap-flights");
+
+    if (swapButton) {
+
+        swapButton.addEventListener("click", () => {
+
+            const fromInput = document.querySelector("#flight-from");
+            const toInput = document.querySelector("#flight-to");
+
+            if (!fromInput || !toInput) return;
+
+            const temp = fromInput.value;
+
+            fromInput.value = toInput.value;
+            toInput.value = temp;
+        });
+    }
 
 });
