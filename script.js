@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.querySelector(".flight-search-form");
+    const form = document.getElementById("flightForm");
     const results = document.querySelector("#flight-results");
 
     if (!form) {
