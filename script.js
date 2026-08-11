@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.getElementById("flightForm");
-    const results = document.querySelector("#flight-results");
+    let results = document.getElementById("flight-results");
 
-    if (!form) {
-        console.error("Flight search form not found.");
-        return;
-    }
+if (!results) {
+    results = document.createElement("div");
+    results.id = "flight-results";
+    results.className = "flight-results";
+    form.insertAdjacentElement("afterend", results);
+}
 
     form.addEventListener("submit", function (event) {
 
