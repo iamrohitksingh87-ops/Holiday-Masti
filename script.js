@@ -124,6 +124,153 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    /* ---------- Flight finder ---------- */
+
+    const flightForm = document.getElementById("flightForm");
+    const flightFrom = document.getElementById("flightFrom");
+    const flightTo = document.getElementById("flightTo");
+    const flightDeparture = document.getElementById("flightDeparture");
+    const flightReturn = document.getElementById("flightReturn");
+    const flightTravellers = document.getElementById("flightTravellers");
+    const flightMessage = document.getElementById("flightMessage");
+    const flightResults = document.getElementById("flightResults");
+    const swapFlight = document.getElementById("swapFlight");
+
+    const airportCodes = {
+        "lucknow": "LKO",
+        "lko": "LKO",
+        "delhi": "DEL",
+        "del": "DEL",
+        "mumbai": "BOM",
+        "bom": "BOM",
+        "bengaluru": "BLR",
+        "bangalore": "BLR",
+        "blr": "BLR",
+        "goa": "GOI",
+        "goi": "GOI",
+        "dubai": "DXB",
+        "dxb": "DXB",
+        "singapore": "SIN",
+        "sin": "SIN",
+        "bangkok": "BKK",
+        "bkk": "BKK",
+        "bali": "DPS",
+        "dps": "DPS",
+        "london": "LHR",
+        "lhr": "LHR",
+        "paris": "CDG",
+        "cdg": "CDG"
+    };
+
+    const sampleFlights = [
+        { airline: "Holiday Air", number: "HM 214", depart: "06:20", arrive: "08:45", duration: "2h 25m", stops: "Non-stop", base: 6499 },
+        { airline: "Sky Masti", number: "SM 482", depart: "10:15", arrive: "13:05", duration: "2h 50m", stops: "Non-stop", base: 7199 },
+        { airline: "Air Explorer", number: "AX 731", depart: "16:40", arrive: "20:10", duration: "3h 30m", stops: "1 stop", base: 5899 },
+        { airline: "Travel Wings", number: "TW 906", depart: "21:05", arrive: "23:40", duration: "2h 35m", stops: "Non-stop", base: 7899 }
+    ];
+
+    function cleanAirport(value) {
+        const raw = value.toLowerCase().trim();
+        const codeMatch = raw.match(/\(([a-z]{3})\)/);
+        const code = codeMatch ? codeMatch[1] : (airportCodes[raw] || raw.slice(0, 3));
+        return code.toUpperCase();
+    }
+
+    function prettyAirport(value) {
+        const code = cleanAirport(value);
+        const names = Object.entries(airportCodes).find(([, airportCode]) => airportCode === code);
+        return names ? names[0].replace(/\b\w/g, (letter) => letter.toUpperCase()) : code;
+    }
+
+    function formatFlightDate(value) {
+        if (!value) return "";
+        return new Date(`${value}T00:00:00`).toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        });
+    }
+
+    function renderFlights(fromValue, toValue, departure, travellers) {
+        const fromCode = cleanAirport(fromValue);
+        const toCode = cleanAirport(toValue);
+        const routeSeed = (fromCode.charCodeAt(0) + toCode.charCodeAt(0)) % 9;
+        const passengerCount = Number(travellers) || 1;
+
+        flightResults.innerHTML = sampleFlights.map((flight, index) => {
+            const price = flight.base + routeSeed * 350 + (passengerCount - 1) * 500;
+            const searchQuery = encodeURIComponent(
+                `Flights from ${fromCode} to ${toCode} on ${departure}`
+            );
+            const externalUrl = `https://www.google.com/travel/flights?q=${searchQuery}`;
+
+            return `
+                <article class="flight-result">
+                    <div>
+                        <div class="airline-name">✈ ${flight.airline}</div>
+                        <div class="flight-number">${flight.number} · ${index === 0 ? "Best value" : "Economy"}</div>
+                    </div>
+                    <div>
+                        <div class="flight-route">${flight.depart} <span>→</span> ${flight.arrive}</div>
+                        <div class="flight-meta">${flight.duration} · ${flight.stops}</div>
+                    </div>
+                    <div>
+                        <div class="flight-meta">${prettyAirport(fromValue)} (${fromCode}) → ${prettyAirport(toValue)} (${toCode})</div>
+                        <div class="flight-meta">${formatFlightDate(departure)}</div>
+                    </div>
+                    <div class="flight-price">
+                        <strong>₹${price.toLocaleString("en-IN")}</strong>
+                        <small>per adult · sample fare</small>
+                        <a class="flight-open" href="${externalUrl}" target="_blank" rel="noopener">Check Online</a>
+                    </div>
+                </article>
+            `;
+        }).join("");
+    }
+
+    if (flightForm) {
+        const today = new Date().toISOString().split("T")[0];
+        flightDeparture.min = today;
+        flightReturn.min = today;
+
+        flightDeparture.addEventListener("change", () => {
+            flightReturn.min = flightDeparture.value || today;
+            if (flightReturn.value && flightReturn.value < flightDeparture.value) {
+                flightReturn.value = flightDeparture.value;
+            }
+        });
+
+        swapFlight.addEventListener("click", () => {
+            const currentFrom = flightFrom.value;
+            flightFrom.value = flightTo.value;
+            flightTo.value = currentFrom;
+        });
+
+        flightForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            if (flightReturn.value && flightReturn.value < flightDeparture.value) {
+                flightMessage.textContent = "Return date must be on or after the departure date.";
+                flightResults.innerHTML = "";
+                return;
+            }
+
+            renderFlights(
+                flightFrom.value,
+                flightTo.value,
+                flightDeparture.value,
+                flightTravellers.value
+            );
+
+            const tripType = flightReturn.value ? "round trip" : "one way";
+            flightMessage.textContent =
+                `${flightFrom.value} → ${flightTo.value} · ${formatFlightDate(flightDeparture.value)} · ${tripType}. These are sample fares; use “Check Online” for current availability.`;
+
+            flightResults.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+    }
+
+
     /* ---------- Destination cards ---------- */
 
     document.querySelectorAll(".destination-card").forEach((card) => {
