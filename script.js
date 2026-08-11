@@ -454,3 +454,180 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+/* =====================================================
+   HOLIDAY MASTI - PACKAGE / DESTINATION INTERACTIONS
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* ---------- EXPLORE PACKAGES ---------- */
+
+    const exploreButton = document.querySelector(".hero-button");
+
+    if (exploreButton) {
+        exploreButton.addEventListener("click", function (e) {
+
+            e.preventDefault();
+
+            const enquiryForm =
+                document.getElementById("contactForm") ||
+                document.getElementById("contact");
+
+            if (enquiryForm) {
+                enquiryForm.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+                setTimeout(function () {
+                    const firstInput =
+                        enquiryForm.querySelector("input, textarea, select");
+
+                    if (firstInput) {
+                        firstInput.focus();
+                    }
+                }, 700);
+
+            } else {
+
+                const packages =
+                    document.getElementById("packages") ||
+                    document.querySelector(".packages");
+
+                if (packages) {
+                    packages.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            }
+        });
+    }
+
+
+    /* ---------- FEATURED PACKAGE DETAILS ---------- */
+
+    document.querySelectorAll(".package-card").forEach(function (card) {
+
+        const button = card.querySelector("button");
+
+        if (!button) return;
+
+        button.addEventListener("click", function () {
+
+            const titleElement = card.querySelector("h3");
+            const priceElement = card.querySelector(".price-tag");
+            const infoElement = card.querySelector("p");
+
+            const title = titleElement
+                ? titleElement.textContent.trim()
+                : "Holiday Package";
+
+            const price = priceElement
+                ? priceElement.textContent.trim()
+                : "";
+
+            const info = infoElement
+                ? infoElement.textContent.trim()
+                : "";
+
+            openHolidayEnquiry(title, price, info);
+        });
+    });
+
+
+    /* ---------- POPULAR DESTINATIONS ---------- */
+
+    document.querySelectorAll(".destination-card").forEach(function (card) {
+
+        card.style.cursor = "pointer";
+
+        card.addEventListener("click", function () {
+
+            const titleElement = card.querySelector("h3");
+            const priceElement = card.querySelector("p");
+
+            const destination = titleElement
+                ? titleElement.textContent.trim()
+                : "Holiday Destination";
+
+            const price = priceElement
+                ? priceElement.textContent.trim()
+                : "";
+
+            openHolidayEnquiry(
+                destination,
+                price,
+                "Popular destination"
+            );
+        });
+    });
+
+
+    /* ---------- ENQUIRY FUNCTION ---------- */
+
+    function openHolidayEnquiry(title, price, info) {
+
+        const modal = document.getElementById("modal");
+
+        if (modal) {
+
+            modal.classList.add("open");
+
+            const modalTitle =
+                document.getElementById("mTitle");
+
+            if (modalTitle) {
+                modalTitle.textContent =
+                    "Enquire About " + title;
+            }
+
+            const packageField =
+                document.querySelector(
+                    "#contactForm input[name='package'], #contactForm #package"
+                );
+
+            if (packageField) {
+                packageField.value =
+                    title + (price ? " - " + price : "");
+            }
+
+            return;
+        }
+
+
+        const contact =
+            document.getElementById("contact") ||
+            document.querySelector(".contact");
+
+        if (contact) {
+
+            contact.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            const messageBox =
+                contact.querySelector("textarea");
+
+            if (messageBox) {
+                messageBox.value =
+                    "I am interested in " +
+                    title +
+                    (price ? " (" + price + ")" : "") +
+                    ". Please share more details.";
+            }
+
+            return;
+        }
+
+
+        alert(
+            title +
+            (price ? "\n" + price : "") +
+            "\n\nPlease contact Holiday Masti for more details."
+        );
+    }
+
+});
