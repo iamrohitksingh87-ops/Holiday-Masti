@@ -1147,3 +1147,185 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
 });
+/* =====================================================
+   CINEMATIC HERO SLIDESHOW
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const hero = document.querySelector(".hero");
+    const heroContent = document.querySelector(".hero-content");
+
+    if (!hero) return;
+
+    const slides = [
+        {
+            image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85",
+            location: "GOA • INDIA",
+            title: "Discover Your Next Dream Destination",
+            subtitle: "Golden beaches. Endless sunsets. Unforgettable memories."
+        },
+
+        {
+            image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=2000&q=85",
+            location: "BALI • INDONESIA",
+            title: "Escape Into Paradise",
+            subtitle: "Tropical mornings. Crystal waters. Moments worth remembering."
+        },
+
+        {
+            image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85",
+            location: "DUBAI • UAE",
+            title: "Experience The Extraordinary",
+            subtitle: "Luxury, adventure and unforgettable nights."
+        },
+
+        {
+            image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=85",
+            location: "MALDIVES",
+            title: "Where Paradise Feels Real",
+            subtitle: "Turquoise waters. Private escapes. Pure relaxation."
+        }
+    ];
+
+
+    let currentSlide = 0;
+
+
+    /* -----------------------------------------
+       Create dots
+       ----------------------------------------- */
+
+    const dotsContainer = document.createElement("div");
+
+    dotsContainer.className = "hero-dots";
+
+    slides.forEach(function (_, index) {
+
+        const dot = document.createElement("button");
+
+        dot.className = "hero-dot";
+
+        if (index === 0) {
+            dot.classList.add("active");
+        }
+
+        dot.addEventListener("click", function () {
+            showSlide(index);
+        });
+
+        dotsContainer.appendChild(dot);
+    });
+
+    hero.appendChild(dotsContainer);
+
+
+    /* -----------------------------------------
+       Show slide
+       ----------------------------------------- */
+
+    function showSlide(index) {
+
+        currentSlide = index;
+
+        const slide = slides[index];
+
+        hero.style.backgroundImage =
+            `url("${slide.image}")`;
+
+        hero.classList.remove("cinematic-zoom");
+
+        void hero.offsetWidth;
+
+        hero.classList.add("cinematic-zoom");
+
+
+        /* Update hero text */
+
+        if (heroContent) {
+
+            heroContent.classList.remove("hero-changing");
+
+            void heroContent.offsetWidth;
+
+            heroContent.classList.add("hero-changing");
+
+
+            const heading =
+                heroContent.querySelector("h1");
+
+            const paragraph =
+                heroContent.querySelector("p");
+
+            let location =
+                heroContent.querySelector(".hero-location");
+
+
+            /* Create location label if missing */
+
+            if (!location && heading) {
+
+                location =
+                    document.createElement("div");
+
+                location.className =
+                    "hero-location";
+
+                heading.parentNode.insertBefore(
+                    location,
+                    heading
+                );
+            }
+
+
+            if (location) {
+                location.textContent =
+                    slide.location;
+            }
+
+
+            if (heading) {
+                heading.textContent =
+                    slide.title;
+            }
+
+
+            if (paragraph) {
+                paragraph.textContent =
+                    slide.subtitle;
+            }
+        }
+
+
+        /* Update dots */
+
+        document
+            .querySelectorAll(".hero-dot")
+            .forEach(function (dot, i) {
+
+                dot.classList.toggle(
+                    "active",
+                    i === currentSlide
+                );
+
+            });
+    }
+
+
+    /* -----------------------------------------
+       Start slideshow
+       ----------------------------------------- */
+
+    showSlide(0);
+
+
+    setInterval(function () {
+
+        const nextSlide =
+            (currentSlide + 1) % slides.length;
+
+        showSlide(nextSlide);
+
+    }, 6000);
+
+});
