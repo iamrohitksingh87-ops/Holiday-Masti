@@ -1491,3 +1491,126 @@ button {
         bottom: 18px;
     }
 }
+/* =====================================================
+   CINEMATIC HERO SLIDESHOW
+   ===================================================== */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1.2s ease-in-out;
+}
+
+/* Cinematic dark overlay */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.48),
+            rgba(0, 0, 0, 0.18),
+            rgba(0, 0, 0, 0.38)
+        );
+    z-index: 1;
+}
+
+/* Keep existing hero content above overlay */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Cinematic Ken Burns effect */
+.hero.cinematic-zoom {
+    animation: cinematicZoom 6s ease-in-out;
+}
+
+@keyframes cinematicZoom {
+    0% {
+        background-size: 100%;
+    }
+
+    100% {
+        background-size: 108%;
+    }
+}
+
+/* Small destination label */
+.hero-location {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 7px 14px;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(8px);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* Smooth hero text transition */
+.hero-content.hero-changing {
+    animation: heroTextChange 0.8s ease;
+}
+
+@keyframes heroTextChange {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slideshow indicators */
+.hero-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+}
+
+.hero-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: rgba(255,255,255,0.45);
+    transition: all 0.3s ease;
+}
+
+.hero-dot.active {
+    width: 28px;
+    border-radius: 10px;
+    background: #ff9800;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .hero {
+        background-position: center;
+    }
+
+    .hero-dots {
+        bottom: 18px;
+    }
+
+    .hero-location {
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+}
