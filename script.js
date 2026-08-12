@@ -631,3 +631,126 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+/* =====================================================
+   HOLIDAY SEARCH
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const searchForm = document.getElementById("searchForm");
+
+    if (!searchForm) return;
+
+    searchForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        const destination =
+            document.getElementById("destinationInput").value.trim();
+
+        const startDate =
+            document.getElementById("startDate").value;
+
+        const endDate =
+            document.getElementById("endDate").value;
+
+        const travellers =
+            document.getElementById("travellers").value;
+
+        const message =
+            document.getElementById("searchMessage");
+
+
+        /* Destination required */
+
+        if (!destination) {
+
+            message.textContent =
+                "Please enter your destination.";
+
+            message.style.color = "#d9534f";
+
+            document.getElementById("destinationInput").focus();
+
+            return;
+        }
+
+
+        /* Date validation */
+
+        if (startDate && endDate && endDate < startDate) {
+
+            message.textContent =
+                "Return date cannot be before departure date.";
+
+            message.style.color = "#d9534f";
+
+            return;
+        }
+
+
+        /* Success message */
+
+        message.textContent =
+            "Great! We found your holiday request. Taking you to enquiry...";
+
+        message.style.color = "#0b7a53";
+
+
+        /*
+         * Save search details so enquiry form can use them
+         */
+
+        sessionStorage.setItem(
+            "holidayDestination",
+            destination
+        );
+
+        sessionStorage.setItem(
+            "holidayStartDate",
+            startDate
+        );
+
+        sessionStorage.setItem(
+            "holidayEndDate",
+            endDate
+        );
+
+        sessionStorage.setItem(
+            "holidayTravellers",
+            travellers
+        );
+
+
+        /*
+         * Go to enquiry/contact section
+         */
+
+        setTimeout(function () {
+
+            const contactSection =
+                document.getElementById("contact");
+
+            if (contactSection) {
+
+                contactSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            } else {
+
+                const contactLink =
+                    document.querySelector('a[href="#contact"]');
+
+                if (contactLink) {
+                    contactLink.click();
+                }
+
+            }
+
+        }, 500);
+
+    });
+
+});
