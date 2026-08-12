@@ -754,3 +754,396 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+/* =====================================================
+   HOLIDAY MASTI - FREE CHATBOT
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const chatbotHTML = `
+        <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open Holiday Masti Assistant">
+            🤖
+        </button>
+
+        <div class="chatbot-box" id="chatbotBox">
+
+            <div class="chatbot-header">
+
+                <div class="chatbot-header-left">
+
+                    <div class="chatbot-avatar">
+                        🤖
+                    </div>
+
+                    <div>
+                        <h3>Holiday Masti</h3>
+                        <p>Travel Assistant • Online</p>
+                    </div>
+
+                </div>
+
+                <button class="chatbot-close" id="chatbotClose">
+                    ×
+                </button>
+
+            </div>
+
+            <div class="chatbot-messages" id="chatbotMessages">
+
+                <div class="chat-message bot">
+                    👋 Hi! I'm the Holiday Masti Assistant.
+                    <br><br>
+                    Where would you like to travel?
+                    
+                    <div class="chat-options">
+
+                        <button class="chat-option" data-question="Goa">
+                            🏖️ Goa
+                        </button>
+
+                        <button class="chat-option" data-question="Dubai">
+                            🌆 Dubai
+                        </button>
+
+                        <button class="chat-option" data-question="Bali">
+                            🌴 Bali
+                        </button>
+
+                        <button class="chat-option" data-question="Flights">
+                            ✈️ Flights
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="chatbot-input-area">
+
+                <input
+                    id="chatbotInput"
+                    class="chatbot-input"
+                    type="text"
+                    placeholder="Ask me anything..."
+                >
+
+                <button
+                    id="chatbotSend"
+                    class="chatbot-send"
+                    aria-label="Send message">
+                    ➤
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML("beforeend", chatbotHTML);
+
+
+    const toggle = document.getElementById("chatbotToggle");
+    const box = document.getElementById("chatbotBox");
+    const close = document.getElementById("chatbotClose");
+    const input = document.getElementById("chatbotInput");
+    const send = document.getElementById("chatbotSend");
+    const messages = document.getElementById("chatbotMessages");
+
+
+    /* Open chatbot */
+
+    toggle.addEventListener("click", function () {
+        box.classList.toggle("active");
+
+        if (box.classList.contains("active")) {
+            input.focus();
+        }
+    });
+
+
+    /* Close chatbot */
+
+    close.addEventListener("click", function () {
+        box.classList.remove("active");
+    });
+
+
+    /* Add message */
+
+    function addMessage(text, type) {
+
+        const message = document.createElement("div");
+
+        message.className = "chat-message " + type;
+
+        message.innerHTML = text;
+
+        messages.appendChild(message);
+
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+
+    /* Bot response */
+
+    function botReply(question) {
+
+        const q = question.toLowerCase();
+
+        let reply = "";
+
+        if (
+            q.includes("goa")
+        ) {
+
+            reply = `
+                🏖️ <strong>Goa Beach Escape</strong><br><br>
+                ⭐ 4.8 rating<br>
+                🌙 3 Nights / 4 Days<br>
+                💰 Starting from <strong>₹18,999</strong>
+                <br><br>
+                Goa is perfect for beaches, nightlife and a relaxing holiday.
+                <br><br>
+                <button class="chat-option" onclick="scrollToPackages()">
+                    View Package
+                </button>
+            `;
+
+        } else if (
+            q.includes("dubai")
+        ) {
+
+            reply = `
+                🌆 <strong>Dubai Luxury</strong><br><br>
+                ⭐ 4.7 rating<br>
+                🌙 4 Nights / 5 Days<br>
+                💰 Starting from <strong>₹39,999</strong>
+                <br><br>
+                Dubai is perfect for luxury, shopping, desert adventures and sightseeing.
+                <br><br>
+                <button class="chat-option" onclick="scrollToPackages()">
+                    View Package
+                </button>
+            `;
+
+        } else if (
+            q.includes("bali")
+        ) {
+
+            reply = `
+                🌴 <strong>Bali Paradise</strong><br><br>
+                ⭐ 4.9 rating<br>
+                🌙 5 Nights / 6 Days<br>
+                💰 Starting from <strong>₹42,999</strong>
+                <br><br>
+                Bali is great for beaches, nature, resorts and romantic getaways.
+                <br><br>
+                <button class="chat-option" onclick="scrollToPackages()">
+                    View Package
+                </button>
+            `;
+
+        } else if (
+            q.includes("flight") ||
+            q.includes("fly") ||
+            q.includes("airline")
+        ) {
+
+            reply = `
+                ✈️ You can use our <strong>Flight Search</strong>
+                to search your route.
+                <br><br>
+                We currently show indicative/demo results.
+                <br><br>
+                <button class="chat-option" onclick="scrollToFlights()">
+                    Search Flights
+                </button>
+            `;
+
+        } else if (
+            q.includes("price") ||
+            q.includes("cost") ||
+            q.includes("budget")
+        ) {
+
+            reply = `
+                💰 Our holiday packages start from around
+                <strong>₹18,999</strong>.
+                <br><br>
+                Tell me a destination like <strong>Goa</strong>,
+                <strong>Bali</strong> or <strong>Dubai</strong>
+                and I'll show you the package.
+            `;
+
+        } else if (
+            q.includes("contact") ||
+            q.includes("enquiry") ||
+            q.includes("book")
+        ) {
+
+            reply = `
+                📞 Sure! You can send us an enquiry and
+                our travel team can help you.
+                <br><br>
+                <button class="chat-option" onclick="scrollToContact()">
+                    Make an Enquiry
+                </button>
+            `;
+
+        } else if (
+            q.includes("hello") ||
+            q.includes("hi") ||
+            q.includes("hey")
+        ) {
+
+            reply = `
+                👋 Hello!
+                <br><br>
+                I'm your Holiday Masti travel assistant.
+                <br><br>
+                Try asking:
+                <br>
+                • Goa package?
+                <br>
+                • Dubai price?
+                <br>
+                • Bali?
+                <br>
+                • Flights?
+            `;
+
+        } else {
+
+            reply = `
+                🤔 I can help with:
+                <br><br>
+                🏖️ Holiday packages
+                <br>
+                ✈️ Flights
+                <br>
+                💰 Package prices
+                <br>
+                📞 Enquiries
+                <br><br>
+                Try asking about <strong>Goa</strong>,
+                <strong>Bali</strong> or <strong>Dubai</strong>.
+            `;
+        }
+
+
+        setTimeout(function () {
+            addMessage(reply, "bot");
+        }, 350);
+    }
+
+
+    /* Send message */
+
+    function sendMessage() {
+
+        const text = input.value.trim();
+
+        if (!text) return;
+
+        addMessage(text, "user");
+
+        input.value = "";
+
+        botReply(text);
+    }
+
+
+    send.addEventListener("click", sendMessage);
+
+
+    input.addEventListener("keydown", function (event) {
+
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+
+    });
+
+
+    /* Quick buttons */
+
+    document.addEventListener("click", function (event) {
+
+        if (
+            event.target.classList.contains("chat-option") &&
+            event.target.dataset.question
+        ) {
+
+            const question =
+                event.target.dataset.question;
+
+            addMessage(question, "user");
+
+            botReply(question);
+        }
+
+    });
+
+
+    /* Scroll functions */
+
+    window.scrollToPackages = function () {
+
+        const packages =
+            document.getElementById("packages") ||
+            document.querySelector(".packages");
+
+        if (packages) {
+
+            box.classList.remove("active");
+
+            packages.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+    };
+
+
+    window.scrollToFlights = function () {
+
+        const flights =
+            document.getElementById("flights") ||
+            document.querySelector(".flight-section");
+
+        if (flights) {
+
+            box.classList.remove("active");
+
+            flights.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        } else {
+
+            box.classList.remove("active");
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+    };
+
+
+    window.scrollToContact = function () {
+
+        const contact =
+            document.getElementById("contact") ||
+            document.querySelector(".contact");
+
+        if (contact) {
+
+            box.classList.remove("active");
+
+            contact.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+    };
+
+});
