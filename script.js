@@ -309,244 +309,351 @@ const data = {
 
 /* ================= OPEN PACKAGE ================= */
 
-function openPackage(title,price,description){
+function openPackage(title, price, description) {
 
-    if(!modal)return;
+    if (!modal) return;
 
-    const box=$(".modal-box",modal);
+    const box = $(".modal-box", modal);
 
-    if(!box)return;
+    if (!box) return;
 
-    const t=$("#modalTitle");
-    const d=$("#modalDescription");
-    const p=$("#modalPrice");
+    const t = $("#modalTitle");
+    const d = $("#modalDescription");
+    const p = $("#modalPrice");
 
-    if(t)t.textContent=title;
+    if (t) t.textContent = title;
+    if (d) d.textContent = description || "";
+    if (p) p.textContent = price || "";
 
-    if(d){
-        d.textContent=
-            description ||
-            "Experience an unforgettable holiday with Holiday Masti.";
-    }
+    const old = $(".premium-package-details", box);
 
-    if(p){
-        p.textContent=
-            price ||
-            "Price on Request";
-    }
-
-    const old=$(".premium-package-details",box);
-
-    if(old){
+    if (old) {
         old.remove();
     }
 
-    const x=data[title]||{
-        loc:"HOLIDAY MASTI",
-        rating:"4.8",
-        duration:"Custom Package",
-
-        inc:[
-            "🏨 Hotel stay",
-            "🍳 Breakfast",
-            "🚗 Transfers",
-            "📸 Sightseeing"
+    const x = data[title] || {
+        image: "",
+        loc: "HOLIDAY MASTI",
+        rating: "4.8",
+        reviews: "100+ Reviews",
+        duration: "Custom Package",
+        description:
+            description ||
+            "Experience an unforgettable holiday with Holiday Masti.",
+        includes: [
+            ["🏨","Hotel Stay","Comfortable accommodation."],
+            ["🍳","Breakfast","Daily breakfast included."],
+            ["🚗","Transfers","Local transfers included."],
+            ["📸","Sightseeing","Curated local experiences."]
         ],
-
-        days:[
+        days: [
             ["1","Arrival","Welcome and hotel check-in."],
             ["2","Explore","Enjoy sightseeing and local experiences."],
-            ["3","Relax","Free time to explore at your own pace."],
+            ["3","Leisure","Free time to explore at your own pace."],
             ["4","Departure","Breakfast and onward transfer."]
         ]
     };
 
-    const wrap=document.createElement("div");
 
-    wrap.className=
+    const wrap = document.createElement("div");
+
+    wrap.className =
         "premium-package-details";
 
-    wrap.innerHTML=`
 
-        <div class="modal-content-premium">
+    wrap.innerHTML = `
 
-            <div class="modal-top-line">
+        <!-- ================= HEADER ================= -->
 
-                <span class="modal-location">
-                    ${esc(x.loc)}
-                </span>
+        <div class="package-premium-header">
 
-                <span class="modal-rating">
-                    ⭐ ${esc(x.rating)}
-                </span>
+            <div class="package-header-content">
 
-            </div>
-
-
-            <div class="modal-price-row">
-
-                <div>
-
-                    <span class="modal-price-label">
-                        Starting from
-                    </span>
-
-                    <div class="modal-price-value">
-                        ${esc(price||"On Request")}
-                    </div>
-
+                <div class="package-kicker">
+                    HOLIDAY PACKAGE
                 </div>
 
-                <div class="modal-duration">
-                    🌙 ${esc(x.duration)}
+                <h2>
+                    ${esc(title)}
+                </h2>
+
+                <p class="package-header-description">
+                    ${esc(x.description)}
+                </p>
+
+                <span class="package-header-price-label">
+                    Starting from
+                </span>
+
+                <div class="package-header-price">
+                    ${esc(price || "On Request")}
                 </div>
 
             </div>
 
 
-            <h3 class="modal-section-title">
-                What's Included
-            </h3>
+            <div class="package-header-image">
+
+                ${
+                    x.image
+                    ? `<img
+                        src="${x.image}"
+                        alt="${esc(title)}"
+                        loading="lazy"
+                    >`
+                    : ""
+                }
+
+            </div>
+
+        </div>
 
 
-            <div class="modal-includes">
+        <!-- ================= META ================= -->
 
-                ${x.inc.map(i=>`
+        <div class="package-meta">
 
-                    <div class="modal-include-item">
-                        ${esc(i)}
-                    </div>
+            <div class="package-meta-item">
 
-                `).join("")}
+                📍
+
+                ${esc(x.loc)}
 
             </div>
 
 
-            <h3 class="modal-section-title">
-                Your Itinerary
-            </h3>
+            <div class="package-meta-item rating">
+
+                ⭐
+
+                ${esc(x.rating)}
+
+                <span>
+                    (${esc(x.reviews)})
+                </span>
+
+            </div>
 
 
-            <div class="modal-itinerary">
+            <div class="package-meta-item">
 
-                ${x.days.map(a=>`
+                🌙
 
-                    <div class="modal-day">
+                ${esc(x.duration)}
 
-                        <div class="modal-day-number">
-                            ${esc(a[0])}
-                        </div>
+            </div>
 
-                        <div>
+        </div>
+
+
+        <!-- ================= BODY ================= -->
+
+        <div class="package-premium-body">
+
+
+            <!-- LEFT COLUMN -->
+
+            <div class="package-left-column">
+
+                <h3 class="package-premium-title">
+                    What's Included
+                </h3>
+
+
+                <div class="package-includes-grid">
+
+                    ${x.includes.map(item => `
+
+                        <div class="package-include-card">
+
+                            <div class="package-include-icon">
+                                ${item[0]}
+                            </div>
 
                             <strong>
-                                ${esc(a[1])}
+                                ${esc(item[1])}
                             </strong>
 
                             <span>
-                                ${esc(a[2])}
+                                ${esc(item[2])}
                             </span>
 
                         </div>
 
+                    `).join("")}
+
+                </div>
+
+
+                <!-- CTA -->
+
+                <div class="package-cta-box">
+
+                    <button
+                        type="button"
+                        class="package-cta-button package-cta-enquire">
+
+                        📞
+                        <span>
+                            Enquire Now
+                        </span>
+
+                    </button>
+
+
+                    <a
+                        class="package-cta-button package-cta-whatsapp"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://wa.me/917851007007?text=${encodeURIComponent(
+                            "Hi Holiday Masti, I am interested in " +
+                            title +
+                            (price ? " - " + price : "") +
+                            ". Please share complete package details."
+                        )}">
+
+                        💬
+                        <span>
+                            WhatsApp Us
+                        </span>
+
+                    </a>
+
+
+                    <div class="package-trust">
+
+                        <span>
+                            🛡️ 100% Secure
+                        </span>
+
+                        <span>
+                            •
+                        </span>
+
+                        <span>
+                            🏆 Best Price Guarantee
+                        </span>
+
+                        <span>
+                            •
+                        </span>
+
+                        <span>
+                            🎧 24×7 Support
+                        </span>
+
                     </div>
 
-                `).join("")}
+                </div>
 
             </div>
 
 
-            <div class="modal-actions">
+            <!-- RIGHT COLUMN -->
 
-                <button
-                    type="button"
-                    class="btn btn-primary package-enquire">
+            <div class="package-right-column">
 
-                    Enquire Now
-
-                </button>
+                <h3 class="package-premium-title">
+                    Your Itinerary
+                </h3>
 
 
-                <a
-                    class="modal-whatsapp"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://wa.me/917851007007?text=${encodeURIComponent(
-                        "Hi Holiday Masti, I am interested in "+
-                        title+
-                        (price?" - "+price:"")+
-                        ". Please share more details."
-                    )}">
+                <div class="package-itinerary">
 
-                    WhatsApp
+                    ${x.days.map(day => `
 
-                </a>
+                        <div class="package-day">
+
+                            <div class="package-day-number">
+                                ${esc(day[0])}
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    ${esc(day[1])}
+                                </h4>
+
+                                <p>
+                                    ${esc(day[2])}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `).join("")}
+
+                </div>
 
             </div>
+
 
         </div>
 
     `;
 
 
-    const oldBtn=
-        $(".modal-enquire",box);
+    const oldBtn =
+        $(".modal-enquire", box);
 
 
-    if(oldBtn){
+    if (oldBtn) {
 
-        oldBtn.style.display=
-            "none";
+        oldBtn.style.display = "none";
 
-        box.insertBefore(
-            wrap,
-            oldBtn
-        );
+        box.appendChild(wrap);
 
-    }else{
+    } else {
 
-        box.appendChild(
-            wrap
-        );
+        box.appendChild(wrap);
+
     }
 
 
-    const enquire=
-        $(".package-enquire",wrap);
+    /* ================= ENQUIRE ================= */
+
+    const enquire =
+        $(".package-cta-enquire", wrap);
 
 
-    if(enquire){
+    if (enquire) {
 
         enquire.addEventListener(
             "click",
-            ()=>{
+            function () {
 
                 closeModal();
 
-                const m=
+                const message =
                     $("#contactMessage");
 
-                if(m){
+                if (message) {
 
-                    m.value=
-                        "I am interested in "+
-                        title+
+                    message.value =
+                        "I am interested in " +
+                        title +
                         (price
-                            ? " ("+price+")"
-                            : "")+
-                        ". Please share more details.";
+                            ? " (" + price + ")"
+                            : "") +
+                        ". Please share complete package details.";
 
                 }
 
                 setTimeout(
-                    ()=>scrollTo("#contact"),
+                    function () {
+                        scrollTo("#contact");
+                    },
                     150
                 );
 
             }
         );
+
     }
 
+
+    /* ================= OPEN ================= */
 
     modal.classList.add("open");
 
@@ -554,6 +661,11 @@ function openPackage(title,price,description){
         "aria-hidden",
         "false"
     );
+
+    /* Start modal at top */
+
+    box.scrollTop = 0;
+
 }
 
 
