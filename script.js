@@ -670,24 +670,583 @@ function openPackage(title, price, description) {
 }
 
 
+/* ================= SUPABASE PACKAGES ================= */
+
+const SUPABASE_URL =
+    "https://wwfatmtqrswayugaqhra.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_IVMKY-BoIe9TYajxRHszSQ_1RUKOxDw";
+
+
+function packagePrice(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "On Request";
+    }
+
+    const number =
+        Number(
+            String(value)
+                .replace(/[^0-9.]/g, "")
+        );
+
+    if (!Number.isNaN(number)) {
+
+        return "₹" +
+            number.toLocaleString("en-IN");
+
+    }
+
+    return String(value);
+}
+
+
+function normaliseIncludes(value) {
+
+    if (
+        !Array.isArray(value) ||
+        value.length === 0
+    ) {
+
+        return [
+
+            [
+                "🏨",
+                "Hotel Stay",
+                "Comfortable accommodation."
+            ],
+
+            [
+                "🍳",
+                "Breakfast",
+                "Daily breakfast included."
+            ],
+
+            [
+                "🚗",
+                "Transfers",
+                "Local transfers included."
+            ],
+
+            [
+                "📸",
+                "Sightseeing",
+                "Curated local experiences."
+            ]
+
+        ];
+
+    }
+
+
+    return value.map(item => {
+
+        if (Array.isArray(item)) {
+
+            return [
+
+                item[0] || "✓",
+
+                item[1] || "Included",
+
+                item[2] || ""
+
+            ];
+
+        }
+
+
+        if (
+            typeof item === "object" &&
+            item !== null
+        ) {
+
+            return [
+
+                item.icon ||
+                    "✓",
+
+                item.title ||
+                    item.name ||
+                    "Included",
+
+                item.description ||
+                    ""
+
+            ];
+
+        }
+
+
+        return [
+
+            "✓",
+
+            String(item),
+
+            ""
+
+        ];
+
+    });
+
+}
+
+
+function normaliseDays(value) {
+
+    if (
+        !Array.isArray(value) ||
+        value.length === 0
+    ) {
+
+        return [
+
+            [
+                "1",
+                "Arrival",
+                "Welcome and hotel check-in."
+            ],
+
+            [
+                "2",
+                "Explore",
+                "Enjoy sightseeing and local experiences."
+            ],
+
+            [
+                "3",
+                "Leisure",
+                "Free time to explore at your own pace."
+            ],
+
+            [
+                "4",
+                "Departure",
+                "Breakfast and onward transfer."
+            ]
+
+        ];
+
+    }
+
+
+    return value.map(
+        (item, index) => {
+
+            if (Array.isArray(item)) {
+
+                return [
+
+                    item[0] ||
+                        String(index + 1),
+
+                    item[1] ||
+                        "Day Experience",
+
+                    item[2] ||
+                        ""
+
+                ];
+
+            }
+
+
+            if (
+                typeof item === "object" &&
+                item !== null
+            ) {
+
+                return [
+
+                    item.day ||
+                        item.number ||
+                        String(index + 1),
+
+                    item.title ||
+                        "Day Experience",
+
+                    item.description ||
+                        ""
+
+                ];
+
+            }
+
+
+            return [
+
+                String(index + 1),
+
+                "Day Experience",
+
+                String(item)
+
+            ];
+
+        }
+    );
+
+}
+
+
+function renderSupabasePackage(pkg) {
+
+    const title =
+        pkg.title ||
+        "Holiday Package";
+
+
+    const price =
+        packagePrice(pkg.price);
+
+
+    const image =
+        pkg.image ||
+        "images/logo.png";
+
+
+    const location =
+        pkg.location ||
+        "INDIA";
+
+
+    const duration =
+        pkg.duration ||
+        "Custom Package";
+
+
+    const rating =
+        pkg.rating ||
+        "4.8";
+
+
+    const reviews =
+        pkg.reviews ||
+        "100+ Reviews";
+
+
+    /*
+     * Put complete Supabase package data
+     * into the existing premium View Details
+     * system.
+     */
+
+    data[title] = {
+
+        image: image,
+
+        loc: location,
+
+        rating:
+            String(rating),
+
+        reviews:
+            String(reviews),
+
+        duration:
+            duration,
+
+        description:
+            pkg.description ||
+            "Experience an unforgettable holiday with Holiday Masti.",
+
+        includes:
+            normaliseIncludes(
+                pkg.includes
+            ),
+
+        days:
+            normaliseDays(
+                pkg.days
+            )
+
+    };
+
+
+    return `
+
+        <article
+            class="package-card"
+            data-name="${esc(
+                title.toLowerCase()
+            )}"
+            data-filter="${esc(
+                (
+                    title +
+                    " " +
+                    location +
+                    " " +
+                    duration
+                ).toLowerCase()
+            )}">
+
+
+            <div class="card-image">
+
+                <img
+                    src="${esc(image)}"
+                    alt="${esc(title)}"
+                    loading="lazy"
+                    onerror="this.src='images/logo.png';"
+                >
+
+
+                <span class="price-tag">
+
+                    ${esc(price)}
+
+                </span>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <p class="card-location">
+
+                    ${esc(location)}
+
+                    ·
+
+                    ${esc(duration)}
+
+                </p>
+
+
+                <h3>
+
+                    ${esc(title)}
+
+                </h3>
+
+
+                <p class="rating">
+
+                    ★ ${esc(
+                        String(rating)
+                    )}
+
+                    <span>·</span>
+
+                    ${esc(
+                        String(reviews)
+                    )}
+
+                </p>
+
+
+                <button
+                    class="details-button"
+                    type="button"
+                    data-title="${esc(title)}"
+                    data-price="${esc(price)}"
+                    data-description="${esc(
+                        pkg.description || ""
+                    )}"
+                >
+
+                    View Details
+
+                </button>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+async function loadSupabasePackages() {
+
+    const grid =
+        $("#packageGrid");
+
+
+    const empty =
+        $("#emptyState");
+
+
+    if (!grid) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                SUPABASE_URL +
+                "/rest/v1/packages?select=*&order=created_at.desc",
+
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Authorization":
+                            "Bearer " +
+                            SUPABASE_PUBLISHABLE_KEY
+
+                    }
+
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+
+                "Package service returned HTTP " +
+                response.status
+
+            );
+
+        }
+
+
+        const packages =
+            await response.json();
+
+
+        if (
+            Array.isArray(packages) &&
+            packages.length > 0
+        ) {
+
+            grid.innerHTML =
+                packages
+                    .map(
+                        renderSupabasePackage
+                    )
+                    .join("");
+
+
+            if (empty) {
+
+                empty.style.display =
+                    "none";
+
+            }
+
+
+            console.log(
+
+                "Holiday Masti: loaded " +
+                packages.length +
+                " package(s) from Supabase."
+
+            );
+
+        }
+
+        else {
+
+            if (empty) {
+
+                empty.style.display =
+                    "block";
+
+                empty.textContent =
+                    "No packages are available right now.";
+
+            }
+
+
+            console.log(
+                "Holiday Masti: Supabase returned no packages."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+
+            "Holiday Masti package loading failed:",
+
+            error
+
+        );
+
+
+        /*
+         * If Supabase is temporarily unavailable,
+         * keep the original packages visible.
+         */
+
+        if (empty) {
+
+            empty.style.display =
+                "block";
+
+            empty.textContent =
+                "Showing our featured packages.";
+
+        }
+
+    }
+
+}
+
+
+/* Load packages from Supabase */
+
+loadSupabasePackages();
+
+
 /* ================= PACKAGE BUTTONS ================= */
 
-$$(".details-button").forEach(
-    b=>b.addEventListener(
-        "click",
-        ()=>openPackage(
-            b.dataset.title ||
+document.addEventListener(
+    "click",
+    event => {
+
+        const button =
+            event.target.closest(
+                ".details-button"
+            );
+
+
+        if (!button) {
+
+            return;
+
+        }
+
+
+        openPackage(
+
+            button.dataset.title ||
                 "Holiday Package",
 
-            b.dataset.price ||
+            button.dataset.price ||
                 "",
 
-            b.dataset.description ||
+            button.dataset.description ||
                 ""
-        )
-    )
-);
 
+        );
+
+    }
+);
 
 /* ================= DESTINATIONS ================= */
 
