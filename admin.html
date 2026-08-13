@@ -1727,6 +1727,16 @@
 
     })();
 
+    function openAddPackageModal() {
+
+    document.getElementById("modalTitle").textContent = "Add Package";
+
+    document.getElementById("packageForm").reset();
+
+    document.getElementById("packageId").value = "";
+
+    document.getElementById("packageModal").classList.remove("hidden");
+}
 </script>
 
 </body>
