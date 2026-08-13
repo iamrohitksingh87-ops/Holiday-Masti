@@ -1,777 +1,235 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded",()=>{
 
-    // ==========================================
-    // FLIGHT SEARCH - HOLIDAY MASTI
-    // ==========================================
+const $=(s,p=document)=>p.querySelector(s);
+const $$=(s,p=document)=>[...p.querySelectorAll(s)];
+const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+const scrollTo=s=>{const e=$(s);if(e)e.scrollIntoView({behavior:"smooth",block:"start"});};
 
-    const form = document.getElementById("flightForm");
+const year=$("#year"); 
+if(year)year.textContent=new Date().getFullYear();
 
-    // Check flight form
-    if (!form) {
-        console.error("Flight form not found.");
-        return;
+/* ================= MODAL ================= */
+
+const modal=$("#detailsModal");
+
+const closeModal=()=>{
+    if(modal){
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden","true");
+    }
+};
+
+$$("[data-close-modal]").forEach(e=>e.addEventListener("click",ev=>{
+    ev.preventDefault();
+    closeModal();
+
+    if(e.getAttribute("href")==="#contact"){
+        setTimeout(()=>scrollTo("#contact"),150);
+    }
+}));
+
+document.addEventListener("keydown",e=>{
+    if(e.key==="Escape")closeModal();
+});
+
+
+/* ================= PACKAGE DATA ================= */
+
+const data={
+
+"Goa Beach Escape":{
+    loc:"GOA • INDIA",
+    rating:"4.8",
+    duration:"3 Nights / 4 Days",
+    inc:[
+        "🏨 Hotel stay",
+        "🍳 Breakfast",
+        "🚗 Local transfers",
+        "📸 Sightseeing"
+    ],
+    days:[
+        ["1","Arrival & Beach","Hotel check-in and relaxing evening by the beach."],
+        ["2","North Goa","Explore famous beaches, forts and local attractions."],
+        ["3","South Goa","Discover peaceful beaches and scenic locations."],
+        ["4","Departure","Breakfast and airport transfer."]
+    ]
+},
+
+"Bali Paradise":{
+    loc:"BALI • INDONESIA",
+    rating:"4.9",
+    duration:"5 Nights / 6 Days",
+    inc:[
+        "🏨 Resort stay",
+        "🍳 Breakfast",
+        "🚗 Private transfers",
+        "🌴 Sightseeing"
+    ],
+    days:[
+        ["1","Arrival","Airport pickup and resort check-in."],
+        ["2","Ubud","Temples, rice terraces and beautiful landscapes."],
+        ["3","Kintamani","Volcano views and scenic Bali experiences."],
+        ["4","Beach Day","Relax and enjoy Bali's famous beaches."],
+        ["5","Island Escape","Explore more of Bali and enjoy the evening."],
+        ["6","Departure","Breakfast and airport transfer."]
+    ]
+},
+
+"Dubai Luxury":{
+    loc:"DUBAI • UAE",
+    rating:"4.7",
+    duration:"4 Nights / 5 Days",
+    inc:[
+        "🏨 Luxury hotel",
+        "🍳 Breakfast",
+        "🚐 Transfers",
+        "🏙️ City sightseeing"
+    ],
+    days:[
+        ["1","Arrival","Airport pickup and hotel check-in."],
+        ["2","Dubai City","Burj Khalifa, Dubai Mall and iconic attractions."],
+        ["3","Desert Safari","Desert safari with evening entertainment."],
+        ["4","Modern Dubai","Palm Jumeirah and Dubai Marina."],
+        ["5","Departure","Breakfast and airport transfer."]
+    ]
+},
+
+"Kashmir Heaven":{
+    loc:"KASHMIR • INDIA",
+    rating:"4.9",
+    duration:"5 Nights / 6 Days",
+    inc:[
+        "🏨 Hotel stay",
+        "🍳 Breakfast",
+        "🚗 Transfers",
+        "🏔️ Sightseeing"
+    ],
+    days:[
+        ["1","Arrival","Welcome and hotel check-in."],
+        ["2","Srinagar","Explore Dal Lake and local attractions."],
+        ["3","Gulmarg","Mountain views and scenic experiences."],
+        ["4","Pahalgam","Enjoy valleys, rivers and beautiful landscapes."],
+        ["5","Local Experience","Relax and explore Srinagar."],
+        ["6","Departure","Breakfast and onward transfer."]
+    ]
+},
+
+"Kerala Backwaters":{
+    loc:"KERALA • INDIA",
+    rating:"4.8",
+    duration:"4 Nights / 5 Days",
+    inc:[
+        "🏨 Hotel / resort",
+        "🍳 Breakfast",
+        "🚗 Transfers",
+        "🛶 Backwater experience"
+    ],
+    days:[
+        ["1","Arrival","Welcome and hotel check-in."],
+        ["2","Munnar","Tea gardens and scenic hill views."],
+        ["3","Alleppey","Relax beside the famous backwaters."],
+        ["4","Kochi","Explore heritage areas and local culture."],
+        ["5","Departure","Breakfast and onward transfer."]
+    ]
+},
+
+"Thailand Adventure":{
+    loc:"THAILAND",
+    rating:"4.7",
+    duration:"5 Nights / 6 Days",
+    inc:[
+        "🏨 Hotel stay",
+        "🍳 Breakfast",
+        "🚐 Transfers",
+        "🏝️ Island sightseeing"
+    ],
+    days:[
+        ["1","Arrival","Airport pickup and hotel check-in."],
+        ["2","Bangkok","Explore the city's famous attractions."],
+        ["3","Island Escape","Enjoy Thailand's beautiful beaches."],
+        ["4","Adventure","Water activities and local experiences."],
+        ["5","Leisure","Free day for shopping and relaxation."],
+        ["6","Departure","Breakfast and airport transfer."]
+    ]
+}
+
+};
+
+
+/* ================= OPEN PACKAGE ================= */
+
+function openPackage(title,price,description){
+
+    if(!modal)return;
+
+    const box=$(".modal-box",modal);
+
+    if(!box)return;
+
+    const t=$("#modalTitle");
+    const d=$("#modalDescription");
+    const p=$("#modalPrice");
+
+    if(t)t.textContent=title;
+
+    if(d){
+        d.textContent=
+            description ||
+            "Experience an unforgettable holiday with Holiday Masti.";
     }
 
-
-    // ==========================================
-    // FLIGHT RESULTS CONTAINER
-    // ==========================================
-
-    let results = document.getElementById("flight-results");
-
-    // Create automatically if missing
-    if (!results) {
-
-        results = document.createElement("div");
-
-        results.id = "flight-results";
-
-        results.className = "flight-results";
-
-        form.insertAdjacentElement("afterend", results);
+    if(p){
+        p.textContent=
+            price ||
+            "Price on Request";
     }
 
-
-    // ==========================================
-    // FLIGHT FORM SUBMIT
-    // ==========================================
-
-    form.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-
-        // ------------------------------------------
-        // GET FORM VALUES
-        // ------------------------------------------
-
-        const fromElement =
-            document.getElementById("flightFrom");
-
-        const toElement =
-            document.getElementById("flightTo");
-
-        const departureElement =
-            document.getElementById("flightDeparture");
-
-        const returnElement =
-            document.getElementById("flightReturn");
-
-        const travellerElement =
-            document.querySelector("#flightForm select");
-
-
-        const from = fromElement
-            ? fromElement.value.trim()
-            : "";
-
-        const to = toElement
-            ? toElement.value.trim()
-            : "";
-
-        const departure = departureElement
-            ? departureElement.value
-            : "";
-
-        const returnDate = returnElement
-            ? returnElement.value
-            : "";
-
-        const travellers = travellerElement
-            ? travellerElement.value
-            : "1 Adult";
-
-
-        // ------------------------------------------
-        // VALIDATION
-        // ------------------------------------------
-
-        if (!from) {
-
-            alert("Please enter your departure city.");
-
-            return;
-        }
-
-
-        if (!to) {
-
-            alert("Please enter your destination.");
-
-            return;
-        }
-
-
-        if (!departure) {
-
-            alert("Please select your departure date.");
-
-            return;
-        }
-
-
-        // ------------------------------------------
-        // SHOW LOADING
-        // ------------------------------------------
-
-        results.innerHTML = `
-
-            <div class="flight-loading">
-
-                <div class="loader"></div>
-
-                <h3>
-                    Finding the best flights...
-                </h3>
-
-                <p>
-                    Searching
-                    <strong>${escapeHTML(from)}</strong>
-                    →
-                    <strong>${escapeHTML(to)}</strong>
-                </p>
-
-            </div>
-
-        `;
-
-
-        // Scroll to results
-        results.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-
-        // ------------------------------------------
-        // DEMO FLIGHT RESULTS
-        // ------------------------------------------
-
-        setTimeout(function () {
-
-            results.innerHTML = `
-
-                <div class="flight-results-heading">
-
-                    <div>
-
-                        <span class="results-label">
-                            FLIGHT SEARCH
-                        </span>
-
-                        <h2>
-                            ${escapeHTML(from)}
-                            →
-                            ${escapeHTML(to)}
-                        </h2>
-
-                        <p>
-                            Departure:
-                            ${escapeHTML(departure)}
-
-                            ${
-                                returnDate
-                                ? " • Return: " + escapeHTML(returnDate)
-                                : " • One Way"
-                            }
-
-                            • ${escapeHTML(travellers)}
-                        </p>
-
-                    </div>
-
-                    <span class="result-count">
-                        Demo Results
-                    </span>
-
-                </div>
-
-
-                <!-- ==================================
-                     FLIGHT 1
-                =================================== -->
-
-                <div class="flight-card">
-
-                    <div class="flight-airline">
-
-                        <div class="airline-icon">
-                            ✈️
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                IndiGo
-                            </strong>
-
-                            <span>
-                                Economy
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="flight-time">
-
-                        <strong>
-                            09:15
-                        </strong>
-
-                        <span>
-                            ${escapeHTML(from)}
-                        </span>
-
-                    </div>
-
-
-                    <div class="flight-duration">
-
-                        <span>
-                            6h 20m
-                        </span>
-
-                        <div class="flight-line">
-
-                            <span>
-                                ✈
-                            </span>
-
-                        </div>
-
-                        <small>
-                            1 Stop
-                        </small>
-
-                    </div>
-
-
-                    <div class="flight-time">
-
-                        <strong>
-                            14:25
-                        </strong>
-
-                        <span>
-                            ${escapeHTML(to)}
-                        </span>
-
-                    </div>
-
-
-                    <div class="flight-price">
-
-                        <span>
-                            Starting from
-                        </span>
-
-                        <strong>
-                            ₹18,450
-                        </strong>
-
-                        <button
-                            type="button"
-                            class="view-flight-btn"
-                            onclick="checkCurrentFare()">
-
-                            Check Current Fare ✈️
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ==================================
-                     FLIGHT 2
-                =================================== -->
-
-                <div class="flight-card">
-
-                    <div class="flight-airline">
-
-                        <div class="airline-icon">
-                            ✈️
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Air India
-                            </strong>
-
-                            <span>
-                                Economy
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="flight-time">
-
-                        <strong>
-                            06:40
-                        </strong>
-
-                        <span>
-                            ${escapeHTML(from)}
-                        </span>
-
-                    </div>
-
-
-                    <div class="flight-duration">
-
-                        <span>
-                            4h 55m
-                        </span>
-
-                        <div class="flight-line">
-
-                            <span>
-                                ✈
-                            </span>
-
-                        </div>
-
-                        <small>
-                            Non-stop
-                        </small>
-
-                    </div>
-
-
-                    <div class="flight-time">
-
-                        <strong>
-                            11:35
-                        </strong>
-
-                        <span>
-                            ${escapeHTML(to)}
-                        </span>
-
-                    </div>
-
-
-                    <div class="flight-price">
-
-                        <span>
-                            Starting from
-                        </span>
-
-                        <strong>
-                            ₹21,990
-                        </strong>
-
-                        <button
-                            type="button"
-                            class="view-flight-btn"
-                            onclick="checkCurrentFare()">
-
-                            Check Current Fare ✈️
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ==================================
-                     DEMO NOTICE
-                =================================== -->
-
-                <div class="demo-note">
-
-                    <strong>
-                        Demo flight results
-                    </strong>
-
-                    <p>
-                        Prices shown are indicative.
-                        Check the current fare with our booking
-                        partner before booking.
-                    </p>
-
-                </div>
-
-            `;
-
-
-            // Scroll to results
-            results.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-
-        }, 700);
-
-    });
-
-
-    // ==========================================
-    // CHECK CURRENT FARE
-    // ==========================================
-
-    window.checkCurrentFare = function () {
-
-        const searchUrl =
-            "https://www.google.com/travel/flights";
-
-        window.open(
-            searchUrl,
-            "_blank",
-            "noopener,noreferrer"
-        );
-
+    const old=$(".premium-package-details",box);
+
+    if(old){
+        old.remove();
+    }
+
+    const x=data[title]||{
+        loc:"HOLIDAY MASTI",
+        rating:"4.8",
+        duration:"Custom Package",
+
+        inc:[
+            "🏨 Hotel stay",
+            "🍳 Breakfast",
+            "🚗 Transfers",
+            "📸 Sightseeing"
+        ],
+
+        days:[
+            ["1","Arrival","Welcome and hotel check-in."],
+            ["2","Explore","Enjoy sightseeing and local experiences."],
+            ["3","Relax","Free time to explore at your own pace."],
+            ["4","Departure","Breakfast and onward transfer."]
+        ]
     };
 
+    const wrap=document.createElement("div");
 
-    // ==========================================
-    // HTML SAFETY
-    // ==========================================
+    wrap.className=
+        "premium-package-details";
 
-    function escapeHTML(value) {
-
-        return String(value)
-
-            .replace(/&/g, "&amp;")
-
-            .replace(/</g, "&lt;")
-
-            .replace(/>/g, "&gt;")
-
-            .replace(/"/g, "&quot;")
-
-            .replace(/'/g, "&#039;");
-    }
-
-});
-
-/* =====================================================
-   HOLIDAY MASTI - PACKAGE / DESTINATION INTERACTIONS
-   ===================================================== */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    /* ---------- EXPLORE PACKAGES ---------- */
-
-    const exploreButton = document.querySelector(".hero-button");
-
-    if (exploreButton) {
-        exploreButton.addEventListener("click", function (e) {
-
-            e.preventDefault();
-
-            const enquiryForm =
-                document.getElementById("contactForm") ||
-                document.getElementById("contact");
-
-            if (enquiryForm) {
-                enquiryForm.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-                setTimeout(function () {
-                    const firstInput =
-                        enquiryForm.querySelector("input, textarea, select");
-
-                    if (firstInput) {
-                        firstInput.focus();
-                    }
-                }, 700);
-
-            } else {
-
-                const packages =
-                    document.getElementById("packages") ||
-                    document.querySelector(".packages");
-
-                if (packages) {
-                    packages.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-                }
-            }
-        });
-    }
-
-
-   /* ---------- FEATURED PACKAGE DETAILS ---------- */
-
-document.querySelectorAll(".package-card").forEach(function (card) {
-
-    const button = card.querySelector("button");
-
-    if (!button) return;
-
-    button.addEventListener("click", function () {
-
-        const titleElement = card.querySelector("h3");
-        const priceElement = card.querySelector(".price-tag");
-        const infoElement = card.querySelector("p");
-
-        const title = titleElement
-            ? titleElement.textContent.trim()
-            : "Holiday Package";
-
-        const price = priceElement
-            ? priceElement.textContent.trim()
-            : "";
-
-        const info = infoElement
-            ? infoElement.textContent.trim()
-            : "";
-
-        openHolidayEnquiry(title, price, info);
-    });
-});
-
-
-/* ---------- POPULAR DESTINATIONS ---------- */
-
-document.querySelectorAll(".destination-card").forEach(function (card) {
-
-    card.style.cursor = "pointer";
-
-    card.addEventListener("click", function () {
-
-        const titleElement = card.querySelector("h3");
-        const priceElement = card.querySelector("p");
-
-        const destination = titleElement
-            ? titleElement.textContent.trim()
-            : "Holiday Destination";
-
-        const price = priceElement
-            ? priceElement.textContent.trim()
-            : "";
-
-        openHolidayEnquiry(
-            destination,
-            price,
-            "Popular destination"
-        );
-    });
-});
-
-
-/* ---------- PREMIUM PACKAGE MODAL ---------- */
-
-function openHolidayEnquiry(title, price, info) {
-
-    const modal = document.getElementById("modal");
-
-    if (!modal) {
-
-        const contact =
-            document.getElementById("contact") ||
-            document.querySelector(".contact");
-
-        if (contact) {
-
-            contact.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-            const messageBox =
-                contact.querySelector("textarea");
-
-            if (messageBox) {
-
-                messageBox.value =
-                    "I am interested in " +
-                    title +
-                    (price ? " (" + price + ")" : "") +
-                    ". Please share more details.";
-            }
-
-            return;
-        }
-
-        alert(
-            title +
-            (price ? "\n" + price : "") +
-            "\n\nPlease contact Holiday Masti for more details."
-        );
-
-        return;
-    }
-
-
-    /* -----------------------------------------
-       Existing modal title
-       ----------------------------------------- */
-
-    const modalTitle =
-        document.getElementById("mTitle");
-
-    if (modalTitle) {
-        modalTitle.textContent = title;
-    }
-
-
-    /* -----------------------------------------
-       Package enquiry field
-       ----------------------------------------- */
-
-    const packageField =
-        document.querySelector(
-            "#contactForm input[name='package'], #contactForm #package"
-        );
-
-    if (packageField) {
-
-        packageField.value =
-            title + (price ? " - " + price : "");
-    }
-
-
-    /* -----------------------------------------
-       Create premium details section
-       ----------------------------------------- */
-
-    let details =
-        modal.querySelector(".premium-package-details");
-
-    if (!details) {
-
-        details =
-            document.createElement("div");
-
-        details.className =
-            "premium-package-details";
-
-        modal.appendChild(details);
-    }
-
-
-    /* -----------------------------------------
-       Destination data
-       ----------------------------------------- */
-
-    const packageData = {
-
-        "Goa Beach Escape": {
-            location: "GOA • INDIA",
-            rating: "4.8",
-            duration: "3 Nights / 4 Days",
-            includes: [
-                "🏨 Hotel stay",
-                "🍳 Breakfast",
-                "🚗 Local transfers",
-                "📸 Sightseeing"
-            ],
-            itinerary: [
-                ["DAY 1", "Arrival & Beach", "Hotel check-in and relaxing evening by the beach."],
-                ["DAY 2", "North Goa", "Explore famous beaches, forts and local attractions."],
-                ["DAY 3", "South Goa", "Discover peaceful beaches and scenic locations."],
-                ["DAY 4", "Departure", "Breakfast and transfer for your onward journey."]
-            ]
-        },
-
-        "Dubai Luxury": {
-            location: "DUBAI • UAE",
-            rating: "4.7",
-            duration: "4 Nights / 5 Days",
-            includes: [
-                "🏨 Luxury hotel",
-                "🍳 Breakfast",
-                "🚐 Transfers",
-                "🏙️ City sightseeing"
-            ],
-            itinerary: [
-                ["DAY 1", "Arrival", "Airport pickup and hotel check-in."],
-                ["DAY 2", "Dubai City", "Burj Khalifa, Dubai Mall and iconic attractions."],
-                ["DAY 3", "Desert Safari", "Desert safari with evening entertainment."],
-                ["DAY 4", "Modern Dubai", "Palm Jumeirah and Dubai Marina."],
-                ["DAY 5", "Departure", "Breakfast and airport transfer."]
-            ]
-        },
-
-        "Bali Paradise": {
-            location: "BALI • INDONESIA",
-            rating: "4.9",
-            duration: "5 Nights / 6 Days",
-            includes: [
-                "🏨 Resort stay",
-                "🍳 Breakfast",
-                "🚗 Private transfers",
-                "🌴 Sightseeing"
-            ],
-            itinerary: [
-                ["DAY 1", "Arrival", "Airport pickup and resort check-in."],
-                ["DAY 2", "Ubud", "Temples, rice terraces and beautiful landscapes."],
-                ["DAY 3", "Kintamani", "Volcano views and scenic Bali experiences."],
-                ["DAY 4", "Beach Day", "Relax and enjoy Bali's famous beaches."],
-                ["DAY 5", "Island Escape", "Explore more of Bali and enjoy the evening."],
-                ["DAY 6", "Departure", "Breakfast and airport transfer."]
-            ]
-        }
-
-    };
-
-
-    const data =
-        packageData[title] || {
-
-            location: "HOLIDAY MASTI",
-            rating: "4.8",
-            duration: "Custom Package",
-            includes: [
-                "🏨 Hotel stay",
-                "🍳 Breakfast",
-                "🚗 Transfers",
-                "📸 Sightseeing"
-            ],
-            itinerary: [
-                ["DAY 1", "Arrival", "Welcome and hotel check-in."],
-                ["DAY 2", "Explore", "Enjoy sightseeing and local experiences."],
-                ["DAY 3", "Relax", "Free time to explore at your own pace."],
-                ["DAY 4", "Departure", "Breakfast and onward transfer."]
-            ]
-        };
-
-
-    /* -----------------------------------------
-       Premium modal content
-       ----------------------------------------- */
-
-    details.innerHTML = `
+    wrap.innerHTML=`
 
         <div class="modal-content-premium">
 
             <div class="modal-top-line">
 
                 <span class="modal-location">
-                    ${data.location}
+                    ${esc(x.loc)}
                 </span>
 
                 <span class="modal-rating">
-                    ⭐ ${data.rating}
+                    ⭐ ${esc(x.rating)}
                 </span>
 
             </div>
-
-
-            <h2>
-                ${title}
-            </h2>
-
-
-            <p class="modal-description">
-                ${info || "Experience an unforgettable holiday with Holiday Masti."}
-            </p>
 
 
             <div class="modal-price-row">
@@ -783,14 +241,13 @@ function openHolidayEnquiry(title, price, info) {
                     </span>
 
                     <div class="modal-price-value">
-                        ${price || "On Request"}
+                        ${esc(price||"On Request")}
                     </div>
 
                 </div>
 
-
                 <div class="modal-duration">
-                    🌙 ${data.duration}
+                    🌙 ${esc(x.duration)}
                 </div>
 
             </div>
@@ -803,15 +260,13 @@ function openHolidayEnquiry(title, price, info) {
 
             <div class="modal-includes">
 
-                ${data.includes.map(function (item) {
+                ${x.inc.map(i=>`
 
-                    return `
-                        <div class="modal-include-item">
-                            ${item}
-                        </div>
-                    `;
+                    <div class="modal-include-item">
+                        ${esc(i)}
+                    </div>
 
-                }).join("")}
+                `).join("")}
 
             </div>
 
@@ -823,31 +278,29 @@ function openHolidayEnquiry(title, price, info) {
 
             <div class="modal-itinerary">
 
-                ${data.itinerary.map(function (day) {
+                ${x.days.map(a=>`
 
-                    return `
-                        <div class="modal-day">
+                    <div class="modal-day">
 
-                            <div class="modal-day-number">
-                                ${day[0].replace("DAY ", "")}
-                            </div>
+                        <div class="modal-day-number">
+                            ${esc(a[0])}
+                        </div>
 
-                            <div>
+                        <div>
 
-                                <strong>
-                                    ${day[1]}
-                                </strong>
+                            <strong>
+                                ${esc(a[1])}
+                            </strong>
 
-                                <span>
-                                    ${day[2]}
-                                </span>
-
-                            </div>
+                            <span>
+                                ${esc(a[2])}
+                            </span>
 
                         </div>
-                    `;
 
-                }).join("")}
+                    </div>
+
+                `).join("")}
 
             </div>
 
@@ -856,8 +309,7 @@ function openHolidayEnquiry(title, price, info) {
 
                 <button
                     type="button"
-                    class="btn btn-dark"
-                    onclick="scrollToContactFromPackage()">
+                    class="btn btn-primary package-enquire">
 
                     Enquire Now
 
@@ -866,14 +318,14 @@ function openHolidayEnquiry(title, price, info) {
 
                 <a
                     class="modal-whatsapp"
-                    href="https://wa.me/?text=${encodeURIComponent(
-                        "Hi Holiday Masti, I am interested in the " +
-                        title +
-                        (price ? " package " + price : "") +
-                        ". Please share more details."
-                    )}"
                     target="_blank"
-                    rel="noopener noreferrer">
+                    rel="noopener noreferrer"
+                    href="https://wa.me/917851007007?text=${encodeURIComponent(
+                        "Hi Holiday Masti, I am interested in "+
+                        title+
+                        (price?" - "+price:"")+
+                        ". Please share more details."
+                    )}">
 
                     WhatsApp
 
@@ -886,192 +338,788 @@ function openHolidayEnquiry(title, price, info) {
     `;
 
 
-    /* -----------------------------------------
-       Open modal
-       ----------------------------------------- */
+    const oldBtn=
+        $(".modal-enquire",box);
+
+
+    if(oldBtn){
+
+        oldBtn.style.display=
+            "none";
+
+        box.insertBefore(
+            wrap,
+            oldBtn
+        );
+
+    }else{
+
+        box.appendChild(
+            wrap
+        );
+    }
+
+
+    const enquire=
+        $(".package-enquire",wrap);
+
+
+    if(enquire){
+
+        enquire.addEventListener(
+            "click",
+            ()=>{
+
+                closeModal();
+
+                const m=
+                    $("#contactMessage");
+
+                if(m){
+
+                    m.value=
+                        "I am interested in "+
+                        title+
+                        (price
+                            ? " ("+price+")"
+                            : "")+
+                        ". Please share more details.";
+
+                }
+
+                setTimeout(
+                    ()=>scrollTo("#contact"),
+                    150
+                );
+
+            }
+        );
+    }
+
 
     modal.classList.add("open");
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+}
+
+
+/* ================= PACKAGE BUTTONS ================= */
+
+$$(".details-button").forEach(
+    b=>b.addEventListener(
+        "click",
+        ()=>openPackage(
+            b.dataset.title ||
+                "Holiday Package",
+
+            b.dataset.price ||
+                "",
+
+            b.dataset.description ||
+                ""
+        )
+    )
+);
+
+
+/* ================= DESTINATIONS ================= */
+
+$$(".destination-card").forEach(
+    c=>c.addEventListener(
+        "click",
+        ()=>{
+
+            const h=
+                $("h3",c);
+
+            const p=
+                $("p",c);
+
+            openPackage(
+
+                h
+                    ? h.textContent.trim()
+                    : "Holiday Destination",
+
+                p
+                    ? p.textContent.trim()
+                    : "",
+
+                "Explore this popular destination with Holiday Masti."
+            );
+
+        }
+    )
+);
+
+
+/* ================= HERO BUTTON ================= */
+
+const heroBtn=
+    $(".hero-button") ||
+    $(".hero-actions .btn-primary");
+
+if(heroBtn){
+
+    heroBtn.addEventListener(
+        "click",
+        e=>{
+
+            e.preventDefault();
+
+            scrollTo("#search");
+
+        }
+    );
 
 }
 
 
-/* -----------------------------------------
-   Enquire Now from package modal
-   ----------------------------------------- */
+/* ================= HOLIDAY SEARCH ================= */
 
-window.scrollToContactFromPackage = function () {
+const sf=
+    $("#searchForm");
 
-    const modal =
-        document.getElementById("modal");
+if(sf){
 
-    if (modal) {
-        modal.classList.remove("open");
-    }
+    sf.addEventListener(
+        "submit",
+        e=>{
+
+            e.preventDefault();
+
+            const dest=
+                $("#destinationInput")
+                    ?.value.trim() ||
+                "";
+
+            const start=
+                $("#startDate")
+                    ?.value ||
+                "";
+
+            const end=
+                $("#endDate")
+                    ?.value ||
+                "";
+
+            const trav=
+                $("#travellers")
+                    ?.value ||
+                "1";
+
+            const msg=
+                $("#searchMessage");
 
 
-    const contact =
-        document.getElementById("contact") ||
-        document.querySelector(".contact");
+            if(!dest){
 
-    if (contact) {
+                if(msg){
 
-        contact.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+                    msg.textContent=
+                        "Please enter your destination.";
 
-        setTimeout(function () {
+                    msg.style.color=
+                        "#d9534f";
 
-            const firstInput =
-                contact.querySelector(
-                    "input, textarea, select"
-                );
+                }
 
-            if (firstInput) {
-                firstInput.focus();
+                $("#destinationInput")
+                    ?.focus();
+
+                return;
             }
 
-        }, 700);
+
+            if(
+                start &&
+                end &&
+                end<start
+            ){
+
+                if(msg){
+
+                    msg.textContent=
+                        "Return date cannot be before departure date.";
+
+                    msg.style.color=
+                        "#d9534f";
+
+                }
+
+                return;
+            }
+
+
+            sessionStorage.setItem(
+                "holidayDestination",
+                dest
+            );
+
+            sessionStorage.setItem(
+                "holidayStartDate",
+                start
+            );
+
+            sessionStorage.setItem(
+                "holidayEndDate",
+                end
+            );
+
+            sessionStorage.setItem(
+                "holidayTravellers",
+                trav
+            );
+
+
+            if(msg){
+
+                msg.textContent=
+                    "Great! We found your holiday request. Taking you to enquiry...";
+
+                msg.style.color=
+                    "#0b7a53";
+
+            }
+
+
+            setTimeout(
+                ()=>{
+
+                    scrollTo(
+                        "#contact"
+                    );
+
+
+                    const m=
+                        $("#contactMessage");
+
+
+                    if(m){
+
+                        m.value=
+`Holiday enquiry
+Destination: ${dest}
+From: ${start||"Not specified"}
+To: ${end||"Not specified"}
+Travellers: ${trav}`;
+
+                    }
+
+                },
+                500
+            );
+
+        }
+    );
+
+}
+
+
+/* ================= CONTACT FORM ================= */
+
+const cf=
+    $("#contactForm");
+
+if(cf){
+
+    cf.addEventListener(
+        "submit",
+        e=>{
+
+            e.preventDefault();
+
+            const s=
+                $("#contactSuccess");
+
+            if(s){
+
+                s.textContent=
+                    "Thanks! Your enquiry has been received. We'll get back to you shortly.";
+
+                s.style.color=
+                    "#0b7a53";
+
+            }
+
+            cf.reset();
+
+        }
+    );
+
+}
+
+
+/* ================= FLIGHTS ================= */
+
+const ff=
+    $("#flightForm");
+
+if(ff){
+
+    let r=
+        $("#flight-results");
+
+
+    if(!r){
+
+        r=
+            document.createElement(
+                "div"
+            );
+
+        r.id=
+            "flight-results";
+
+        r.className=
+            "flight-results";
+
+
+        ff.insertAdjacentElement(
+            "afterend",
+            r
+        );
+
     }
-    
-});
-/* =====================================================
-   HOLIDAY SEARCH
-   ===================================================== */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const searchForm = document.getElementById("searchForm");
-
-    if (!searchForm) return;
-
-    searchForm.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        const destination =
-            document.getElementById("destinationInput").value.trim();
-
-        const startDate =
-            document.getElementById("startDate").value;
-
-        const endDate =
-            document.getElementById("endDate").value;
-
-        const travellers =
-            document.getElementById("travellers").value;
-
-        const message =
-            document.getElementById("searchMessage");
 
 
-        /* Destination required */
-
-        if (!destination) {
-
-            message.textContent =
-                "Please enter your destination.";
-
-            message.style.color = "#d9534f";
-
-            document.getElementById("destinationInput").focus();
-
-            return;
-        }
+    const swap=
+        $("#swapFlight");
 
 
-        /* Date validation */
+    if(swap){
 
-        if (startDate && endDate && endDate < startDate) {
+        swap.addEventListener(
+            "click",
+            ()=>{
 
-            message.textContent =
-                "Return date cannot be before departure date.";
+                const a=
+                    $("#flightFrom");
 
-            message.style.color = "#d9534f";
-
-            return;
-        }
-
-
-        /* Success message */
-
-        message.textContent =
-            "Great! We found your holiday request. Taking you to enquiry...";
-
-        message.style.color = "#0b7a53";
+                const b=
+                    $("#flightTo");
 
 
-        /*
-         * Save search details so enquiry form can use them
-         */
+                if(a&&b){
 
-        sessionStorage.setItem(
-            "holidayDestination",
-            destination
-        );
+                    const v=
+                        a.value;
 
-        sessionStorage.setItem(
-            "holidayStartDate",
-            startDate
-        );
+                    a.value=
+                        b.value;
 
-        sessionStorage.setItem(
-            "holidayEndDate",
-            endDate
-        );
+                    b.value=
+                        v;
 
-        sessionStorage.setItem(
-            "holidayTravellers",
-            travellers
-        );
-
-
-        /*
-         * Go to enquiry/contact section
-         */
-
-        setTimeout(function () {
-
-            const contactSection =
-                document.getElementById("contact");
-
-            if (contactSection) {
-
-                contactSection.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            } else {
-
-                const contactLink =
-                    document.querySelector('a[href="#contact"]');
-
-                if (contactLink) {
-                    contactLink.click();
                 }
 
             }
+        );
 
-        }, 500);
+    }
 
-    });
 
-});
-/* =====================================================
-   HOLIDAY MASTI - FREE CHATBOT
-   ===================================================== */
+    ff.addEventListener(
+        "submit",
+        e=>{
 
-document.addEventListener("DOMContentLoaded", function () {
+            e.preventDefault();
 
-    const chatbotHTML = `
-        <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open Holiday Masti Assistant">
+
+            const from=
+                $("#flightFrom")
+                    ?.value.trim() ||
+                "";
+
+            const to=
+                $("#flightTo")
+                    ?.value.trim() ||
+                "";
+
+            const dep=
+                $("#flightDeparture")
+                    ?.value ||
+                "";
+
+            const ret=
+                $("#flightReturn")
+                    ?.value ||
+                "";
+
+            const ts=
+                $("#flightTravellers");
+
+
+            const trav=
+                ts
+                    ? ts.options[
+                        ts.selectedIndex
+                    ].text
+                    : "1 Adult";
+
+
+            if(!from){
+
+                alert(
+                    "Please enter your departure city."
+                );
+
+                return;
+            }
+
+
+            if(!to){
+
+                alert(
+                    "Please enter your destination."
+                );
+
+                return;
+            }
+
+
+            if(!dep){
+
+                alert(
+                    "Please select your departure date."
+                );
+
+                return;
+            }
+
+
+            if(
+                ret &&
+                ret<dep
+            ){
+
+                alert(
+                    "Return date cannot be before departure date."
+                );
+
+                return;
+            }
+
+
+            r.innerHTML=`
+
+                <div class="flight-loading">
+
+                    <div class="loader"></div>
+
+                    <h3>
+                        Finding the best flights...
+                    </h3>
+
+                    <p>
+                        Searching
+                        <strong>
+                            ${esc(from)}
+                        </strong>
+                        →
+                        <strong>
+                            ${esc(to)}
+                        </strong>
+                    </p>
+
+                </div>
+
+            `;
+
+
+            r.scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+
+            setTimeout(
+                ()=>{
+
+                    r.innerHTML=`
+
+                        <div class="flight-results-heading">
+
+                            <div>
+
+                                <span class="results-label">
+                                    FLIGHT SEARCH
+                                </span>
+
+                                <h2>
+                                    ${esc(from)}
+                                    →
+                                    ${esc(to)}
+                                </h2>
+
+                                <p>
+                                    Departure:
+                                    ${esc(dep)}
+
+                                    ${
+                                        ret
+                                            ? " • Return: "+
+                                              esc(ret)
+                                            : " • One Way"
+                                    }
+
+                                    •
+                                    ${esc(trav)}
+
+                                </p>
+
+                            </div>
+
+                            <span class="result-count">
+                                Demo Results
+                            </span>
+
+                        </div>
+
+
+                        <div class="flight-card">
+
+                            <div class="flight-airline">
+
+                                <div class="airline-icon">
+                                    ✈️
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        IndiGo
+                                    </strong>
+
+                                    <span>
+                                        Economy
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="flight-time">
+
+                                <strong>
+                                    09:15
+                                </strong>
+
+                                <span>
+                                    ${esc(from)}
+                                </span>
+
+                            </div>
+
+
+                            <div class="flight-duration">
+
+                                <span>
+                                    6h 20m
+                                </span>
+
+                                <div class="flight-line">
+                                    <span>✈</span>
+                                </div>
+
+                                <small>
+                                    1 Stop
+                                </small>
+
+                            </div>
+
+
+                            <div class="flight-time">
+
+                                <strong>
+                                    14:25
+                                </strong>
+
+                                <span>
+                                    ${esc(to)}
+                                </span>
+
+                            </div>
+
+
+                            <div class="flight-price">
+
+                                <span>
+                                    Starting from
+                                </span>
+
+                                <strong>
+                                    ₹18,450
+                                </strong>
+
+                                <button
+                                    type="button"
+                                    class="view-flight-btn"
+                                    onclick="checkCurrentFare()">
+
+                                    Check Current Fare ✈️
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="flight-card">
+
+                            <div class="flight-airline">
+
+                                <div class="airline-icon">
+                                    ✈️
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Air India
+                                    </strong>
+
+                                    <span>
+                                        Economy
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="flight-time">
+
+                                <strong>
+                                    06:40
+                                </strong>
+
+                                <span>
+                                    ${esc(from)}
+                                </span>
+
+                            </div>
+
+
+                            <div class="flight-duration">
+
+                                <span>
+                                    4h 55m
+                                </span>
+
+                                <div class="flight-line">
+                                    <span>✈</span>
+                                </div>
+
+                                <small>
+                                    Non-stop
+                                </small>
+
+                            </div>
+
+
+                            <div class="flight-time">
+
+                                <strong>
+                                    11:35
+                                </strong>
+
+                                <span>
+                                    ${esc(to)}
+                                </span>
+
+                            </div>
+
+
+                            <div class="flight-price">
+
+                                <span>
+                                    Starting from
+                                </span>
+
+                                <strong>
+                                    ₹21,990
+                                </strong>
+
+                                <button
+                                    type="button"
+                                    class="view-flight-btn"
+                                    onclick="checkCurrentFare()">
+
+                                    Check Current Fare ✈️
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="demo-note">
+
+                            <strong>
+                                Demo flight results
+                            </strong>
+
+                            <p>
+                                Prices shown are indicative.
+                                Check the current fare with our booking
+                                partner before booking.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                },
+                700
+            );
+
+        }
+    );
+
+}
+
+
+window.checkCurrentFare=
+    ()=>window.open(
+        "https://www.google.com/travel/flights",
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+
+/* ================= CHATBOT ================= */
+
+if(!$("#chatbotToggle")){
+
+    document.body.insertAdjacentHTML(
+        "beforeend",
+
+        `
+
+        <button
+            class="chatbot-toggle"
+            id="chatbotToggle"
+            aria-label="Open Holiday Masti Assistant">
+
             🤖
+
         </button>
 
-        <div class="chatbot-box" id="chatbotBox">
+
+        <div
+            class="chatbot-box"
+            id="chatbotBox">
+
 
             <div class="chatbot-header">
+
 
                 <div class="chatbot-header-left">
 
@@ -1079,48 +1127,93 @@ document.addEventListener("DOMContentLoaded", function () {
                         🤖
                     </div>
 
+
                     <div>
-                        <h3>Holiday Masti</h3>
-                        <p>Travel Assistant • Online</p>
+
+                        <h3>
+                            Holiday Masti
+                        </h3>
+
+                        <p>
+                            Travel Assistant • Online
+                        </p>
+
                     </div>
 
                 </div>
 
-                <button class="chatbot-close" id="chatbotClose">
+
+                <button
+                    class="chatbot-close"
+                    id="chatbotClose">
+
                     ×
+
                 </button>
 
+
             </div>
 
-            <div class="chatbot-messages" id="chatbotMessages">
+
+            <div
+                class="chatbot-messages"
+                id="chatbotMessages">
+
 
                 <div class="chat-message bot">
+
                     👋 Hi! I'm the Holiday Masti Assistant.
+
                     <br><br>
+
                     Where would you like to travel?
-                    
+
+
                     <div class="chat-options">
 
-                        <button class="chat-option" data-question="Goa">
+
+                        <button
+                            class="chat-option"
+                            data-question="Goa">
+
                             🏖️ Goa
+
                         </button>
 
-                        <button class="chat-option" data-question="Dubai">
+
+                        <button
+                            class="chat-option"
+                            data-question="Dubai">
+
                             🌆 Dubai
+
                         </button>
 
-                        <button class="chat-option" data-question="Bali">
+
+                        <button
+                            class="chat-option"
+                            data-question="Bali">
+
                             🌴 Bali
+
                         </button>
 
-                        <button class="chat-option" data-question="Flights">
+
+                        <button
+                            class="chat-option"
+                            data-question="Flights">
+
                             ✈️ Flights
+
                         </button>
+
 
                     </div>
+
                 </div>
 
             </div>
+
 
             <div class="chatbot-input-area">
 
@@ -1128,508 +1221,778 @@ document.addEventListener("DOMContentLoaded", function () {
                     id="chatbotInput"
                     class="chatbot-input"
                     type="text"
-                    placeholder="Ask me anything..."
-                >
+                    placeholder="Ask me anything...">
+
 
                 <button
                     id="chatbotSend"
                     class="chatbot-send"
                     aria-label="Send message">
+
                     ➤
+
                 </button>
 
             </div>
 
         </div>
-    `;
 
-    document.body.insertAdjacentHTML("beforeend", chatbotHTML);
+        `
+    );
 
-
-    const toggle = document.getElementById("chatbotToggle");
-    const box = document.getElementById("chatbotBox");
-    const close = document.getElementById("chatbotClose");
-    const input = document.getElementById("chatbotInput");
-    const send = document.getElementById("chatbotSend");
-    const messages = document.getElementById("chatbotMessages");
+}
 
 
-    /* Open chatbot */
+const toggle=
+    $("#chatbotToggle");
 
-    toggle.addEventListener("click", function () {
-        box.classList.toggle("active");
+const box=
+    $("#chatbotBox");
 
-        if (box.classList.contains("active")) {
-            input.focus();
+const close=
+    $("#chatbotClose");
+
+const ci=
+    $("#chatbotInput");
+
+const send=
+    $("#chatbotSend");
+
+const msgs=
+    $("#chatbotMessages");
+
+
+if(
+    toggle &&
+    box &&
+    close &&
+    ci &&
+    send &&
+    msgs
+){
+
+    toggle.addEventListener(
+        "click",
+        ()=>{
+
+            box.classList.toggle(
+                "active"
+            );
+
+            if(
+                box.classList.contains(
+                    "active"
+                )
+            ){
+
+                ci.focus();
+
+            }
+
         }
-    });
+    );
 
 
-    /* Close chatbot */
-
-    close.addEventListener("click", function () {
-        box.classList.remove("active");
-    });
-
-
-    /* Add message */
-
-    function addMessage(text, type) {
-
-        const message = document.createElement("div");
-
-        message.className = "chat-message " + type;
-
-        message.innerHTML = text;
-
-        messages.appendChild(message);
-
-        messages.scrollTop = messages.scrollHeight;
-    }
+    close.addEventListener(
+        "click",
+        ()=>box.classList.remove(
+            "active"
+        )
+    );
 
 
-    /* Bot response */
+    const add=
+        (text,type)=>{
 
-    function botReply(question) {
+            const m=
+                document.createElement(
+                    "div"
+                );
 
-        const q = question.toLowerCase();
+            m.className=
+                "chat-message "+
+                type;
 
-        let reply = "";
+            m.innerHTML=
+                text;
 
-        if (
-            q.includes("goa")
-        ) {
+            msgs.appendChild(
+                m
+            );
 
-            reply = `
-                🏖️ <strong>Goa Beach Escape</strong><br><br>
-                ⭐ 4.8 rating<br>
-                🌙 3 Nights / 4 Days<br>
-                💰 Starting from <strong>₹18,999</strong>
-                <br><br>
-                Goa is perfect for beaches, nightlife and a relaxing holiday.
-                <br><br>
-                <button class="chat-option" onclick="scrollToPackages()">
-                    View Package
-                </button>
-            `;
+            msgs.scrollTop=
+                msgs.scrollHeight;
 
-        } else if (
-            q.includes("dubai")
-        ) {
+        };
 
-            reply = `
-                🌆 <strong>Dubai Luxury</strong><br><br>
-                ⭐ 4.7 rating<br>
-                🌙 4 Nights / 5 Days<br>
-                💰 Starting from <strong>₹39,999</strong>
-                <br><br>
-                Dubai is perfect for luxury, shopping, desert adventures and sightseeing.
-                <br><br>
-                <button class="chat-option" onclick="scrollToPackages()">
-                    View Package
-                </button>
-            `;
 
-        } else if (
-            q.includes("bali")
-        ) {
+    const reply=
+        q=>{
 
-            reply = `
-                🌴 <strong>Bali Paradise</strong><br><br>
-                ⭐ 4.9 rating<br>
-                🌙 5 Nights / 6 Days<br>
-                💰 Starting from <strong>₹42,999</strong>
-                <br><br>
-                Bali is great for beaches, nature, resorts and romantic getaways.
-                <br><br>
-                <button class="chat-option" onclick="scrollToPackages()">
-                    View Package
-                </button>
-            `;
+            q=
+                q.toLowerCase();
 
-        } else if (
-            q.includes("flight") ||
-            q.includes("fly") ||
-            q.includes("airline")
-        ) {
+            let x;
 
-            reply = `
-                ✈️ You can use our <strong>Flight Search</strong>
-                to search your route.
-                <br><br>
-                We currently show indicative/demo results.
-                <br><br>
-                <button class="chat-option" onclick="scrollToFlights()">
-                    Search Flights
-                </button>
-            `;
 
-        } else if (
-            q.includes("price") ||
-            q.includes("cost") ||
-            q.includes("budget")
-        ) {
+            if(q.includes("goa")){
 
-            reply = `
-                💰 Our holiday packages start from around
-                <strong>₹18,999</strong>.
-                <br><br>
-                Tell me a destination like <strong>Goa</strong>,
-                <strong>Bali</strong> or <strong>Dubai</strong>
-                and I'll show you the package.
-            `;
+                x=`
 
-        } else if (
-            q.includes("contact") ||
-            q.includes("enquiry") ||
-            q.includes("book")
-        ) {
+                    🏖️
+                    <strong>
+                        Goa Beach Escape
+                    </strong>
 
-            reply = `
-                📞 Sure! You can send us an enquiry and
-                our travel team can help you.
-                <br><br>
-                <button class="chat-option" onclick="scrollToContact()">
-                    Make an Enquiry
-                </button>
-            `;
+                    <br><br>
 
-        } else if (
-            q.includes("hello") ||
-            q.includes("hi") ||
-            q.includes("hey")
-        ) {
+                    ⭐ 4.8 rating
 
-            reply = `
-                👋 Hello!
-                <br><br>
-                I'm your Holiday Masti travel assistant.
-                <br><br>
-                Try asking:
-                <br>
-                • Goa package?
-                <br>
-                • Dubai price?
-                <br>
-                • Bali?
-                <br>
-                • Flights?
-            `;
+                    <br>
 
-        } else {
+                    🌙 3 Nights / 4 Days
 
-            reply = `
-                🤔 I can help with:
-                <br><br>
-                🏖️ Holiday packages
-                <br>
-                ✈️ Flights
-                <br>
-                💰 Package prices
-                <br>
-                📞 Enquiries
-                <br><br>
-                Try asking about <strong>Goa</strong>,
-                <strong>Bali</strong> or <strong>Dubai</strong>.
-            `;
+                    <br>
+
+                    💰 Starting from
+                    <strong>
+                        ₹18,999
+                    </strong>
+
+                    <br><br>
+
+                    Goa is perfect for beaches,
+                    nightlife and a relaxing holiday.
+
+                    <br><br>
+
+                    <button
+                        class="chat-option"
+                        onclick="scrollToPackages()">
+
+                        View Package
+
+                    </button>
+
+                `;
+
+            }
+
+
+            else if(q.includes("dubai")){
+
+                x=`
+
+                    🌆
+                    <strong>
+                        Dubai Luxury
+                    </strong>
+
+                    <br><br>
+
+                    ⭐ 4.7 rating
+
+                    <br>
+
+                    🌙 4 Nights / 5 Days
+
+                    <br>
+
+                    💰 Starting from
+                    <strong>
+                        ₹39,999
+                    </strong>
+
+                    <br><br>
+
+                    Dubai is perfect for luxury,
+                    shopping, desert adventures
+                    and sightseeing.
+
+                    <br><br>
+
+                    <button
+                        class="chat-option"
+                        onclick="scrollToPackages()">
+
+                        View Package
+
+                    </button>
+
+                `;
+
+            }
+
+
+            else if(q.includes("bali")){
+
+                x=`
+
+                    🌴
+                    <strong>
+                        Bali Paradise
+                    </strong>
+
+                    <br><br>
+
+                    ⭐ 4.9 rating
+
+                    <br>
+
+                    🌙 5 Nights / 6 Days
+
+                    <br>
+
+                    💰 Starting from
+                    <strong>
+                        ₹42,999
+                    </strong>
+
+                    <br><br>
+
+                    Bali is great for beaches,
+                    nature, resorts and romantic getaways.
+
+                    <br><br>
+
+                    <button
+                        class="chat-option"
+                        onclick="scrollToPackages()">
+
+                        View Package
+
+                    </button>
+
+                `;
+
+            }
+
+
+            else if(
+                q.includes("flight") ||
+                q.includes("fly") ||
+                q.includes("airline")
+            ){
+
+                x=`
+
+                    ✈️ You can use our
+                    <strong>
+                        Flight Search
+                    </strong>
+                    to search your route.
+
+                    <br><br>
+
+                    We currently show
+                    indicative/demo results.
+
+                    <br><br>
+
+                    <button
+                        class="chat-option"
+                        onclick="scrollToFlights()">
+
+                        Search Flights
+
+                    </button>
+
+                `;
+
+            }
+
+
+            else if(
+                q.includes("price") ||
+                q.includes("cost") ||
+                q.includes("budget")
+            ){
+
+                x=`
+
+                    💰 Our holiday packages
+                    start from around
+                    <strong>
+                        ₹18,999
+                    </strong>.
+
+                    <br><br>
+
+                    Tell me a destination like
+                    <strong>Goa</strong>,
+                    <strong>Bali</strong> or
+                    <strong>Dubai</strong>.
+
+                `;
+
+            }
+
+
+            else if(
+                q.includes("contact") ||
+                q.includes("enquiry") ||
+                q.includes("book")
+            ){
+
+                x=`
+
+                    📞 Sure!
+
+                    You can send us an enquiry
+                    and our travel team can help you.
+
+                    <br><br>
+
+                    <button
+                        class="chat-option"
+                        onclick="scrollToContact()">
+
+                        Make an Enquiry
+
+                    </button>
+
+                `;
+
+            }
+
+
+            else if(
+                q.includes("hello") ||
+                q.includes("hi") ||
+                q.includes("hey")
+            ){
+
+                x=`
+
+                    👋 Hello!
+
+                    <br><br>
+
+                    I'm your Holiday Masti
+                    travel assistant.
+
+                    <br><br>
+
+                    Try asking:
+
+                    <br>
+
+                    • Goa package?
+
+                    <br>
+
+                    • Dubai price?
+
+                    <br>
+
+                    • Bali?
+
+                    <br>
+
+                    • Flights?
+
+                `;
+
+            }
+
+
+            else{
+
+                x=`
+
+                    🤔 I can help with:
+
+                    <br><br>
+
+                    🏖️ Holiday packages
+
+                    <br>
+
+                    ✈️ Flights
+
+                    <br>
+
+                    💰 Package prices
+
+                    <br>
+
+                    📞 Enquiries
+
+                    <br><br>
+
+                    Try asking about
+                    <strong>Goa</strong>,
+                    <strong>Bali</strong>
+                    or
+                    <strong>Dubai</strong>.
+
+                `;
+
+            }
+
+
+            setTimeout(
+                ()=>add(x,"bot"),
+                350
+            );
+
+        };
+
+
+    const sendMsg=
+        ()=>{
+
+            const t=
+                ci.value.trim();
+
+            if(!t)return;
+
+            add(
+                esc(t),
+                "user"
+            );
+
+            ci.value="";
+
+            reply(t);
+
+        };
+
+
+    send.addEventListener(
+        "click",
+        sendMsg
+    );
+
+
+    ci.addEventListener(
+        "keydown",
+        e=>{
+
+            if(
+                e.key==="Enter"
+            ){
+
+                sendMsg();
+
+            }
+
         }
+    );
 
 
-        setTimeout(function () {
-            addMessage(reply, "bot");
-        }, 350);
-    }
+    document.addEventListener(
+        "click",
+        e=>{
+
+            const o=
+                e.target.closest(
+                    ".chat-option"
+                );
 
 
-    /* Send message */
+            if(
+                o &&
+                o.dataset.question
+            ){
 
-    function sendMessage() {
+                add(
+                    esc(
+                        o.dataset.question
+                    ),
+                    "user"
+                );
 
-        const text = input.value.trim();
+                reply(
+                    o.dataset.question
+                );
 
-        if (!text) return;
+            }
 
-        addMessage(text, "user");
-
-        input.value = "";
-
-        botReply(text);
-    }
-
-
-    send.addEventListener("click", sendMessage);
-
-
-    input.addEventListener("keydown", function (event) {
-
-        if (event.key === "Enter") {
-            sendMessage();
         }
-
-    });
-
-
-    /* Quick buttons */
-
-    document.addEventListener("click", function (event) {
-
-        if (
-            event.target.classList.contains("chat-option") &&
-            event.target.dataset.question
-        ) {
-
-            const question =
-                event.target.dataset.question;
-
-            addMessage(question, "user");
-
-            botReply(question);
-        }
-
-    });
+    );
 
 
-    /* Scroll functions */
+    window.scrollToPackages=
+        ()=>{
 
-    window.scrollToPackages = function () {
+            box.classList.remove(
+                "active"
+            );
 
-        const packages =
-            document.getElementById("packages") ||
-            document.querySelector(".packages");
+            scrollTo(
+                "#packages"
+            );
 
-        if (packages) {
-
-            box.classList.remove("active");
-
-            packages.scrollIntoView({
-                behavior: "smooth"
-            });
-        }
-    };
+        };
 
 
-    window.scrollToFlights = function () {
+    window.scrollToFlights=
+        ()=>{
 
-        const flights =
-            document.getElementById("flights") ||
-            document.querySelector(".flight-section");
+            box.classList.remove(
+                "active"
+            );
 
-        if (flights) {
+            scrollTo(
+                "#flights"
+            );
 
-            box.classList.remove("active");
-
-            flights.scrollIntoView({
-                behavior: "smooth"
-            });
-
-        } else {
-
-            box.classList.remove("active");
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
-    };
+        };
 
 
-    window.scrollToContact = function () {
+    window.scrollToContact=
+        ()=>{
 
-        const contact =
-            document.getElementById("contact") ||
-            document.querySelector(".contact");
+            box.classList.remove(
+                "active"
+            );
 
-        if (contact) {
+            scrollTo(
+                "#contact"
+            );
 
-            box.classList.remove("active");
+        };
 
-            contact.scrollIntoView({
-                behavior: "smooth"
-            });
-        }
-    };
+}
 
-});
-/* =====================================================
-   CINEMATIC HERO SLIDESHOW
-   ===================================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
+/* ================= CINEMATIC SLIDESHOW ================= */
 
-    const hero = document.querySelector(".hero");
-    const heroContent = document.querySelector(".hero-content");
+const hero=
+    $(".hero");
 
-    if (!hero) return;
+const hc=
+    $(".hero-content");
 
-    const slides = [
+
+if(hero){
+
+    const slides=[
+
         {
-            image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85",
-            location: "GOA • INDIA",
-            title: "Discover Your Next Dream Destination",
-            subtitle: "Golden beaches. Endless sunsets. Unforgettable memories."
+            img:
+                "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85",
+
+            loc:
+                "GOA • INDIA",
+
+            title:
+                "Discover Your Next Dream Destination",
+
+            sub:
+                "Golden beaches. Endless sunsets. Unforgettable memories."
         },
 
-        {
-            image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=2000&q=85",
-            location: "BALI • INDONESIA",
-            title: "Escape Into Paradise",
-            subtitle: "Tropical mornings. Crystal waters. Moments worth remembering."
-        },
 
         {
-            image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85",
-            location: "DUBAI • UAE",
-            title: "Experience The Extraordinary",
-            subtitle: "Luxury, adventure and unforgettable nights."
+            img:
+                "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=2000&q=85",
+
+            loc:
+                "BALI • INDONESIA",
+
+            title:
+                "Escape Into Paradise",
+
+            sub:
+                "Tropical mornings. Crystal waters. Moments worth remembering."
         },
 
+
         {
-            image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=2000&q=85",
-            location: "MALDIVES",
-            title: "Where Paradise Feels Real",
-            subtitle: "Turquoise waters. Private escapes. Pure relaxation."
+            img:
+                "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85",
+
+            loc:
+                "DUBAI • UAE",
+
+            title:
+                "Experience The Extraordinary",
+
+            sub:
+                "Luxury, adventure and unforgettable nights."
+        },
+
+
+        {
+            img:
+                "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=2000&q=85",
+
+            loc:
+                "MALDIVES",
+
+            title:
+                "Where Paradise Feels Real",
+
+            sub:
+                "Turquoise waters. Overwater villas. Pure relaxation."
         }
+
     ];
 
 
-    let currentSlide = 0;
+    let current=0;
 
 
-    /* -----------------------------------------
-       Create dots
-       ----------------------------------------- */
+    slides.forEach(
+        s=>{
 
-    const dotsContainer = document.createElement("div");
+            const i=
+                new Image();
 
-    dotsContainer.className = "hero-dots";
+            i.src=
+                s.img;
 
-    slides.forEach(function (_, index) {
-
-        const dot = document.createElement("button");
-
-        dot.className = "hero-dot";
-
-        if (index === 0) {
-            dot.classList.add("active");
         }
-
-        dot.addEventListener("click", function () {
-            showSlide(index);
-        });
-
-        dotsContainer.appendChild(dot);
-    });
-
-    hero.appendChild(dotsContainer);
+    );
 
 
-    /* -----------------------------------------
-       Show slide
-       ----------------------------------------- */
+    const dots=
+        document.createElement(
+            "div"
+        );
 
-    function showSlide(index) {
+    dots.className=
+        "hero-dots";
 
-        currentSlide = index;
 
-        const slide = slides[index];
+    slides.forEach(
+        (_,i)=>{
 
-        hero.style.backgroundImage =
-            `url("${slide.image}")`;
+            const d=
+                document.createElement(
+                    "button"
+                );
 
-        hero.classList.remove("cinematic-zoom");
+            d.type=
+                "button";
+
+            d.className=
+                "hero-dot"+
+                (
+                    i===0
+                        ? " active"
+                        : ""
+                );
+
+
+            d.addEventListener(
+                "click",
+                ()=>show(i)
+            );
+
+
+            dots.appendChild(
+                d
+            );
+
+        }
+    );
+
+
+    hero.appendChild(
+        dots
+    );
+
+
+    function show(i){
+
+        current=
+            i;
+
+        const s=
+            slides[i];
+
+
+        hero.style.backgroundImage=
+            `url("${s.img}")`;
+
+
+        hero.classList.remove(
+            "cinematic-zoom"
+        );
+
 
         void hero.offsetWidth;
 
-        hero.classList.add("cinematic-zoom");
+
+        hero.classList.add(
+            "cinematic-zoom"
+        );
 
 
-        /* Update hero text */
+        if(hc){
 
-        if (heroContent) {
+            const ey=
+                $(".eyebrow",hc);
 
-            heroContent.classList.remove("hero-changing");
+            const h=
+                $("h1",hc);
 
-            void heroContent.offsetWidth;
-
-            heroContent.classList.add("hero-changing");
-
-
-            const heading =
-                heroContent.querySelector("h1");
-
-            const paragraph =
-                heroContent.querySelector("p");
-
-            let location =
-                heroContent.querySelector(".hero-location");
+            const p=
+                $(".hero-subtitle",hc) ||
+                $("p",hc);
 
 
-            /* Create location label if missing */
-
-            if (!location && heading) {
-
-                location =
-                    document.createElement("div");
-
-                location.className =
-                    "hero-location";
-
-                heading.parentNode.insertBefore(
-                    location,
-                    heading
-                );
-            }
+            if(ey)
+                ey.textContent=
+                    s.loc;
 
 
-            if (location) {
-                location.textContent =
-                    slide.location;
-            }
+            if(h)
+                h.textContent=
+                    s.title;
 
 
-            if (heading) {
-                heading.textContent =
-                    slide.title;
-            }
+            if(p)
+                p.textContent=
+                    s.sub;
 
 
-            if (paragraph) {
-                paragraph.textContent =
-                    slide.subtitle;
-            }
+            hc.classList.remove(
+                "hero-changing"
+            );
+
+
+            void hc.offsetWidth;
+
+
+            hc.classList.add(
+                "hero-changing"
+            );
+
         }
 
 
-        /* Update dots */
+        $$(".hero-dot")
+            .forEach(
+                (d,n)=>
+                    d.classList.toggle(
+                        "active",
+                        n===current
+                    )
+            );
 
-        document
-            .querySelectorAll(".hero-dot")
-            .forEach(function (dot, i) {
-
-                dot.classList.toggle(
-                    "active",
-                    i === currentSlide
-                );
-
-            });
     }
 
 
-    /* -----------------------------------------
-       Start slideshow
-       ----------------------------------------- */
-
-    showSlide(0);
+    show(0);
 
 
-    setInterval(function () {
+    setInterval(
+        ()=>show(
+            (current+1) %
+            slides.length
+        ),
+        6000
+    );
 
-        const nextSlide =
-            (currentSlide + 1) % slides.length;
+}
 
-        showSlide(nextSlide);
 
-    }, 6000);
+console.log(
+    "Holiday Masti: complete script loaded."
+);
 
 });
