@@ -3123,3 +3123,14 @@ button {
 .package-cta-whatsapp {
     gap: 9px;
 }
+.enquire-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.enquire-icon i {
+    font-size: 20px;
+    line-height: 1;
+}
