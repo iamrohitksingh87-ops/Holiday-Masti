@@ -494,9 +494,9 @@ function openPackage(title, price, description) {
                         type="button"
                         class="package-cta-button package-cta-enquire">
 
-                        📞
-                        <span>
-                            Enquire Now
+                        <span class="enquire-icon">
+                            <i class="fa-solid fa phone" aria-hidden="true"></i>
+                            <span>Enquire Now</span>
                         </span>
 
                     </button>
