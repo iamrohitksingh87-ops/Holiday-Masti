@@ -2971,3 +2971,139 @@ button {
     }
 
 }
+/* =====================================================
+   FINAL MODAL LAYER FIX
+   ===================================================== */
+
+/* Modal overlay */
+#detailsModal {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 24px !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+
+    /* ONLY the background gets the dark effect */
+    background: rgba(5, 18, 35, 0.72) !important;
+
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+
+/* When modal is closed */
+#detailsModal[aria-hidden="true"] {
+    display: none !important;
+}
+
+
+/* BACKDROP — stays BELOW the package */
+#detailsModal .modal-backdrop {
+    position: absolute !important;
+    inset: 0 !important;
+
+    z-index: 1 !important;
+
+    background: rgba(5, 18, 35, 0.62) !important;
+
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+
+    filter: none !important;
+}
+
+
+/* PACKAGE — MUST stay ABOVE backdrop */
+#detailsModal .modal-box {
+    position: relative !important;
+
+    z-index: 100 !important;
+
+    width: min(1180px, 94vw) !important;
+    max-height: 92vh !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    opacity: 1 !important;
+
+    background: #ffffff !important;
+
+    filter: none !important;
+
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    border-radius: 30px !important;
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.40) !important;
+
+    transform: none !important;
+}
+
+
+/* Absolutely make all package content sharp */
+#detailsModal .modal-box *,
+#detailsModal .premium-package-details,
+#detailsModal .package-premium-header,
+#detailsModal .package-header-content,
+#detailsModal .package-header-image,
+#detailsModal .package-premium-body {
+    filter: none !important;
+
+    opacity: 1 !important;
+}
+
+
+/* Remove any accidental pseudo overlay */
+#detailsModal::before,
+#detailsModal::after,
+#detailsModal .modal-box::before,
+#detailsModal .modal-box::after {
+    content: none !important;
+    display: none !important;
+}
+
+
+/* Close button above everything */
+#detailsModal .modal-close {
+    position: absolute !important;
+
+    z-index: 1000 !important;
+
+    opacity: 1 !important;
+
+    filter: none !important;
+
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    #detailsModal {
+        padding: 8px !important;
+        align-items: flex-end !important;
+    }
+
+    #detailsModal .modal-box {
+        width: 100% !important;
+        max-height: 95vh !important;
+        border-radius: 24px 24px 0 0 !important;
+    }
+}
