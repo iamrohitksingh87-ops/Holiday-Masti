@@ -1130,12 +1130,12 @@ async function loadSupabasePackages() {
             packages.length > 0
         ) {
 
-            grid.innerHTML =
-                packages
-                    .map(
-                        renderSupabasePackage
-                    )
-                    .join("");
+           grid.insertAdjacentHTML(
+    "beforeend",
+    packages
+        .map(renderSupabasePackage)
+        .join("")
+);
 
 
             if (empty) {
