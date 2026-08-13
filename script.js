@@ -63,35 +63,19 @@ const data = {
 
     days: [
 
-    [
-        "1",
-        "Arrival in Goa",
-        "Arrive at Goa Airport and meet your travel representative. Enjoy a comfortable private transfer to your hotel and complete check-in. Spend the evening relaxing at the beach, exploring the nearby area or enjoying the sunset.",
-        "Airport pickup • Hotel check-in • Beach leisure • Sunset experience"
-    ],
+    ["1","Arrival in Goa",
+    "Arrive at Goa Airport and meet your travel representative. Transfer to your hotel and complete check-in. Spend the evening relaxing by the beach and enjoy a beautiful Goan sunset."],
 
-    [
-        "2",
-        "North Goa Exploration",
-        "After breakfast, begin your North Goa sightseeing experience. Visit the popular beaches of Baga and Calangute, explore the historic Aguada Fort and enjoy time at local cafés and beachside spots. Return to the hotel after a relaxed day of sightseeing.",
-        "Breakfast • Baga Beach • Calangute Beach • Aguada Fort • Leisure time"
-    ],
+    ["2","North Goa Exploration",
+    "After breakfast, explore the famous beaches of North Goa including Baga and Calangute. Visit Aguada Fort and enjoy time at local cafés and beachside spots. Return to the hotel in the evening."],
 
-    [
-        "3",
-        "South Goa & Leisure",
-        "Discover the quieter and more scenic side of Goa. Visit beautiful South Goa beaches and scenic viewpoints, enjoy a relaxed afternoon and spend the evening exploring local cafés or enjoying the coastal atmosphere at your own pace.",
-        "Breakfast • South Goa beaches • Scenic viewpoints • Leisure • Local exploration"
-    ],
+    ["3","South Goa & Leisure",
+    "Discover the peaceful side of Goa with a visit to South Goa beaches and scenic viewpoints. Enjoy a relaxed afternoon and spend the evening exploring local markets or enjoying a beachside dinner."],
 
-    [
-        "4",
-        "Departure",
-        "Enjoy breakfast at the hotel and complete check-out. Depending on your departure time, enjoy some free time for shopping or a final walk around the area before your private transfer to Goa Airport.",
-        "Breakfast • Hotel check-out • Free time • Airport transfer"
-    ]
-
+    ["4","Departure",
+    "Enjoy breakfast at the hotel and check out. Depending on your departure time, enjoy some free time before your private transfer to Goa Airport."]
 ]
+},
 
 
 "Bali Paradise": {
