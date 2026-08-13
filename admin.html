@@ -3,42 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Holiday Masti | Admin Panel</title>
 
     <link rel="icon" type="image/png" href="images/logo.png">
 
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
             font-family: "Poppins", sans-serif;
-            background: #f4f7fb;
             color: #102a43;
+            background: #f4f7fb;
         }
 
-        button,
-        input,
-        textarea,
-        select {
-            font: inherit;
-        }
+        button, input, textarea, select { font: inherit; }
+        .hidden { display: none !important; }
 
-        .hidden {
-            display: none !important;
-        }
-
-        /* ==============================
-           LOGIN
-        ============================== */
+        /* ================= LOGIN ================= */
 
         .login-page {
             min-height: 100vh;
@@ -46,7 +34,6 @@
             align-items: center;
             justify-content: center;
             padding: 24px;
-
             background:
                 radial-gradient(circle at top left, rgba(255,166,0,.18), transparent 35%),
                 radial-gradient(circle at bottom right, rgba(0,119,255,.12), transparent 35%),
@@ -57,7 +44,7 @@
             width: min(430px, 100%);
             background: rgba(255,255,255,.88);
             backdrop-filter: blur(18px);
-            border: 1px solid rgba(255,255,255,.8);
+            border: 1px solid rgba(255,255,255,.85);
             border-radius: 28px;
             padding: 38px;
             box-shadow: 0 25px 70px rgba(10,40,70,.15);
@@ -82,9 +69,7 @@
             margin: 0 0 28px;
         }
 
-        .field {
-            margin-bottom: 18px;
-        }
+        .field { margin-bottom: 18px; }
 
         .field label {
             display: block;
@@ -124,24 +109,61 @@
             box-shadow: 0 12px 25px rgba(255,126,0,.22);
         }
 
-        .primary-btn:hover {
-            transform: translateY(-1px);
+        .primary-btn:hover { transform: translateY(-1px); }
+
+        .secondary-btn {
+            width: 100%;
+            border: 1px solid #d8e2ec;
+            border-radius: 14px;
+            padding: 13px 18px;
+            background: white;
+            color: #0d6efd;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .link-btn {
+            display: block;
+            width: 100%;
+            margin-top: 14px;
+            border: 0;
+            background: transparent;
+            color: #0d6efd;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
         }
 
         .message {
-            margin-top: 15px;
+            min-height: 20px;
+            margin-top: 14px;
             text-align: center;
             font-size: 13px;
+            line-height: 1.5;
             color: #d62828;
         }
 
-        /* ==============================
-           ADMIN
-        ============================== */
+        .message.success { color: #16803c; }
 
-        .admin-page {
-            min-height: 100vh;
+        .reset-heading {
+            text-align: center;
+            margin-bottom: 22px;
         }
+
+        .reset-heading h2 {
+            margin: 0 0 6px;
+            font-size: 23px;
+        }
+
+        .reset-heading p {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        /* ================= ADMIN ================= */
+
+        .admin-page { min-height: 100vh; }
 
         .topbar {
             height: 76px;
@@ -169,9 +191,7 @@
             object-fit: contain;
         }
 
-        .brand strong {
-            font-size: 19px;
-        }
+        .brand strong { font-size: 19px; }
 
         .brand span {
             display: block;
@@ -190,9 +210,7 @@
             font-weight: 600;
         }
 
-        .logout-btn:hover {
-            background: #f5f8fb;
-        }
+        .logout-btn:hover { background: #f5f8fb; }
 
         .content {
             max-width: 1250px;
@@ -228,6 +246,15 @@
             font-weight: 700;
         }
 
+        .status {
+            margin-bottom: 18px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            background: #edf7ff;
+            color: #1261a0;
+            font-size: 13px;
+        }
+
         .package-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -249,9 +276,7 @@
             background: #eaf0f5;
         }
 
-        .package-body {
-            padding: 18px;
-        }
+        .package-body { padding: 18px; }
 
         .package-body h3 {
             margin: 0 0 6px;
@@ -308,11 +333,10 @@
             padding: 55px 25px;
             text-align: center;
             color: #7890a5;
+            grid-column: 1 / -1;
         }
 
-        /* ==============================
-           MODAL
-        ============================== */
+        /* ================= PACKAGE MODAL ================= */
 
         .modal {
             position: fixed;
@@ -343,9 +367,7 @@
             margin-bottom: 22px;
         }
 
-        .modal-header h2 {
-            margin: 0;
-        }
+        .modal-header h2 { margin: 0; }
 
         .close-btn {
             width: 38px;
@@ -363,9 +385,7 @@
             gap: 16px;
         }
 
-        .full {
-            grid-column: 1 / -1;
-        }
+        .full { grid-column: 1 / -1; }
 
         .checkbox-row {
             display: flex;
@@ -391,120 +411,166 @@
             margin-top: 8px;
         }
 
-        .status {
-            margin-bottom: 18px;
-            padding: 12px 15px;
-            border-radius: 12px;
-            background: #edf7ff;
-            color: #1261a0;
-            font-size: 13px;
+        small {
+            display: block;
+            margin-top: 6px;
+            color: #8194a7;
+            font-size: 11px;
         }
 
         @media (max-width: 900px) {
-            .package-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+            .package-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
         @media (max-width: 650px) {
-            .topbar {
-                padding: 0 16px;
-            }
-
-            .brand span {
-                display: none;
-            }
-
-            .content {
-                padding: 25px 15px 45px;
-            }
+            .topbar { padding: 0 16px; }
+            .brand span { display: none; }
+            .content { padding: 25px 15px 45px; }
 
             .page-heading {
                 align-items: flex-start;
                 flex-direction: column;
             }
 
-            .package-grid {
-                grid-template-columns: 1fr;
-            }
-
+            .package-grid,
             .form-grid {
                 grid-template-columns: 1fr;
             }
 
-            .full {
-                grid-column: auto;
-            }
-
-            .modal {
-                padding: 8px;
-            }
+            .full { grid-column: auto; }
+            .modal { padding: 8px; }
 
             .modal-box {
                 padding: 20px;
                 border-radius: 20px;
             }
+
+            .login-card { padding: 28px 22px; }
         }
     </style>
 </head>
 
 <body>
 
-<!-- =========================================
-     LOGIN
-========================================= -->
+<!-- ================= LOGIN / PASSWORD RESET ================= -->
 
 <section id="loginPage" class="login-page">
 
     <div class="login-card">
 
-        <img
-            src="images/logo.png"
-            class="login-logo"
-            alt="Holiday Masti">
+        <img src="images/logo.png" class="login-logo" alt="Holiday Masti">
 
-        <h1>Admin Login</h1>
+        <!-- NORMAL LOGIN -->
+        <div id="normalLoginBox">
 
-        <p>Manage your Holiday Masti packages</p>
+            <h1>Admin Login</h1>
 
-        <form id="loginForm">
+            <p>Manage your Holiday Masti packages</p>
+
+            <form id="loginForm">
+
+                <div class="field">
+                    <label>Email</label>
+                    <input
+                        id="loginEmail"
+                        type="email"
+                        placeholder="Admin email"
+                        required>
+                </div>
+
+                <div class="field">
+                    <label>Password</label>
+                    <input
+                        id="loginPassword"
+                        type="password"
+                        placeholder="Password"
+                        required>
+                </div>
+
+                <button class="primary-btn" type="submit">
+                    Login to Admin Panel
+                </button>
+
+            </form>
+
+            <button id="forgotPasswordBtn" class="link-btn" type="button">
+                Forgot Password?
+            </button>
+
+            <div id="loginMessage" class="message"></div>
+
+        </div>
+
+
+        <!-- SEND RESET EMAIL -->
+        <div id="forgotBox" class="hidden">
+
+            <div class="reset-heading">
+                <h2>Reset Password</h2>
+                <p>Enter your admin email and we'll send you a secure reset link.</p>
+            </div>
 
             <div class="field">
                 <label>Email</label>
-
                 <input
-                    id="loginEmail"
+                    id="resetEmail"
                     type="email"
-                    placeholder="Admin email"
-                    required>
+                    placeholder="Admin email">
+            </div>
+
+            <button id="sendResetBtn" class="primary-btn" type="button">
+                Send Reset Link
+            </button>
+
+            <button id="backToLoginBtn" class="secondary-btn" type="button">
+                Back to Login
+            </button>
+
+            <div id="resetRequestMessage" class="message"></div>
+
+        </div>
+
+
+        <!-- SET NEW PASSWORD -->
+        <div id="newPasswordBox" class="hidden">
+
+            <div class="reset-heading">
+                <h2>Create New Password</h2>
+                <p>Enter your new admin password below.</p>
             </div>
 
             <div class="field">
-                <label>Password</label>
-
+                <label>New Password</label>
                 <input
-                    id="loginPassword"
+                    id="newPassword"
                     type="password"
-                    placeholder="Password"
-                    required>
+                    placeholder="New password"
+                    minlength="6">
             </div>
 
-            <button class="primary-btn" type="submit">
-                Login to Admin Panel
+            <div class="field">
+                <label>Confirm Password</label>
+                <input
+                    id="confirmPassword"
+                    type="password"
+                    placeholder="Confirm new password"
+                    minlength="6">
+            </div>
+
+            <button id="updatePasswordBtn" class="primary-btn" type="button">
+                Update Password
             </button>
 
-        </form>
+            <div id="updatePasswordMessage" class="message"></div>
 
-        <div id="loginMessage" class="message"></div>
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- =========================================
-     ADMIN DASHBOARD
-========================================= -->
+<!-- ================= ADMIN DASHBOARD ================= -->
 
 <section id="adminPage" class="admin-page hidden">
 
@@ -512,9 +578,7 @@
 
         <div class="brand">
 
-            <img
-                src="images/logo.png"
-                alt="Holiday Masti">
+            <img src="images/logo.png" alt="Holiday Masti">
 
             <div>
                 <strong>Holiday Masti</strong>
@@ -523,9 +587,7 @@
 
         </div>
 
-        <button
-            id="logoutBtn"
-            class="logout-btn">
+        <button id="logoutBtn" class="logout-btn">
             Logout
         </button>
 
@@ -538,53 +600,35 @@
 
             <div>
                 <h1>Holiday Packages</h1>
-
-                <p>
-                    Add, edit and manage your travel packages.
-                </p>
+                <p>Add, edit and manage your travel packages.</p>
             </div>
 
-            <button
-                id="addPackageBtn"
-                class="add-btn">
+            <button id="addPackageBtn" class="add-btn">
                 + Add Package
             </button>
 
         </div>
 
-
         <div id="status" class="status hidden"></div>
 
-        <div
-            id="packageGrid"
-            class="package-grid">
-        </div>
+        <div id="packageGrid" class="package-grid"></div>
 
     </main>
 
 </section>
 
 
-<!-- =========================================
-     PACKAGE MODAL
-========================================= -->
+<!-- ================= PACKAGE MODAL ================= -->
 
-<div
-    id="packageModal"
-    class="modal hidden">
+<div id="packageModal" class="modal hidden">
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <h2 id="modalTitle">
-                Add Package
-            </h2>
+            <h2 id="modalTitle">Add Package</h2>
 
-            <button
-                id="closeModal"
-                class="close-btn"
-                type="button">
+            <button id="closeModal" class="close-btn" type="button">
                 ×
             </button>
 
@@ -593,148 +637,92 @@
 
         <form id="packageForm">
 
-            <input
-                type="hidden"
-                id="packageId">
-
+            <input type="hidden" id="packageId">
 
             <div class="form-grid">
 
                 <div class="field">
                     <label>Package Title *</label>
-
-                    <input
-                        id="title"
-                        required
-                        placeholder="Goa Beach Escape">
+                    <input id="title" required placeholder="Goa Beach Escape">
                 </div>
-
 
                 <div class="field">
                     <label>Location</label>
-
-                    <input
-                        id="location"
-                        placeholder="GOA • INDIA">
+                    <input id="location" placeholder="GOA • INDIA">
                 </div>
-
 
                 <div class="field">
                     <label>Price</label>
-
-                    <input
-                        id="price"
-                        type="number"
-                        min="0"
-                        placeholder="24999">
+                    <input id="price" type="number" min="0" placeholder="24999">
                 </div>
-
 
                 <div class="field">
                     <label>Rating</label>
-
-                    <input
-                        id="rating"
-                        type="number"
-                        min="0"
-                        max="5"
-                        step="0.1"
-                        placeholder="4.8">
+                    <input id="rating" type="number" min="0" max="5" step="0.1" placeholder="4.8">
                 </div>
-
 
                 <div class="field">
                     <label>Reviews</label>
-
-                    <input
-                        id="reviews"
-                        placeholder="120+ Reviews">
+                    <input id="reviews" placeholder="120+ Reviews">
                 </div>
-
 
                 <div class="field">
                     <label>Duration</label>
-
-                    <input
-                        id="duration"
-                        placeholder="3 Nights / 4 Days">
+                    <input id="duration" placeholder="3 Nights / 4 Days">
                 </div>
-
 
                 <div class="field full">
                     <label>Image URL</label>
-
-                    <input
-                        id="image"
-                        placeholder="https://...">
+                    <input id="image" placeholder="https://...">
                 </div>
-
 
                 <div class="field full">
                     <label>Description</label>
-
                     <textarea
                         id="description"
                         rows="4"
                         placeholder="Describe the holiday package..."></textarea>
                 </div>
 
-
                 <div class="field full">
                     <label>What's Included</label>
 
                     <textarea
                         id="includes"
-                        rows="5"
+                        rows="6"
                         placeholder="Hotel / Resort | Comfortable stay&#10;Breakfast | Daily breakfast&#10;Transfers | Airport transfers"></textarea>
 
                     <small>
-                        One item per line. Format:
-                        Title | Description
+                        One item per line: Title | Description
                     </small>
                 </div>
-
 
                 <div class="field full">
                     <label>Itinerary</label>
 
                     <textarea
                         id="days"
-                        rows="9"
+                        rows="10"
                         placeholder="Day 1 | Arrival in Goa | Airport pickup and hotel check-in.&#10;Day 2 | North Goa | Baga, Calangute and Aguada Fort.&#10;Day 3 | South Goa | Beaches and sightseeing.&#10;Day 4 | Departure | Checkout and airport transfer."></textarea>
 
                     <small>
-                        One day per line. Format:
-                        Day Number | Title | Description
+                        One day per line: Day Number | Title | Description
                     </small>
                 </div>
-
 
                 <div class="field full">
 
                     <label class="checkbox-row">
-
-                        <input
-                            id="featured"
-                            type="checkbox">
-
-                        <span>
-                            Show as Featured Package
-                        </span>
-
+                        <input id="featured" type="checkbox">
+                        <span>Show as Featured Package</span>
                     </label>
 
                 </div>
 
             </div>
 
-
-            <button
-                class="save-btn"
-                type="submit">
-
+            <button class="save-btn" type="submit">
                 Save Package
-
             </button>
 
         </form>
@@ -745,7 +733,6 @@
 
 
 <script>
-
     /* ==================================================
        SUPABASE CONFIGURATION
     ================================================== */
@@ -753,16 +740,8 @@
     const SUPABASE_URL =
         "https://wwfatmtqrswayugaqhra.supabase.co";
 
-    /*
-       IMPORTANT:
-       Paste your SUPABASE PUBLISHABLE KEY below.
-
-       Do NOT paste the secret/service_role key.
-    */
-
     const SUPABASE_PUBLISHABLE_KEY =
         "sb_publishable_IVMKY-BoIe9TYajxRHszSQ_1RUKOxDw";
-
 
     const supabaseClient =
         window.supabase.createClient(
@@ -775,17 +754,41 @@
        ELEMENTS
     ================================================== */
 
-    const loginPage =
-        document.getElementById("loginPage");
+    const loginPage = document.getElementById("loginPage");
+    const adminPage = document.getElementById("adminPage");
 
-    const adminPage =
-        document.getElementById("adminPage");
+    const normalLoginBox =
+        document.getElementById("normalLoginBox");
+
+    const forgotBox =
+        document.getElementById("forgotBox");
+
+    const newPasswordBox =
+        document.getElementById("newPasswordBox");
 
     const loginForm =
         document.getElementById("loginForm");
 
     const loginMessage =
         document.getElementById("loginMessage");
+
+    const forgotPasswordBtn =
+        document.getElementById("forgotPasswordBtn");
+
+    const sendResetBtn =
+        document.getElementById("sendResetBtn");
+
+    const backToLoginBtn =
+        document.getElementById("backToLoginBtn");
+
+    const resetRequestMessage =
+        document.getElementById("resetRequestMessage");
+
+    const updatePasswordBtn =
+        document.getElementById("updatePasswordBtn");
+
+    const updatePasswordMessage =
+        document.getElementById("updatePasswordMessage");
 
     const logoutBtn =
         document.getElementById("logoutBtn");
@@ -816,57 +819,146 @@
        LOGIN
     ================================================== */
 
-    loginForm.addEventListener("submit", async function (event) {
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        loginMessage.textContent = "Signing in...";
+            loginMessage.className = "message";
+            loginMessage.textContent = "Signing in...";
 
-        const email =
-            document.getElementById("loginEmail").value.trim();
+            const email =
+                document.getElementById("loginEmail").value.trim();
 
-        const password =
-            document.getElementById("loginPassword").value;
-
-
-        const { data, error } =
-            await supabaseClient.auth.signInWithPassword({
-                email,
-                password
-            });
+            const password =
+                document.getElementById("loginPassword").value;
 
 
-        if (error) {
+            const { data, error } =
+                await supabaseClient.auth.signInWithPassword({
+                    email,
+                    password
+                });
 
-            loginMessage.textContent =
-                error.message;
 
-            return;
+            if (error) {
+
+                loginMessage.textContent =
+                    error.message;
+
+                return;
+            }
+
+
+            if (data.session) {
+
+                loginMessage.textContent = "";
+                showAdmin();
+
+            }
+
         }
-
-
-        if (data.session) {
-
-            loginMessage.textContent = "";
-
-            showAdmin();
-
-        }
-
-    });
+    );
 
 
     /* ==================================================
-       LOGOUT
+       FORGOT PASSWORD SCREEN
     ================================================== */
 
-    logoutBtn.addEventListener("click", async function () {
+    forgotPasswordBtn.addEventListener(
+        "click",
+        function () {
 
-        await supabaseClient.auth.signOut();
+            const email =
+                document.getElementById("loginEmail").value.trim();
 
-        showLogin();
+            document.getElementById("resetEmail").value = email;
 
-    });
+            normalLoginBox.classList.add("hidden");
+            newPasswordBox.classList.add("hidden");
+            forgotBox.classList.remove("hidden");
+
+            resetRequestMessage.textContent = "";
+
+        }
+    );
+
+
+    /* ==================================================
+       SEND RESET EMAIL
+    ================================================== */
+
+    sendResetBtn.addEventListener(
+        "click",
+        async function () {
+
+            const email =
+                document.getElementById("resetEmail").value.trim();
+
+
+            if (!email) {
+
+                resetRequestMessage.className = "message";
+                resetRequestMessage.textContent =
+                    "Please enter your admin email.";
+
+                return;
+
+            }
+
+
+            resetRequestMessage.className = "message";
+            resetRequestMessage.textContent =
+                "Sending reset link...";
+
+
+            const { error } =
+                await supabaseClient.auth.resetPasswordForEmail(
+                    email,
+                    {
+                        redirectTo:
+                            "https://holidaymasti.co.in/admin.html"
+                    }
+                );
+
+
+            if (error) {
+
+                resetRequestMessage.textContent =
+                    error.message;
+
+                return;
+
+            }
+
+
+            resetRequestMessage.className =
+                "message success";
+
+            resetRequestMessage.textContent =
+                "Reset link sent. Please check your email.";
+
+        }
+    );
+
+
+    /* ==================================================
+       BACK TO LOGIN
+    ================================================== */
+
+    backToLoginBtn.addEventListener(
+        "click",
+        function () {
+
+            forgotBox.classList.add("hidden");
+            newPasswordBox.classList.add("hidden");
+            normalLoginBox.classList.remove("hidden");
+
+            resetRequestMessage.textContent = "";
+
+        }
+    );
 
 
     /* ==================================================
@@ -875,6 +967,32 @@
 
     supabaseClient.auth.onAuthStateChange(
         function (event, session) {
+
+            /*
+             * IMPORTANT:
+             * Supabase sends PASSWORD_RECOVERY when the
+             * user opens the reset link.
+             */
+
+            if (event === "PASSWORD_RECOVERY") {
+
+                loginPage.classList.remove("hidden");
+                adminPage.classList.add("hidden");
+
+                normalLoginBox.classList.add("hidden");
+                forgotBox.classList.add("hidden");
+                newPasswordBox.classList.remove("hidden");
+
+                updatePasswordMessage.className =
+                    "message success";
+
+                updatePasswordMessage.textContent =
+                    "Enter your new password below.";
+
+                return;
+
+            }
+
 
             if (session) {
 
@@ -891,13 +1009,131 @@
 
 
     /* ==================================================
+       UPDATE PASSWORD
+    ================================================== */
+
+    updatePasswordBtn.addEventListener(
+        "click",
+        async function () {
+
+            const newPassword =
+                document.getElementById("newPassword").value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+
+            if (newPassword.length < 6) {
+
+                updatePasswordMessage.className =
+                    "message";
+
+                updatePasswordMessage.textContent =
+                    "Password must be at least 6 characters.";
+
+                return;
+
+            }
+
+
+            if (newPassword !== confirmPassword) {
+
+                updatePasswordMessage.className =
+                    "message";
+
+                updatePasswordMessage.textContent =
+                    "Passwords do not match.";
+
+                return;
+
+            }
+
+
+            updatePasswordMessage.className =
+                "message";
+
+            updatePasswordMessage.textContent =
+                "Updating password...";
+
+
+            const { error } =
+                await supabaseClient.auth.updateUser({
+                    password: newPassword
+                });
+
+
+            if (error) {
+
+                updatePasswordMessage.textContent =
+                    error.message;
+
+                return;
+
+            }
+
+
+            updatePasswordMessage.className =
+                "message success";
+
+            updatePasswordMessage.textContent =
+                "Password updated successfully.";
+
+
+            /*
+             * End the recovery session so the admin must
+             * login again using the new password.
+             */
+
+            await supabaseClient.auth.signOut();
+
+
+            setTimeout(
+                function () {
+
+                    document.getElementById("newPassword").value = "";
+                    document.getElementById("confirmPassword").value = "";
+
+                    newPasswordBox.classList.add("hidden");
+                    forgotBox.classList.add("hidden");
+                    normalLoginBox.classList.remove("hidden");
+
+                    loginMessage.className =
+                        "message success";
+
+                    loginMessage.textContent =
+                        "Password changed successfully. You can now login.";
+
+                },
+                1200
+            );
+
+        }
+    );
+
+
+    /* ==================================================
+       LOGOUT
+    ================================================== */
+
+    logoutBtn.addEventListener(
+        "click",
+        async function () {
+
+            await supabaseClient.auth.signOut();
+
+            showLogin();
+
+        }
+    );
+
+
+    /* ==================================================
        SHOW LOGIN
     ================================================== */
 
     function showLogin() {
 
         loginPage.classList.remove("hidden");
-
         adminPage.classList.add("hidden");
 
     }
@@ -910,7 +1146,6 @@
     function showAdmin() {
 
         loginPage.classList.add("hidden");
-
         adminPage.classList.remove("hidden");
 
         loadPackages();
@@ -976,9 +1211,7 @@
     function renderPackageCard(pkg) {
 
         const image =
-            pkg.image ||
-            "images/logo.png";
-
+            pkg.image || "images/logo.png";
 
         const featured =
             pkg.featured
@@ -1049,8 +1282,7 @@
         "click",
         function () {
 
-            modalTitle.textContent =
-                "Add Package";
+            modalTitle.textContent = "Add Package";
 
             packageForm.reset();
 
@@ -1063,7 +1295,7 @@
 
 
     /* ==================================================
-       CLOSE MODAL
+       CLOSE PACKAGE MODAL
     ================================================== */
 
     closeModal.addEventListener(
@@ -1077,9 +1309,7 @@
         function (event) {
 
             if (event.target === packageModal) {
-
                 closePackageModal();
-
             }
 
         }
@@ -1087,9 +1317,7 @@
 
 
     function closePackageModal() {
-
         packageModal.classList.add("hidden");
-
     }
 
 
@@ -1243,50 +1471,38 @@
             document.getElementById("packageId").value =
                 data.id;
 
-
             document.getElementById("title").value =
                 data.title || "";
-
 
             document.getElementById("location").value =
                 data.location || "";
 
-
             document.getElementById("price").value =
                 data.price || "";
-
 
             document.getElementById("rating").value =
                 data.rating || "";
 
-
             document.getElementById("reviews").value =
                 data.reviews || "";
-
 
             document.getElementById("duration").value =
                 data.duration || "";
 
-
             document.getElementById("image").value =
                 data.image || "";
-
 
             document.getElementById("description").value =
                 data.description || "";
 
-
             document.getElementById("featured").checked =
                 Boolean(data.featured);
-
 
             document.getElementById("includes").value =
                 formatIncludes(data.includes);
 
-
             document.getElementById("days").value =
                 formatDays(data.days);
-
 
             packageModal.classList.remove("hidden");
 
@@ -1307,9 +1523,7 @@
 
 
             if (!confirmed) {
-
                 return;
-
             }
 
 
@@ -1355,13 +1569,9 @@
                 const parts =
                     line.split("|");
 
-
                 return [
-
                     (parts[0] || "").trim(),
-
                     (parts[1] || "").trim()
-
                 ];
 
             });
@@ -1372,19 +1582,14 @@
     function formatIncludes(items) {
 
         if (!Array.isArray(items)) {
-
             return "";
-
         }
-
 
         return items
             .map(item => {
 
                 if (Array.isArray(item)) {
-
                     return `${item[0] || ""} | ${item[1] || ""}`;
-
                 }
 
                 return "";
@@ -1410,15 +1615,10 @@
                 const parts =
                     line.split("|");
 
-
                 return [
-
                     (parts[0] || "").trim(),
-
                     (parts[1] || "").trim(),
-
                     (parts.slice(2).join("|") || "").trim()
-
                 ];
 
             });
@@ -1429,11 +1629,8 @@
     function formatDays(days) {
 
         if (!Array.isArray(days)) {
-
             return "";
-
         }
-
 
         return days
             .map(day => {
@@ -1497,10 +1694,34 @@
 
 
     function escapeAttribute(value) {
-
         return escapeHTML(value);
-
     }
+
+
+    /* ==================================================
+       INITIAL LOAD
+    ================================================== */
+
+    (async function initialize() {
+
+        const {
+            data: { session }
+        } = await supabaseClient.auth.getSession();
+
+
+        /*
+         * If the page is opened from a recovery link,
+         * wait for PASSWORD_RECOVERY event to display
+         * the new-password screen.
+         */
+
+        if (session) {
+            showAdmin();
+        } else {
+            showLogin();
+        }
+
+    })();
 
 </script>
 
