@@ -1366,101 +1366,47 @@
     ================================================== */
 
     packageForm.addEventListener(
-        "submit",
-        async function (event) {
+    "submit",
+    async function (event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
+        const packageId =
+            document.getElementById("packageId").value;
 
-            const packageId =
-                document.getElementById("packageId").value;
+        const imageFile =
+            document.getElementById("imageFile").files[0];
 
+        /*
+         * For a new package, image is required.
+         * For editing an existing package, a new image
+         * is optional.
+         */
+        if (!packageId && !imageFile) {
 
-            const payload = {
+            alert("Please select a package image.");
 
-                title:
-                    document.getElementById("title").value.trim(),
+            return;
 
-                location:
-                    document.getElementById("location").value.trim(),
-
-                price:
-                    Number(
-                        document.getElementById("price").value
-                    ) || 0,
-
-                rating:
-                    Number(
-                        document.getElementById("rating").value
-                    ) || 0,
-
-                reviews:
-                    document.getElementById("reviews").value.trim(),
-
-                duration:
-                    document.getElementById("duration").value.trim(),
-
-                image:
-                    document.getElementById("image").value.trim(),
-
-                description:
-                    document.getElementById("description").value.trim(),
-
-                includes:
-                    parseIncludes(
-                        document.getElementById("includes").value
-                    ),
-
-                days:
-                    parseDays(
-                        document.getElementById("days").value
-                    ),
-
-                featured:
-                    document.getElementById("featured").checked
-
-            };
+        }
 
 
-            if (!payload.title) {
+        /*
+         * Basic image validation
+         */
+        if (imageFile) {
 
-                alert("Package title is required.");
+            const allowedTypes = [
+                "image/jpeg",
+                "image/jpg",
+                "image/png",
+                "image/webp"
+            ];
 
-                return;
-
-            }
-
-
-            let error;
-
-
-            if (packageId) {
-
-                const result =
-                    await supabaseClient
-                        .from("packages")
-                        .update(payload)
-                        .eq("id", packageId);
-
-                error = result.error;
-
-            } else {
-
-                const result =
-                    await supabaseClient
-                        .from("packages")
-                        .insert(payload);
-
-                error = result.error;
-
-            }
-
-
-            if (error) {
+            if (!allowedTypes.includes(imageFile.type)) {
 
                 alert(
-                    "Could not save package:\n\n" +
-                    error.message
+                    "Please select a JPG, PNG or WebP image."
                 );
 
                 return;
@@ -1468,14 +1414,290 @@
             }
 
 
-            closePackageModal();
+            if (imageFile.size > 10 * 1024 * 1024) {
 
-            showStatus("Package saved successfully.");
+                alert(
+                    "Image size must be less than 10 MB."
+                );
 
-            await loadPackages();
+                return;
+
+            }
 
         }
-    );
+
+
+        let imageUrl = "";
+
+
+        /*
+         * If editing an existing package and no new image
+         * was selected, keep the existing image URL.
+         */
+        if (packageId && !imageFile) {
+
+            const existingPackage =
+                await supabaseClient
+                    .from("packages")
+                    .select("image")
+                    .eq("id", packageId)
+                    .single();
+
+
+            if (existingPackage.error) {
+
+                alert(
+                    "Could not read existing package image:\n\n" +
+                    existingPackage.error.message
+                );
+
+                return;
+
+            }
+
+
+            imageUrl =
+                existingPackage.data?.image || "";
+
+        }
+
+
+        /*
+         * Upload new image to Supabase Storage
+         */
+        if (imageFile) {
+
+            const fileExtension =
+                imageFile.name
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+
+
+            const safeFileName =
+                imageFile.name
+                    .replace(
+                        /[^a-zA-Z0-9.-]/g,
+                        "-"
+                    );
+
+
+            const fileName =
+                Date.now() +
+                "-" +
+                Math.random()
+                    .toString(36)
+                    .substring(2, 8) +
+                "-" +
+                safeFileName;
+
+
+            const filePath =
+                "packages/" +
+                fileName;
+
+
+            const uploadResult =
+                await supabaseClient
+                    .storage
+                    .from("package-images")
+                    .upload(
+                        filePath,
+                        imageFile,
+                        {
+                            cacheControl: "3600",
+                            upsert: false,
+                            contentType: imageFile.type
+                        }
+                    );
+
+
+            if (uploadResult.error) {
+
+                alert(
+                    "Image upload failed:\n\n" +
+                    uploadResult.error.message
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Get public URL
+             */
+            const publicUrlResult =
+                supabaseClient
+                    .storage
+                    .from("package-images")
+                    .getPublicUrl(filePath);
+
+
+            imageUrl =
+                publicUrlResult.data.publicUrl;
+
+        }
+
+
+        /*
+         * Build package payload
+         */
+        const payload = {
+
+            title:
+                document
+                    .getElementById("title")
+                    .value
+                    .trim(),
+
+
+            location:
+                document
+                    .getElementById("location")
+                    .value
+                    .trim(),
+
+
+            price:
+                Number(
+                    document
+                        .getElementById("price")
+                        .value
+                ) || 0,
+
+
+            rating:
+                Number(
+                    document
+                        .getElementById("rating")
+                        .value
+                ) || 0,
+
+
+            reviews:
+                document
+                    .getElementById("reviews")
+                    .value
+                    .trim(),
+
+
+            duration:
+                document
+                    .getElementById("duration")
+                    .value
+                    .trim(),
+
+
+            image:
+                imageUrl,
+
+
+            description:
+                document
+                    .getElementById("description")
+                    .value
+                    .trim(),
+
+
+            includes:
+                parseIncludes(
+                    document
+                        .getElementById("includes")
+                        .value
+                ),
+
+
+            days:
+                parseDays(
+                    document
+                        .getElementById("days")
+                        .value
+                ),
+
+
+            featured:
+                document
+                    .getElementById("featured")
+                    .checked
+
+        };
+
+
+        /*
+         * Title validation
+         */
+        if (!payload.title) {
+
+            alert(
+                "Package title is required."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Save package
+         */
+        let error;
+
+
+        if (packageId) {
+
+            const result =
+                await supabaseClient
+                    .from("packages")
+                    .update(payload)
+                    .eq("id", packageId);
+
+            error =
+                result.error;
+
+        }
+
+        else {
+
+            const result =
+                await supabaseClient
+                    .from("packages")
+                    .insert(payload);
+
+            error =
+                result.error;
+
+        }
+
+
+        /*
+         * Database error
+         */
+        if (error) {
+
+            alert(
+                "Could not save package:\n\n" +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Success
+         */
+        closePackageModal();
+
+        showStatus(
+            "Package saved successfully."
+        );
+
+        await loadPackages();
+
+    }
+);
 
 
     /* ==================================================
