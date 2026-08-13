@@ -506,96 +506,72 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* ---------- FEATURED PACKAGE DETAILS ---------- */
+   /* ---------- FEATURED PACKAGE DETAILS ---------- */
 
-    document.querySelectorAll(".package-card").forEach(function (card) {
+document.querySelectorAll(".package-card").forEach(function (card) {
 
-        const button = card.querySelector("button");
+    const button = card.querySelector("button");
 
-        if (!button) return;
+    if (!button) return;
 
-        button.addEventListener("click", function () {
+    button.addEventListener("click", function () {
 
-            const titleElement = card.querySelector("h3");
-            const priceElement = card.querySelector(".price-tag");
-            const infoElement = card.querySelector("p");
+        const titleElement = card.querySelector("h3");
+        const priceElement = card.querySelector(".price-tag");
+        const infoElement = card.querySelector("p");
 
-            const title = titleElement
-                ? titleElement.textContent.trim()
-                : "Holiday Package";
+        const title = titleElement
+            ? titleElement.textContent.trim()
+            : "Holiday Package";
 
-            const price = priceElement
-                ? priceElement.textContent.trim()
-                : "";
+        const price = priceElement
+            ? priceElement.textContent.trim()
+            : "";
 
-            const info = infoElement
-                ? infoElement.textContent.trim()
-                : "";
+        const info = infoElement
+            ? infoElement.textContent.trim()
+            : "";
 
-            openHolidayEnquiry(title, price, info);
-        });
+        openHolidayEnquiry(title, price, info);
     });
+});
 
 
-    /* ---------- POPULAR DESTINATIONS ---------- */
+/* ---------- POPULAR DESTINATIONS ---------- */
 
-    document.querySelectorAll(".destination-card").forEach(function (card) {
+document.querySelectorAll(".destination-card").forEach(function (card) {
 
-        card.style.cursor = "pointer";
+    card.style.cursor = "pointer";
 
-        card.addEventListener("click", function () {
+    card.addEventListener("click", function () {
 
-            const titleElement = card.querySelector("h3");
-            const priceElement = card.querySelector("p");
+        const titleElement = card.querySelector("h3");
+        const priceElement = card.querySelector("p");
 
-            const destination = titleElement
-                ? titleElement.textContent.trim()
-                : "Holiday Destination";
+        const destination = titleElement
+            ? titleElement.textContent.trim()
+            : "Holiday Destination";
 
-            const price = priceElement
-                ? priceElement.textContent.trim()
-                : "";
+        const price = priceElement
+            ? priceElement.textContent.trim()
+            : "";
 
-            openHolidayEnquiry(
-                destination,
-                price,
-                "Popular destination"
-            );
-        });
+        openHolidayEnquiry(
+            destination,
+            price,
+            "Popular destination"
+        );
     });
+});
 
 
-    /* ---------- ENQUIRY FUNCTION ---------- */
+/* ---------- PREMIUM PACKAGE MODAL ---------- */
 
-    function openHolidayEnquiry(title, price, info) {
+function openHolidayEnquiry(title, price, info) {
 
-        const modal = document.getElementById("modal");
+    const modal = document.getElementById("modal");
 
-        if (modal) {
-
-            modal.classList.add("open");
-
-            const modalTitle =
-                document.getElementById("mTitle");
-
-            if (modalTitle) {
-                modalTitle.textContent =
-                    "Enquire About " + title;
-            }
-
-            const packageField =
-                document.querySelector(
-                    "#contactForm input[name='package'], #contactForm #package"
-                );
-
-            if (packageField) {
-                packageField.value =
-                    title + (price ? " - " + price : "");
-            }
-
-            return;
-        }
-
+    if (!modal) {
 
         const contact =
             document.getElementById("contact") ||
@@ -612,6 +588,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 contact.querySelector("textarea");
 
             if (messageBox) {
+
                 messageBox.value =
                     "I am interested in " +
                     title +
@@ -622,14 +599,341 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-
         alert(
             title +
             (price ? "\n" + price : "") +
             "\n\nPlease contact Holiday Masti for more details."
         );
+
+        return;
     }
 
+
+    /* -----------------------------------------
+       Existing modal title
+       ----------------------------------------- */
+
+    const modalTitle =
+        document.getElementById("mTitle");
+
+    if (modalTitle) {
+        modalTitle.textContent = title;
+    }
+
+
+    /* -----------------------------------------
+       Package enquiry field
+       ----------------------------------------- */
+
+    const packageField =
+        document.querySelector(
+            "#contactForm input[name='package'], #contactForm #package"
+        );
+
+    if (packageField) {
+
+        packageField.value =
+            title + (price ? " - " + price : "");
+    }
+
+
+    /* -----------------------------------------
+       Create premium details section
+       ----------------------------------------- */
+
+    let details =
+        modal.querySelector(".premium-package-details");
+
+    if (!details) {
+
+        details =
+            document.createElement("div");
+
+        details.className =
+            "premium-package-details";
+
+        modal.appendChild(details);
+    }
+
+
+    /* -----------------------------------------
+       Destination data
+       ----------------------------------------- */
+
+    const packageData = {
+
+        "Goa Beach Escape": {
+            location: "GOA • INDIA",
+            rating: "4.8",
+            duration: "3 Nights / 4 Days",
+            includes: [
+                "🏨 Hotel stay",
+                "🍳 Breakfast",
+                "🚗 Local transfers",
+                "📸 Sightseeing"
+            ],
+            itinerary: [
+                ["DAY 1", "Arrival & Beach", "Hotel check-in and relaxing evening by the beach."],
+                ["DAY 2", "North Goa", "Explore famous beaches, forts and local attractions."],
+                ["DAY 3", "South Goa", "Discover peaceful beaches and scenic locations."],
+                ["DAY 4", "Departure", "Breakfast and transfer for your onward journey."]
+            ]
+        },
+
+        "Dubai Luxury": {
+            location: "DUBAI • UAE",
+            rating: "4.7",
+            duration: "4 Nights / 5 Days",
+            includes: [
+                "🏨 Luxury hotel",
+                "🍳 Breakfast",
+                "🚐 Transfers",
+                "🏙️ City sightseeing"
+            ],
+            itinerary: [
+                ["DAY 1", "Arrival", "Airport pickup and hotel check-in."],
+                ["DAY 2", "Dubai City", "Burj Khalifa, Dubai Mall and iconic attractions."],
+                ["DAY 3", "Desert Safari", "Desert safari with evening entertainment."],
+                ["DAY 4", "Modern Dubai", "Palm Jumeirah and Dubai Marina."],
+                ["DAY 5", "Departure", "Breakfast and airport transfer."]
+            ]
+        },
+
+        "Bali Paradise": {
+            location: "BALI • INDONESIA",
+            rating: "4.9",
+            duration: "5 Nights / 6 Days",
+            includes: [
+                "🏨 Resort stay",
+                "🍳 Breakfast",
+                "🚗 Private transfers",
+                "🌴 Sightseeing"
+            ],
+            itinerary: [
+                ["DAY 1", "Arrival", "Airport pickup and resort check-in."],
+                ["DAY 2", "Ubud", "Temples, rice terraces and beautiful landscapes."],
+                ["DAY 3", "Kintamani", "Volcano views and scenic Bali experiences."],
+                ["DAY 4", "Beach Day", "Relax and enjoy Bali's famous beaches."],
+                ["DAY 5", "Island Escape", "Explore more of Bali and enjoy the evening."],
+                ["DAY 6", "Departure", "Breakfast and airport transfer."]
+            ]
+        }
+
+    };
+
+
+    const data =
+        packageData[title] || {
+
+            location: "HOLIDAY MASTI",
+            rating: "4.8",
+            duration: "Custom Package",
+            includes: [
+                "🏨 Hotel stay",
+                "🍳 Breakfast",
+                "🚗 Transfers",
+                "📸 Sightseeing"
+            ],
+            itinerary: [
+                ["DAY 1", "Arrival", "Welcome and hotel check-in."],
+                ["DAY 2", "Explore", "Enjoy sightseeing and local experiences."],
+                ["DAY 3", "Relax", "Free time to explore at your own pace."],
+                ["DAY 4", "Departure", "Breakfast and onward transfer."]
+            ]
+        };
+
+
+    /* -----------------------------------------
+       Premium modal content
+       ----------------------------------------- */
+
+    details.innerHTML = `
+
+        <div class="modal-content-premium">
+
+            <div class="modal-top-line">
+
+                <span class="modal-location">
+                    ${data.location}
+                </span>
+
+                <span class="modal-rating">
+                    ⭐ ${data.rating}
+                </span>
+
+            </div>
+
+
+            <h2>
+                ${title}
+            </h2>
+
+
+            <p class="modal-description">
+                ${info || "Experience an unforgettable holiday with Holiday Masti."}
+            </p>
+
+
+            <div class="modal-price-row">
+
+                <div>
+
+                    <span class="modal-price-label">
+                        Starting from
+                    </span>
+
+                    <div class="modal-price-value">
+                        ${price || "On Request"}
+                    </div>
+
+                </div>
+
+
+                <div class="modal-duration">
+                    🌙 ${data.duration}
+                </div>
+
+            </div>
+
+
+            <h3 class="modal-section-title">
+                What's Included
+            </h3>
+
+
+            <div class="modal-includes">
+
+                ${data.includes.map(function (item) {
+
+                    return `
+                        <div class="modal-include-item">
+                            ${item}
+                        </div>
+                    `;
+
+                }).join("")}
+
+            </div>
+
+
+            <h3 class="modal-section-title">
+                Your Itinerary
+            </h3>
+
+
+            <div class="modal-itinerary">
+
+                ${data.itinerary.map(function (day) {
+
+                    return `
+                        <div class="modal-day">
+
+                            <div class="modal-day-number">
+                                ${day[0].replace("DAY ", "")}
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    ${day[1]}
+                                </strong>
+
+                                <span>
+                                    ${day[2]}
+                                </span>
+
+                            </div>
+
+                        </div>
+                    `;
+
+                }).join("")}
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-dark"
+                    onclick="scrollToContactFromPackage()">
+
+                    Enquire Now
+
+                </button>
+
+
+                <a
+                    class="modal-whatsapp"
+                    href="https://wa.me/?text=${encodeURIComponent(
+                        "Hi Holiday Masti, I am interested in the " +
+                        title +
+                        (price ? " package " + price : "") +
+                        ". Please share more details."
+                    )}"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    WhatsApp
+
+                </a>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    /* -----------------------------------------
+       Open modal
+       ----------------------------------------- */
+
+    modal.classList.add("open");
+
+}
+
+
+/* -----------------------------------------
+   Enquire Now from package modal
+   ----------------------------------------- */
+
+window.scrollToContactFromPackage = function () {
+
+    const modal =
+        document.getElementById("modal");
+
+    if (modal) {
+        modal.classList.remove("open");
+    }
+
+
+    const contact =
+        document.getElementById("contact") ||
+        document.querySelector(".contact");
+
+    if (contact) {
+
+        contact.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        setTimeout(function () {
+
+            const firstInput =
+                contact.querySelector(
+                    "input, textarea, select"
+                );
+
+            if (firstInput) {
+                firstInput.focus();
+            }
+
+        }, 700);
+    }
+    
 });
 /* =====================================================
    HOLIDAY SEARCH
