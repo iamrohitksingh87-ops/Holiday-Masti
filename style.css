@@ -2866,3 +2866,108 @@ button {
         font-size: 11px;
     }
 }
+/* =====================================================
+   HOLIDAY PACKAGE MODAL - BLUR FIX
+   ===================================================== */
+
+#detailsModal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(5, 18, 35, 0.72);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+#detailsModal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+/* IMPORTANT:
+   Modal itself must NOT be blurred
+*/
+
+#detailsModal .modal-box {
+    position: relative;
+
+    width: min(1180px, 94vw);
+    max-height: 92vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.30);
+
+    filter: none !important;
+
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    transform: translateY(10px) scale(0.98);
+
+    transition:
+        transform 0.3s ease;
+}
+
+#detailsModal.open .modal-box {
+    transform: translateY(0) scale(1);
+}
+
+
+/* Prevent any parent blur/filter from affecting content */
+
+#detailsModal,
+#detailsModal .modal-box,
+#detailsModal .premium-package-details {
+    filter: none !important;
+}
+
+
+/* Premium package content */
+
+#detailsModal .premium-package-details {
+    background: #ffffff;
+    color: #0b2948;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    #detailsModal {
+        padding: 10px;
+        align-items: center;
+    }
+
+    #detailsModal .modal-box {
+        width: 100%;
+        max-height: 94vh;
+        border-radius: 22px;
+    }
+
+}
