@@ -2259,3 +2259,127 @@ console.log(
 );
 
 });
+/* =====================================================
+   FINAL PACKAGE VIEW DETAILS FIX
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const packageModal =
+        document.getElementById("detailsModal");
+
+    if (!packageModal) {
+        console.error("Holiday Masti: detailsModal not found.");
+        return;
+    }
+
+
+    document.addEventListener("click", function (event) {
+
+        const button =
+            event.target.closest(".details-button");
+
+        if (!button) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+
+        const title =
+            button.dataset.title ||
+            "Holiday Package";
+
+        const price =
+            button.dataset.price ||
+            "";
+
+        const description =
+            button.dataset.description ||
+            "Experience an unforgettable holiday with Holiday Masti.";
+
+
+        /*
+         * Use the premium package function
+         */
+
+        if (typeof openPackage === "function") {
+
+            openPackage(
+                title,
+                price,
+                description
+            );
+
+            return;
+        }
+
+
+        /*
+         * Fallback - basic modal
+         */
+
+        const modalTitle =
+            document.getElementById("modalTitle");
+
+        const modalDescription =
+            document.getElementById("modalDescription");
+
+        const modalPrice =
+            document.getElementById("modalPrice");
+
+
+        if (modalTitle) {
+            modalTitle.textContent = title;
+        }
+
+        if (modalDescription) {
+            modalDescription.textContent = description;
+        }
+
+        if (modalPrice) {
+            modalPrice.textContent = price;
+        }
+
+
+        packageModal.classList.add("open");
+
+        packageModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+    });
+
+
+    /*
+     * Close modal
+     */
+
+    packageModal.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target.matches(
+                    "[data-close-modal]"
+                ) ||
+                event.target.closest(
+                    "[data-close-modal]"
+                )
+            ) {
+
+                packageModal.classList.remove(
+                    "open"
+                );
+
+                packageModal.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+            }
+
+        }
+    );
+
+});
