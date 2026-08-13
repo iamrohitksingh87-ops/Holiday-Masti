@@ -35,124 +35,275 @@ document.addEventListener("keydown",e=>{
 
 /* ================= PACKAGE DATA ================= */
 
-const data={
+const data = {
 
-"Goa Beach Escape":{
-    loc:"GOA • INDIA",
-    rating:"4.8",
-    duration:"3 Nights / 4 Days",
-    inc:[
-        "🏨 Hotel stay",
-        "🍳 Breakfast",
-        "🚗 Local transfers",
-        "📸 Sightseeing"
+"Goa Beach Escape": {
+
+    image:
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=90",
+
+    loc: "GOA • INDIA",
+    rating: "4.8",
+    reviews: "120+ Reviews",
+    duration: "3 Nights / 4 Days",
+
+    description:
+    "Relax on beautiful beaches, enjoy delicious local food and experience the best of Goa with a perfect mix of relaxation, sightseeing and fun.",
+
+    includes: [
+
+        ["🏨","Hotel / Resort","Comfortable stay in a handpicked property."],
+
+        ["🍳","Breakfast","Daily breakfast included."],
+
+        ["🚗","Transfers","Airport and local sightseeing transfers."],
+
+        ["🏖️","Beach Experience","Explore Goa's beautiful beaches."]
     ],
-    days:[
-        ["1","Arrival & Beach","Hotel check-in and relaxing evening by the beach."],
-        ["2","North Goa","Explore famous beaches, forts and local attractions."],
-        ["3","South Goa","Discover peaceful beaches and scenic locations."],
-        ["4","Departure","Breakfast and airport transfer."]
+
+    days: [
+
+        ["1","Arrival in Goa",
+        "Arrive at Goa Airport and meet your travel representative. Transfer to your hotel and complete check-in. Spend the evening relaxing by the beach and enjoy a beautiful Goan sunset."],
+
+        ["2","North Goa Exploration",
+        "After breakfast, explore the famous beaches of North Goa including Baga and Calangute. Visit Aguada Fort and enjoy time at local cafés and beachside spots. Return to the hotel in the evening."],
+
+        ["3","South Goa & Leisure",
+        "Discover the peaceful side of Goa with a visit to South Goa beaches and scenic viewpoints. Enjoy a relaxed afternoon and spend the evening exploring local markets or enjoying a beachside dinner."],
+
+        ["4","Departure",
+        "Enjoy breakfast at the hotel and check out. Depending on your departure time, enjoy some free time before your private transfer to Goa Airport."]
     ]
 },
 
-"Bali Paradise":{
-    loc:"BALI • INDONESIA",
-    rating:"4.9",
-    duration:"5 Nights / 6 Days",
-    inc:[
-        "🏨 Resort stay",
-        "🍳 Breakfast",
-        "🚗 Private transfers",
-        "🌴 Sightseeing"
+
+"Bali Paradise": {
+
+    image:
+    "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=90",
+
+    loc: "BALI • INDONESIA",
+    rating: "4.9",
+    reviews: "140+ Reviews",
+    duration: "5 Nights / 6 Days",
+
+    description:
+    "Discover tropical beaches, peaceful temples, lush rice terraces and unforgettable island experiences in beautiful Bali.",
+
+    includes: [
+
+        ["🏨","Resort Stay","Comfortable stay in selected resorts."],
+
+        ["🍳","Breakfast","Daily breakfast included."],
+
+        ["🚗","Private Transfers","Airport and sightseeing transfers."],
+
+        ["🌴","Island Experiences","Curated Bali sightseeing."]
     ],
-    days:[
-        ["1","Arrival","Airport pickup and resort check-in."],
-        ["2","Ubud","Temples, rice terraces and beautiful landscapes."],
-        ["3","Kintamani","Volcano views and scenic Bali experiences."],
-        ["4","Beach Day","Relax and enjoy Bali's famous beaches."],
-        ["5","Island Escape","Explore more of Bali and enjoy the evening."],
-        ["6","Departure","Breakfast and airport transfer."]
+
+    days: [
+
+        ["1","Arrival in Bali",
+        "Arrive at Ngurah Rai International Airport and meet your representative. Private transfer to your resort, check-in and relax after your journey."],
+
+        ["2","Ubud & Rice Terraces",
+        "Explore the cultural heart of Bali with Ubud, traditional temples and beautiful rice terraces. Enjoy local cafés, art markets and scenic surroundings."],
+
+        ["3","Kintamani & Volcano Views",
+        "Travel towards the Kintamani highlands and enjoy panoramic views of Mount Batur. Visit local attractions and experience Bali's unique culture and landscapes."],
+
+        ["4","Beach & Leisure Day",
+        "Enjoy a relaxed day around Bali's beautiful beaches. Spend time at the resort, explore the coastline or enjoy optional water activities."],
+
+        ["5","Island Experience",
+        "Explore more of Bali with a scenic island experience. Discover hidden viewpoints, local culture and beautiful tropical surroundings before returning to your resort."],
+
+        ["6","Departure",
+        "Enjoy your final breakfast before checking out. Private transfer to the airport according to your flight schedule."]
     ]
 },
 
-"Dubai Luxury":{
-    loc:"DUBAI • UAE",
-    rating:"4.7",
-    duration:"4 Nights / 5 Days",
-    inc:[
-        "🏨 Luxury hotel",
-        "🍳 Breakfast",
-        "🚐 Transfers",
-        "🏙️ City sightseeing"
+
+"Dubai Luxury": {
+
+    image:
+    "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1600&q=90",
+
+    loc: "DUBAI • UAE",
+    rating: "4.7",
+    reviews: "100+ Reviews",
+    duration: "4 Nights / 5 Days",
+
+    description:
+    "Experience Dubai's iconic skyline, luxury shopping, desert adventures and unforgettable city attractions.",
+
+    includes: [
+
+        ["🏨","Luxury Hotel","Premium hotel accommodation."],
+
+        ["🍳","Breakfast","Daily breakfast included."],
+
+        ["🚐","Transfers","Airport and sightseeing transfers."],
+
+        ["🏙️","City Experience","Dubai's iconic attractions."]
     ],
-    days:[
-        ["1","Arrival","Airport pickup and hotel check-in."],
-        ["2","Dubai City","Burj Khalifa, Dubai Mall and iconic attractions."],
-        ["3","Desert Safari","Desert safari with evening entertainment."],
-        ["4","Modern Dubai","Palm Jumeirah and Dubai Marina."],
-        ["5","Departure","Breakfast and airport transfer."]
+
+    days: [
+
+        ["1","Arrival in Dubai",
+        "Arrive in Dubai and meet your representative at the airport. Private transfer to your hotel followed by check-in and leisure time."],
+
+        ["2","Dubai City Tour",
+        "Explore modern Dubai including Burj Khalifa, Dubai Mall, Downtown Dubai and other iconic landmarks. Enjoy the spectacular city skyline during your evening."],
+
+        ["3","Desert Safari",
+        "Enjoy a desert adventure with dune bashing, beautiful sunset views and an evening filled with traditional entertainment and dining."],
+
+        ["4","Palm Jumeirah & Marina",
+        "Explore Palm Jumeirah, Dubai Marina and the city's famous waterfront attractions. Spend some free time shopping or enjoying Dubai's vibrant evening atmosphere."],
+
+        ["5","Departure",
+        "Enjoy breakfast and complete your check-out. Private transfer to Dubai International Airport for your onward journey."]
     ]
 },
 
-"Kashmir Heaven":{
-    loc:"KASHMIR • INDIA",
-    rating:"4.9",
-    duration:"5 Nights / 6 Days",
-    inc:[
-        "🏨 Hotel stay",
-        "🍳 Breakfast",
-        "🚗 Transfers",
-        "🏔️ Sightseeing"
+
+"Kashmir Heaven": {
+
+    image:
+    "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1600&q=90",
+
+    loc: "KASHMIR • INDIA",
+    rating: "4.9",
+    reviews: "130+ Reviews",
+    duration: "5 Nights / 6 Days",
+
+    description:
+    "Explore serene valleys, beautiful mountain landscapes, peaceful lakes and the unforgettable natural beauty of Kashmir.",
+
+    includes: [
+
+        ["🏨","Hotel Stay","Comfortable stays in selected hotels."],
+
+        ["🍳","Breakfast","Daily breakfast included."],
+
+        ["🚗","Transfers","Private local transportation."],
+
+        ["🏔️","Sightseeing","Curated Kashmir experiences."]
     ],
-    days:[
-        ["1","Arrival","Welcome and hotel check-in."],
-        ["2","Srinagar","Explore Dal Lake and local attractions."],
-        ["3","Gulmarg","Mountain views and scenic experiences."],
-        ["4","Pahalgam","Enjoy valleys, rivers and beautiful landscapes."],
-        ["5","Local Experience","Relax and explore Srinagar."],
-        ["6","Departure","Breakfast and onward transfer."]
+
+    days: [
+
+        ["1","Arrival in Srinagar",
+        "Arrive in Srinagar and meet your representative. Transfer to your hotel or houseboat and enjoy a relaxed evening beside the beautiful Dal Lake."],
+
+        ["2","Srinagar Sightseeing",
+        "Explore Srinagar's famous attractions including Mughal gardens, Dal Lake and local markets. Enjoy the peaceful atmosphere and beautiful Himalayan surroundings."],
+
+        ["3","Gulmarg Excursion",
+        "Travel to Gulmarg, one of Kashmir's most beautiful mountain destinations. Enjoy panoramic views, scenic walks and optional activities depending on the season."],
+
+        ["4","Pahalgam Valley",
+        "Visit the picturesque Pahalgam valley surrounded by mountains and flowing rivers. Enjoy nature, scenic viewpoints and a peaceful day away from the city."],
+
+        ["5","Leisure in Srinagar",
+        "Enjoy a relaxed morning and explore local markets for Kashmiri handicrafts, dry fruits and souvenirs. Spend the evening enjoying the beautiful surroundings."],
+
+        ["6","Departure",
+        "Enjoy breakfast before check-out. Private transfer to Srinagar Airport according to your departure schedule."]
     ]
 },
 
-"Kerala Backwaters":{
-    loc:"KERALA • INDIA",
-    rating:"4.8",
-    duration:"4 Nights / 5 Days",
-    inc:[
-        "🏨 Hotel / resort",
-        "🍳 Breakfast",
-        "🚗 Transfers",
-        "🛶 Backwater experience"
+
+"Kerala Backwaters": {
+
+    image:
+    "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1600&q=90",
+
+    loc: "KERALA • INDIA",
+    rating: "4.8",
+    reviews: "120+ Reviews",
+    duration: "4 Nights / 5 Days",
+
+    description:
+    "Enjoy calm backwaters, lush greenery, scenic hill stations and a relaxing Kerala holiday filled with nature and local experiences.",
+
+    includes: [
+
+        ["🏨","Hotel / Resort","Comfortable stay in quality properties."],
+
+        ["🍳","Breakfast","Daily breakfast included."],
+
+        ["🚗","Transfers","Airport, hotel and sightseeing transfers."],
+
+        ["🛶","Backwater Experience","Enjoy Kerala's famous waterways."]
     ],
-    days:[
-        ["1","Arrival","Welcome and hotel check-in."],
-        ["2","Munnar","Tea gardens and scenic hill views."],
-        ["3","Alleppey","Relax beside the famous backwaters."],
-        ["4","Kochi","Explore heritage areas and local culture."],
-        ["5","Departure","Breakfast and onward transfer."]
+
+    days: [
+
+        ["1","Arrival in Kochi",
+        "Welcome at Kochi Airport followed by a private transfer to your hotel. Complete check-in and spend the evening relaxing or exploring the nearby area. Overnight stay in Kochi."],
+
+        ["2","Kochi → Munnar",
+        "After breakfast, begin your scenic journey towards Munnar through lush green landscapes. Visit tea plantations and enjoy beautiful mountain viewpoints before checking into your resort."],
+
+        ["3","Explore Munnar",
+        "Discover the famous tea gardens and mountain scenery of Munnar. Visit popular viewpoints and local attractions, followed by a relaxed evening at the resort."],
+
+        ["4","Munnar → Alleppey",
+        "After breakfast, travel towards Alleppey, the heart of Kerala's famous backwaters. Check into your waterfront stay and enjoy a peaceful evening surrounded by coconut palms and waterways."],
+
+        ["5","Alleppey → Kochi & Departure",
+        "Enjoy breakfast before your transfer towards Kochi. Depending on your departure time, enjoy some final sightseeing or shopping before your airport drop."]
     ]
 },
 
-"Thailand Adventure":{
-    loc:"THAILAND",
-    rating:"4.7",
-    duration:"5 Nights / 6 Days",
-    inc:[
-        "🏨 Hotel stay",
-        "🍳 Breakfast",
-        "🚐 Transfers",
-        "🏝️ Island sightseeing"
-    ],
-    days:[
-        ["1","Arrival","Airport pickup and hotel check-in."],
-        ["2","Bangkok","Explore the city's famous attractions."],
-        ["3","Island Escape","Enjoy Thailand's beautiful beaches."],
-        ["4","Adventure","Water activities and local experiences."],
-        ["5","Leisure","Free day for shopping and relaxation."],
-        ["6","Departure","Breakfast and airport transfer."]
-    ]
-}
 
+"Thailand Adventure": {
+
+    image:
+    "https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1600&q=90",
+
+    loc: "THAILAND",
+    rating: "4.7",
+    reviews: "100+ Reviews",
+    duration: "5 Nights / 6 Days",
+
+    description:
+    "Discover tropical islands, vibrant markets, beautiful beaches and exciting adventures across Thailand.",
+
+    includes: [
+
+        ["🏨","Hotel Stay","Comfortable accommodation."],
+
+        ["🍳","Breakfast","Daily breakfast included."],
+
+        ["🚐","Transfers","Airport and local transfers."],
+
+        ["🏝️","Island Experience","Explore Thailand's tropical beauty."]
+    ],
+
+    days: [
+
+        ["1","Arrival in Bangkok",
+        "Arrive in Bangkok and meet your representative. Transfer to your hotel, complete check-in and enjoy the evening at leisure."],
+
+        ["2","Bangkok City",
+        "Explore Bangkok's famous temples, markets and cultural attractions. Enjoy the city's unique combination of traditional heritage and modern lifestyle."],
+
+        ["3","Island Escape",
+        "Travel towards one of Thailand's beautiful island destinations. Relax on the beach, enjoy the tropical surroundings and take part in optional activities."],
+
+        ["4","Adventure Day",
+        "Enjoy a day filled with water activities, sightseeing and local experiences. Discover hidden corners of the destination and enjoy a beautiful tropical sunset."],
+
+        ["5","Leisure & Shopping",
+        "Spend a relaxed day exploring local markets, shopping areas and cafés. Enjoy some free time to experience Thailand at your own pace."],
+
+        ["6","Departure",
+        "Enjoy your final breakfast before checking out. Transfer to the airport according to your flight schedule."]
+    ]
 };
 
 
