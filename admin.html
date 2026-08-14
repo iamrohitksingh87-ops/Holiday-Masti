@@ -1352,16 +1352,47 @@
     );
 
 
-    packageModal.addEventListener(
+   packageModal.addEventListener(
+    "click",
+    function (event) {
+
+        /*
+         * Close ONLY when the actual dark/backdrop area
+         * is clicked.
+         *
+         * Never close when interacting with the form.
+         */
+
+        if (event.target === packageModal) {
+
+            closePackageModal();
+
+        }
+
+    }
+);
+
+
+/*
+ * Prevent clicks inside the modal form from reaching
+ * the backdrop.
+ */
+
+const modalBox =
+    packageModal.querySelector(".modal-box");
+
+if (modalBox) {
+
+    modalBox.addEventListener(
         "click",
         function (event) {
 
-            if (event.target === packageModal) {
-                closePackageModal();
-            }
+            event.stopPropagation();
 
         }
     );
+
+}
 
 
     function closePackageModal() {
