@@ -7,7 +7,19 @@ const scrollTo=s=>{const e=$(s);if(e)e.scrollIntoView({behavior:"smooth",block:"
 
 const year=$("#year"); 
 if(year)year.textContent=new Date().getFullYear();
+/* ================= SUPABASE ================= */
 
+const SUPABASE_URL =
+    "https://wwfatmtqrswayugaqhra.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 /* ================= MODAL ================= */
 
 const modal=$("#detailsModal");
