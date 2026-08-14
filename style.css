@@ -3291,3 +3291,201 @@ button {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
+/* =========================================
+   GLASSMORPHISM - ACTUAL WEBSITE OVERRIDE
+========================================= */
+
+html {
+    background: #dfeaf4;
+}
+
+body {
+    background:
+        linear-gradient(
+            135deg,
+            #dceaf5 0%,
+            #f7faff 45%,
+            #e8f1f8 100%
+        ) !important;
+
+    color: #102a43;
+}
+
+
+/* Main sections become transparent */
+
+.search-section,
+.flight-section,
+.content-section,
+.packages-section,
+.features-section,
+.contact-section {
+    background: transparent !important;
+}
+
+
+/* Glass header */
+
+.site-header {
+    background: rgba(255, 255, 255, 0.62) !important;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.65);
+
+    box-shadow:
+        0 8px 30px rgba(20, 60, 90, 0.08);
+}
+
+
+/* Search glass card */
+
+.search-card {
+    background:
+        rgba(255, 255, 255, 0.62) !important;
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 18px 50px rgba(30, 70, 100, 0.12);
+
+    border-radius: 28px;
+}
+
+
+/* Flight glass */
+
+.flight-shell {
+    background:
+        rgba(255, 255, 255, 0.58) !important;
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.72);
+
+    box-shadow:
+        0 18px 50px rgba(30, 70, 100, 0.12);
+
+    border-radius: 28px;
+}
+
+
+/* Package cards */
+
+.package-card {
+    background:
+        rgba(255, 255, 255, 0.68) !important;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.78);
+
+    box-shadow:
+        0 15px 40px rgba(25, 65, 95, 0.12);
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.package-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 22px 50px rgba(25, 65, 95, 0.18);
+}
+
+
+/* Destination cards */
+
+.destination-card {
+    background:
+        rgba(255, 255, 255, 0.62) !important;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 15px 40px rgba(25, 65, 95, 0.10);
+}
+
+
+/* Why Us cards */
+
+.feature-box {
+    background:
+        rgba(255, 255, 255, 0.62) !important;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 15px 40px rgba(25, 65, 95, 0.10);
+
+    border-radius: 22px;
+}
+
+
+/* Contact glass */
+
+.contact-card {
+    background:
+        rgba(255, 255, 255, 0.60) !important;
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.78);
+
+    box-shadow:
+        0 20px 55px rgba(25, 65, 95, 0.14);
+
+    border-radius: 28px;
+}
+
+
+/* Form fields */
+
+.search-form input,
+.search-form select,
+.contact-form input,
+.contact-form textarea {
+    background:
+        rgba(255, 255, 255, 0.72) !important;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.85);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+/* Divine Yatra */
+
+#divine-yatra {
+    background:
+        transparent !important;
+}
