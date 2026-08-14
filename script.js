@@ -1509,29 +1509,265 @@ Travellers: ${trav}`;
 
 /* ================= CONTACT FORM ================= */
 
-const cf=
+const cf =
     $("#contactForm");
 
 if(cf){
 
     cf.addEventListener(
         "submit",
-        e=>{
+        async e => {
 
             e.preventDefault();
 
-            const s=
+
+            const name =
+                $("#contactName")
+                    ?.value.trim() || "";
+
+
+            const email =
+                $("#contactEmail")
+                    ?.value.trim() || "";
+
+
+            const phone =
+                $("#contactPhone")
+                    ?.value.trim() || "";
+
+
+            const message =
+                $("#contactMessage")
+                    ?.value.trim() || "";
+
+
+            const success =
                 $("#contactSuccess");
 
-            if(s){
 
-                s.textContent=
-                    "Thanks! Your enquiry has been received. We'll get back to you shortly.";
+            /*
+             * Basic validation
+             */
 
-                s.style.color=
+            if(!name){
+
+                if(success){
+
+                    success.textContent =
+                        "Please enter your name.";
+
+                    success.style.color =
+                        "#d9534f";
+
+                }
+
+                return;
+
+            }
+
+
+            if(!email){
+
+                if(success){
+
+                    success.textContent =
+                        "Please enter your email address.";
+
+                    success.style.color =
+                        "#d9534f";
+
+                }
+
+                return;
+
+            }
+
+
+            if(!phone){
+
+                if(success){
+
+                    success.textContent =
+                        "Please enter your phone number.";
+
+                    success.style.color =
+                        "#d9534f";
+
+                }
+
+                return;
+
+            }
+
+
+            if(!message){
+
+                if(success){
+
+                    success.textContent =
+                        "Please enter your enquiry.";
+
+                    success.style.color =
+                        "#d9534f";
+
+                }
+
+                return;
+
+            }
+
+
+            /*
+             * Show sending status
+             */
+
+            if(success){
+
+                success.textContent =
+                    "Sending your enquiry...";
+
+                success.style.color =
+                    "#6b7f95";
+
+            }
+
+
+            /*
+             * Get package/destination information
+             * from the enquiry message when available.
+             */
+
+            let packageName = "";
+
+
+            const storedDestination =
+                sessionStorage.getItem(
+                    "holidayDestination"
+                );
+
+
+            if(storedDestination){
+
+                packageName =
+                    storedDestination;
+
+            }
+
+
+            /*
+             * Save enquiry to Supabase
+             */
+
+            const result =
+                await supabaseClient
+                    .from("enquiries")
+                    .insert({
+
+                        name:
+                            name,
+
+                        email:
+                            email,
+
+                        phone:
+                            phone,
+
+                        message:
+                            message,
+
+                        package_name:
+                            packageName,
+
+                        status:
+                            "New"
+
+                    });
+
+
+            /*
+             * Database error
+             */
+
+            if(result.error){
+
+                console.error(
+                    "Enquiry save failed:",
+                    result.error
+                );
+
+
+                if(success){
+
+                    success.textContent =
+                        "We couldn't send your enquiry. Please try WhatsApp instead.";
+
+                    success.style.color =
+                        "#d9534f";
+
+                }
+
+                return;
+
+            }
+
+
+            /*
+             * Build WhatsApp message
+             */
+
+            const whatsappMessage =
+`🌴 Holiday Masti Enquiry
+
+👤 Name: ${name}
+
+📧 Email: ${email}
+
+📱 Phone: ${phone}
+
+${packageName
+    ? "🏖️ Destination: " +
+      packageName +
+      "\n\n"
+    : ""}💬 Enquiry:
+${message}`;
+
+
+            const whatsappUrl =
+                "https://wa.me/917851007007?text=" +
+                encodeURIComponent(
+                    whatsappMessage
+                );
+
+
+            /*
+             * Success message
+             */
+
+            if(success){
+
+                success.textContent =
+                    "Thanks! Your enquiry has been received. Opening WhatsApp...";
+
+                success.style.color =
                     "#0b7a53";
 
             }
+
+
+            /*
+             * Open WhatsApp
+             */
+
+            window.open(
+                whatsappUrl,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+
+            /*
+             * Reset form after successful save
+             */
 
             cf.reset();
 
@@ -1539,6 +1775,9 @@ if(cf){
     );
 
 }
+
+
+/* ================= FLIGHTS ================= */
 
 
 /* ================= FLIGHTS ================= */
