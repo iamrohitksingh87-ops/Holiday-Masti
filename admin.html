@@ -1716,70 +1716,89 @@
     ================================================== */
 
     window.editPackage =
-        async function (id) {
+    async function (id) {
 
-            const {
-                data,
-                error
-            } = await supabaseClient
-                .from("packages")
-                .select("*")
-                .eq("id", id)
-                .single();
-
-
-            if (error) {
-
-                alert(error.message);
-
-                return;
-
-            }
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("packages")
+            .select("*")
+            .eq("id", id)
+            .single();
 
 
-            modalTitle.textContent =
-                "Edit Package";
+        if (error) {
+
+            alert(
+                "Could not load package:\n\n" +
+                error.message
+            );
+
+            return;
+
+        }
 
 
-            document.getElementById("packageId").value =
-                data.id;
+        modalTitle.textContent =
+            "Edit Package";
 
-            document.getElementById("title").value =
-                data.title || "";
 
-            document.getElementById("location").value =
-                data.location || "";
+        document.getElementById("packageId").value =
+            data.id;
 
-            document.getElementById("price").value =
-                data.price || "";
 
-            document.getElementById("rating").value =
-                data.rating || "";
+        document.getElementById("title").value =
+            data.title || "";
 
-            document.getElementById("reviews").value =
-                data.reviews || "";
 
-            document.getElementById("duration").value =
-                data.duration || "";
+        document.getElementById("location").value =
+            data.location || "";
 
-            document.getElementById("image").value =
-                data.image || "";
 
-            document.getElementById("description").value =
-                data.description || "";
+        document.getElementById("category").value =
+            data.category || "holiday";
 
-            document.getElementById("featured").checked =
-                Boolean(data.featured);
 
-            document.getElementById("includes").value =
-                formatIncludes(data.includes);
+        document.getElementById("price").value =
+            data.price || "";
 
-            document.getElementById("days").value =
-                formatDays(data.days);
 
-            packageModal.classList.remove("hidden");
+        document.getElementById("rating").value =
+            data.rating || "";
 
-        };
+
+        document.getElementById("reviews").value =
+            data.reviews || "";
+
+
+        document.getElementById("duration").value =
+            data.duration || "";
+
+
+        document.getElementById("image").value =
+            data.image || "";
+
+
+        document.getElementById("description").value =
+            data.description || "";
+
+
+        document.getElementById("featured").checked =
+            Boolean(data.featured);
+
+
+        document.getElementById("includes").value =
+            formatIncludes(data.includes);
+
+
+        document.getElementById("days").value =
+            formatDays(data.days);
+
+
+        packageModal.classList.remove("hidden");
+
+    };
 
 
     /* ==================================================
