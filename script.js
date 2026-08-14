@@ -1066,19 +1066,14 @@ function renderSupabasePackage(pkg) {
 
 async function loadSupabasePackages() {
 
-    const grid =
+    const holidayGrid =
         $("#packageGrid");
 
+    const divineGrid =
+        $("#divineYatraGrid");
 
-    const empty =
+    const holidayEmpty =
         $("#emptyState");
-
-
-    if (!grid) {
-
-        return;
-
-    }
 
 
     try {
@@ -1112,10 +1107,8 @@ async function loadSupabasePackages() {
         if (!response.ok) {
 
             throw new Error(
-
                 "Package service returned HTTP " +
                 response.status
-
             );
 
         }
@@ -1125,55 +1118,111 @@ async function loadSupabasePackages() {
             await response.json();
 
 
+        if (!Array.isArray(packages)) {
+
+            return;
+
+        }
+
+
+        /* =========================================
+           HOLIDAY PACKAGES
+        ========================================= */
+
+        const holidayPackages =
+            packages.filter(
+                pkg =>
+                    !pkg.category ||
+                    pkg.category === "holiday"
+            );
+
+
         if (
-            Array.isArray(packages) &&
-            packages.length > 0
+            holidayGrid &&
+            holidayPackages.length > 0
         ) {
 
-           grid.insertAdjacentHTML(
-    "beforeend",
-    packages
-        .map(renderSupabasePackage)
-        .join("")
-);
+            holidayGrid.insertAdjacentHTML(
+
+                "beforeend",
+
+                holidayPackages
+                    .map(renderSupabasePackage)
+                    .join("")
+
+            );
+
+        }
 
 
-            if (empty) {
+        if (holidayEmpty) {
 
-                empty.style.display =
+            if (holidayPackages.length > 0) {
+
+                holidayEmpty.style.display =
                     "none";
 
             }
 
-
-            console.log(
-
-                "Holiday Masti: loaded " +
-                packages.length +
-                " package(s) from Supabase."
-
-            );
-
         }
 
-        else {
 
-            if (empty) {
+        /* =========================================
+           DIVINE YATRA PACKAGES
+        ========================================= */
 
-                empty.style.display =
-                    "block";
+        const divinePackages =
+            packages.filter(
+                pkg =>
+                    pkg.category === "divine"
+            );
 
-                empty.textContent =
-                    "No packages are available right now.";
+
+        if (divineGrid) {
+
+            if (divinePackages.length > 0) {
+
+                divineGrid.innerHTML =
+
+                    divinePackages
+                        .map(renderSupabasePackage)
+                        .join("");
 
             }
 
+            else {
 
-            console.log(
-                "Holiday Masti: Supabase returned no packages."
-            );
+                divineGrid.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <h3>
+                            Divine Yatra coming soon
+                        </h3>
+
+                        <p>
+                            Sacred journeys will be available here soon.
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
 
         }
+
+
+        console.log(
+
+            "Holiday Masti: " +
+            holidayPackages.length +
+            " holiday package(s), " +
+            divinePackages.length +
+            " Divine Yatra package(s) loaded."
+
+        );
+
 
     }
 
@@ -1188,18 +1237,34 @@ async function loadSupabasePackages() {
         );
 
 
-        /*
-         * If Supabase is temporarily unavailable,
-         * keep the original packages visible.
-         */
+        if (holidayEmpty) {
 
-        if (empty) {
-
-            empty.style.display =
+            holidayEmpty.style.display =
                 "block";
 
-            empty.textContent =
+            holidayEmpty.textContent =
                 "Showing our featured packages.";
+
+        }
+
+
+        if (divineGrid) {
+
+            divineGrid.innerHTML = `
+
+                <div class="empty-state">
+
+                    <h3>
+                        Divine Yatra
+                    </h3>
+
+                    <p>
+                        Packages are temporarily unavailable.
+                    </p>
+
+                </div>
+
+            `;
 
         }
 
