@@ -1776,8 +1776,16 @@
             data.duration || "";
 
 
-        document.getElementById("image").value =
-            data.image || "";
+        const imagePreview =
+    document.getElementById("imagePreview");
+
+if (imagePreview && data.image) {
+
+    imagePreview.src = data.image;
+
+    imagePreview.style.display = "block";
+
+}
 
 
         document.getElementById("description").value =
