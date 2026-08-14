@@ -3141,7 +3141,7 @@ button {
 .floating-whatsapp {
     position: fixed;
     right: 24px;
-    bottom: 24px;
+    bottom: 95px;
 
     width: 58px;
     height: 58px;
@@ -3184,7 +3184,7 @@ button {
 
     .floating-whatsapp {
         right: 16px;
-        bottom: 16px;
+        bottom: 80px;
 
         width: 52px;
         height: 52px;
