@@ -627,8 +627,94 @@
 
 <div id="status" class="status hidden"></div>
 
+<!-- PACKAGES -->
 <div id="packageGrid" class="package-grid"></div>
 
+<!-- ENQUIRIES -->
+<div id="enquiriesSection" class="hidden">
+
+    <div style="
+        display:flex;
+        gap:12px;
+        margin-bottom:20px;
+        flex-wrap:wrap;
+    ">
+
+        <input
+            id="enquirySearch"
+            type="search"
+            placeholder="Search name, email, phone or package..."
+            style="
+                flex:1;
+                min-width:240px;
+                border:1px solid #d8e2ec;
+                border-radius:12px;
+                padding:12px 14px;
+            "
+        >
+
+        <select
+            id="enquiryStatusFilter"
+            style="
+                border:1px solid #d8e2ec;
+                border-radius:12px;
+                padding:12px 14px;
+            "
+        >
+            <option value="all">All Status</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="converted">Converted</option>
+        </select>
+
+    </div>
+
+    <div style="
+        background:white;
+        border:1px solid #e4ebf2;
+        border-radius:20px;
+        overflow:auto;
+    ">
+
+        <table style="
+            width:100%;
+            border-collapse:collapse;
+            min-width:850px;
+        ">
+
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Package</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="enquiryTableBody">
+
+                <tr>
+                    <td
+                        colspan="7"
+                        style="
+                            text-align:center;
+                            padding:40px;
+                        "
+                    >
+                        Loading enquiries...
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 </main>
 
 </section>
