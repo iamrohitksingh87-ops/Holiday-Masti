@@ -4641,9 +4641,9 @@ async function loadDashboardData() {
 
 
                                 const price =
-                                    packagePrice(
-                                        pkg.price
-                                    );
+                                    pkg.price
+                                        ? "₹" + Number(pkg.price).toLocaleString("en-IN")
+                                        : "Price not set";
 
 
                                 return `
