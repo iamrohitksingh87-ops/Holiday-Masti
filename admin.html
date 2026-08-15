@@ -335,56 +335,7 @@
             color: #7890a5;
             grid-column: 1 / -1;
         }
-<!-- ================= ENQUIRY DETAIL MODAL ================= -->
-
-<div id="enquiryModal" class="modal hidden">
-
-    <div class="modal-box" style="max-width:650px;">
-
-        <div class="modal-header">
-
-            <h2>Customer Enquiry</h2>
-
-            <button
-                id="closeEnquiryModal"
-                class="close-btn"
-                type="button"
-            >
-                ×
-            </button>
-
-        </div>
-
-        <div id="enquiryDetailContent">
-
-            <!-- Details will load here -->
-
-        </div>
-
-    </div>
-
-</div>
-        <!-- ================= ENQUIRY DETAIL MODAL ================= -->
-
-<div id="enquiryModal" class="modal hidden">
-
-    <div class="modal-box" style="max-width:650px;">
-
-        <div class="modal-header">
-
-            <h2>Customer Enquiry</h2>
-
-            <button
-                id="closeEnquiryModal"
-                class="close-btn"
-                type="button"
-            >
-                ×
-            </button>
-
-        </div>
-
-        <div id="enquiryDetailContent"></div>
+<div id="enquiryDetailContent"></div>
 
     </div>
 
@@ -967,6 +918,10 @@ body {
 /* ================= MOBILE ================= */
 
 @media (max-width: 700px) {
+
+    .admin-greeting {
+        display: none;
+    }
 
     .content {
         padding:
@@ -1595,166 +1550,52 @@ body {
     }
 
 }
-        /* ==================================================
-   DASHBOARD DEFAULT VIEW
-   Hide existing package page on dashboard
-================================================== */
-
+/* ================= DASHBOARD DEFAULT VIEW ================= */
 .content {
-    display: none !important;
-}
-        /* ==================================================
-   DASHBOARD NAVIGATION
-================================================== */
-
-const dashboardSection =
-    document.getElementById("dashboardSection");
-
-const dashboardNavBtn =
-    document.getElementById("dashboardNavBtn");
-
-const packagesNavBtn =
-    document.getElementById("packagesNavBtn");
-
-const enquiriesNavBtn =
-    document.getElementById("enquiriesNavBtn");
-
-const contentSection =
-    document.querySelector(".content");
-function setActiveNav(activeButton) {
-
-    document
-        .querySelectorAll(".sidebar-item")
-        .forEach(function (button) {
-
-            button.classList.remove("active");
-
-        });
-
-
-    if (activeButton) {
-
-        activeButton.classList.add("active");
-
-    }
-
+    display: none;
 }
 
-function setActiveNav(activeButton) {
-
-    document
-        .querySelectorAll(".sidebar-item")
-        .forEach(function (button) {
-
-            button.classList.remove("active");
-
-        });
-
-
-    if (activeButton) {
-
-        activeButton.classList.add("active");
-
-    }
-
+/* ================= ADMIN GREETING ================= */
+.admin-greeting {
+    margin-left: auto;
+    margin-right: 20px;
+    text-align: right;
+    line-height: 1.25;
+}
+.admin-greeting strong {
+    display: block;
+    color: #123b5e;
+    font-size: 13px;
+}
+.admin-greeting span {
+    display: block;
+    color: #7892a8;
+    font-size: 10px;
+    margin-top: 3px;
 }
 
-
-/* ================= DASHBOARD ================= */
-
-if (dashboardNavBtn) {
-
-    dashboardNavBtn.addEventListener(
-        "click",
-        function () {
-
-            dashboardSection.classList.remove("hidden");
-
-            contentSection.style.display = "none";
-
-            if (enquiriesSection) {
-
-                enquiriesSection.classList.add("hidden");
-
-            }
-
-            setActiveNav(
-                dashboardNavBtn
-            );
-
-        }
-    );
-
+.status-badge {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+.status-new {
+    background: rgba(255,177,59,.16);
+    color: #d77b00;
+}
+.status-contacted {
+    background: rgba(47,139,255,.12);
+    color: #1475dc;
+}
+.status-converted {
+    background: rgba(46,194,126,.14);
+    color: #14945f;
 }
 
-
-/* ================= PACKAGES ================= */
-
-if (packagesNavBtn) {
-
-    packagesNavBtn.addEventListener(
-        "click",
-        function () {
-
-            dashboardSection.classList.add("hidden");
-
-            if (enquiriesSection) {
-
-                enquiriesSection.classList.add("hidden");
-
-            }
-
-            contentSection.style.display =
-                "block";
-
-            packageGrid.classList.remove(
-                "hidden"
-            );
-
-            setActiveNav(
-                packagesNavBtn
-            );
-
-            loadPackages();
-
-        }
-    );
-
-}
-
-
-/* ================= ENQUIRIES ================= */
-
-if (enquiriesNavBtn) {
-
-    enquiriesNavBtn.addEventListener(
-        "click",
-        function () {
-
-            dashboardSection.classList.add("hidden");
-
-            contentSection.style.display =
-                "none";
-
-            if (enquiriesSection) {
-
-                enquiriesSection.classList.remove(
-                    "hidden"
-                );
-
-            }
-
-            setActiveNav(
-                enquiriesNavBtn
-            );
-
-            loadEnquiries();
-
-        }
-    );
-
-}
-    </style>
+</style>
 </head>
 
 <body>
@@ -2563,6 +2404,37 @@ if (enquiriesNavBtn) {
         document.getElementById("status");
 
 
+
+/* ==================================================
+   IMAGE PREVIEW
+================================================== */
+
+const imageFileInput =
+    document.getElementById("imageFile");
+
+const imagePreviewBox =
+    document.getElementById("imagePreview");
+
+const previewImage =
+    document.getElementById("previewImage");
+
+if (imageFileInput) {
+
+    imageFileInput.addEventListener("change", function () {
+
+        const file = this.files && this.files[0];
+
+        if (!file || !previewImage || !imagePreviewBox) {
+            return;
+        }
+
+        previewImage.src = URL.createObjectURL(file);
+        imagePreviewBox.style.display = "block";
+
+    });
+
+}
+
     /* ==================================================
        LOGIN
     ================================================== */
@@ -2988,23 +2860,9 @@ function showAdminGreeting(user) {
     function showAdmin() {
 
     loginPage.classList.add("hidden");
-
     adminPage.classList.remove("hidden");
 
-    dashboardSection.classList.remove(
-        "hidden"
-    );
-
-    contentSection.style.display =
-        "none";
-
-    if (enquiriesSection) {
-
-        enquiriesSection.classList.add(
-            "hidden"
-        );
-
-    }
+    showDashboard();
 
 }
 
@@ -3660,11 +3518,17 @@ if (modalBox) {
         const imagePreview =
     document.getElementById("imagePreview");
 
-if (imagePreview && data.image) {
+const previewImage =
+    document.getElementById("previewImage");
 
-    imagePreview.src = data.image;
+if (imagePreview && previewImage && data.image) {
 
+    previewImage.src = data.image;
     imagePreview.style.display = "block";
+
+} else if (imagePreview) {
+
+    imagePreview.style.display = "none";
 
 }
 
@@ -3879,102 +3743,161 @@ if (imagePreview && data.image) {
     }
 
 
-    /* ==================================================
-       INITIAL LOAD
-    ================================================== */
-
-    (async function initialize() {
-
-        const {
-            data: { session }
-        } = await supabaseClient.auth.getSession();
-
-
-        /*
-         * If the page is opened from a recovery link,
-         * wait for PASSWORD_RECOVERY event to display
-         * the new-password screen.
-         */
-
-        if (session) {
-            showAdmin();
-        } else {
-            showLogin();
-        }
-
-    })();
-
-    function openAddPackageModal() {
-
-    document.getElementById("modalTitle").textContent = "Add Package";
-
-    document.getElementById("packageForm").reset();
-
-    document.getElementById("packageId").value = "";
-
-    document.getElementById("packageModal").classList.remove("hidden");
-}
-    /* ==================================================
-   ENQUIRIES
-================================================== */
-
-const enquiriesBtn =
-    document.getElementById("enquiriesBtn");
-
-const enquiriesSection =
-    document.getElementById("enquiriesSection");
-
-const enquiryTableBody =
-    document.getElementById("enquiryTableBody");
-
-const enquirySearch =
-    document.getElementById("enquirySearch");
-
-const enquiryStatusFilter =
-    document.getElementById("enquiryStatusFilter");
-
-let allEnquiries = [];
-
 
 /* ==================================================
-   SHOW / HIDE ENQUIRIES
+   ADMIN NAVIGATION
 ================================================== */
 
-if (enquiriesBtn) {
+const dashboardSection =
+    document.getElementById("dashboardSection");
 
-    enquiriesBtn.addEventListener(
-        "click",
-        function () {
+const dashboardNavBtn =
+    document.getElementById("dashboardNavBtn");
 
-            const showingEnquiries =
-                !enquiriesSection.classList.contains("hidden");
+const packagesNavBtn =
+    document.getElementById("packagesNavBtn");
 
-            if (showingEnquiries) {
+const enquiriesNavBtn =
+    document.getElementById("enquiriesNavBtn");
 
-                enquiriesSection.classList.add("hidden");
-                packageGrid.classList.remove("hidden");
+function setActiveNav(activeButton) {
 
-                enquiriesBtn.textContent =
-                    "Enquiries";
+    [
+        dashboardNavBtn,
+        packagesNavBtn,
+        enquiriesNavBtn
+    ].forEach(function (button) {
 
-                return;
-            }
-
-
-            packageGrid.classList.add("hidden");
-
-            enquiriesSection.classList.remove("hidden");
-
-            enquiriesBtn.textContent =
-                "← Packages";
-
-            loadEnquiries();
-
+        if (button) {
+            button.classList.toggle(
+                "active",
+                button === activeButton
+            );
         }
-    );
+
+    });
 
 }
 
+function showDashboard() {
+
+    if (dashboardSection) {
+        dashboardSection.classList.remove("hidden");
+    }
+
+    if (contentSection) {
+        contentSection.style.display = "none";
+    }
+
+    if (enquiriesSection) {
+        enquiriesSection.classList.add("hidden");
+    }
+
+    setActiveNav(dashboardNavBtn);
+
+    loadDashboardData();
+
+}
+
+function showPackages() {
+
+    if (dashboardSection) {
+        dashboardSection.classList.add("hidden");
+    }
+
+    if (contentSection) {
+        contentSection.style.display = "block";
+    }
+
+    if (packageGrid) {
+        packageGrid.classList.remove("hidden");
+    }
+
+    if (enquiriesSection) {
+        enquiriesSection.classList.add("hidden");
+    }
+
+    setActiveNav(packagesNavBtn);
+
+    loadPackages();
+
+}
+
+function showEnquiries() {
+
+    if (dashboardSection) {
+        dashboardSection.classList.add("hidden");
+    }
+
+    if (contentSection) {
+        contentSection.style.display = "block";
+    }
+
+    if (packageGrid) {
+        packageGrid.classList.add("hidden");
+    }
+
+    if (enquiriesSection) {
+        enquiriesSection.classList.remove("hidden");
+    }
+
+    setActiveNav(enquiriesNavBtn);
+
+    loadEnquiries();
+
+}
+
+if (dashboardNavBtn) {
+    dashboardNavBtn.addEventListener("click", showDashboard);
+}
+
+if (packagesNavBtn) {
+    packagesNavBtn.addEventListener("click", showPackages);
+}
+
+if (enquiriesNavBtn) {
+    enquiriesNavBtn.addEventListener("click", showEnquiries);
+}
+
+const dashboardEnquiriesBtn =
+    document.getElementById("dashboardEnquiriesBtn");
+
+const dashboardAddPackageBtn =
+    document.getElementById("dashboardAddPackageBtn");
+
+const viewAllEnquiriesBtn =
+    document.getElementById("viewAllEnquiriesBtn");
+
+const viewAllPackagesBtn =
+    document.getElementById("viewAllPackagesBtn");
+
+if (dashboardEnquiriesBtn) {
+    dashboardEnquiriesBtn.addEventListener(
+        "click",
+        showEnquiries
+    );
+}
+
+if (dashboardAddPackageBtn) {
+    dashboardAddPackageBtn.addEventListener(
+        "click",
+        openAddPackageModal
+    );
+}
+
+if (viewAllEnquiriesBtn) {
+    viewAllEnquiriesBtn.addEventListener(
+        "click",
+        showEnquiries
+    );
+}
+
+if (viewAllPackagesBtn) {
+    viewAllPackagesBtn.addEventListener(
+        "click",
+        showPackages
+    );
+}
 
 /* ==================================================
    LOAD ENQUIRIES
