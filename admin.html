@@ -4664,6 +4664,232 @@ html, body {
     }
 }
 
+
+/* ==========================================================
+   FINAL V2 — NO CLIPPING / REAL DASHBOARD SCROLL
+========================================================== */
+
+#adminPage {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-height: 0 !important;
+    max-width: 100vw !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+#adminPage .topbar {
+    left: 280px !important;
+    right: 12px !important;
+    width: auto !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+#adminPage .admin-sidebar {
+    left: 12px !important;
+    right: auto !important;
+    width: 258px !important;
+    box-sizing: border-box !important;
+}
+
+/* The only scrolling surface on desktop. */
+#adminPage #dashboardSection {
+    position: absolute !important;
+    left: 280px !important;
+    top: 102px !important;
+    right: 12px !important;
+    bottom: 48px !important;
+
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 20px 28px !important;
+    box-sizing: border-box !important;
+
+    display: block !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+}
+
+/* Never allow a dashboard child to establish a wider grid track. */
+#adminPage #dashboardSection > *,
+#adminPage #dashboardSection .dashboard-hero,
+#adminPage #dashboardSection .dashboard-stats,
+#adminPage #dashboardSection .dashboard-panels,
+#adminPage #dashboardSection .dashboard-bottom-panels {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Hero */
+#adminPage #dashboardSection .dashboard-hero {
+    display: grid !important;
+    grid-template-columns: minmax(230px, 1fr) minmax(300px, 1.45fr) minmax(180px, .72fr) !important;
+    gap: 8px !important;
+    height: 199px !important;
+    min-height: 199px !important;
+    margin: 0 0 11px !important;
+    overflow: visible !important;
+}
+
+#adminPage #dashboardSection .dashboard-hero > * {
+    min-width: 0 !important;
+}
+
+/* Stats — four cards must always fit the available dashboard width. */
+#adminPage #dashboardSection .dashboard-stats {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    height: 145px !important;
+    min-height: 145px !important;
+    margin: 0 0 17px !important;
+    overflow: visible !important;
+}
+
+#adminPage #dashboardSection .premium-stat,
+#adminPage #dashboardSection .stat-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 145px !important;
+    min-height: 145px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+#adminPage #dashboardSection .stat-content {
+    min-width: 0 !important;
+    max-width: calc(100% - 68px) !important;
+    overflow: hidden !important;
+}
+
+#adminPage #dashboardSection .stat-content span,
+#adminPage #dashboardSection .stat-content small {
+    display: block !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+/* Main two-column panels */
+#adminPage #dashboardSection .dashboard-panels {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) !important;
+    gap: 16px !important;
+    height: 337px !important;
+    min-height: 337px !important;
+    margin: 0 !important;
+}
+
+#adminPage #dashboardSection .dashboard-panels > .dashboard-panel {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 337px !important;
+    min-height: 337px !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Bottom three panels */
+#adminPage #dashboardSection .dashboard-bottom-panels {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, .95fr) minmax(0, 1.22fr) !important;
+    gap: 16px !important;
+    height: 132px !important;
+    min-height: 132px !important;
+    margin: 16px 0 20px !important;
+}
+
+#adminPage #dashboardSection .dashboard-bottom-panels > .dashboard-panel {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 132px !important;
+    min-height: 132px !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Keep decorative 3D characters inside their panels. */
+#adminPage #dashboardSection .dashboard-hero-visual {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+}
+
+#adminPage #dashboardSection .dashboard-hero-visual img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+#adminPage #dashboardSection .quick-tips-traveller {
+    max-width: 52% !important;
+    overflow: visible !important;
+}
+
+/* Footer never covers dashboard content. */
+#adminPage .admin-footer {
+    position: fixed !important;
+    left: 280px !important;
+    right: 12px !important;
+    bottom: 0 !important;
+    width: auto !important;
+    height: 48px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    z-index: 300 !important;
+}
+
+/* At narrower desktop sizes, reduce card density before it can clip. */
+@media (min-width: 801px) and (max-width: 1250px) {
+    #adminPage #dashboardSection .dashboard-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    #adminPage #dashboardSection .premium-stat {
+        height: 125px !important;
+        min-height: 125px !important;
+    }
+}
+
+@media (max-width: 800px) {
+    #adminPage {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        overflow: visible !important;
+    }
+
+    #adminPage #dashboardSection {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        padding: 20px 16px 30px !important;
+        overflow: visible !important;
+    }
+}
+
 </style>
 </head>
 
