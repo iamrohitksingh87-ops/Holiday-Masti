@@ -2381,9 +2381,12 @@ body {
 
     const packageGrid =
         document.getElementById("packageGrid");
+
+    const enquiriesSection =
+        document.getElementById("enquiriesSection");
     
     const contentSection =
-    document.querySelector(".content");
+        document.querySelector(".content");
 
     const addPackageBtn =
         document.getElementById("addPackageBtn");
@@ -3899,6 +3902,16 @@ if (viewAllPackagesBtn) {
     );
 }
 
+const enquiriesBtn =
+    document.getElementById("enquiriesBtn");
+
+if (enquiriesBtn) {
+    enquiriesBtn.addEventListener(
+        "click",
+        showEnquiries
+    );
+}
+
 /* ==================================================
    LOAD ENQUIRIES
 ================================================== */
@@ -4211,437 +4224,287 @@ function renderEnquiryRow(item) {
 
 async function loadDashboardData() {
 
-    try {
+    const totalPackagesStat =
+        document.getElementById("totalPackagesStat");
 
-        /* ==================================================
-           LOAD PACKAGES
-        ================================================== */
+    const totalEnquiriesStat =
+        document.getElementById("totalEnquiriesStat");
 
-        const {
-            data: packages,
-            error: packagesError
-        } = await supabaseClient
+    const newEnquiriesStat =
+        document.getElementById("newEnquiriesStat");
+
+    const convertedEnquiriesStat =
+        document.getElementById("convertedEnquiriesStat");
+
+    const recentEnquiriesList =
+        document.getElementById("recentEnquiriesList");
+
+    const recentPackagesList =
+        document.getElementById("recentPackagesList");
+
+    /* ---------------- PACKAGES ---------------- */
+
+    const packagesResult =
+        await supabaseClient
             .from("packages")
             .select("*")
-            .order("created_at", {
-                ascending: false
-            });
+            .order("created_at", { ascending: false });
 
+    if (packagesResult.error) {
 
-        if (packagesError) {
+        console.error(
+            "Dashboard packages error:",
+            packagesResult.error
+        );
 
-            throw packagesError;
-
+        if (recentPackagesList) {
+            recentPackagesList.innerHTML = `
+                <div class="dashboard-loading" style="color:#d62828;">
+                    Unable to load packages.<br>
+                    ${escapeHTML(packagesResult.error.message)}
+                </div>
+            `;
         }
-
-
-        const packageList =
-            Array.isArray(packages)
-                ? packages
-                : [];
-
-
-        /* ==================================================
-           LOAD ENQUIRIES
-        ================================================== */
-
-        const {
-            data: enquiries,
-            error: enquiriesError
-        } = await supabaseClient
-            .from("enquiries")
-            .select("*")
-            .order("created_at", {
-                ascending: false
-            });
-
-
-        if (enquiriesError) {
-
-            throw enquiriesError;
-
-        }
-
-
-        const enquiryList =
-            Array.isArray(enquiries)
-                ? enquiries
-                : [];
-
-
-        /* ==================================================
-           CALCULATE COUNTS
-        ================================================== */
-
-        const totalPackages =
-            packageList.length;
-
-
-        const totalEnquiries =
-            enquiryList.length;
-
-
-        const newEnquiries =
-            enquiryList.filter(
-                function (item) {
-
-                    return String(
-                        item.status || "new"
-                    ).toLowerCase() === "new";
-
-                }
-            ).length;
-
-
-        const convertedEnquiries =
-            enquiryList.filter(
-                function (item) {
-
-                    return String(
-                        item.status || ""
-                    ).toLowerCase() === "converted";
-
-                }
-            ).length;
-
-
-        /* ==================================================
-           UPDATE STAT CARDS
-        ================================================== */
-
-        const totalPackagesStat =
-            document.getElementById(
-                "totalPackagesStat"
-            );
-
-
-        const totalEnquiriesStat =
-            document.getElementById(
-                "totalEnquiriesStat"
-            );
-
-
-        const newEnquiriesStat =
-            document.getElementById(
-                "newEnquiriesStat"
-            );
-
-
-        const convertedEnquiriesStat =
-            document.getElementById(
-                "convertedEnquiriesStat"
-            );
-
 
         if (totalPackagesStat) {
-
-            totalPackagesStat.textContent =
-                totalPackages;
-
+            totalPackagesStat.textContent = "—";
         }
 
+    } else {
 
-        if (totalEnquiriesStat) {
+        const packageList =
+            Array.isArray(packagesResult.data)
+                ? packagesResult.data
+                : [];
 
-            totalEnquiriesStat.textContent =
-                totalEnquiries;
-
+        if (totalPackagesStat) {
+            totalPackagesStat.textContent = packageList.length;
         }
-
-
-        if (newEnquiriesStat) {
-
-            newEnquiriesStat.textContent =
-                newEnquiries;
-
-        }
-
-
-        if (convertedEnquiriesStat) {
-
-            convertedEnquiriesStat.textContent =
-                convertedEnquiries;
-
-        }
-
-
-        /* ==================================================
-           RECENT ENQUIRIES
-        ================================================== */
-
-        const recentEnquiriesList =
-            document.getElementById(
-                "recentEnquiriesList"
-            );
-
-
-        if (recentEnquiriesList) {
-
-            const recentEnquiries =
-                enquiryList.slice(0, 5);
-
-
-            if (!recentEnquiries.length) {
-
-                recentEnquiriesList.innerHTML = `
-
-                    <div class="dashboard-loading">
-                        No enquiries yet.
-                    </div>
-
-                `;
-
-            } else {
-
-                recentEnquiriesList.innerHTML =
-
-                    recentEnquiries
-                        .map(
-                            function (item) {
-
-                                const name =
-                                    item.name ||
-                                    "Unknown";
-
-
-                                const email =
-                                    item.email ||
-                                    "-";
-
-
-                                const packageName =
-                                    item.package ||
-                                    item.destination ||
-                                    "-";
-
-
-                                const status =
-                                    String(
-                                        item.status ||
-                                        "new"
-                                    ).toLowerCase();
-
-
-                                return `
-
-                                    <div
-                                        style="
-                                            display:flex;
-                                            align-items:center;
-                                            justify-content:space-between;
-                                            gap:15px;
-                                            padding:13px 0;
-                                            border-bottom:1px solid rgba(120,145,165,.12);
-                                        "
-                                    >
-
-                                        <div
-                                            style="
-                                                min-width:0;
-                                            "
-                                        >
-
-                                            <strong
-                                                style="
-                                                    display:block;
-                                                    color:#16476c;
-                                                    font-size:13px;
-                                                "
-                                            >
-                                                ${escapeHTML(name)}
-                                            </strong>
-
-
-                                            <span
-                                                style="
-                                                    display:block;
-                                                    margin-top:3px;
-                                                    color:#8a9eaf;
-                                                    font-size:11px;
-                                                    white-space:nowrap;
-                                                    overflow:hidden;
-                                                    text-overflow:ellipsis;
-                                                "
-                                            >
-                                                ${escapeHTML(packageName)}
-                                            </span>
-
-                                        </div>
-
-
-                                        <div
-                                            style="
-                                                text-align:right;
-                                                flex-shrink:0;
-                                            "
-                                        >
-
-                                            <span
-                                                style="
-                                                    display:block;
-                                                    color:#7891a6;
-                                                    font-size:10px;
-                                                "
-                                            >
-                                                ${escapeHTML(email)}
-                                            </span>
-
-
-                                            <span
-                                                style="
-                                                    display:inline-block;
-                                                    margin-top:5px;
-                                                    padding:4px 9px;
-                                                    border-radius:20px;
-                                                    background:rgba(47,139,255,.10);
-                                                    color:#1475dc;
-                                                    font-size:10px;
-                                                    font-weight:700;
-                                                    text-transform:capitalize;
-                                                "
-                                            >
-                                                ${escapeHTML(status)}
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-
-                                `;
-
-                            }
-                        )
-                        .join("");
-
-            }
-
-        }
-
-
-        /* ==================================================
-           RECENT PACKAGES
-        ================================================== */
-
-        const recentPackagesList =
-            document.getElementById(
-                "recentPackagesList"
-            );
-
 
         if (recentPackagesList) {
 
             const recentPackages =
                 packageList.slice(0, 5);
 
-
             if (!recentPackages.length) {
 
                 recentPackagesList.innerHTML = `
-
                     <div class="dashboard-loading">
                         No packages yet.
                     </div>
-
                 `;
 
             } else {
 
                 recentPackagesList.innerHTML =
+                    recentPackages.map(function (pkg) {
 
-                    recentPackages
-                        .map(
-                            function (pkg) {
+                        const title =
+                            pkg.title ||
+                            pkg.name ||
+                            "Holiday Package";
 
-                                const title =
-                                    pkg.title ||
-                                    pkg.name ||
-                                    "Holiday Package";
+                        const location =
+                            pkg.location ||
+                            "India";
 
+                        const price =
+                            pkg.price !== null &&
+                            pkg.price !== undefined &&
+                            pkg.price !== ""
+                                ? "₹" + Number(pkg.price).toLocaleString("en-IN")
+                                : "Price not set";
 
-                                const location =
-                                    pkg.location ||
-                                    "India";
+                        return `
+                            <div style="
+                                display:flex;
+                                align-items:center;
+                                justify-content:space-between;
+                                gap:15px;
+                                padding:13px 0;
+                                border-bottom:1px solid rgba(120,145,165,.12);
+                            ">
+                                <div style="min-width:0;">
+                                    <strong style="
+                                        display:block;
+                                        color:#16476c;
+                                        font-size:13px;
+                                        white-space:nowrap;
+                                        overflow:hidden;
+                                        text-overflow:ellipsis;
+                                    ">
+                                        ${escapeHTML(title)}
+                                    </strong>
+                                    <span style="
+                                        display:block;
+                                        margin-top:3px;
+                                        color:#8a9eaf;
+                                        font-size:11px;
+                                    ">
+                                        ${escapeHTML(location)}
+                                    </span>
+                                </div>
+                                <strong style="
+                                    flex-shrink:0;
+                                    color:#1475dc;
+                                    font-size:13px;
+                                ">
+                                    ${escapeHTML(price)}
+                                </strong>
+                            </div>
+                        `;
 
-
-                                const price =
-                                    pkg.price
-                                        ? "₹" + Number(pkg.price).toLocaleString("en-IN")
-                                        : "Price not set";
-
-
-                                return `
-
-                                    <div
-                                        style="
-                                            display:flex;
-                                            align-items:center;
-                                            justify-content:space-between;
-                                            gap:15px;
-                                            padding:13px 0;
-                                            border-bottom:1px solid rgba(120,145,165,.12);
-                                        "
-                                    >
-
-                                        <div
-                                            style="
-                                                min-width:0;
-                                            "
-                                        >
-
-                                            <strong
-                                                style="
-                                                    display:block;
-                                                    color:#16476c;
-                                                    font-size:13px;
-                                                "
-                                            >
-                                                ${escapeHTML(title)}
-                                            </strong>
-
-
-                                            <span
-                                                style="
-                                                    display:block;
-                                                    margin-top:3px;
-                                                    color:#8a9eaf;
-                                                    font-size:11px;
-                                                "
-                                            >
-                                                ${escapeHTML(location)}
-                                            </span>
-
-                                        </div>
-
-
-                                        <strong
-                                            style="
-                                                flex-shrink:0;
-                                                color:#1475dc;
-                                                font-size:13px;
-                                            "
-                                        >
-                                            ${escapeHTML(price)}
-                                        </strong>
-
-                                    </div>
-
-                                `;
-
-                            }
-                        )
-                        .join("");
+                    }).join("");
 
             }
 
         }
 
+    }
 
-    } catch (error) {
+    /* ---------------- ENQUIRIES ---------------- */
+
+    const enquiriesResult =
+        await supabaseClient
+            .from("enquiries")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+    if (enquiriesResult.error) {
 
         console.error(
-            "Dashboard data error:",
-            error
+            "Dashboard enquiries error:",
+            enquiriesResult.error
         );
+
+        if (recentEnquiriesList) {
+            recentEnquiriesList.innerHTML = `
+                <div class="dashboard-loading" style="color:#d62828;">
+                    Unable to load enquiries.<br>
+                    ${escapeHTML(enquiriesResult.error.message)}
+                </div>
+            `;
+        }
+
+        if (totalEnquiriesStat) totalEnquiriesStat.textContent = "—";
+        if (newEnquiriesStat) newEnquiriesStat.textContent = "—";
+        if (convertedEnquiriesStat) convertedEnquiriesStat.textContent = "—";
+
+        return;
+
+    }
+
+    const enquiryList =
+        Array.isArray(enquiriesResult.data)
+            ? enquiriesResult.data
+            : [];
+
+    if (totalEnquiriesStat) {
+        totalEnquiriesStat.textContent = enquiryList.length;
+    }
+
+    const newEnquiries =
+        enquiryList.filter(function (item) {
+            return String(item.status || "new").toLowerCase() === "new";
+        }).length;
+
+    const convertedEnquiries =
+        enquiryList.filter(function (item) {
+            return String(item.status || "").toLowerCase() === "converted";
+        }).length;
+
+    if (newEnquiriesStat) {
+        newEnquiriesStat.textContent = newEnquiries;
+    }
+
+    if (convertedEnquiriesStat) {
+        convertedEnquiriesStat.textContent = convertedEnquiries;
+    }
+
+    if (recentEnquiriesList) {
+
+        const recentEnquiries = enquiryList.slice(0, 5);
+
+        if (!recentEnquiries.length) {
+
+            recentEnquiriesList.innerHTML = `
+                <div class="dashboard-loading">
+                    No enquiries yet.
+                </div>
+            `;
+
+        } else {
+
+            recentEnquiriesList.innerHTML =
+                recentEnquiries.map(function (item) {
+
+                    const name = item.name || "Unknown";
+                    const email = item.email || "-";
+                    const packageName =
+                        item.package || item.destination || "-";
+                    const status =
+                        String(item.status || "new").toLowerCase();
+
+                    return `
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            justify-content:space-between;
+                            gap:15px;
+                            padding:13px 0;
+                            border-bottom:1px solid rgba(120,145,165,.12);
+                        ">
+                            <div style="min-width:0;">
+                                <strong style="
+                                    display:block;
+                                    color:#16476c;
+                                    font-size:13px;
+                                ">
+                                    ${escapeHTML(name)}
+                                </strong>
+                                <span style="
+                                    display:block;
+                                    margin-top:3px;
+                                    color:#8a9eaf;
+                                    font-size:11px;
+                                    white-space:nowrap;
+                                    overflow:hidden;
+                                    text-overflow:ellipsis;
+                                ">
+                                    ${escapeHTML(packageName)}
+                                </span>
+                            </div>
+                            <div style="
+                                text-align:right;
+                                flex-shrink:0;
+                            ">
+                                <span style="
+                                    display:block;
+                                    color:#7891a6;
+                                    font-size:10px;
+                                ">
+                                    ${escapeHTML(email)}
+                                </span>
+                                <span style="
+                                    display:inline-block;
+                                    margin-top:5px;
+                                    padding:4px 9px;
+                                    border-radius:20px;
+                                    background:rgba(47,139,255,.10);
+                                    color:#1475dc;
+                                    font-size:10px;
+                                    font-weight:700;
+                                    text-transform:capitalize;
+                                ">
+                                    ${escapeHTML(status)}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+
+                }).join("");
+
+        }
 
     }
 
