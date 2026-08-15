@@ -2747,7 +2747,7 @@ body {
 }
 
 .profile-panel {
-    width: 230px;
+    width: 260px;
 }
 
 .profile-card-head {
@@ -2903,6 +2903,86 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+
+.profile-avatar-select-btn {
+    width: 100%;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 2px 0 8px;
+    padding: 0 9px;
+    border: 1px dashed #cfe0ee;
+    border-radius: 9px;
+    background: #f8fbfd;
+    color: #176fe5;
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 750;
+    cursor: pointer;
+}
+
+.profile-avatar-select-btn:hover {
+    background: #eef7ff;
+}
+
+.admin-avatar-picker {
+    display: none;
+    margin: 0 0 8px;
+    padding: 9px;
+    border-radius: 11px;
+    background: #f6f9fc;
+}
+
+.admin-avatar-picker.open {
+    display: block;
+}
+
+.avatar-picker-title {
+    margin-bottom: 8px;
+    color: #7892a8;
+    font-size: 8px;
+    font-weight: 750;
+}
+
+.avatar-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+}
+
+.avatar-choice {
+    width: 100%;
+    padding: 2px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+}
+
+.avatar-choice:hover,
+.avatar-choice.selected {
+    border-color: #176fe5;
+}
+
+.avatar-choice img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 7px;
+    object-fit: cover;
+}
+
+.avatar-choice span {
+    display: block;
+    margin-top: 3px;
+    color: #7892a8;
+    font-size: 7px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 </style>
@@ -3132,6 +3212,27 @@ body {
                     <div>
                         <strong>Admin</strong>
                         <span>Super Admin</span>
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    class="profile-avatar-select-btn"
+                    id="profileAvatarSelectBtn"
+                >
+                    <span>🎨</span>
+                    <span>Choose cartoon avatar</span>
+                </button>
+
+                <div
+                    id="adminAvatarPicker"
+                    class="admin-avatar-picker"
+                >
+                    <div class="avatar-picker-title">
+                        Choose your profile picture
+                    </div>
+
+                    <div class="avatar-picker-grid">
                     </div>
                 </div>
 
@@ -5290,22 +5391,40 @@ function openAddPackageModal() {
 
 
 /* ==================================================
-   RANDOM ADMIN AVATAR
+   CARTOON ADMIN AVATAR
 ================================================== */
 
-const adminAvatarImages = [
-    "https://i.pravatar.cc/150?img=12",
-    "https://i.pravatar.cc/150?img=32",
-    "https://i.pravatar.cc/150?img=47",
-    "https://i.pravatar.cc/150?img=53",
-    "https://i.pravatar.cc/150?img=68",
-    "https://i.pravatar.cc/150?img=5"
+const adminAvatarChoices = [
+    {
+        name: "Blue Traveller",
+        src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' rx='80' fill='%23dff0ff'/%3E%3Ccircle cx='80' cy='70' r='39' fill='%23f2b28f'/%3E%3Cpath d='M40 70c3-38 77-49 82 4-13-13-29-19-48-17-12 2-23 7-34 13z' fill='%23213d5c'/%3E%3Ccircle cx='66' cy='72' r='4' fill='%23183a59'/%3E%3Ccircle cx='94' cy='72' r='4' fill='%23183a59'/%3E%3Cpath d='M69 88q11 9 22 0' fill='none' stroke='%238c4d43' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M38 145q9-40 42-40t42 40' fill='%231d7ce8'/%3E%3Cpath d='M53 111l27 26 27-26' fill='%23fff' opacity='.85'/%3E%3C/svg%3E"
+    },
+    {
+        name: "Happy Explorer",
+        src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' rx='80' fill='%23fff0d8'/%3E%3Ccircle cx='80' cy='72' r='38' fill='%23c98255'/%3E%3Cpath d='M40 63q8-43 42-42 31 2 40 42-21-14-43-11-21 3-39 11z' fill='%235a3023'/%3E%3Ccircle cx='66' cy='74' r='4' fill='%23311d18'/%3E%3Ccircle cx='94' cy='74' r='4' fill='%23311d18'/%3E%3Cpath d='M65 90q15 11 30 0' fill='none' stroke='%236d332c' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M35 145q10-41 45-41t45 41' fill='%23ff9d25'/%3E%3Ccircle cx='80' cy='122' r='12' fill='%23fff' opacity='.55'/%3E%3C/svg%3E"
+    },
+    {
+        name: "Mountain Guide",
+        src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' rx='80' fill='%23e4f7f1'/%3E%3Cpath d='M20 80l35-46 25 33 17-24 43 57H20z' fill='%234b9b7a' opacity='.75'/%3E%3Ccircle cx='80' cy='72' r='34' fill='%23e4a47d'/%3E%3Cpath d='M46 66q5-39 36-40 31 1 34 40-15-12-35-12T46 66z' fill='%232e3a45'/%3E%3Ccircle cx='68' cy='72' r='4' fill='%23233845'/%3E%3Ccircle cx='92' cy='72' r='4' fill='%23233845'/%3E%3Cpath d='M68 88q12 7 24 0' fill='none' stroke='%23723f38' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M39 145q7-37 41-37t41 37' fill='%2338ad87'/%3E%3Cpath d='M55 109h50' stroke='%23fff' stroke-width='6' opacity='.8'/%3E%3C/svg%3E"
+    },
+    {
+        name: "Beach Buddy",
+        src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' rx='80' fill='%23dff8ff'/%3E%3Ccircle cx='80' cy='70' r='37' fill='%23e6a679'/%3E%3Cpath d='M42 64q4-35 38-40 36 5 39 40-21-13-38-12-19 0-39 12z' fill='%237b432f'/%3E%3Ccircle cx='67' cy='73' r='4' fill='%23322620'/%3E%3Ccircle cx='93' cy='73' r='4' fill='%23322620'/%3E%3Cpath d='M68 88q12 8 24 0' fill='none' stroke='%23733f39' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M36 145q8-40 44-40t44 40' fill='%2327a9d7'/%3E%3Cpath d='M42 114q38 20 76 0' fill='none' stroke='%23fff' stroke-width='7' opacity='.8'/%3E%3C/svg%3E"
+    },
+    {
+        name: "Travel Captain",
+        src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' rx='80' fill='%23eee7ff'/%3E%3Ccircle cx='80' cy='71' r='38' fill='%23f0b68f'/%3E%3Cpath d='M42 62q6-37 38-37t38 37c-18-9-43-10-76 0z' fill='%231f2630'/%3E%3Cpath d='M46 58h68v13H46z' fill='%231f2630'/%3E%3Ccircle cx='66' cy='74' r='4' fill='%231c2a38'/%3E%3Ccircle cx='94' cy='74' r='4' fill='%231c2a38'/%3E%3Cpath d='M67 89q13 8 26 0' fill='none' stroke='%238d5042' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M34 145q10-40 46-40t46 40' fill='%237b5be5'/%3E%3Cpath d='M64 109l16 20 16-20' fill='%23fff' opacity='.8'/%3E%3C/svg%3E"
+    },
+    {
+        name: "Sunny Traveller",
+        src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' rx='80' fill='%23fff5d7'/%3E%3Ccircle cx='80' cy='70' r='37' fill='%23d9956d'/%3E%3Cpath d='M42 65q8-39 38-40 31 2 38 40-18-15-38-14-20 0-38 14z' fill='%233e2b28'/%3E%3Ccircle cx='67' cy='73' r='4' fill='%232b2726'/%3E%3Ccircle cx='93' cy='73' r='4' fill='%232b2726'/%3E%3Cpath d='M68 88q12 8 24 0' fill='none' stroke='%2373413a' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M35 145q9-41 45-41t45 41' fill='%23f5b62f'/%3E%3Ccircle cx='80' cy='123' r='10' fill='%23fff' opacity='.75'/%3E%3C/svg%3E"
+    }
 ];
 
 const selectedAdminAvatar =
-    adminAvatarImages[
+    adminAvatarChoices[
         Math.floor(
-            Math.random() * adminAvatarImages.length
+            Math.random() * adminAvatarChoices.length
         )
     ];
 
@@ -5316,11 +5435,137 @@ const adminAvatarImageLarge =
     document.getElementById("adminAvatarImageLarge");
 
 if (adminAvatarImage) {
-    adminAvatarImage.src = selectedAdminAvatar;
+    adminAvatarImage.src = selectedAdminAvatar.src;
 }
 
 if (adminAvatarImageLarge) {
-    adminAvatarImageLarge.src = selectedAdminAvatar;
+    adminAvatarImageLarge.src = selectedAdminAvatar.src;
+}
+
+
+/* ==================================================
+   ADMIN CARTOON AVATAR PICKER
+================================================== */
+
+const profileAvatarSelectBtn =
+    document.getElementById("profileAvatarSelectBtn");
+
+const adminAvatarPicker =
+    document.getElementById("adminAvatarPicker");
+
+const avatarPickerGrid =
+    document.querySelector(".avatar-picker-grid");
+
+let savedAvatarIndex =
+    Number(localStorage.getItem("holidayMastiAdminAvatar") || "-1");
+
+if (
+    savedAvatarIndex < 0 ||
+    savedAvatarIndex >= adminAvatarChoices.length
+) {
+    savedAvatarIndex = Math.floor(
+        Math.random() * adminAvatarChoices.length
+    );
+}
+
+function applyAdminAvatar(index) {
+
+    const choice =
+        adminAvatarChoices[index];
+
+    if (!choice) {
+        return;
+    }
+
+    if (adminAvatarImage) {
+        adminAvatarImage.src = choice.src;
+    }
+
+    if (adminAvatarImageLarge) {
+        adminAvatarImageLarge.src = choice.src;
+    }
+
+    localStorage.setItem(
+        "holidayMastiAdminAvatar",
+        String(index)
+    );
+
+    document
+        .querySelectorAll(".avatar-choice")
+        .forEach(function (button, buttonIndex) {
+            button.classList.toggle(
+                "selected",
+                buttonIndex === index
+            );
+        });
+
+}
+
+if (avatarPickerGrid) {
+
+    adminAvatarChoices.forEach(
+        function (choice, index) {
+
+            const button =
+                document.createElement("button");
+
+            button.type = "button";
+            button.className = "avatar-choice";
+
+            button.innerHTML = `
+                <img
+                    src="${choice.src}"
+                    alt="${choice.name}"
+                >
+                <span>${choice.name}</span>
+            `;
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    applyAdminAvatar(index);
+
+                    if (adminAvatarPicker) {
+                        adminAvatarPicker.classList.remove("open");
+                    }
+
+                }
+            );
+
+            avatarPickerGrid.appendChild(button);
+
+        }
+    );
+
+}
+
+applyAdminAvatar(savedAvatarIndex);
+
+if (profileAvatarSelectBtn) {
+
+    profileAvatarSelectBtn.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+            if (adminAvatarPicker) {
+                adminAvatarPicker.classList.toggle("open");
+            }
+
+        }
+    );
+
+}
+
+if (adminAvatarPicker) {
+    adminAvatarPicker.addEventListener(
+        "click",
+        function (event) {
+            event.stopPropagation();
+        }
+    );
 }
 
 /* ==================================================
