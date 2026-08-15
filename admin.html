@@ -500,6 +500,360 @@
 
             .login-card { padding: 28px 22px; }
         }
+        /* ==================================================
+   HOLIDAY MASTI - MODERN ADMIN UI
+================================================== */
+
+body {
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(255, 153, 0, 0.08),
+            transparent 30%
+        ),
+        #f5f7fb;
+}
+
+
+/* ================= TOPBAR ================= */
+
+.topbar {
+    height: 82px;
+    padding: 0 38px;
+    background: rgba(255,255,255,.88);
+    border-bottom: 1px solid rgba(220,228,237,.8);
+    box-shadow: 0 5px 25px rgba(25,55,85,.05);
+}
+
+.brand {
+    gap: 14px;
+}
+
+.brand img {
+    width: 56px;
+    height: 56px;
+}
+
+.brand strong {
+    font-size: 20px;
+    font-weight: 800;
+    color: #102a43;
+}
+
+.brand span {
+    margin-top: 2px;
+    color: #8a9bad;
+}
+
+
+/* ================= LOGOUT ================= */
+
+.logout-btn {
+    padding: 10px 18px;
+    border-radius: 12px;
+    transition: .2s ease;
+}
+
+.logout-btn:hover {
+    background: #fff5f0;
+    border-color: #ffd4c2;
+    color: #e85d04;
+    transform: translateY(-1px);
+}
+
+
+/* ================= CONTENT ================= */
+
+.content {
+    max-width: 1350px;
+    padding: 42px 30px 70px;
+}
+
+
+/* ================= PAGE HEADING ================= */
+
+.page-heading {
+    margin-bottom: 32px;
+}
+
+.page-heading h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -.7px;
+}
+
+.page-heading p {
+    color: #8191a5;
+    font-size: 14px;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.add-btn {
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #0757c9
+    );
+    box-shadow: 0 8px 20px rgba(13,110,253,.18);
+    transition: .2s ease;
+}
+
+.add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(13,110,253,.25);
+}
+
+#enquiriesBtn {
+    background: linear-gradient(
+        135deg,
+        #ff9800,
+        #f26b21
+    );
+
+    box-shadow:
+        0 8px 20px rgba(255,152,0,.18);
+}
+
+#enquiriesBtn:hover {
+    box-shadow:
+        0 12px 25px rgba(255,152,0,.25);
+}
+
+
+/* ================= PACKAGE GRID ================= */
+
+.package-grid {
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(290px, 1fr)
+        );
+
+    gap: 24px;
+}
+
+
+/* ================= PACKAGE CARD ================= */
+
+.package-card {
+    border: 1px solid #e7edf3;
+    border-radius: 24px;
+    box-shadow:
+        0 8px 30px rgba(23,43,77,.06);
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+}
+
+.package-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 45px rgba(23,43,77,.12);
+
+    border-color: #d8e5f2;
+}
+
+
+/* ================= PACKAGE IMAGE ================= */
+
+.package-image {
+    height: 210px;
+    transition: transform .35s ease;
+}
+
+.package-card:hover .package-image {
+    transform: scale(1.025);
+}
+
+
+/* ================= PACKAGE BODY ================= */
+
+.package-body {
+    padding: 21px;
+}
+
+.package-body h3 {
+    font-size: 20px;
+    font-weight: 750;
+}
+
+.package-location {
+    color: #8292a5;
+    margin-bottom: 12px;
+}
+
+.package-price {
+    font-size: 23px;
+    color: #0b5fa5;
+}
+
+
+/* ================= CARD BUTTONS ================= */
+
+.card-actions button {
+    transition: .2s ease;
+}
+
+.card-actions button:hover {
+    transform: translateY(-1px);
+}
+
+.edit-btn:hover {
+    background: #dcecff;
+}
+
+.delete-btn:hover {
+    background: #ffe1e1;
+}
+
+
+/* ================= STATUS ================= */
+
+.status {
+    border-radius: 13px;
+    border: 1px solid #d8eafa;
+    box-shadow: 0 6px 18px rgba(20,80,120,.05);
+}
+
+
+/* ================= ENQUIRY TABLE ================= */
+
+#enquiriesSection {
+    animation: adminFadeIn .25s ease;
+}
+
+#enquiriesSection table {
+    background: #fff;
+}
+
+#enquiriesSection thead th {
+    padding: 16px;
+    background:
+        linear-gradient(
+            180deg,
+            #f9fbfd,
+            #f4f7fa
+        );
+    color: #536b80;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+#enquiriesSection tbody tr {
+    transition: .15s ease;
+}
+
+#enquiriesSection tbody tr:hover {
+    background: #f8fbff;
+}
+
+#enquiriesSection tbody td {
+    padding: 16px;
+}
+
+
+/* ================= SEARCH / FILTER ================= */
+
+#enquirySearch,
+#enquiryStatusFilter {
+    background: white;
+    transition: .2s ease;
+}
+
+#enquirySearch:focus,
+#enquiryStatusFilter:focus {
+    outline: none;
+    border-color: #0d6efd !important;
+    box-shadow:
+        0 0 0 4px rgba(13,110,253,.08);
+}
+
+
+/* ================= VIEW BUTTON ================= */
+
+.view-btn {
+    transition: .2s ease;
+}
+
+.view-btn:hover {
+    background: #dcecff !important;
+    transform: translateY(-1px);
+}
+
+
+/* ================= EMPTY STATE ================= */
+
+.empty-state {
+    padding: 70px 30px;
+    box-shadow:
+        0 8px 30px rgba(23,43,77,.04);
+}
+
+.empty-state h3 {
+    color: #243b53;
+    margin-bottom: 6px;
+}
+
+
+/* ================= MODAL ================= */
+
+.modal-box {
+    box-shadow:
+        0 30px 100px rgba(8,25,43,.25);
+    border: 1px solid rgba(255,255,255,.8);
+}
+
+
+/* ================= ANIMATION ================= */
+
+@keyframes adminFadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 650px) {
+
+    .topbar {
+        height: 70px;
+    }
+
+    .content {
+        padding: 25px 16px 45px;
+    }
+
+    .page-heading h1 {
+        font-size: 27px;
+    }
+
+    .page-heading > div:last-child {
+        width: 100%;
+    }
+
+    .page-heading > div:last-child button {
+        flex: 1;
+    }
+
+}
     </style>
 </head>
 
