@@ -3033,10 +3033,21 @@ function showAdminGreeting(user) {
        CLOSE PACKAGE MODAL
     ================================================== */
 
-    closeModal.addEventListener(
-        "click",
-        closePackageModal
-    );
+    if (closeModal) {
+
+        closeModal.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                closePackageModal();
+
+            }
+        );
+
+    }
 
 
    packageModal.addEventListener(
@@ -3083,7 +3094,19 @@ if (modalBox) {
 
 
     function closePackageModal() {
+
+        if (!packageModal) {
+            return;
+        }
+
+        /*
+         * Remove any inline display override first.
+         * Then apply the hidden class so the modal is actually
+         * removed from the screen.
+         */
+        packageModal.style.removeProperty("display");
         packageModal.classList.add("hidden");
+
     }
 
 
@@ -3754,13 +3777,14 @@ function openAddPackageModal() {
         previewImage.removeAttribute("src");
     }
 
+    /*
+     * Do not set inline display here.
+     * The .modal / .modal.hidden CSS controls visibility.
+     * This is important because an inline !important display:flex
+     * would prevent .hidden from closing the modal.
+     */
+    packageModal.style.removeProperty("display");
     packageModal.classList.remove("hidden");
-
-    packageModal.style.setProperty(
-        "display",
-        "flex",
-        "important"
-    );
 
 }
 
