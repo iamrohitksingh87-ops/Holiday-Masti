@@ -1064,6 +1064,537 @@ body {
 .modal.hidden {
     display: none !important;
 }
+        /* ==================================================
+   HOLIDAY MASTI - DASHBOARD UI
+================================================== */
+
+.admin-sidebar {
+    position: fixed;
+    left: 24px;
+    top: 105px;
+    width: 220px;
+    padding: 18px;
+
+    background: rgba(255,255,255,.58);
+    border: 1px solid rgba(255,255,255,.85);
+    border-radius: 24px;
+
+    box-shadow:
+        0 18px 45px rgba(45,93,125,.10);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    z-index: 50;
+}
+
+.sidebar-title {
+    padding: 8px 12px 12px;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .12em;
+
+    color: #8aa0b4;
+}
+
+.sidebar-item {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 14px;
+    margin-bottom: 7px;
+
+    border: 0;
+    border-radius: 13px;
+
+    background: transparent;
+
+    color: #567089;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.sidebar-item:hover {
+    background: rgba(255,255,255,.65);
+    color: #1267c4;
+    transform: translateX(2px);
+}
+
+.sidebar-item.active {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(47,139,255,.14),
+            rgba(47,139,255,.07)
+        );
+
+    color: #0968ca;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(47,139,255,.08);
+}
+
+.sidebar-icon {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: rgba(255,255,255,.65);
+
+    font-size: 15px;
+}
+
+.sidebar-divider {
+    height: 1px;
+
+    margin: 16px 5px;
+
+    background:
+        rgba(120,145,165,.15);
+}
+
+.sidebar-help {
+    padding: 17px 13px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    text-align: center;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(93,184,255,.15),
+            rgba(110,222,190,.12)
+        );
+}
+
+.sidebar-help-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+}
+
+.sidebar-help strong {
+    color: #16476c;
+    font-size: 14px;
+}
+
+.sidebar-help span {
+    color: #7891a6;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+
+/* ==================================================
+   DASHBOARD
+================================================== */
+
+.dashboard-section {
+    margin-left: 270px;
+
+    max-width: 1180px;
+
+    padding:
+        38px 32px 45px;
+
+    animation:
+        dashboardFade .35s ease;
+}
+
+.dashboard-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 28px;
+}
+
+.dashboard-heading h1 {
+    margin: 0;
+
+    color: #123b5e;
+
+    font-size: 34px;
+    font-weight: 850;
+
+    letter-spacing: -.7px;
+}
+
+.dashboard-heading p {
+    margin-top: 7px;
+
+    color: #7892a8;
+
+    font-size: 14px;
+}
+
+.dashboard-actions {
+    display: flex;
+    gap: 11px;
+}
+
+.dashboard-actions button {
+    border: 1px solid rgba(255,255,255,.8);
+
+    padding: 12px 18px;
+
+    border-radius: 14px;
+
+    font-family: inherit;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.dashboard-enquiry-btn {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffb13b,
+            #ff8610
+        );
+
+    box-shadow:
+        0 9px 25px rgba(255,145,25,.20);
+}
+
+.dashboard-add-btn {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2589ff,
+            #1264d7
+        );
+
+    box-shadow:
+        0 9px 25px rgba(24,112,225,.20);
+}
+
+.dashboard-actions button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ==================================================
+   STAT CARDS
+================================================== */
+
+.dashboard-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 17px;
+
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    min-height: 105px;
+
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.78),
+            rgba(255,255,255,.48)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.85);
+
+    border-radius: 21px;
+
+    box-shadow:
+        0 15px 35px rgba(45,93,125,.08);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    transition: .2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 20px 42px rgba(45,93,125,.12);
+}
+
+.stat-icon {
+    flex-shrink: 0;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.packages-icon {
+    background: rgba(37,137,255,.13);
+    color: #1475dc;
+}
+
+.enquiries-icon {
+    background: rgba(46,194,126,.13);
+    color: #16a66a;
+}
+
+.new-icon {
+    background: rgba(255,177,59,.15);
+    color: #f18a08;
+}
+
+.converted-icon {
+    background: rgba(137,93,226,.13);
+    color: #7440c7;
+}
+
+.stat-card span {
+    display: block;
+
+    color: #678097;
+
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.stat-card strong {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #123b5e;
+
+    font-size: 27px;
+    line-height: 1.1;
+}
+
+.stat-card small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #91a2b1;
+
+    font-size: 10px;
+}
+
+
+/* ==================================================
+   DASHBOARD PANELS
+================================================== */
+
+.dashboard-panels {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 20px;
+}
+
+.dashboard-panel {
+    min-height: 260px;
+
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.78),
+            rgba(255,255,255,.50)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.85);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 38px rgba(45,93,125,.08);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.panel-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.panel-heading h2 {
+    margin: 0;
+
+    color: #123b5e;
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.panel-heading p {
+    margin-top: 4px;
+
+    color: #8a9eaf;
+
+    font-size: 11px;
+}
+
+.panel-link {
+    border: 0;
+    background: transparent;
+
+    color: #1475dc;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 750;
+
+    cursor: pointer;
+}
+
+.panel-link:hover {
+    text-decoration: underline;
+}
+
+.dashboard-loading {
+    padding: 45px 10px;
+
+    text-align: center;
+
+    color: #8da0b0;
+
+    font-size: 13px;
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 1050px) {
+
+    .dashboard-stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .dashboard-section {
+        margin-left: 255px;
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .admin-sidebar {
+        position: static;
+
+        width: auto;
+
+        margin: 15px;
+    }
+
+    .sidebar-help {
+        display: none;
+    }
+
+    .dashboard-section {
+        margin-left: 0;
+
+        padding: 25px 16px 40px;
+    }
+
+    .dashboard-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .dashboard-panels {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-actions {
+        width: 100%;
+    }
+
+    .dashboard-actions button {
+        flex: 1;
+    }
+
+}
+
+@keyframes dashboardFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
     </style>
 </head>
 
@@ -1209,8 +1740,300 @@ body {
         </button>
 
     </header>
+<!-- ==================================================
+     ADMIN SIDEBAR
+================================================== -->
+
+<aside id="adminSidebar" class="admin-sidebar">
+
+    <div class="sidebar-title">
+        MENU
+    </div>
+
+    <button
+        type="button"
+        class="sidebar-item active"
+        id="dashboardNavBtn"
+    >
+        <span class="sidebar-icon">⌂</span>
+        <span>Dashboard</span>
+    </button>
 
 
+    <button
+        type="button"
+        class="sidebar-item"
+        id="packagesNavBtn"
+    >
+        <span class="sidebar-icon">▣</span>
+        <span>Packages</span>
+    </button>
+
+
+    <button
+        type="button"
+        class="sidebar-item"
+        id="enquiriesNavBtn"
+    >
+        <span class="sidebar-icon">✉</span>
+        <span>Enquiries</span>
+    </button>
+
+
+    <div class="sidebar-divider"></div>
+
+
+    <div class="sidebar-help">
+
+        <div class="sidebar-help-icon">
+            ✈
+        </div>
+
+        <strong>
+            Holiday Masti
+        </strong>
+
+        <span>
+            Manage your travel business
+        </span>
+
+    </div>
+
+</aside>
+<!-- ==================================================
+     DASHBOARD
+================================================== -->
+
+<section
+    id="dashboardSection"
+    class="dashboard-section"
+>
+
+    <div class="dashboard-heading">
+
+        <div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Overview of your Holiday Masti business.
+            </p>
+
+        </div>
+
+        <div class="dashboard-actions">
+
+            <button
+                id="dashboardEnquiriesBtn"
+                class="dashboard-enquiry-btn"
+                type="button"
+            >
+                ✉ Enquiries
+            </button>
+
+            <button
+                id="dashboardAddPackageBtn"
+                class="dashboard-add-btn"
+                type="button"
+            >
+                + Add Package
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <div class="dashboard-stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon packages-icon">
+                ▣
+            </div>
+
+            <div>
+
+                <span>
+                    Total Packages
+                </span>
+
+                <strong id="totalPackagesStat">
+                    —
+                </strong>
+
+                <small>
+                    Active packages
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon enquiries-icon">
+                ✉
+            </div>
+
+            <div>
+
+                <span>
+                    Total Enquiries
+                </span>
+
+                <strong id="totalEnquiriesStat">
+                    —
+                </strong>
+
+                <small>
+                    Customer enquiries
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon new-icon">
+                ✦
+            </div>
+
+            <div>
+
+                <span>
+                    New Enquiries
+                </span>
+
+                <strong id="newEnquiriesStat">
+                    —
+                </strong>
+
+                <small>
+                    Need attention
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon converted-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <span>
+                    Converted
+                </span>
+
+                <strong id="convertedEnquiriesStat">
+                    —
+                </strong>
+
+                <small>
+                    Successful enquiries
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= DASHBOARD PANELS ================= -->
+
+    <div class="dashboard-panels">
+
+        <div class="dashboard-panel">
+
+            <div class="panel-heading">
+
+                <div>
+
+                    <h2>
+                        Recent Enquiries
+                    </h2>
+
+                    <p>
+                        Latest customer enquiries
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="viewAllEnquiriesBtn"
+                    class="panel-link"
+                >
+                    View All
+                </button>
+
+            </div>
+
+
+            <div id="recentEnquiriesList">
+
+                <div class="dashboard-loading">
+                    Loading enquiries...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-panel">
+
+            <div class="panel-heading">
+
+                <div>
+
+                    <h2>
+                        Package Overview
+                    </h2>
+
+                    <p>
+                        Your latest travel packages
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="viewAllPackagesBtn"
+                    class="panel-link"
+                >
+                    View Packages
+                </button>
+
+            </div>
+
+
+            <div id="recentPackagesList">
+
+                <div class="dashboard-loading">
+                    Loading packages...
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
     <main class="content">
 
 <div class="page-heading">
