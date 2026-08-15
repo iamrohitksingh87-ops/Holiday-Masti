@@ -2640,13 +2640,17 @@ window.viewEnquiry = function (id) {
                 String(id)
         );
 
+
     if (!enquiry) {
 
-        alert("Enquiry details not found.");
+        alert(
+            "Enquiry details not found."
+        );
 
         return;
 
     }
+
 
     const name =
         enquiry.name || "-";
@@ -2671,314 +2675,349 @@ window.viewEnquiry = function (id) {
         ).toLowerCase();
 
 
-    let modal =
-    document.getElementById("enquiryModal");
+    /* ==========================================
+       CREATE OVERLAY
+    ========================================== */
 
-let content = null;
-
-
-/* Create popup automatically if it does not exist */
-
-if (!modal) {
-
-    modal =
-        document.createElement("div");
-
-    modal.id =
-        "enquiryModal";
-
-    modal.className =
-        "modal hidden";
-
-    modal.innerHTML = `
-
-        <div
-            class="modal-box"
-            style="
-                max-width:650px;
-            "
-        >
-
-            <div class="modal-header">
-
-                <h2>
-                    Customer Enquiry
-                </h2>
-
-                <button
-                    id="closeEnquiryModal"
-                    class="close-btn"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-            <div
-                id="enquiryDetailContent"
-            ></div>
-
-        </div>
-
-    `;
-
-    document.body.appendChild(modal);
-    content =
-    document.getElementById(
-        "enquiryDetailContent"
-    );
-
-    content =
+    let overlay =
         document.getElementById(
-            "enquiryDetailContent"
+            "enquiryViewOverlay"
         );
 
 
-    const closeBtn =
-        document.getElementById(
-            "closeEnquiryModal"
-        );
+    if (overlay) {
 
-
-    if (closeBtn) {
-
-        closeBtn.addEventListener(
-            "click",
-            function () {
-
-                modal.classList.add(
-                    "hidden"
-                );
-
-            }
-        );
+        overlay.remove();
 
     }
 
 
-    modal.addEventListener(
-        "click",
-        function (event) {
-
-            if (
-                event.target === modal
-            ) {
-
-                modal.classList.add(
-                    "hidden"
-                );
-
-            }
-
-        }
-    );
-
-}
-if (!content) {
-
-    content =
+    overlay =
         document.createElement("div");
 
-    content.id =
-        "enquiryDetailContent";
 
-    content.style.width =
-        "100%";
+    overlay.id =
+        "enquiryViewOverlay";
 
-    modal
-        .querySelector(".modal-box")
-        .appendChild(content);
 
-}
+    overlay.style.cssText = `
+        position:fixed;
+        inset:0;
+        width:100vw;
+        height:100vh;
+        background:rgba(15,23,42,0.60);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+        box-sizing:border-box;
+        z-index:2147483647;
+    `;
 
-   const enquiryContent =
-    modal.querySelector(
-        "#enquiryDetailContent"
-    );
 
-if (!enquiryContent) {
+    /* ==========================================
+       POPUP BOX
+    ========================================== */
 
-    alert(
-        "Enquiry details container not found."
-    );
+    const box =
+        document.createElement("div");
 
-    return;
 
-}
+    box.style.cssText = `
+        width:min(650px,100%);
+        max-height:90vh;
+        overflow-y:auto;
+        background:#ffffff;
+        border-radius:22px;
+        padding:28px;
+        box-sizing:border-box;
+        box-shadow:0 25px 80px rgba(0,0,0,0.30);
+        font-family:Arial,sans-serif;
+        color:#172b4d;
+    `;
 
-enquiryContent.innerHTML = `
+
+    /* ==========================================
+       HEADER
+    ========================================== */
+
+    box.innerHTML = `
 
         <div style="
-            display:grid;
-            gap:16px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:24px;
         ">
 
             <div>
 
-                <small style="
-                    color:#7890a5;
-                    font-weight:600;
-                ">
-                    NAME
-                </small>
-
                 <div style="
-                    font-size:18px;
+                    font-size:12px;
                     font-weight:700;
-                    margin-top:3px;
+                    color:#0d6efd;
+                    letter-spacing:1px;
+                    margin-bottom:5px;
+                ">
+                    CUSTOMER ENQUIRY
+                </div>
+
+                <h2 style="
+                    margin:0;
+                    font-size:26px;
                 ">
                     ${escapeHTML(name)}
+                </h2>
+
+            </div>
+
+
+            <button
+                id="closeEnquiryView"
+                type="button"
+                style="
+                    width:40px;
+                    height:40px;
+                    border:0;
+                    border-radius:50%;
+                    background:#edf2f7;
+                    font-size:24px;
+                    cursor:pointer;
+                "
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:16px;
+            margin-bottom:18px;
+        ">
+
+            <div style="
+                background:#f7f9fc;
+                padding:15px;
+                border-radius:13px;
+            ">
+
+                <div style="
+                    font-size:11px;
+                    color:#7890a5;
+                    font-weight:700;
+                    margin-bottom:5px;
+                ">
+                    EMAIL
+                </div>
+
+                <div style="
+                    word-break:break-word;
+                ">
+                    ${escapeHTML(email)}
                 </div>
 
             </div>
 
 
             <div style="
-                display:grid;
-                grid-template-columns:1fr 1fr;
-                gap:15px;
+                background:#f7f9fc;
+                padding:15px;
+                border-radius:13px;
             ">
 
-                <div>
-
-                    <small style="
-                        color:#7890a5;
-                        font-weight:600;
-                    ">
-                        EMAIL
-                    </small>
-
-                    <div style="margin-top:3px;">
-                        ${escapeHTML(email)}
-                    </div>
-
+                <div style="
+                    font-size:11px;
+                    color:#7890a5;
+                    font-weight:700;
+                    margin-bottom:5px;
+                ">
+                    PHONE
                 </div>
-
 
                 <div>
-
-                    <small style="
-                        color:#7890a5;
-                        font-weight:600;
-                    ">
-                        PHONE
-                    </small>
-
-                    <div style="margin-top:3px;">
-                        ${escapeHTML(phone)}
-                    </div>
-
+                    ${escapeHTML(phone)}
                 </div>
 
             </div>
-
-
-            <div>
-
-                <small style="
-                    color:#7890a5;
-                    font-weight:600;
-                ">
-                    PACKAGE / DESTINATION
-                </small>
-
-                <div style="
-                    margin-top:5px;
-                    font-weight:600;
-                ">
-                    ${escapeHTML(packageName)}
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <small style="
-                    color:#7890a5;
-                    font-weight:600;
-                ">
-                    MESSAGE
-                </small>
-
-                <div style="
-                    margin-top:7px;
-                    background:#f6f8fa;
-                    padding:15px;
-                    border-radius:12px;
-                    white-space:pre-wrap;
-                    line-height:1.6;
-                ">
-                    ${escapeHTML(message)}
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <label style="
-                    display:block;
-                    font-size:13px;
-                    font-weight:600;
-                    margin-bottom:7px;
-                ">
-                    Status
-                </label>
-
-                <select
-                    id="popupEnquiryStatus"
-                    style="
-                        width:100%;
-                        padding:12px;
-                        border:1px solid #d8e2ec;
-                        border-radius:11px;
-                        background:white;
-                    "
-                >
-
-                    <option
-                        value="new"
-                        ${currentStatus === "new" ? "selected" : ""}
-                    >
-                        New
-                    </option>
-
-                    <option
-                        value="contacted"
-                        ${currentStatus === "contacted" ? "selected" : ""}
-                    >
-                        Contacted
-                    </option>
-
-                    <option
-                        value="converted"
-                        ${currentStatus === "converted" ? "selected" : ""}
-                    >
-                        Converted
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <button
-                id="saveEnquiryStatusBtn"
-                type="button"
-                class="save-btn"
-            >
-                Update Status
-            </button>
 
         </div>
+
+
+        <div style="
+            background:#f7f9fc;
+            padding:15px;
+            border-radius:13px;
+            margin-bottom:18px;
+        ">
+
+            <div style="
+                font-size:11px;
+                color:#7890a5;
+                font-weight:700;
+                margin-bottom:5px;
+            ">
+                PACKAGE / DESTINATION
+            </div>
+
+            <div style="
+                font-weight:700;
+            ">
+                ${escapeHTML(packageName)}
+            </div>
+
+        </div>
+
+
+        <div style="
+            margin-bottom:22px;
+        ">
+
+            <div style="
+                font-size:11px;
+                color:#7890a5;
+                font-weight:700;
+                margin-bottom:7px;
+            ">
+                MESSAGE
+            </div>
+
+            <div style="
+                background:#f7f9fc;
+                padding:16px;
+                border-radius:13px;
+                line-height:1.6;
+                white-space:pre-wrap;
+            ">
+                ${escapeHTML(message)}
+            </div>
+
+        </div>
+
+
+        <div style="
+            margin-bottom:18px;
+        ">
+
+            <label style="
+                display:block;
+                font-size:12px;
+                font-weight:700;
+                margin-bottom:7px;
+            ">
+                ENQUIRY STATUS
+            </label>
+
+
+            <select
+                id="popupEnquiryStatus"
+                style="
+                    width:100%;
+                    padding:13px;
+                    border:1px solid #d8e2ec;
+                    border-radius:12px;
+                    background:#fff;
+                    font-size:15px;
+                "
+            >
+
+                <option
+                    value="new"
+                    ${currentStatus === "new" ? "selected" : ""}
+                >
+                    New
+                </option>
+
+                <option
+                    value="contacted"
+                    ${currentStatus === "contacted" ? "selected" : ""}
+                >
+                    Contacted
+                </option>
+
+                <option
+                    value="converted"
+                    ${currentStatus === "converted" ? "selected" : ""}
+                >
+                    Converted
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            id="saveEnquiryStatusBtn"
+            type="button"
+            style="
+                width:100%;
+                border:0;
+                border-radius:13px;
+                padding:14px;
+                background:#0d6efd;
+                color:#fff;
+                font-size:15px;
+                font-weight:700;
+                cursor:pointer;
+            "
+        >
+            Update Status
+        </button>
 
     `;
 
 
-    modal.classList.remove("hidden");
+    /* ==========================================
+       ADD TO PAGE
+    ========================================== */
 
+    overlay.appendChild(box);
+
+    document.body.appendChild(overlay);
+
+
+    /* ==========================================
+       CLOSE
+    ========================================== */
+
+    const closeBtn =
+        document.getElementById(
+            "closeEnquiryView"
+        );
+
+
+    if (closeBtn) {
+
+        closeBtn.onclick =
+            function () {
+
+                overlay.remove();
+
+            };
+
+    }
+
+
+    overlay.onclick =
+        function (event) {
+
+            if (
+                event.target === overlay
+            ) {
+
+                overlay.remove();
+
+            }
+
+        };
+
+
+    /* ==========================================
+       UPDATE STATUS
+    ========================================== */
 
     const saveBtn =
         document.getElementById(
@@ -2986,31 +3025,41 @@ enquiryContent.innerHTML = `
         );
 
 
-    saveBtn.addEventListener(
-        "click",
-        async function () {
+    if (saveBtn) {
 
-            const status =
-                document.getElementById(
-                    "popupEnquiryStatus"
-                ).value;
+        saveBtn.onclick =
+            async function () {
 
-
-            await updateEnquiryStatus(
-                id,
-                status
-            );
+                const status =
+                    document.getElementById(
+                        "popupEnquiryStatus"
+                    ).value;
 
 
-            modal.classList.add(
-                "hidden"
-            );
+                saveBtn.disabled = true;
 
-        }
-    );
+                saveBtn.textContent =
+                    "Updating...";
+
+
+                await updateEnquiryStatus(
+                    id,
+                    status
+                );
+
+
+                overlay.remove();
+
+            };
+
+    }
 
 };
 
+
+/* ==================================================
+   UPDATE ENQUIRY STATUS
+================================================== */
 
 /* ==================================================
    UPDATE ENQUIRY STATUS
