@@ -2162,6 +2162,560 @@ if (imagePreview && data.image) {
 
     document.getElementById("packageModal").classList.remove("hidden");
 }
+    /* ==================================================
+   ENQUIRIES
+================================================== */
+
+const enquiriesBtn =
+    document.getElementById("enquiriesBtn");
+
+const enquiriesSection =
+    document.getElementById("enquiriesSection");
+
+const enquiryTableBody =
+    document.getElementById("enquiryTableBody");
+
+const enquirySearch =
+    document.getElementById("enquirySearch");
+
+const enquiryStatusFilter =
+    document.getElementById("enquiryStatusFilter");
+
+let allEnquiries = [];
+
+
+/* ==================================================
+   SHOW / HIDE ENQUIRIES
+================================================== */
+
+if (enquiriesBtn) {
+
+    enquiriesBtn.addEventListener(
+        "click",
+        function () {
+
+            const showingEnquiries =
+                !enquiriesSection.classList.contains("hidden");
+
+            if (showingEnquiries) {
+
+                enquiriesSection.classList.add("hidden");
+                packageGrid.classList.remove("hidden");
+
+                enquiriesBtn.textContent =
+                    "Enquiries";
+
+                return;
+            }
+
+
+            packageGrid.classList.add("hidden");
+
+            enquiriesSection.classList.remove("hidden");
+
+            enquiriesBtn.textContent =
+                "← Packages";
+
+            loadEnquiries();
+
+        }
+    );
+
+}
+
+
+/* ==================================================
+   LOAD ENQUIRIES
+================================================== */
+
+async function loadEnquiries() {
+
+    if (!enquiryTableBody) {
+        return;
+    }
+
+
+    enquiryTableBody.innerHTML = `
+        <tr>
+            <td
+                colspan="7"
+                style="
+                    text-align:center;
+                    padding:40px;
+                "
+            >
+                Loading enquiries...
+            </td>
+        </tr>
+    `;
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("enquiries")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
+
+
+    if (error) {
+
+        enquiryTableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="7"
+                    style="
+                        text-align:center;
+                        padding:40px;
+                        color:#d62828;
+                    "
+                >
+                    Could not load enquiries.<br><br>
+                    ${escapeHTML(error.message)}
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    allEnquiries =
+        Array.isArray(data)
+            ? data
+            : [];
+
+
+    renderEnquiries();
+
+}
+
+
+/* ==================================================
+   RENDER ENQUIRIES
+================================================== */
+
+function renderEnquiries() {
+
+    if (!enquiryTableBody) {
+        return;
+    }
+
+
+    const search =
+        (enquirySearch?.value || "")
+            .trim()
+            .toLowerCase();
+
+
+    const selectedStatus =
+        enquiryStatusFilter?.value ||
+        "all";
+
+
+    const filtered =
+        allEnquiries.filter(
+            function (item) {
+
+                const name =
+                    String(item.name || "")
+                        .toLowerCase();
+
+                const email =
+                    String(item.email || "")
+                        .toLowerCase();
+
+                const phone =
+                    String(item.phone || "")
+                        .toLowerCase();
+
+                const packageName =
+                    String(
+                        item.package ||
+                        item.destination ||
+                        ""
+                    ).toLowerCase();
+
+
+                const status =
+                    String(
+                        item.status ||
+                        "new"
+                    ).toLowerCase();
+
+
+                const matchesSearch =
+                    !search ||
+                    name.includes(search) ||
+                    email.includes(search) ||
+                    phone.includes(search) ||
+                    packageName.includes(search);
+
+
+                const matchesStatus =
+                    selectedStatus === "all" ||
+                    status === selectedStatus;
+
+
+                return (
+                    matchesSearch &&
+                    matchesStatus
+                );
+
+            }
+        );
+
+
+    if (filtered.length === 0) {
+
+        enquiryTableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="7"
+                    style="
+                        text-align:center;
+                        padding:45px;
+                        color:#7890a5;
+                    "
+                >
+                    No enquiries found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    enquiryTableBody.innerHTML =
+        filtered
+            .map(renderEnquiryRow)
+            .join("");
+
+}
+
+
+/* ==================================================
+   ENQUIRY ROW
+================================================== */
+
+function renderEnquiryRow(item) {
+
+    const id =
+        item.id;
+
+
+    const name =
+        item.name ||
+        "Unknown";
+
+
+    const email =
+        item.email ||
+        "-";
+
+
+    const phone =
+        item.phone ||
+        "-";
+
+
+    const packageName =
+        item.package ||
+        item.destination ||
+        "-";
+
+
+    const status =
+        String(
+            item.status ||
+            "new"
+        ).toLowerCase();
+
+
+    const created =
+        item.created_at
+            ? new Date(
+                item.created_at
+              ).toLocaleDateString(
+                "en-IN"
+              )
+            : "-";
+
+
+    let statusClass =
+        "status-new";
+
+
+    let statusText =
+        "New";
+
+
+    if (status === "contacted") {
+
+        statusClass =
+            "status-contacted";
+
+        statusText =
+            "Contacted";
+
+    }
+
+
+    if (status === "converted") {
+
+        statusClass =
+            "status-converted";
+
+        statusText =
+            "Converted";
+
+    }
+
+
+    return `
+        <tr>
+
+            <td>
+                <strong>
+                    ${escapeHTML(name)}
+                </strong>
+            </td>
+
+            <td>
+                ${escapeHTML(email)}
+            </td>
+
+            <td>
+                ${escapeHTML(phone)}
+            </td>
+
+            <td>
+                ${escapeHTML(packageName)}
+            </td>
+
+            <td>
+
+                <span
+                    class="status-badge ${statusClass}"
+                >
+                    ${statusText}
+                </span>
+
+            </td>
+
+            <td>
+                ${created}
+            </td>
+
+            <td>
+
+                <button
+                    class="view-btn"
+                    type="button"
+                    onclick="viewEnquiry(${id})"
+                >
+                    View
+                </button>
+
+            </td>
+
+        </tr>
+    `;
+
+}
+
+
+/* ==================================================
+   VIEW ENQUIRY
+================================================== */
+
+window.viewEnquiry =
+    function (id) {
+
+        const enquiry =
+            allEnquiries.find(
+                item =>
+                    String(item.id) ===
+                    String(id)
+            );
+
+
+        if (!enquiry) {
+
+            alert(
+                "Enquiry details not found."
+            );
+
+            return;
+
+        }
+
+
+        const name =
+            enquiry.name ||
+            "-";
+
+
+        const email =
+            enquiry.email ||
+            "-";
+
+
+        const phone =
+            enquiry.phone ||
+            "-";
+
+
+        const packageName =
+            enquiry.package ||
+            enquiry.destination ||
+            "-";
+
+
+        const message =
+            enquiry.message ||
+            "-";
+
+
+        const currentStatus =
+            String(
+                enquiry.status ||
+                "new"
+            ).toLowerCase();
+
+
+        const newStatus =
+            prompt(
+                "Enquiry Details\n\n" +
+                "Name: " + name + "\n" +
+                "Email: " + email + "\n" +
+                "Phone: " + phone + "\n" +
+                "Package: " + packageName + "\n\n" +
+                "Message:\n" + message +
+                "\n\n" +
+                "Current Status: " +
+                currentStatus +
+                "\n\n" +
+                "Enter new status:\n" +
+                "new / contacted / converted",
+                currentStatus
+            );
+
+
+        if (
+            newStatus === null
+        ) {
+
+            return;
+
+        }
+
+
+        const cleanStatus =
+            newStatus
+                .trim()
+                .toLowerCase();
+
+
+        if (
+            ![
+                "new",
+                "contacted",
+                "converted"
+            ].includes(cleanStatus)
+        ) {
+
+            alert(
+                "Invalid status.\n\n" +
+                "Use: new, contacted or converted."
+            );
+
+            return;
+
+        }
+
+
+        updateEnquiryStatus(
+            id,
+            cleanStatus
+        );
+
+    };
+
+
+/* ==================================================
+   UPDATE ENQUIRY STATUS
+================================================== */
+
+async function updateEnquiryStatus(
+    id,
+    status
+) {
+
+    const {
+        error
+    } = await supabaseClient
+        .from("enquiries")
+        .update({
+            status:status
+        })
+        .eq(
+            "id",
+            id
+        );
+
+
+    if (error) {
+
+        alert(
+            "Could not update enquiry:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    showStatus(
+        "Enquiry status updated successfully."
+    );
+
+
+    await loadEnquiries();
+
+}
+
+
+/* ==================================================
+   SEARCH
+================================================== */
+
+if (enquirySearch) {
+
+    enquirySearch.addEventListener(
+        "input",
+        renderEnquiries
+    );
+
+}
+
+
+if (enquiryStatusFilter) {
+
+    enquiryStatusFilter.addEventListener(
+        "change",
+        renderEnquiries
+    );
+
+}
 </script>
 
 </body>
