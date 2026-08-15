@@ -1621,6 +1621,339 @@ body {
     transform: translateX(2px);
 }
 
+
+/* ==================================================
+   PREMIUM HOLIDAY MASTI DASHBOARD
+================================================== */
+
+.dashboard-section {
+    margin-left: 270px;
+    max-width: none;
+    padding: 38px 34px 55px;
+    animation: dashboardFade .35s ease;
+}
+
+.dashboard-kicker {
+    margin-bottom: 6px;
+    color: #2b83dc;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+}
+
+.dashboard-heading h1 {
+    margin: 0;
+    color: #123b5e;
+    font-size: 36px;
+    font-weight: 850;
+    letter-spacing: -.8px;
+}
+
+.dashboard-heading p {
+    margin: 6px 0 0;
+    color: #7892a8;
+    font-size: 13px;
+}
+
+.dashboard-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.dashboard-actions button {
+    min-height: 50px;
+    border: 1px solid rgba(255,255,255,.8);
+    padding: 12px 20px;
+    border-radius: 15px;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.dashboard-actions button:hover {
+    transform: translateY(-2px);
+}
+
+.dashboard-enquiry-btn {
+    color: white;
+    background: linear-gradient(135deg,#ffb13b,#ff8610);
+    box-shadow: 0 10px 25px rgba(255,145,25,.20);
+}
+
+.dashboard-add-btn {
+    color: white;
+    background: linear-gradient(135deg,#2589ff,#1264d7);
+    box-shadow: 0 10px 25px rgba(24,112,225,.20);
+}
+
+.premium-panels {
+    grid-template-columns: 1fr 1fr;
+}
+
+.premium-stat {
+    position: relative;
+    min-height: 132px;
+    padding: 20px;
+}
+
+.stat-content {
+    min-width: 0;
+}
+
+.stat-menu {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    color: #6f89a1;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.stat-card strong {
+    font-size: 30px;
+}
+
+.dashboard-panel {
+    background:
+        linear-gradient(145deg,
+            rgba(255,255,255,.86),
+            rgba(255,255,255,.62));
+    border: 1px solid rgba(255,255,255,.88);
+    box-shadow:
+        0 18px 42px rgba(45,93,125,.08),
+        inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+.recent-panel,
+.package-overview-panel {
+    min-height: 335px;
+}
+
+.dashboard-bottom-panels {
+    display: grid;
+    grid-template-columns: 1.15fr .9fr 1.25fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.dashboard-bottom-panels .dashboard-panel {
+    min-height: 245px;
+}
+
+.dashboard-period {
+    padding: 7px 11px;
+    border: 1px solid rgba(120,160,190,.12);
+    border-radius: 10px;
+    background: rgba(255,255,255,.55);
+    color: #607c96;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.status-overview-content {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding-top: 8px;
+}
+
+.donut-chart {
+    width: 145px;
+    height: 145px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background:
+        conic-gradient(
+            #2589ff 0deg 120deg,
+            #ff9e21 120deg 205deg,
+            #35bd7a 205deg 300deg,
+            #8b67e8 300deg 360deg
+        );
+}
+
+.donut-inner {
+    width: 93px;
+    height: 93px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 50%;
+    background: rgba(255,255,255,.92);
+}
+
+.donut-inner strong {
+    color: #123b5e;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.donut-inner span {
+    margin-top: 5px;
+    color: #8aa0b4;
+    font-size: 10px;
+}
+
+.status-legend {
+    flex: 1;
+}
+
+.status-legend > div {
+    display: grid;
+    grid-template-columns: 12px 1fr auto;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    color: #607b94;
+    font-size: 11px;
+}
+
+.status-legend strong {
+    color: #173f62;
+    font-size: 12px;
+}
+
+.legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.legend-new { background: #2589ff; }
+.legend-contacted { background: #ff9e21; }
+.legend-converted { background: #35bd7a; }
+
+.top-packages-list {
+    margin-top: 2px;
+}
+
+.top-package-row {
+    display: grid;
+    grid-template-columns: 25px 1fr auto;
+    gap: 8px;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(120,145,165,.12);
+}
+
+.top-package-rank {
+    color: #7f98ad;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.top-package-name {
+    overflow: hidden;
+    color: #16476c;
+    font-size: 12px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.top-package-count {
+    color: #1475dc;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.quick-tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 13px;
+}
+
+.quick-tip > span {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: rgba(47,139,255,.10);
+    color: #1475dc;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.quick-tip p {
+    margin: 2px 0 0;
+    color: #607b94;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.dashboard-panel button[onclick] {
+    transition: background .18s ease, transform .18s ease;
+}
+
+.dashboard-panel button[onclick]:hover {
+    background: rgba(255,255,255,.42) !important;
+    transform: translateX(2px);
+}
+
+@media (max-width: 1100px) {
+    .dashboard-bottom-panels {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .quick-tips-panel {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 900px) {
+    .dashboard-section {
+        margin-left: 0;
+        padding: 28px 18px 45px;
+    }
+
+    .dashboard-panels {
+        grid-template-columns: 1fr;
+    }
+
+    .premium-panels {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .dashboard-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dashboard-actions {
+        width: 100%;
+    }
+
+    .dashboard-actions button {
+        flex: 1;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-bottom-panels {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-tips-panel {
+        grid-column: auto;
+    }
+
+    .status-overview-content {
+        justify-content: center;
+    }
+}
+
 </style>
 </head>
 
@@ -1838,19 +2171,12 @@ body {
     <div class="dashboard-heading">
 
         <div>
-
-            <h1>
-                Dashboard
-            </h1>
-
-            <p>
-                Overview of your Holiday Masti business.
-            </p>
-
+            <div class="dashboard-kicker">HOLIDAY MASTI ADMIN</div>
+            <h1>Dashboard</h1>
+            <p>Welcome back, Admin! Here's an overview of your business.</p>
         </div>
 
         <div class="dashboard-actions">
-
             <button
                 id="dashboardEnquiriesBtn"
                 class="dashboard-enquiry-btn"
@@ -1866,136 +2192,64 @@ body {
             >
                 + Add Package
             </button>
-
         </div>
 
     </div>
 
-
-    <!-- ================= STATS ================= -->
 
     <div class="dashboard-stats">
 
-        <div class="stat-card">
-
-            <div class="stat-icon packages-icon">
-                ▣
+        <div class="stat-card premium-stat">
+            <div class="stat-icon packages-icon">▣</div>
+            <div class="stat-content">
+                <span>Total Packages</span>
+                <strong id="totalPackagesStat">—</strong>
+                <small>Active packages</small>
             </div>
-
-            <div>
-
-                <span>
-                    Total Packages
-                </span>
-
-                <strong id="totalPackagesStat">
-                    —
-                </strong>
-
-                <small>
-                    Active packages
-                </small>
-
-            </div>
-
+            <span class="stat-menu">⋮</span>
         </div>
 
-
-        <div class="stat-card">
-
-            <div class="stat-icon enquiries-icon">
-                ✉
+        <div class="stat-card premium-stat">
+            <div class="stat-icon enquiries-icon">✉</div>
+            <div class="stat-content">
+                <span>Total Enquiries</span>
+                <strong id="totalEnquiriesStat">—</strong>
+                <small>Customer enquiries</small>
             </div>
-
-            <div>
-
-                <span>
-                    Total Enquiries
-                </span>
-
-                <strong id="totalEnquiriesStat">
-                    —
-                </strong>
-
-                <small>
-                    Customer enquiries
-                </small>
-
-            </div>
-
+            <span class="stat-menu">⋮</span>
         </div>
 
-
-        <div class="stat-card">
-
-            <div class="stat-icon new-icon">
-                ✦
+        <div class="stat-card premium-stat">
+            <div class="stat-icon new-icon">✦</div>
+            <div class="stat-content">
+                <span>New Enquiries</span>
+                <strong id="newEnquiriesStat">—</strong>
+                <small>Need attention</small>
             </div>
-
-            <div>
-
-                <span>
-                    New Enquiries
-                </span>
-
-                <strong id="newEnquiriesStat">
-                    —
-                </strong>
-
-                <small>
-                    Need attention
-                </small>
-
-            </div>
-
+            <span class="stat-menu">⋮</span>
         </div>
 
-
-        <div class="stat-card">
-
-            <div class="stat-icon converted-icon">
-                ✓
+        <div class="stat-card premium-stat">
+            <div class="stat-icon converted-icon">✓</div>
+            <div class="stat-content">
+                <span>Converted</span>
+                <strong id="convertedEnquiriesStat">—</strong>
+                <small>Successful enquiries</small>
             </div>
-
-            <div>
-
-                <span>
-                    Converted
-                </span>
-
-                <strong id="convertedEnquiriesStat">
-                    —
-                </strong>
-
-                <small>
-                    Successful enquiries
-                </small>
-
-            </div>
-
+            <span class="stat-menu">⋮</span>
         </div>
 
     </div>
 
 
-    <!-- ================= DASHBOARD PANELS ================= -->
+    <div class="dashboard-panels premium-panels">
 
-    <div class="dashboard-panels">
-
-        <div class="dashboard-panel">
+        <div class="dashboard-panel recent-panel">
 
             <div class="panel-heading">
-
                 <div>
-
-                    <h2>
-                        Recent Enquiries
-                    </h2>
-
-                    <p>
-                        Latest customer enquiries
-                    </p>
-
+                    <h2>Recent Enquiries</h2>
+                    <p>Latest customer enquiries</p>
                 </div>
 
                 <button
@@ -2005,35 +2259,23 @@ body {
                 >
                     View All
                 </button>
-
             </div>
 
-
             <div id="recentEnquiriesList">
-
                 <div class="dashboard-loading">
                     Loading enquiries...
                 </div>
-
             </div>
 
         </div>
 
 
-        <div class="dashboard-panel">
+        <div class="dashboard-panel package-overview-panel">
 
             <div class="panel-heading">
-
                 <div>
-
-                    <h2>
-                        Package Overview
-                    </h2>
-
-                    <p>
-                        Your latest travel packages
-                    </p>
-
+                    <h2>Package Overview</h2>
+                    <p>Your latest travel packages</p>
                 </div>
 
                 <button
@@ -2041,25 +2283,122 @@ body {
                     id="viewAllPackagesBtn"
                     class="panel-link"
                 >
-                    View Packages
+                    View All Packages
                 </button>
-
             </div>
 
-
             <div id="recentPackagesList">
-
                 <div class="dashboard-loading">
                     Loading packages...
                 </div>
-
             </div>
 
         </div>
 
     </div>
 
-</section>
+
+    <div class="dashboard-bottom-panels">
+
+        <div class="dashboard-panel status-overview-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Enquiries Status Overview</h2>
+                    <p>Your current enquiry pipeline</p>
+                </div>
+
+                <span class="dashboard-period">This Month</span>
+            </div>
+
+            <div class="status-overview-content">
+
+                <div class="donut-chart">
+                    <div class="donut-inner">
+                        <strong id="dashboardEnquiryTotal">—</strong>
+                        <span>Total</span>
+                    </div>
+                </div>
+
+                <div class="status-legend">
+                    <div>
+                        <i class="legend-dot legend-new"></i>
+                        <span>New</span>
+                        <strong id="dashboardNewLegend">—</strong>
+                    </div>
+
+                    <div>
+                        <i class="legend-dot legend-contacted"></i>
+                        <span>Contacted</span>
+                        <strong id="dashboardContactedLegend">—</strong>
+                    </div>
+
+                    <div>
+                        <i class="legend-dot legend-converted"></i>
+                        <span>Converted</span>
+                        <strong id="dashboardConvertedLegend">—</strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-panel top-packages-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Top Packages</h2>
+                    <p>Most popular packages</p>
+                </div>
+
+                <span class="dashboard-period">By Enquiries</span>
+            </div>
+
+            <div id="topPackagesList" class="top-packages-list">
+                <div class="dashboard-loading">
+                    Loading...
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-panel quick-tips-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Quick Tips</h2>
+                    <p>Small things that help</p>
+                </div>
+            </div>
+
+            <div class="quick-tip">
+                <span>✓</span>
+                <p>Add high-quality images to get more enquiries.</p>
+            </div>
+
+            <div class="quick-tip">
+                <span>✓</span>
+                <p>Keep packages and prices updated.</p>
+            </div>
+
+            <div class="quick-tip">
+                <span>✓</span>
+                <p>Respond to new enquiries as soon as possible.</p>
+            </div>
+
+            <div class="quick-tip">
+                <span>✓</span>
+                <p>Mark enquiries as converted after closing.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section></section>
     <main class="content">
 
 <div class="page-heading">
@@ -4353,8 +4692,8 @@ async function loadDashboardData() {
                                     display:flex;
                                     align-items:center;
                                     justify-content:space-between;
-                                    gap:15px;
-                                    padding:13px 0;
+                                    gap:14px;
+                                    padding:12px 0;
                                     border:0;
                                     border-bottom:1px solid rgba(120,145,165,.12);
                                     background:transparent;
@@ -4363,7 +4702,24 @@ async function loadDashboardData() {
                                     font-family:inherit;
                                 "
                             >
-                                <div style="min-width:0;">
+                                <span style="
+                                    width:72px;
+                                    height:52px;
+                                    flex-shrink:0;
+                                    display:block;
+                                    overflow:hidden;
+                                    border-radius:11px;
+                                    background:#eaf2f8;
+                                ">
+                                    <img
+                                        src="${escapeAttribute(pkg.image || "images/logo.png")}"
+                                        alt=""
+                                        style="width:100%;height:100%;object-fit:cover;"
+                                        onerror="this.src='images/logo.png';"
+                                    >
+                                </span>
+
+                                <div style="min-width:0;flex:1;">
                                     <strong style="
                                         display:block;
                                         color:#16476c;
@@ -4458,6 +4814,100 @@ async function loadDashboardData() {
 
     if (convertedEnquiriesStat) {
         convertedEnquiriesStat.textContent = convertedEnquiries;
+    }
+
+    const dashboardEnquiryTotal =
+        document.getElementById("dashboardEnquiryTotal");
+
+    const dashboardNewLegend =
+        document.getElementById("dashboardNewLegend");
+
+    const dashboardContactedLegend =
+        document.getElementById("dashboardContactedLegend");
+
+    const dashboardConvertedLegend =
+        document.getElementById("dashboardConvertedLegend");
+
+    if (dashboardEnquiryTotal) {
+        dashboardEnquiryTotal.textContent = enquiryList.length;
+    }
+
+    if (dashboardNewLegend) {
+        dashboardNewLegend.textContent = newEnquiries;
+    }
+
+    const contactedEnquiries =
+        enquiryList.filter(function (item) {
+            return String(item.status || "").toLowerCase() === "contacted";
+        }).length;
+
+    if (dashboardContactedLegend) {
+        dashboardContactedLegend.textContent = contactedEnquiries;
+    }
+
+    if (dashboardConvertedLegend) {
+        dashboardConvertedLegend.textContent = convertedEnquiries;
+    }
+
+    const topPackagesList =
+        document.getElementById("topPackagesList");
+
+    if (topPackagesList) {
+
+        const packageCounts = {};
+
+        enquiryList.forEach(function (item) {
+
+            const name =
+                item.package ||
+                item.destination ||
+                "Other";
+
+            packageCounts[name] =
+                (packageCounts[name] || 0) + 1;
+
+        });
+
+        const topPackages =
+            Object.entries(packageCounts)
+                .sort(function (a, b) {
+                    return b[1] - a[1];
+                })
+                .slice(0, 5);
+
+        if (!topPackages.length) {
+
+            topPackagesList.innerHTML = `
+                <div class="dashboard-loading">
+                    No enquiry data yet.
+                </div>
+            `;
+
+        } else {
+
+            topPackagesList.innerHTML =
+                topPackages.map(function (entry, index) {
+
+                    return `
+                        <div class="top-package-row">
+                            <span class="top-package-rank">
+                                ${index + 1}.
+                            </span>
+
+                            <span class="top-package-name">
+                                ${escapeHTML(entry[0])}
+                            </span>
+
+                            <span class="top-package-count">
+                                ${entry[1]}
+                            </span>
+                        </div>
+                    `;
+
+                }).join("");
+
+        }
+
     }
 
     if (recentEnquiriesList) {
