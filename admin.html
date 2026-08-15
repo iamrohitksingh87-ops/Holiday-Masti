@@ -2623,6 +2623,288 @@ body {
     }
 }
 
+
+/* ==================================================
+   TOPBAR POPOVERS
+================================================== */
+
+.topbar-popover-wrap {
+    position: relative;
+}
+
+.topbar-popover-wrap > .admin-profile {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.topbar-popover {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 1000;
+    width: 310px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 16px;
+    background: rgba(255,255,255,.96);
+    box-shadow: 0 20px 45px rgba(35,78,108,.16);
+    backdrop-filter: blur(18px);
+    display: none;
+}
+
+.topbar-popover.open {
+    display: block;
+    animation: popoverIn .16s ease;
+}
+
+@keyframes popoverIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.popover-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 7px 10px;
+    color: #173f62;
+    font-size: 12px;
+}
+
+.popover-title span {
+    color: #176fe5;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.notification-item {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 7px;
+    border: 0;
+    border-radius: 11px;
+    background: transparent;
+    color: #173f62;
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.notification-item:hover,
+.profile-menu-item:hover {
+    background: #f3f8fc;
+}
+
+.notification-item > span:last-child {
+    min-width: 0;
+}
+
+.notification-item strong,
+.notification-item small {
+    display: block;
+}
+
+.notification-item strong {
+    font-size: 10px;
+}
+
+.notification-item small {
+    margin-top: 3px;
+    color: #8aa0b4;
+    font-size: 8px;
+    line-height: 1.4;
+}
+
+.notification-item-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    font-size: 12px;
+}
+
+.notification-item-icon.orange {
+    background: #fff1df;
+    color: #ef8a12;
+}
+
+.notification-item-icon.blue {
+    background: #e9f3ff;
+    color: #176fe5;
+}
+
+.notification-item-icon.purple {
+    background: #f0ebff;
+    color: #795fd5;
+}
+
+.profile-panel {
+    width: 230px;
+}
+
+.profile-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 7px 12px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #edf2f6;
+}
+
+.admin-avatar.large {
+    width: 42px;
+    height: 42px;
+}
+
+.profile-card-head strong,
+.profile-card-head span {
+    display: block;
+}
+
+.profile-card-head strong {
+    color: #173f62;
+    font-size: 11px;
+}
+
+.profile-card-head span {
+    margin-top: 3px;
+    color: #8aa0b4;
+    font-size: 8px;
+}
+
+.profile-menu-item {
+    width: 100%;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: #4e6b83;
+    font-family: inherit;
+    font-size: 10px;
+    cursor: pointer;
+    text-align: left;
+    padding: 0 9px;
+}
+
+.profile-menu-item.danger {
+    color: #dc4a57;
+}
+
+/* ==================================================
+   SAMPLE PACKAGE IMAGES
+================================================== */
+
+.sample-image-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0 8px;
+    color: #173f62;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.sample-image-heading small {
+    margin: 0;
+    color: #8aa0b4;
+    font-size: 8px;
+    font-weight: 500;
+}
+
+.sample-image-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.sample-image-card {
+    position: relative;
+    min-width: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background: #eef4f8;
+    cursor: pointer;
+    font-family: inherit;
+    transition: .18s ease;
+}
+
+.sample-image-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 17px rgba(32,83,116,.14);
+}
+
+.sample-image-card.selected {
+    border-color: #176fe5;
+    box-shadow: 0 0 0 2px rgba(23,111,229,.10);
+}
+
+.sample-image-card img {
+    display: block;
+    width: 100%;
+    height: 68px;
+    object-fit: cover;
+}
+
+.sample-image-card span {
+    display: block;
+    padding: 5px 3px;
+    color: #56728a;
+    background: white;
+    font-size: 8px;
+    font-weight: 750;
+}
+
+.sample-image-card.selected span {
+    color: #176fe5;
+}
+
+@media (max-width: 700px) {
+    .sample-image-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .sample-image-card img {
+        height: 60px;
+    }
+}
+
+
+/* Random admin avatar images */
+.admin-avatar {
+    overflow: hidden;
+}
+
+.admin-avatar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.admin-avatar.large {
+    overflow: hidden;
+}
+
+.admin-avatar.large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 </style>
 </head>
 
@@ -2773,22 +3055,103 @@ body {
             <kbd>Ctrl + /</kbd>
         </div>
 
-        <button
-            class="notification-btn"
-            type="button"
-            aria-label="Notifications"
-        >
-            ♧
-            <i>3</i>
-        </button>
+        <div class="topbar-popover-wrap">
 
-        <div class="admin-profile">
-            <div class="admin-avatar">A</div>
-            <div class="admin-profile-text">
-                <strong>Admin</strong>
-                <span>Super Admin</span>
+            <button
+                id="notificationBtn"
+                class="notification-btn"
+                type="button"
+                aria-label="Notifications"
+            >
+                ♧
+                <i>3</i>
+            </button>
+
+            <div
+                id="notificationPanel"
+                class="topbar-popover notification-panel"
+            >
+                <div class="popover-title">
+                    <strong>Notifications</strong>
+                    <span>3 new</span>
+                </div>
+
+                <button type="button" class="notification-item" id="notificationEnquiryBtn">
+                    <span class="notification-item-icon orange">✉</span>
+                    <span>
+                        <strong>New enquiry received</strong>
+                        <small>A customer submitted a new enquiry.</small>
+                    </span>
+                </button>
+
+                <button type="button" class="notification-item" id="notificationPackageBtn">
+                    <span class="notification-item-icon blue">▣</span>
+                    <span>
+                        <strong>Package section updated</strong>
+                        <small>Check your latest travel packages.</small>
+                    </span>
+                </button>
+
+                <button type="button" class="notification-item" id="notificationTipBtn">
+                    <span class="notification-item-icon purple">✦</span>
+                    <span>
+                        <strong>Quick tip</strong>
+                        <small>Add attractive images to packages.</small>
+                    </span>
+                </button>
             </div>
-            <span class="profile-chevron">⌄</span>
+
+        </div>
+
+        <div class="topbar-popover-wrap">
+
+            <button
+                id="adminProfileBtn"
+                class="admin-profile"
+                type="button"
+                aria-expanded="false"
+            >
+                <div class="admin-avatar">
+                    <img id="adminAvatarImage" src="" alt="Admin">
+                </div>
+                <div class="admin-profile-text">
+                    <strong>Admin</strong>
+                    <span>Super Admin</span>
+                </div>
+                <span class="profile-chevron">⌄</span>
+            </button>
+
+            <div
+                id="adminProfilePanel"
+                class="topbar-popover profile-panel"
+            >
+                <div class="profile-card-head">
+                    <div class="admin-avatar large">
+                        <img id="adminAvatarImageLarge" src="" alt="Admin">
+                    </div>
+                    <div>
+                        <strong>Admin</strong>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+
+                <button type="button" class="profile-menu-item" id="profileDashboardBtn">
+                    ⌂ <span>Dashboard</span>
+                </button>
+
+                <button type="button" class="profile-menu-item" id="profilePackagesBtn">
+                    ▣ <span>Manage Packages</span>
+                </button>
+
+                <button type="button" class="profile-menu-item" id="profileEnquiriesBtn">
+                    ✉ <span>View Enquiries</span>
+                </button>
+
+                <button type="button" class="profile-menu-item danger" id="profileLogoutBtn">
+                    ↪ <span>Logout</span>
+                </button>
+            </div>
+
         </div>
 
         <div id="adminGreeting" class="admin-greeting"></div>
@@ -3304,6 +3667,71 @@ body {
         type="file"
         accept="image/*"
     >
+
+    <input
+        id="sampleImageUrl"
+        type="hidden"
+        value=""
+    >
+
+    <div class="sample-image-heading">
+        <span>Or choose a sample image</span>
+        <small>Click any image to use it</small>
+    </div>
+
+    <div id="sampleImageGrid" class="sample-image-grid">
+
+        <button
+            type="button"
+            class="sample-image-card"
+            data-image-url="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=85"
+            data-image-name="Tropical Beach"
+        >
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80" alt="Tropical Beach">
+            <span>Beach</span>
+        </button>
+
+        <button
+            type="button"
+            class="sample-image-card"
+            data-image-url="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=85"
+            data-image-name="Indian Temple"
+        >
+            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400&q=80" alt="Indian Temple">
+            <span>Divine</span>
+        </button>
+
+        <button
+            type="button"
+            class="sample-image-card"
+            data-image-url="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=85"
+            data-image-name="Mountain Escape"
+        >
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=400&q=80" alt="Mountain Escape">
+            <span>Mountains</span>
+        </button>
+
+        <button
+            type="button"
+            class="sample-image-card"
+            data-image-url="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=85"
+            data-image-name="Lake Holiday"
+        >
+            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=400&q=80" alt="Lake Holiday">
+            <span>Lake</span>
+        </button>
+
+        <button
+            type="button"
+            class="sample-image-card"
+            data-image-url="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=800&q=85"
+            data-image-name="Travel Adventure"
+        >
+            <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=400&q=80" alt="Travel Adventure">
+            <span>Adventure</span>
+        </button>
+
+    </div>
 
     <div
         id="imagePreview"
@@ -4175,12 +4603,14 @@ if (modalBox) {
         const imageFile =
             document.getElementById("imageFile").files[0];
 
+        const selectedSampleImage =
+            document.getElementById("sampleImageUrl").value.trim();
+
         /*
-         * For a new package, image is required.
-         * For editing an existing package, a new image
-         * is optional.
+         * For a new package, either upload an image or choose
+         * one of the built-in sample images.
          */
-        if (!packageId && !imageFile) {
+        if (!packageId && !imageFile && !selectedSampleImage) {
 
             alert("Please select a package image.");
 
@@ -4227,12 +4657,16 @@ if (modalBox) {
 
         let imageUrl = "";
 
+        if (selectedSampleImage && !imageFile) {
+            imageUrl = selectedSampleImage;
+        }
+
 
         /*
          * If editing an existing package and no new image
-         * was selected, keep the existing image URL.
+         * or sample image was selected, keep the existing image URL.
          */
-        if (packageId && !imageFile) {
+        if (packageId && !imageFile && !selectedSampleImage) {
 
             const existingPackage =
                 await supabaseClient
@@ -4533,6 +4967,14 @@ if (modalBox) {
         modalTitle.textContent =
             "Edit Package";
 
+        if (sampleImageUrl) {
+            sampleImageUrl.value = "";
+        }
+
+        sampleImageCards.forEach(function (item) {
+            item.classList.remove("selected");
+        });
+
 
         document.getElementById("packageId").value =
             data.id;
@@ -4812,6 +5254,14 @@ function openAddPackageModal() {
 
     document.getElementById("packageId").value = "";
 
+    if (sampleImageUrl) {
+        sampleImageUrl.value = "";
+    }
+
+    sampleImageCards.forEach(function (item) {
+        item.classList.remove("selected");
+    });
+
     const imagePreview =
         document.getElementById("imagePreview");
 
@@ -4834,6 +5284,305 @@ function openAddPackageModal() {
      */
     packageModal.style.removeProperty("display");
     packageModal.classList.remove("hidden");
+
+}
+
+
+
+/* ==================================================
+   RANDOM ADMIN AVATAR
+================================================== */
+
+const adminAvatarImages = [
+    "https://i.pravatar.cc/150?img=12",
+    "https://i.pravatar.cc/150?img=32",
+    "https://i.pravatar.cc/150?img=47",
+    "https://i.pravatar.cc/150?img=53",
+    "https://i.pravatar.cc/150?img=68",
+    "https://i.pravatar.cc/150?img=5"
+];
+
+const selectedAdminAvatar =
+    adminAvatarImages[
+        Math.floor(
+            Math.random() * adminAvatarImages.length
+        )
+    ];
+
+const adminAvatarImage =
+    document.getElementById("adminAvatarImage");
+
+const adminAvatarImageLarge =
+    document.getElementById("adminAvatarImageLarge");
+
+if (adminAvatarImage) {
+    adminAvatarImage.src = selectedAdminAvatar;
+}
+
+if (adminAvatarImageLarge) {
+    adminAvatarImageLarge.src = selectedAdminAvatar;
+}
+
+/* ==================================================
+   TOPBAR INTERACTIONS
+================================================== */
+
+const notificationBtn =
+    document.getElementById("notificationBtn");
+
+const notificationPanel =
+    document.getElementById("notificationPanel");
+
+const adminProfileBtn =
+    document.getElementById("adminProfileBtn");
+
+const adminProfilePanel =
+    document.getElementById("adminProfilePanel");
+
+function togglePopover(panel, button) {
+
+    if (!panel) {
+        return;
+    }
+
+    const shouldOpen =
+        !panel.classList.contains("open");
+
+    document
+        .querySelectorAll(".topbar-popover.open")
+        .forEach(function (item) {
+            item.classList.remove("open");
+        });
+
+    panel.classList.toggle("open", shouldOpen);
+
+    if (button) {
+        button.setAttribute(
+            "aria-expanded",
+            shouldOpen ? "true" : "false"
+        );
+    }
+
+}
+
+if (notificationBtn) {
+    notificationBtn.addEventListener(
+        "click",
+        function (event) {
+            event.stopPropagation();
+            togglePopover(
+                notificationPanel,
+                notificationBtn
+            );
+        }
+    );
+}
+
+if (adminProfileBtn) {
+    adminProfileBtn.addEventListener(
+        "click",
+        function (event) {
+            event.stopPropagation();
+            togglePopover(
+                adminProfilePanel,
+                adminProfileBtn
+            );
+        }
+    );
+}
+
+document.addEventListener(
+    "click",
+    function () {
+
+        document
+            .querySelectorAll(".topbar-popover.open")
+            .forEach(function (item) {
+                item.classList.remove("open");
+            });
+
+    }
+);
+
+if (notificationPanel) {
+    notificationPanel.addEventListener(
+        "click",
+        function (event) {
+            event.stopPropagation();
+        }
+    );
+}
+
+if (adminProfilePanel) {
+    adminProfilePanel.addEventListener(
+        "click",
+        function (event) {
+            event.stopPropagation();
+        }
+    );
+}
+
+const notificationEnquiryBtn =
+    document.getElementById("notificationEnquiryBtn");
+
+const notificationPackageBtn =
+    document.getElementById("notificationPackageBtn");
+
+if (notificationEnquiryBtn) {
+    notificationEnquiryBtn.addEventListener(
+        "click",
+        showEnquiries
+    );
+}
+
+if (notificationPackageBtn) {
+    notificationPackageBtn.addEventListener(
+        "click",
+        showPackages
+    );
+}
+
+const notificationTipBtn =
+    document.getElementById("notificationTipBtn");
+
+if (notificationTipBtn) {
+    notificationTipBtn.addEventListener(
+        "click",
+        function () {
+            alert(
+                "Tip: Add high-quality package images to make your travel packages more attractive."
+            );
+        }
+    );
+}
+
+const profileDashboardBtn =
+    document.getElementById("profileDashboardBtn");
+
+const profilePackagesBtn =
+    document.getElementById("profilePackagesBtn");
+
+const profileEnquiriesBtn =
+    document.getElementById("profileEnquiriesBtn");
+
+const profileLogoutBtn =
+    document.getElementById("profileLogoutBtn");
+
+if (profileDashboardBtn) {
+    profileDashboardBtn.addEventListener(
+        "click",
+        showDashboard
+    );
+}
+
+if (profilePackagesBtn) {
+    profilePackagesBtn.addEventListener(
+        "click",
+        showPackages
+    );
+}
+
+if (profileEnquiriesBtn) {
+    profileEnquiriesBtn.addEventListener(
+        "click",
+        showEnquiries
+    );
+}
+
+if (profileLogoutBtn && logoutBtn) {
+    profileLogoutBtn.addEventListener(
+        "click",
+        function () {
+            logoutBtn.click();
+        }
+    );
+}
+
+
+/* ==================================================
+   SAMPLE PACKAGE IMAGE PICKER
+================================================== */
+
+const sampleImageUrl =
+    document.getElementById("sampleImageUrl");
+
+const sampleImageCards =
+    document.querySelectorAll(".sample-image-card");
+
+if (sampleImageCards.length) {
+
+    sampleImageCards.forEach(
+        function (card) {
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    const url =
+                        card.dataset.imageUrl || "";
+
+                    if (!url || !sampleImageUrl) {
+                        return;
+                    }
+
+                    sampleImageUrl.value = url;
+
+                    sampleImageCards.forEach(
+                        function (item) {
+                            item.classList.remove(
+                                "selected"
+                            );
+                        }
+                    );
+
+                    card.classList.add("selected");
+
+                    if (imageFileInput) {
+                        imageFileInput.value = "";
+                    }
+
+                    if (previewImage && imagePreviewBox) {
+
+                        previewImage.src = url;
+
+                        imagePreviewBox.style.display =
+                            "block";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+
+if (imageFileInput) {
+
+    imageFileInput.addEventListener(
+        "change",
+        function () {
+
+            const file =
+                this.files && this.files[0];
+
+            if (file && sampleImageUrl) {
+
+                sampleImageUrl.value = "";
+
+                sampleImageCards.forEach(
+                    function (item) {
+                        item.classList.remove(
+                            "selected"
+                        );
+                    }
+                );
+
+            }
+
+        }
+    );
 
 }
 
