@@ -1539,6 +1539,10 @@ body {
             if (data.session) {
 
                 loginMessage.textContent = "";
+                
+                showAdminGreeting(
+        data.user || email
+    );
                 showAdmin();
 
             }
