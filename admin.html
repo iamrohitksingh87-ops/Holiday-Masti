@@ -525,8 +525,13 @@ body {
 /* ================= CONTENT ================= */
 
 .content {
-    max-width: 1380px;
+    width: calc(100% - 270px);
+    max-width: none;
+    margin-left: 270px;
+    margin-right: 0;
     padding: 42px 34px 70px;
+    position: relative;
+    z-index: 1;
 }
 
 
@@ -916,6 +921,17 @@ body {
 
 
 /* ================= MOBILE ================= */
+
+@media (max-width: 800px) {
+
+    .content {
+        width: auto;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 28px 16px 50px;
+    }
+
+}
 
 @media (max-width: 700px) {
 
@@ -1593,6 +1609,16 @@ body {
 .status-converted {
     background: rgba(46,194,126,.14);
     color: #14945f;
+}
+
+
+.dashboard-panel button[onclick] {
+    transition: background .18s ease, transform .18s ease;
+}
+
+.dashboard-panel button[onclick]:hover {
+    background: rgba(255,255,255,.42) !important;
+    transform: translateX(2px);
 }
 
 </style>
@@ -2995,62 +3021,12 @@ function showAdminGreeting(user) {
        ADD PACKAGE
     ================================================== */
 
-    addPackageBtn.addEventListener(
-        "click",
-        function () {
-
-            modalTitle.textContent = "Add Package";
-
-            packageForm.reset();
-
-            document.getElementById("packageId").value = "";
-
-            modal.classList.remove("hidden");
-
-modal.style.setProperty(
-    "display",
-    "flex",
-    "important"
-);
-
-modal.style.setProperty(
-    "position",
-    "fixed",
-    "important"
-);
-
-modal.style.setProperty(
-    "top",
-    "0",
-    "important"
-);
-
-modal.style.setProperty(
-    "left",
-    "0",
-    "important"
-);
-
-modal.style.setProperty(
-    "right",
-    "0",
-    "important"
-);
-
-modal.style.setProperty(
-    "bottom",
-    "0",
-    "important"
-);
-
-modal.style.setProperty(
-    "z-index",
-    "9999",
-    "important"
-);
-
-        }
-    );
+    if (addPackageBtn) {
+        addPackageBtn.addEventListener(
+            "click",
+            openAddPackageModal
+        );
+    }
 
 
     /* ==================================================
@@ -3747,6 +3723,47 @@ if (imagePreview && previewImage && data.image) {
 
 
 
+
+/* ==================================================
+   OPEN ADD PACKAGE MODAL
+================================================== */
+
+function openAddPackageModal() {
+
+    if (!packageModal || !packageForm) {
+        return;
+    }
+
+    modalTitle.textContent = "Add Package";
+
+    packageForm.reset();
+
+    document.getElementById("packageId").value = "";
+
+    const imagePreview =
+        document.getElementById("imagePreview");
+
+    const previewImage =
+        document.getElementById("previewImage");
+
+    if (imagePreview) {
+        imagePreview.style.display = "none";
+    }
+
+    if (previewImage) {
+        previewImage.removeAttribute("src");
+    }
+
+    packageModal.classList.remove("hidden");
+
+    packageModal.style.setProperty(
+        "display",
+        "flex",
+        "important"
+    );
+
+}
+
 /* ==================================================
    ADMIN NAVIGATION
 ================================================== */
@@ -3875,31 +3892,19 @@ const viewAllPackagesBtn =
     document.getElementById("viewAllPackagesBtn");
 
 if (dashboardEnquiriesBtn) {
-    dashboardEnquiriesBtn.addEventListener(
-        "click",
-        showEnquiries
-    );
+    dashboardEnquiriesBtn.addEventListener("click", showEnquiries);
 }
 
 if (dashboardAddPackageBtn) {
-    dashboardAddPackageBtn.addEventListener(
-        "click",
-        openAddPackageModal
-    );
+    dashboardAddPackageBtn.addEventListener("click", openAddPackageModal);
 }
 
 if (viewAllEnquiriesBtn) {
-    viewAllEnquiriesBtn.addEventListener(
-        "click",
-        showEnquiries
-    );
+    viewAllEnquiriesBtn.addEventListener("click", showEnquiries);
 }
 
 if (viewAllPackagesBtn) {
-    viewAllPackagesBtn.addEventListener(
-        "click",
-        showPackages
-    );
+    viewAllPackagesBtn.addEventListener("click", showPackages);
 }
 
 const enquiriesBtn =
@@ -4316,14 +4321,24 @@ async function loadDashboardData() {
                                 : "Price not set";
 
                         return `
-                            <div style="
-                                display:flex;
-                                align-items:center;
-                                justify-content:space-between;
-                                gap:15px;
-                                padding:13px 0;
-                                border-bottom:1px solid rgba(120,145,165,.12);
-                            ">
+                            <button
+                                type="button"
+                                onclick="editPackage(${Number(pkg.id)})"
+                                style="
+                                    width:100%;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:space-between;
+                                    gap:15px;
+                                    padding:13px 0;
+                                    border:0;
+                                    border-bottom:1px solid rgba(120,145,165,.12);
+                                    background:transparent;
+                                    text-align:left;
+                                    cursor:pointer;
+                                    font-family:inherit;
+                                "
+                            >
                                 <div style="min-width:0;">
                                     <strong style="
                                         display:block;
@@ -4351,7 +4366,7 @@ async function loadDashboardData() {
                                 ">
                                     ${escapeHTML(price)}
                                 </strong>
-                            </div>
+                            </button>
                         `;
 
                     }).join("");
@@ -4446,14 +4461,24 @@ async function loadDashboardData() {
                         String(item.status || "new").toLowerCase();
 
                     return `
-                        <div style="
-                            display:flex;
-                            align-items:center;
-                            justify-content:space-between;
-                            gap:15px;
-                            padding:13px 0;
-                            border-bottom:1px solid rgba(120,145,165,.12);
-                        ">
+                        <button
+                            type="button"
+                            onclick="viewEnquiry(${Number(item.id)})"
+                            style="
+                                width:100%;
+                                display:flex;
+                                align-items:center;
+                                justify-content:space-between;
+                                gap:15px;
+                                padding:13px 0;
+                                border:0;
+                                border-bottom:1px solid rgba(120,145,165,.12);
+                                background:transparent;
+                                text-align:left;
+                                cursor:pointer;
+                                font-family:inherit;
+                            "
+                        >
                             <div style="min-width:0;">
                                 <strong style="
                                     display:block;
