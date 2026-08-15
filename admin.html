@@ -2733,7 +2733,22 @@ if (!modal) {
     );
 
 }
+if (!content) {
 
+    content =
+        document.createElement("div");
+
+    content.id =
+        "enquiryDetailContent";
+
+    content.style.width =
+        "100%";
+
+    modal
+        .querySelector(".modal-box")
+        .appendChild(content);
+
+}
 
     content.innerHTML = `
 
