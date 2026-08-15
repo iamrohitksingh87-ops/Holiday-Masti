@@ -1954,6 +1954,675 @@ body {
     }
 }
 
+
+/* ==================================================
+   ADMIN PAGE LAYOUT FIX
+================================================== */
+
+#adminPage {
+    position: relative;
+    min-height: 100vh;
+}
+
+#adminPage .content {
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    min-height: calc(100vh - 76px);
+    margin-top: 0 !important;
+}
+
+#adminPage .dashboard-section {
+    box-sizing: border-box;
+    margin-top: 0 !important;
+}
+
+.admin-footer {
+    margin-left: 270px;
+    width: calc(100% - 270px);
+    box-sizing: border-box;
+    padding: 16px 34px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    color: #8aa0b4;
+    font-size: 10px;
+}
+
+.admin-footer b {
+    color: #e84c69;
+    font-size: 13px;
+    vertical-align: -1px;
+}
+
+@media (max-width: 800px) {
+    #adminPage .content {
+        min-height: auto;
+    }
+
+    .admin-footer {
+        width: auto;
+        margin-left: 0;
+        padding: 15px 18px 22px;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+
+/* ==================================================
+   VIEWPORT COMPACTNESS
+================================================== */
+
+.dashboard-section {
+    padding-top: 28px;
+    padding-bottom: 34px;
+}
+
+.dashboard-heading {
+    margin-bottom: 20px;
+}
+
+.premium-stat {
+    min-height: 112px;
+    padding: 17px;
+}
+
+.stat-card strong {
+    font-size: 28px;
+}
+
+.recent-panel,
+.package-overview-panel {
+    min-height: 275px;
+}
+
+.dashboard-bottom-panels .dashboard-panel {
+    min-height: 215px;
+}
+
+.dashboard-bottom-panels {
+    margin-top: 16px;
+}
+
+@media (max-width: 800px) {
+    .dashboard-section {
+        padding-top: 24px;
+    }
+}
+
+
+/* ============================================================
+   HOLIDAY MASTI — MOCKUP MATCHED DASHBOARD
+   ============================================================ */
+
+:root {
+    --hm-blue: #176fe5;
+    --hm-blue-dark: #123b5e;
+    --hm-text: #173f62;
+    --hm-muted: #7892a8;
+    --hm-orange: #ff951c;
+    --hm-green: #2fbe7a;
+    --hm-purple: #8264df;
+}
+
+/* ----- Admin shell ----- */
+
+#adminPage {
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+#adminPage .topbar {
+    height: 76px;
+    padding: 0 28px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.90);
+    border-bottom: 1px solid rgba(220,231,241,.75);
+}
+
+#adminPage .topbar > .brand {
+    display: none;
+}
+
+#adminPage .topbar-tools {
+    margin-left: auto;
+    margin-right: 95px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+#adminPage .admin-greeting {
+    display: none;
+}
+
+.admin-search {
+    width: 285px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 12px;
+    border: 1px solid #dce6ef;
+    border-radius: 11px;
+    background: rgba(255,255,255,.78);
+    box-shadow: 0 5px 18px rgba(45,93,125,.05);
+}
+
+.admin-search > span {
+    color: #6f89a1;
+    font-size: 21px;
+    transform: rotate(-15deg);
+}
+
+.admin-search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #173f62;
+    font-family: inherit;
+    font-size: 11px;
+}
+
+.admin-search kbd {
+    padding: 3px 6px;
+    border-radius: 5px;
+    background: #f3f6f9;
+    color: #8aa0b4;
+    font-size: 8px;
+    white-space: nowrap;
+}
+
+.notification-btn {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 11px;
+    background: transparent;
+    color: #173f62;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.notification-btn i {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e8444f;
+    color: white;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 800;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 115px;
+}
+
+.admin-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#173f62,#5f92bb);
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-profile-text strong,
+.admin-profile-text span {
+    display: block;
+}
+
+.admin-profile-text strong {
+    color: #123b5e;
+    font-size: 11px;
+}
+
+.admin-profile-text span {
+    margin-top: 2px;
+    color: #8aa0b4;
+    font-size: 8px;
+}
+
+.profile-chevron {
+    color: #173f62;
+    font-size: 16px;
+}
+
+#adminPage .logout-btn {
+    position: absolute;
+    right: 25px;
+    top: 18px;
+    width: auto;
+    height: 40px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 11px;
+    background: #f5f8fb;
+    color: #173f62;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* ----- Sidebar ----- */
+
+#adminPage .admin-sidebar {
+    position: fixed;
+    left: 16px;
+    top: 16px;
+    bottom: 16px;
+    width: 222px;
+    padding: 22px 13px 16px;
+    z-index: 120;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.90);
+    border-radius: 20px;
+    background: rgba(255,255,255,.88);
+    box-shadow:
+        0 20px 50px rgba(36,83,115,.12),
+        inset 0 1px 0 rgba(255,255,255,.95);
+    backdrop-filter: blur(22px);
+}
+
+.sidebar-brand-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 8px 17px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #edf2f6;
+}
+
+.sidebar-brand-mini img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+.sidebar-brand-mini strong,
+.sidebar-brand-mini span {
+    display: block;
+}
+
+.sidebar-brand-mini strong {
+    color: #123b5e;
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.sidebar-brand-mini span {
+    margin-top: 2px;
+    color: #7892a8;
+    font-size: 7px;
+    letter-spacing: .13em;
+    font-weight: 800;
+}
+
+#adminPage .sidebar-title {
+    margin: 5px 10px 10px;
+    color: #7892a8;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: .12em;
+}
+
+#adminPage .sidebar-title-small {
+    margin-top: 16px;
+}
+
+#adminPage .sidebar-item {
+    width: 100%;
+    min-height: 44px;
+    margin-bottom: 5px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: transparent;
+    color: #56728a;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 750;
+    cursor: pointer;
+    text-align: left;
+    transition: .18s ease;
+}
+
+#adminPage .sidebar-item:hover {
+    background: #f1f7fc;
+    color: #176fe5;
+}
+
+#adminPage .sidebar-item.active {
+    border-color: #d4e7fb;
+    background: linear-gradient(135deg,#e6f2ff,#f0f7ff);
+    color: #0866c6;
+    box-shadow: 0 5px 15px rgba(23,111,229,.06);
+}
+
+#adminPage .sidebar-icon {
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: rgba(255,255,255,.72);
+    color: #5d7890;
+    font-size: 13px;
+}
+
+#adminPage .sidebar-item.active .sidebar-icon {
+    color: #176fe5;
+}
+
+#adminPage .sidebar-divider {
+    height: 1px;
+    margin: 14px 8px 13px;
+    background: #e9eff4;
+}
+
+#adminPage .sidebar-quick {
+    width: 100%;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 9px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #56728a;
+    font-family: inherit;
+    font-size: 10px;
+    cursor: pointer;
+    text-align: left;
+}
+
+#adminPage .sidebar-quick > span {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #edf6ff;
+    color: #176fe5;
+    font-size: 15px;
+}
+
+#adminPage .sidebar-quick-orange > span {
+    background: #fff1df;
+    color: #f08b14;
+}
+
+#adminPage .sidebar-quick-purple > span {
+    background: #f0ebff;
+    color: #7c60db;
+}
+
+#adminPage .sidebar-quick:hover {
+    background: #f5f9fc;
+}
+
+#adminPage .premium-help {
+    margin: 16px 0 0;
+    min-height: 145px;
+    padding: 17px 13px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background: linear-gradient(145deg,#48a5ff,#1266d9);
+    color: white;
+    box-shadow: 0 14px 30px rgba(27,111,224,.18);
+}
+
+#adminPage .premium-help .sidebar-help-icon {
+    margin-bottom: 10px;
+    color: white;
+    font-size: 29px;
+}
+
+#adminPage .premium-help strong {
+    display: block;
+    color: white;
+    font-size: 13px;
+}
+
+#adminPage .premium-help span {
+    display: block;
+    margin-top: 7px;
+    color: rgba(255,255,255,.86);
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+.sidebar-copyright {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 14px;
+    padding-top: 10px;
+    border-top: 1px solid #e9eff4;
+    color: #9aacbb;
+    font-size: 8px;
+    line-height: 1.65;
+}
+
+/* ----- Dashboard area ----- */
+
+#adminPage .dashboard-section {
+    margin-left: 0;
+    padding: 34px 30px 28px 260px;
+    max-width: none;
+    min-height: calc(100vh - 76px);
+    box-sizing: border-box;
+}
+
+#adminPage .dashboard-heading {
+    margin-bottom: 20px;
+}
+
+#adminPage .dashboard-heading h1 {
+    font-size: 29px;
+    letter-spacing: -.8px;
+}
+
+#adminPage .dashboard-heading p {
+    font-size: 11px;
+}
+
+#adminPage .dashboard-kicker {
+    font-size: 8px;
+    margin-bottom: 4px;
+}
+
+#adminPage .dashboard-stats {
+    gap: 15px;
+}
+
+#adminPage .premium-stat {
+    min-height: 112px;
+    padding: 17px;
+    border-radius: 17px;
+}
+
+#adminPage .stat-card strong {
+    font-size: 28px;
+}
+
+#adminPage .stat-card span:first-of-type {
+    font-size: 10px;
+}
+
+#adminPage .stat-card small {
+    font-size: 9px;
+}
+
+#adminPage .dashboard-panels {
+    gap: 15px;
+}
+
+#adminPage .dashboard-panel {
+    border-radius: 17px;
+    padding: 19px;
+}
+
+#adminPage .recent-panel,
+#adminPage .package-overview-panel {
+    min-height: 270px;
+}
+
+#adminPage .panel-heading h2 {
+    font-size: 14px;
+}
+
+#adminPage .panel-heading p {
+    font-size: 9px;
+}
+
+#adminPage .dashboard-bottom-panels {
+    gap: 15px;
+    margin-top: 15px;
+}
+
+#adminPage .dashboard-bottom-panels .dashboard-panel {
+    min-height: 205px;
+}
+
+#adminPage .admin-footer {
+    width: calc(100% - 250px);
+    margin-left: 250px;
+    padding: 11px 30px 17px;
+    font-size: 8px;
+}
+
+/* ----- Packages / Enquiries pages ----- */
+
+#adminPage .content {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 32px 30px 24px 260px;
+    box-sizing: border-box;
+    min-height: calc(100vh - 76px);
+}
+
+#adminPage .content .page-heading {
+    margin-bottom: 20px;
+}
+
+#adminPage .content .page-heading h1 {
+    font-size: 30px;
+}
+
+/* ----- Responsive ----- */
+
+@media (max-width: 1050px) {
+    #adminPage .admin-sidebar {
+        width: 200px;
+    }
+
+    #adminPage .dashboard-section,
+    #adminPage .content {
+        padding-left: 225px;
+    }
+
+    #adminPage .admin-footer {
+        width: calc(100% - 215px);
+        margin-left: 215px;
+    }
+
+    .admin-search {
+        width: 210px;
+    }
+}
+
+@media (max-width: 800px) {
+    #adminPage .topbar {
+        height: 64px;
+        padding: 0 14px;
+    }
+
+    #adminPage .topbar-tools {
+        margin-right: 0;
+        gap: 8px;
+    }
+
+    .admin-search,
+    .notification-btn,
+    .admin-profile {
+        display: none;
+    }
+
+    #adminPage .logout-btn {
+        top: 12px;
+        right: 14px;
+        height: 38px;
+    }
+
+    #adminPage .admin-sidebar {
+        position: static;
+        width: auto;
+        min-height: auto;
+        margin: 12px;
+        padding: 15px;
+        border-radius: 17px;
+    }
+
+    .sidebar-brand-mini {
+        display: none;
+    }
+
+    .sidebar-copyright {
+        position: static;
+        margin-top: 10px;
+    }
+
+    #adminPage .sidebar-quick {
+        display: none;
+    }
+
+    #adminPage .dashboard-section,
+    #adminPage .content {
+        padding: 24px 16px 28px;
+        margin: 0;
+    }
+
+    #adminPage .admin-footer {
+        width: auto;
+        margin: 0;
+        padding: 14px 16px 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
 </style>
 </head>
 
@@ -2083,79 +2752,113 @@ body {
 
     <header class="topbar">
 
-        <div class="brand">
+    <div class="brand">
+        <img src="images/logo.png" alt="Holiday Masti">
 
-            <img src="images/logo.png" alt="Holiday Masti">
-
-            <div>
-                <strong>Holiday Masti</strong>
-                <span>Package Manager</span>
-            </div>
-
+        <div>
+            <strong>Holiday Masti</strong>
+            <span>Package Manager</span>
         </div>
-<div id="adminGreeting" class="admin-greeting"></div>
-        <button id="logoutBtn" class="logout-btn">
-            Logout
+    </div>
+
+    <div class="topbar-tools">
+
+        <div class="admin-search">
+            <span>⌕</span>
+            <input
+                type="search"
+                placeholder="Search here..."
+                aria-label="Search"
+            >
+            <kbd>Ctrl + /</kbd>
+        </div>
+
+        <button
+            class="notification-btn"
+            type="button"
+            aria-label="Notifications"
+        >
+            ♧
+            <i>3</i>
         </button>
 
-    </header>
+        <div class="admin-profile">
+            <div class="admin-avatar">A</div>
+            <div class="admin-profile-text">
+                <strong>Admin</strong>
+                <span>Super Admin</span>
+            </div>
+            <span class="profile-chevron">⌄</span>
+        </div>
+
+        <div id="adminGreeting" class="admin-greeting"></div>
+
+    </div>
+
+    <button id="logoutBtn" class="logout-btn">
+        Logout
+    </button>
+
+</header>
 <!-- ==================================================
      ADMIN SIDEBAR
 ================================================== -->
 
 <aside id="adminSidebar" class="admin-sidebar">
 
-    <div class="sidebar-title">
-        MENU
+    <div class="sidebar-brand-mini">
+        <img src="images/logo.png" alt="Holiday Masti">
+        <div>
+            <strong>Holiday Masti</strong>
+            <span>PACKAGE MANAGER</span>
+        </div>
     </div>
 
-    <button
-        type="button"
-        class="sidebar-item active"
-        id="dashboardNavBtn"
-    >
+    <div class="sidebar-title">MENU</div>
+
+    <button type="button" class="sidebar-item active" id="dashboardNavBtn">
         <span class="sidebar-icon">⌂</span>
         <span>Dashboard</span>
     </button>
 
-
-    <button
-        type="button"
-        class="sidebar-item"
-        id="packagesNavBtn"
-    >
+    <button type="button" class="sidebar-item" id="packagesNavBtn">
         <span class="sidebar-icon">▣</span>
         <span>Packages</span>
     </button>
 
-
-    <button
-        type="button"
-        class="sidebar-item"
-        id="enquiriesNavBtn"
-    >
+    <button type="button" class="sidebar-item" id="enquiriesNavBtn">
         <span class="sidebar-icon">✉</span>
         <span>Enquiries</span>
     </button>
 
-
     <div class="sidebar-divider"></div>
 
+    <div class="sidebar-title sidebar-title-small">QUICK ACTIONS</div>
 
-    <div class="sidebar-help">
+    <button type="button" class="sidebar-quick" id="sidebarAddPackageBtn">
+        <span>＋</span>
+        <strong>Add Package</strong>
+    </button>
 
-        <div class="sidebar-help-icon">
-            ✈
-        </div>
+    <button type="button" class="sidebar-quick sidebar-quick-orange" id="sidebarViewEnquiriesBtn">
+        <span>✉</span>
+        <strong>View Enquiries</strong>
+    </button>
 
-        <strong>
-            Holiday Masti
-        </strong>
+    <button type="button" class="sidebar-quick sidebar-quick-purple" id="sidebarPreviewBtn">
+        <span>↗</span>
+        <strong>Site Preview</strong>
+    </button>
 
-        <span>
-            Manage your travel business
-        </span>
+    <div class="sidebar-help premium-help">
+        <div class="sidebar-help-icon">✈</div>
+        <strong>Holiday Masti</strong>
+        <span>Manage your travel business with ease.</span>
+    </div>
 
+    <div class="sidebar-copyright">
+        © 2026 Holiday Masti<br>
+        All rights reserved.
     </div>
 
 </aside>
@@ -2398,7 +3101,8 @@ body {
 
     </div>
 
-</section></section>
+</section>
+
     <main class="content">
 
 <div class="page-heading">
@@ -2521,6 +3225,12 @@ body {
 
 </div>
 </main>
+
+
+    <footer class="admin-footer">
+        <span>© 2026 Holiday Masti. All rights reserved.</span>
+        <span>Made with <b>♥</b> for Holiday Masti</span>
+    </footer>
 
 </section>
 
@@ -4228,6 +4938,43 @@ function showEnquiries() {
 
     loadEnquiries();
 
+}
+
+
+const sidebarAddPackageBtn =
+    document.getElementById("sidebarAddPackageBtn");
+
+const sidebarViewEnquiriesBtn =
+    document.getElementById("sidebarViewEnquiriesBtn");
+
+const sidebarPreviewBtn =
+    document.getElementById("sidebarPreviewBtn");
+
+if (sidebarAddPackageBtn) {
+    sidebarAddPackageBtn.addEventListener(
+        "click",
+        openAddPackageModal
+    );
+}
+
+if (sidebarViewEnquiriesBtn) {
+    sidebarViewEnquiriesBtn.addEventListener(
+        "click",
+        showEnquiries
+    );
+}
+
+if (sidebarPreviewBtn) {
+    sidebarPreviewBtn.addEventListener(
+        "click",
+        function () {
+            window.open(
+                "index.html",
+                "_blank",
+                "noopener"
+            );
+        }
+    );
 }
 
 if (dashboardNavBtn) {
