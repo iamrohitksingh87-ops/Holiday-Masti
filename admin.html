@@ -3856,6 +3856,497 @@ body {
     }
 }
 
+
+/* ==========================================================
+   FINAL REFERENCE LOCK — 1536x1024 BLUE HOLIDAY MASTI
+   This override intentionally wins over earlier dashboard CSS.
+========================================================== */
+
+#adminPage {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at 88% 14%, rgba(94,169,255,.16), transparent 27%),
+        radial-gradient(circle at 20% 84%, rgba(255,205,100,.10), transparent 23%),
+        linear-gradient(135deg,#f9fcff 0%,#edf6ff 52%,#f8fbff 100%);
+}
+
+#adminPage .topbar {
+    height: 78px !important;
+    min-height: 78px !important;
+    box-sizing: border-box;
+    margin-left: 280px;
+    width: calc(100% - 280px);
+    padding: 0 20px !important;
+    position: fixed !important;
+    top: 12px !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 150 !important;
+    border: 1px solid rgba(255,255,255,.92);
+    border-radius: 18px;
+    background: rgba(255,255,255,.82);
+    box-shadow: 0 12px 35px rgba(45,93,125,.07);
+    backdrop-filter: blur(18px);
+}
+
+#adminPage .topbar-tools {
+    margin-right: 0 !important;
+    gap: 15px !important;
+}
+
+#adminPage .admin-search {
+    width: 355px;
+    height: 42px;
+    border-radius: 15px;
+}
+
+#adminPage .notification-btn {
+    width: 42px;
+    height: 42px;
+}
+
+#adminPage .admin-profile {
+    min-width: 175px;
+}
+
+#adminPage .logout-btn {
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 13px;
+}
+
+#adminPage .admin-sidebar {
+    left: 12px !important;
+    top: 12px !important;
+    bottom: 12px !important;
+    width: 258px !important;
+    padding: 25px 16px 16px !important;
+    border-radius: 22px !important;
+    z-index: 200 !important;
+}
+
+#adminPage .sidebar-brand-mini {
+    gap: 10px;
+    padding: 1px 10px 19px;
+    margin-bottom: 13px;
+}
+
+#adminPage .sidebar-brand-mini img {
+    width: 50px;
+    height: 50px;
+}
+
+#adminPage .sidebar-brand-mini strong {
+    font-size: 18px;
+}
+
+#adminPage .sidebar-brand-mini span {
+    font-size: 7px;
+}
+
+#adminPage .sidebar-title {
+    margin: 7px 12px 12px;
+    color: #7b4cff;
+    font-size: 10px;
+}
+
+#adminPage .sidebar-item {
+    min-height: 46px;
+    margin-bottom: 5px;
+    border-radius: 14px;
+    font-size: 12px;
+}
+
+#adminPage .sidebar-item.active {
+    color: #fff !important;
+    background: linear-gradient(135deg,#9270ff,#7750e9) !important;
+    box-shadow: 0 10px 22px rgba(125,91,231,.18);
+}
+
+#adminPage .sidebar-item.active .sidebar-icon {
+    color: #fff !important;
+    background: rgba(255,255,255,.20);
+}
+
+#adminPage .sidebar-divider {
+    margin: 13px 10px;
+}
+
+#adminPage .sidebar-title-small {
+    margin-top: 16px;
+}
+
+#adminPage .sidebar-quick {
+    min-height: 40px;
+    margin-bottom: 3px;
+    padding: 0 10px;
+}
+
+#adminPage .premium-help {
+    margin-top: 11px;
+    min-height: 279px;
+    padding: 18px 14px 24px;
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,.18), transparent 42%),
+        linear-gradient(155deg,#7b4bea,#6338df);
+    box-shadow: 0 18px 34px rgba(104,62,224,.22);
+}
+
+#adminPage .sidebar-help-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+}
+
+#adminPage .premium-help strong {
+    font-size: 16px;
+}
+
+#adminPage .premium-help span {
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+/* Main dashboard: no vertical centering, no accidental margin/padding drift. */
+#adminPage .dashboard-section {
+    position: relative !important;
+    display: block !important;
+    margin: 0 !important;
+    margin-left: 280px !important;
+    width: calc(100% - 280px) !important;
+    max-width: none !important;
+    min-height: 100vh !important;
+    box-sizing: border-box !important;
+    padding: 108px 20px 18px !important;
+    top: 0 !important;
+    transform: none !important;
+}
+
+#adminPage .hm-dashboard-badge {
+    position: absolute !important;
+    top: 28px !important;
+    right: 310px !important;
+    z-index: 80 !important;
+    padding: 8px 14px !important;
+    font-size: 10px !important;
+    color: #0f9d72 !important;
+    background: #e9f8f2 !important;
+    border-color: #d6eee5 !important;
+    box-shadow: none !important;
+}
+
+/* Hero is ~200px tall like the supplied mockup. */
+#adminPage .dashboard-hero {
+    height: 199px !important;
+    min-height: 199px !important;
+    margin: 0 0 11px !important;
+    padding: 0 !important;
+    grid-template-columns: 1.02fr 1.55fr .86fr !important;
+    gap: 8px !important;
+}
+
+#adminPage .dashboard-welcome-copy {
+    padding: 8px 0 0 4px !important;
+}
+
+#adminPage .dashboard-welcome-greeting {
+    font-size: 16px !important;
+}
+
+#adminPage .dashboard-welcome-copy h1 {
+    margin-top: 7px !important;
+    font-size: 38px !important;
+    letter-spacing: -1.7px !important;
+}
+
+#adminPage .welcome-wave {
+    margin-bottom: 10px !important;
+}
+
+#adminPage .welcome-lead {
+    font-size: 13px !important;
+    margin-bottom: 2px !important;
+}
+
+#adminPage .welcome-sub {
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+}
+
+#adminPage .dashboard-hero-visual {
+    height: 199px !important;
+}
+
+#adminPage .dashboard-hero-actions {
+    padding-top: 17px !important;
+    gap: 11px !important;
+}
+
+#adminPage .dashboard-hero-actions .dashboard-enquiry-btn,
+#adminPage .dashboard-hero-actions .dashboard-add-btn {
+    min-height: 46px !important;
+    padding: 0 20px !important;
+    border-radius: 15px !important;
+    font-size: 12px !important;
+}
+
+#adminPage .grow-note {
+    margin-top: 12px;
+}
+
+/* Stats exactly one row. */
+#adminPage .dashboard-stats {
+    display: grid !important;
+    grid-template-columns: repeat(4,minmax(0,1fr)) !important;
+    gap: 14px !important;
+    height: 145px !important;
+    margin: 0 0 17px !important;
+}
+
+#adminPage .premium-stat {
+    min-height: 145px !important;
+    height: 145px !important;
+    box-sizing: border-box !important;
+    padding: 22px 17px !important;
+    border-radius: 20px !important;
+}
+
+#adminPage .stat-icon {
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 16px !important;
+}
+
+#adminPage .stat-content strong {
+    font-size: 31px !important;
+}
+
+/* Main middle row: exactly the tall area in the reference. */
+#adminPage .dashboard-panels {
+    display: grid !important;
+    grid-template-columns: 1.05fr .95fr !important;
+    gap: 16px !important;
+    height: 337px !important;
+    margin: 0 !important;
+}
+
+#adminPage .dashboard-panels .dashboard-panel {
+    min-height: 337px !important;
+    height: 337px !important;
+    box-sizing: border-box !important;
+    padding: 19px !important;
+    border-radius: 19px !important;
+    overflow: hidden !important;
+}
+
+/* Bottom strip */
+#adminPage .dashboard-bottom-panels {
+    display: grid !important;
+    grid-template-columns: 1.1fr .95fr 1.22fr !important;
+    gap: 16px !important;
+    height: 132px !important;
+    margin: 16px 0 0 !important;
+}
+
+#adminPage .dashboard-bottom-panels .dashboard-panel {
+    min-height: 132px !important;
+    height: 132px !important;
+    box-sizing: border-box !important;
+    padding: 15px 18px !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+}
+
+#adminPage .dashboard-bottom-panels .panel-heading {
+    margin-bottom: 7px !important;
+}
+
+#adminPage .dashboard-bottom-panels .panel-heading h2 {
+    font-size: 14px !important;
+}
+
+#adminPage .dashboard-bottom-panels .panel-heading p {
+    font-size: 8px !important;
+}
+
+#adminPage .status-overview-content {
+    height: 75px !important;
+    align-items: center !important;
+}
+
+#adminPage .donut-chart {
+    width: 84px !important;
+    height: 84px !important;
+}
+
+#adminPage .donut-inner {
+    width: 56px !important;
+    height: 56px !important;
+}
+
+#adminPage .donut-inner strong {
+    font-size: 17px !important;
+}
+
+#adminPage .status-legend {
+    gap: 5px !important;
+}
+
+#adminPage .status-legend div {
+    font-size: 8px !important;
+}
+
+/* Quick Tips in one horizontal row, as in the reference. */
+#adminPage .quick-tips-panel {
+    position: relative !important;
+}
+
+#adminPage .quick-tips-panel > .panel-heading {
+    position: relative;
+    z-index: 5;
+}
+
+#adminPage .quick-tips-panel .quick-tip-card {
+    width: 49%;
+    min-height: 34px;
+    margin: 0 0 4px;
+    padding: 3px 5px;
+}
+
+#adminPage .quick-tips-panel .quick-tip-card:nth-of-type(n+4) {
+    display: none;
+}
+
+#adminPage .quick-tips-panel .quick-tip-image {
+    width: 30px;
+    height: 30px;
+}
+
+#adminPage .quick-tips-panel .quick-tip-card strong {
+    font-size: 8px;
+}
+
+#adminPage .quick-tips-panel .quick-tip-card p {
+    font-size: 7px;
+}
+
+/* Put the four quick tips side-by-side. */
+#adminPage .quick-tips-panel {
+    display: grid !important;
+    grid-template-columns: repeat(4,1fr) !important;
+    grid-template-rows: 25px 1fr !important;
+    column-gap: 4px !important;
+}
+
+#adminPage .quick-tips-panel > .panel-heading {
+    grid-column: 1 / -1;
+    grid-row: 1;
+}
+
+#adminPage .quick-tips-panel > .quick-tip-card {
+    grid-row: 2;
+    width: auto !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+    align-self: start;
+}
+
+#adminPage .quick-tips-panel > .quick-tip-card:nth-of-type(2) {
+    grid-column: 1;
+}
+
+#adminPage .quick-tips-panel > .quick-tip-card:nth-of-type(3) {
+    grid-column: 2;
+}
+
+#adminPage .quick-tips-panel > .quick-tip-card:nth-of-type(4) {
+    grid-column: 3;
+}
+
+#adminPage .quick-tips-panel > .quick-tip-card:nth-of-type(5) {
+    grid-column: 4;
+}
+
+#adminPage .quick-tips-traveller {
+    position: absolute;
+    right: 2px;
+    bottom: -3px;
+    width: 260px;
+    height: 135px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+#adminPage .quick-tips-traveller svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Keep footer below the dashboard, not over it. */
+#adminPage .admin-footer {
+    margin-left: 280px !important;
+    width: calc(100% - 280px) !important;
+    padding: 8px 28px 13px !important;
+    box-sizing: border-box;
+}
+
+/* Desktop reference is the target; do not let tablet media rules kick in
+   around common 1280-1536 desktop widths. */
+@media (min-width: 1201px) {
+    #adminPage .dashboard-section {
+        display: block !important;
+    }
+}
+
+/* Only collapse at genuinely small screens. */
+@media (max-width: 800px) {
+    #adminPage .topbar {
+        position: sticky !important;
+        top: 0 !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    #adminPage .dashboard-section {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding: 20px 16px 30px !important;
+    }
+
+    #adminPage .admin-sidebar {
+        position: static !important;
+        width: auto !important;
+        margin: 12px !important;
+    }
+
+    #adminPage .dashboard-hero,
+    #adminPage .dashboard-stats,
+    #adminPage .dashboard-panels,
+    #adminPage .dashboard-bottom-panels {
+        height: auto !important;
+        min-height: 0 !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    #adminPage .dashboard-hero-visual {
+        height: 180px !important;
+    }
+
+    #adminPage .premium-stat,
+    #adminPage .dashboard-panels .dashboard-panel,
+    #adminPage .dashboard-bottom-panels .dashboard-panel {
+        height: auto !important;
+        min-height: 120px !important;
+    }
+
+    #adminPage .quick-tips-traveller {
+        display: none;
+    }
+}
+
 </style>
 </head>
 
@@ -4166,6 +4657,11 @@ body {
     <button type="button" class="sidebar-item" id="enquiriesNavBtn">
         <span class="sidebar-icon">✉</span>
         <span>Enquiries</span>
+    </button>
+
+    <button type="button" class="sidebar-item" id="bookingsNavBtn">
+        <span class="sidebar-icon">▣</span>
+        <span>Bookings</span>
     </button>
 
     <div class="sidebar-divider"></div>
@@ -4512,6 +5008,70 @@ body {
 
 
         <div class="dashboard-panel quick-tips-panel">
+
+            <div class="quick-tips-traveller" aria-hidden="true">
+                <svg viewBox="0 0 330 170">
+                    <defs>
+                        <linearGradient id="tipSuit" x1="0" x2="1">
+                            <stop offset="0" stop-color="#278ef5"/>
+                            <stop offset="1" stop-color="#0e61c9"/>
+                        </linearGradient>
+                    </defs>
+
+                    <ellipse cx="238" cy="150" rx="73" ry="10" fill="#dcecf7"/>
+
+                    <!-- suitcase -->
+                    <g transform="translate(245 80)">
+                        <rect x="20" y="17" width="48" height="59" rx="9" fill="#ffbe27"/>
+                        <rect x="32" y="7" width="25" height="17" rx="7"
+                              fill="none" stroke="#d58b0d" stroke-width="5"/>
+                        <circle cx="31" cy="82" r="5" fill="#315c80"/>
+                        <circle cx="59" cy="82" r="5" fill="#315c80"/>
+                    </g>
+
+                    <!-- seated traveller -->
+                    <g transform="translate(88 8)">
+                        <circle cx="103" cy="38" r="27" fill="#e4a078"/>
+                        <path d="M76 33Q79 8 104 8Q128 9 131 35Q114 22 94 25Q84 26 76 33Z"
+                              fill="#26394d"/>
+                        <path d="M84 35h17l-2 11H86zM106 35h17l-2 11h-13z"
+                              fill="#172e49"/>
+                        <path d="M101 41h5" stroke="#172e49" stroke-width="3"/>
+                        <path d="M95 55Q103 62 112 54" fill="none"
+                              stroke="#934d45" stroke-width="3" stroke-linecap="round"/>
+
+                        <path d="M76 69Q103 54 129 72L153 112Q112 126 69 111Z"
+                              fill="url(#tipSuit)"/>
+
+                        <!-- arm + laptop -->
+                        <path d="M80 79Q58 100 45 115" fill="none"
+                              stroke="#e4a078" stroke-width="11" stroke-linecap="round"/>
+                        <path d="M46 115L104 104L118 121L57 131Z"
+                              fill="#253b50"/>
+                        <path d="M58 127L116 116L130 124L70 139Z"
+                              fill="#526a7e"/>
+
+                        <!-- legs -->
+                        <path d="M125 108Q150 118 177 132" fill="none"
+                              stroke="#174c89" stroke-width="16" stroke-linecap="round"/>
+                        <path d="M145 125Q167 140 184 147" fill="none"
+                              stroke="#174c89" stroke-width="16" stroke-linecap="round"/>
+                        <path d="M174 143h28Q207 150 198 155h-30"
+                              fill="#f39a22"/>
+                        <path d="M189 148h27Q222 155 213 160h-29"
+                              fill="#f39a22"/>
+                    </g>
+
+                    <!-- palm -->
+                    <g transform="translate(22 61)">
+                        <path d="M26 92Q29 48 27 18" fill="none"
+                              stroke="#8a664d" stroke-width="7" stroke-linecap="round"/>
+                        <path d="M27 20Q-2 5-12 18Q9 28 27 29" fill="#38ba7c"/>
+                        <path d="M29 21Q33-7 49-11Q52 9 35 25" fill="#2ba96e"/>
+                        <path d="M29 22Q58 3 72 17Q53 30 32 31" fill="#4ac986"/>
+                    </g>
+                </svg>
+            </div>
 
             <div class="panel-heading">
                 <div>
