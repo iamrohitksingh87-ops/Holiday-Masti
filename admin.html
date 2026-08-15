@@ -3330,6 +3330,51 @@ body {
     }
 }
 
+
+/* ==================================================
+   FINAL DASHBOARD POSITION GUARD
+================================================== */
+
+#adminPage {
+    position: relative;
+}
+
+#adminPage .dashboard-section {
+    position: relative !important;
+    top: 0 !important;
+    margin-top: 0 !important;
+    transform: none;
+    min-height: calc(100vh - 76px);
+}
+
+#adminPage .hm-dashboard-badge {
+    position: absolute !important;
+    top: 14px !important;
+    right: 18px !important;
+    z-index: 20 !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.76);
+    border: 1px solid rgba(255,255,255,.95);
+    color: #67839a;
+    font-size: 9px;
+    font-weight: 800;
+    box-shadow: 0 8px 22px rgba(45,93,125,.08);
+    backdrop-filter: blur(12px);
+}
+
+#adminPage .hm-dashboard-badge b {
+    color: #ff951c;
+    font-size: 12px;
+}
+
+#adminPage .hm-dashboard-badge span {
+    white-space: nowrap;
+}
+
 </style>
 </head>
 
@@ -3678,6 +3723,12 @@ body {
     id="dashboardSection"
     class="dashboard-section"
 >
+
+    <div class="hm-dashboard-badge" aria-label="Travel Mode active">
+        <b>✈</b>
+        <span>Travel Mode: ON</span>
+    </div>
+
 
     <div class="dashboard-heading">
 
@@ -6518,10 +6569,35 @@ function showDashboard() {
 
     if (dashboardSection) {
         dashboardSection.classList.remove("hidden");
+        dashboardSection.style.setProperty(
+            "display",
+            "block",
+            "important"
+        );
+        dashboardSection.style.setProperty(
+            "visibility",
+            "visible",
+            "important"
+        );
+        dashboardSection.style.setProperty(
+            "position",
+            "relative",
+            "important"
+        );
+        dashboardSection.style.setProperty(
+            "margin-top",
+            "0",
+            "important"
+        );
     }
 
     if (contentSection) {
-        contentSection.style.display = "none";
+        contentSection.classList.add("hidden");
+        contentSection.style.setProperty(
+            "display",
+            "none",
+            "important"
+        );
     }
 
     if (enquiriesSection) {
@@ -6543,10 +6619,20 @@ function showPackages() {
 
     if (dashboardSection) {
         dashboardSection.classList.add("hidden");
+        dashboardSection.style.setProperty(
+            "display",
+            "none",
+            "important"
+        );
     }
 
     if (contentSection) {
-        contentSection.style.display = "block";
+        contentSection.classList.remove("hidden");
+        contentSection.style.setProperty(
+            "display",
+            "block",
+            "important"
+        );
     }
 
     if (packageGrid) {
@@ -6572,10 +6658,20 @@ function showEnquiries() {
 
     if (dashboardSection) {
         dashboardSection.classList.add("hidden");
+        dashboardSection.style.setProperty(
+            "display",
+            "none",
+            "important"
+        );
     }
 
     if (contentSection) {
-        contentSection.style.display = "block";
+        contentSection.classList.remove("hidden");
+        contentSection.style.setProperty(
+            "display",
+            "block",
+            "important"
+        );
     }
 
     if (packageGrid) {
