@@ -2629,26 +2629,107 @@ window.viewEnquiry = function (id) {
         ).toLowerCase();
 
 
-    const modal =
-        document.getElementById(
-            "enquiryModal"
-        );
+    let modal =
+    document.getElementById("enquiryModal");
 
-    const content =
+let content =
+    document.getElementById("enquiryDetailContent");
+
+
+/* Create popup automatically if it does not exist */
+
+if (!modal) {
+
+    modal =
+        document.createElement("div");
+
+    modal.id =
+        "enquiryModal";
+
+    modal.className =
+        "modal hidden";
+
+    modal.innerHTML = `
+
+        <div
+            class="modal-box"
+            style="
+                max-width:650px;
+            "
+        >
+
+            <div class="modal-header">
+
+                <h2>
+                    Customer Enquiry
+                </h2>
+
+                <button
+                    id="closeEnquiryModal"
+                    class="close-btn"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div
+                id="enquiryDetailContent"
+            ></div>
+
+        </div>
+
+    `;
+
+    document.body.appendChild(modal);
+
+    content =
         document.getElementById(
             "enquiryDetailContent"
         );
 
 
-    if (!modal || !content) {
-
-        alert(
-            "Enquiry popup is not available."
+    const closeBtn =
+        document.getElementById(
+            "closeEnquiryModal"
         );
 
-        return;
+
+    if (closeBtn) {
+
+        closeBtn.addEventListener(
+            "click",
+            function () {
+
+                modal.classList.add(
+                    "hidden"
+                );
+
+            }
+        );
 
     }
+
+
+    modal.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target === modal
+            ) {
+
+                modal.classList.add(
+                    "hidden"
+                );
+
+            }
+
+        }
+    );
+
+}
 
 
     content.innerHTML = `
