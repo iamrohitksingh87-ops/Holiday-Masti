@@ -5061,6 +5061,225 @@ html, body {
     scrollbar-gutter: stable !important;
 }
 
+
+/* ==========================================================
+   CLEAN FINAL LAYOUT OVERRIDE
+   One coordinate system for desktop — no inherited widths.
+========================================================== */
+@media (min-width: 801px) {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  #adminPage {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+  }
+
+  /* Sidebar */
+  #adminPage .admin-sidebar {
+    position: fixed !important;
+    left: 12px !important;
+    top: 12px !important;
+    bottom: 12px !important;
+    width: 300px !important;
+    height: auto !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    z-index: 1000 !important;
+  }
+
+  /* Header */
+  #adminPage .topbar {
+    position: fixed !important;
+    left: 324px !important;
+    top: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    height: 78px !important;
+    min-height: 78px !important;
+    margin: 0 !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+    z-index: 900 !important;
+  }
+
+  #adminPage .topbar-tools {
+    margin: 0 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    min-width: 0 !important;
+  }
+
+  #adminPage .admin-search {
+    width: 340px !important;
+    max-width: 340px !important;
+    flex: 0 1 340px !important;
+  }
+
+  #adminPage .admin-profile {
+    width: 180px !important;
+    min-width: 180px !important;
+    max-width: 180px !important;
+    flex: 0 0 180px !important;
+    overflow: hidden !important;
+  }
+
+  #adminPage .logout-btn {
+    width: 90px !important;
+    min-width: 90px !important;
+    flex: 0 0 90px !important;
+    margin-left: 4px !important;
+  }
+
+  /* Main dashboard: fixed viewport + its own vertical scrollbar */
+  #adminPage #dashboardSection {
+    position: fixed !important;
+    left: 324px !important;
+    top: 102px !important;
+    right: 12px !important;
+    bottom: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 18px 82px 18px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    overscroll-behavior: contain !important;
+  }
+
+  /* Every dashboard row must use the available width, never viewport width. */
+  #adminPage #dashboardSection > .dashboard-hero,
+  #adminPage #dashboardSection > .dashboard-stats,
+  #adminPage #dashboardSection > .dashboard-panels,
+  #adminPage #dashboardSection > .dashboard-bottom-panels {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hero */
+  #adminPage #dashboardSection > .dashboard-hero {
+    display: grid !important;
+    grid-template-columns: minmax(240px, 1fr) minmax(380px, 1.35fr) minmax(180px, .65fr) !important;
+    gap: 12px !important;
+    height: 245px !important;
+    min-height: 245px !important;
+    margin: 0 0 16px !important;
+    overflow: hidden !important;
+  }
+
+  #adminPage #dashboardSection .dashboard-hero > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Four cards — force equal available columns */
+  #adminPage #dashboardSection > .dashboard-stats {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    height: 150px !important;
+    min-height: 150px !important;
+    margin: 0 0 16px !important;
+  }
+
+  #adminPage #dashboardSection > .dashboard-stats > .stat-card {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 150px !important;
+    min-height: 150px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  /* Main two panels */
+  #adminPage #dashboardSection > .dashboard-panels {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) !important;
+    gap: 16px !important;
+    height: 350px !important;
+    min-height: 350px !important;
+    margin: 0 0 16px !important;
+  }
+
+  #adminPage #dashboardSection > .dashboard-panels > .dashboard-panel {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 350px !important;
+    min-height: 350px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  /* Bottom row — reachable by scrolling */
+  #adminPage #dashboardSection > .dashboard-bottom-panels {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) minmax(0, 1.2fr) !important;
+    gap: 16px !important;
+    height: 190px !important;
+    min-height: 190px !important;
+    margin: 0 0 30px !important;
+  }
+
+  #adminPage #dashboardSection > .dashboard-bottom-panels > .dashboard-panel {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 190px !important;
+    min-height: 190px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  /* Compact travel badge — no full-width strip */
+  #adminPage #dashboardSection .hm-dashboard-badge {
+    display: inline-flex !important;
+    position: absolute !important;
+    top: 12px !important;
+    right: 18px !important;
+    width: max-content !important;
+    max-width: calc(100% - 36px) !important;
+    height: 36px !important;
+    padding: 0 14px !important;
+    box-sizing: border-box !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    border-radius: 999px !important;
+    z-index: 50 !important;
+  }
+
+  /* Footer does not steal dashboard scroll area */
+  #adminPage .admin-footer {
+    position: fixed !important;
+    left: 324px !important;
+    right: 12px !important;
+    bottom: 0 !important;
+    width: auto !important;
+    height: 40px !important;
+    margin: 0 !important;
+    padding: 6px 24px !important;
+    box-sizing: border-box !important;
+    z-index: 800 !important;
+    pointer-events: none !important;
+  }
+}
+
 </style>
 </head>
 
