@@ -1503,7 +1503,97 @@ body {
     /* ==================================================
        LOGIN
     ================================================== */
+/* ==================================================
+   ADMIN GREETING
+================================================== */
 
+function showAdminGreeting(user) {
+
+    const greetingBox =
+        document.getElementById(
+            "adminGreeting"
+        );
+
+    if (!greetingBox) {
+        return;
+    }
+
+
+    const hour =
+        new Date().getHours();
+
+
+    let greeting;
+
+    if (hour < 12) {
+
+        greeting = "Good Morning";
+
+    } else if (hour < 17) {
+
+        greeting = "Good Afternoon";
+
+    } else {
+
+        greeting = "Good Evening";
+
+    }
+
+
+    let name = "";
+
+
+    if (
+        user &&
+        user.user_metadata &&
+        user.user_metadata.full_name
+    ) {
+
+        name =
+            user.user_metadata.full_name;
+
+    } else if (user && user.email) {
+
+        name =
+            user.email
+                .split("@")[0]
+                .replace(/^iam/i, "")
+                .split(/[._-]/)[0];
+
+    } else if (typeof user === "string") {
+
+        name =
+            user
+                .split("@")[0]
+                .replace(/^iam/i, "")
+                .split(/[._-]/)[0];
+
+    }
+
+
+    if (!name) {
+        name = "Admin";
+    }
+
+
+    name =
+        name.charAt(0).toUpperCase() +
+        name.slice(1);
+
+
+    greetingBox.innerHTML = `
+
+        <strong>
+            ${greeting}, ${name} 👋
+        </strong>
+
+        <span>
+            Welcome back to Holiday Masti
+        </span>
+
+    `;
+
+}
     loginForm.addEventListener(
         "submit",
         async function (event) {
