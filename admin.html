@@ -4666,206 +4666,286 @@ html, body {
 
 
 /* ==========================================================
-   FINAL V2 — NO CLIPPING / REAL DASHBOARD SCROLL
+   HOLIDAY MASTI — FINAL V3 LAYOUT FIX
+   Fixes: header overlap, green strip, horizontal clipping,
+   and inaccessible lower dashboard content.
 ========================================================== */
+
+html, body {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+}
 
 #adminPage {
     position: fixed !important;
     inset: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
+    min-width: 0 !important;
     min-height: 0 !important;
-    max-width: 100vw !important;
     overflow: hidden !important;
-    box-sizing: border-box !important;
 }
 
+/* ---------- HEADER ---------- */
 #adminPage .topbar {
-    left: 280px !important;
+    position: fixed !important;
+    top: 10px !important;
+    left: 318px !important;
     right: 12px !important;
     width: auto !important;
+    height: 80px !important;
+    min-height: 80px !important;
     margin: 0 !important;
+    padding: 0 22px !important;
     box-sizing: border-box !important;
+    z-index: 500 !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
+#adminPage .topbar-tools {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    min-width: 0 !important;
+}
+
+#adminPage .admin-search {
+    flex: 0 1 390px !important;
+    width: 390px !important;
+    min-width: 220px !important;
+    max-width: 390px !important;
+}
+
+#adminPage .admin-profile {
+    flex: 0 0 auto !important;
+    width: 145px !important;
+    min-width: 145px !important;
+    max-width: 145px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+}
+
+#adminPage .admin-profile > div,
+#adminPage .admin-profile .profile-info {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+#adminPage .admin-profile .admin-name,
+#adminPage .admin-profile strong {
+    display: block !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+#adminPage .admin-profile .admin-email,
+#adminPage .admin-profile small {
+    display: block !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+#adminPage .logout-btn {
+    flex: 0 0 auto !important;
+    width: 92px !important;
+    min-width: 92px !important;
+    margin-left: 4px !important;
+}
+
+/* ---------- SIDEBAR ---------- */
 #adminPage .admin-sidebar {
-    left: 12px !important;
-    right: auto !important;
-    width: 258px !important;
+    position: fixed !important;
+    left: 10px !important;
+    top: 10px !important;
+    bottom: 10px !important;
+    width: 298px !important;
+    height: auto !important;
     box-sizing: border-box !important;
+    overflow: hidden !important;
+    z-index: 600 !important;
 }
 
-/* The only scrolling surface on desktop. */
-#adminPage #dashboardSection {
+/* ---------- MAIN VIEWPORT ----------
+   IMPORTANT: don't use width: calc(100% - left) together with left/right.
+   The previous combination caused the right side to be clipped.
+---------- */
+#adminPage #dashboardSection,
+#adminPage .dashboard-section {
     position: absolute !important;
-    left: 280px !important;
-    top: 102px !important;
+    left: 318px !important;
     right: 12px !important;
-    bottom: 48px !important;
-
+    top: 102px !important;
+    bottom: 0 !important;
     width: auto !important;
     height: auto !important;
-    max-width: none !important;
-    max-height: none !important;
     min-width: 0 !important;
     min-height: 0 !important;
-
     margin: 0 !important;
-    padding: 0 20px 28px !important;
+    padding: 0 10px 70px 18px !important;
     box-sizing: border-box !important;
-
-    display: block !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
-    overscroll-behavior: contain !important;
+    scroll-behavior: smooth !important;
 }
 
-/* Never allow a dashboard child to establish a wider grid track. */
-#adminPage #dashboardSection > *,
-#adminPage #dashboardSection .dashboard-hero,
-#adminPage #dashboardSection .dashboard-stats,
-#adminPage #dashboardSection .dashboard-panels,
-#adminPage #dashboardSection .dashboard-bottom-panels {
+/* ---------- REMOVE THE GREEN STRIP ----------
+   The badge had inherited positioning/width from older CSS.
+   Travel Mode is intentionally hidden here rather than stretched
+   across the page.
+---------- */
+#adminPage .hm-dashboard-badge {
+    display: none !important;
+}
+
+/* ---------- HERO ---------- */
+#adminPage .dashboard-hero {
     width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
+    max-width: none !important;
+    height: 245px !important;
+    min-height: 245px !important;
+    margin: 0 0 14px !important;
     box-sizing: border-box !important;
+    overflow: hidden !important;
 }
 
-/* Hero */
-#adminPage #dashboardSection .dashboard-hero {
-    display: grid !important;
-    grid-template-columns: minmax(230px, 1fr) minmax(300px, 1.45fr) minmax(180px, .72fr) !important;
-    gap: 8px !important;
-    height: 199px !important;
-    min-height: 199px !important;
-    margin: 0 0 11px !important;
-    overflow: visible !important;
-}
-
-#adminPage #dashboardSection .dashboard-hero > * {
+#adminPage .dashboard-hero-visual {
+    width: 100% !important;
+    height: 245px !important;
     min-width: 0 !important;
+    overflow: hidden !important;
 }
 
-/* Stats — four cards must always fit the available dashboard width. */
-#adminPage #dashboardSection .dashboard-stats {
+/* ---------- STATS ----------
+   Four equal columns that always fit the available content width.
+---------- */
+#adminPage .dashboard-stats {
+    width: 100% !important;
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 14px !important;
-    height: 145px !important;
-    min-height: 145px !important;
-    margin: 0 0 17px !important;
-    overflow: visible !important;
+    height: 150px !important;
+    min-height: 150px !important;
+    margin: 0 0 16px !important;
+    box-sizing: border-box !important;
 }
 
-#adminPage #dashboardSection .premium-stat,
-#adminPage #dashboardSection .stat-card {
+#adminPage .premium-stat {
     width: 100% !important;
     min-width: 0 !important;
-    max-width: 100% !important;
-    height: 145px !important;
-    min-height: 145px !important;
+    height: 150px !important;
+    min-height: 150px !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
 }
 
-#adminPage #dashboardSection .stat-content {
-    min-width: 0 !important;
-    max-width: calc(100% - 68px) !important;
-    overflow: hidden !important;
-}
-
-#adminPage #dashboardSection .stat-content span,
-#adminPage #dashboardSection .stat-content small {
-    display: block !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
-}
-
-/* Main two-column panels */
-#adminPage #dashboardSection .dashboard-panels {
+/* ---------- MIDDLE ROW ---------- */
+#adminPage .dashboard-panels {
+    width: 100% !important;
     display: grid !important;
     grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) !important;
     gap: 16px !important;
-    height: 337px !important;
-    min-height: 337px !important;
-    margin: 0 !important;
-}
-
-#adminPage #dashboardSection .dashboard-panels > .dashboard-panel {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    height: 337px !important;
-    min-height: 337px !important;
-    overflow: hidden !important;
+    height: 360px !important;
+    min-height: 360px !important;
+    margin: 0 0 16px !important;
     box-sizing: border-box !important;
 }
 
-/* Bottom three panels */
-#adminPage #dashboardSection .dashboard-bottom-panels {
+#adminPage .dashboard-panels > .dashboard-panel {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 360px !important;
+    min-height: 360px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+/* ---------- BOTTOM ROW ----------
+   It is now part of the scrollable dashboard, so it cannot be
+   trapped behind the fixed footer.
+---------- */
+#adminPage .dashboard-bottom-panels {
+    width: 100% !important;
     display: grid !important;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, .95fr) minmax(0, 1.22fr) !important;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) minmax(0, 1.2fr) !important;
     gap: 16px !important;
-    height: 132px !important;
-    min-height: 132px !important;
-    margin: 16px 0 20px !important;
-}
-
-#adminPage #dashboardSection .dashboard-bottom-panels > .dashboard-panel {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    height: 132px !important;
-    min-height: 132px !important;
-    overflow: hidden !important;
+    height: 190px !important;
+    min-height: 190px !important;
+    margin: 0 0 25px !important;
     box-sizing: border-box !important;
 }
 
-/* Keep decorative 3D characters inside their panels. */
-#adminPage #dashboardSection .dashboard-hero-visual {
+#adminPage .dashboard-bottom-panels > .dashboard-panel {
+    width: 100% !important;
     min-width: 0 !important;
-    max-width: 100% !important;
-    overflow: visible !important;
+    height: 190px !important;
+    min-height: 190px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
 }
 
-#adminPage #dashboardSection .dashboard-hero-visual img {
-    max-width: 100% !important;
-    height: auto !important;
-}
-
-#adminPage #dashboardSection .quick-tips-traveller {
-    max-width: 52% !important;
-    overflow: visible !important;
-}
-
-/* Footer never covers dashboard content. */
+/* ---------- FOOTER ----------
+   Footer sits outside the scrolling content visually and doesn't
+   cover the bottom cards.
+---------- */
 #adminPage .admin-footer {
     position: fixed !important;
-    left: 280px !important;
+    left: 318px !important;
     right: 12px !important;
     bottom: 0 !important;
     width: auto !important;
-    height: 48px !important;
+    height: 42px !important;
     margin: 0 !important;
+    padding: 7px 28px !important;
     box-sizing: border-box !important;
-    z-index: 300 !important;
+    z-index: 450 !important;
+    pointer-events: none !important;
 }
 
-/* At narrower desktop sizes, reduce card density before it can clip. */
-@media (min-width: 801px) and (max-width: 1250px) {
-    #adminPage #dashboardSection .dashboard-stats {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        height: auto !important;
-        min-height: 0 !important;
+/* ---------- KEEP DECORATIVE ART FROM CAUSING OVERFLOW ---------- */
+#adminPage .dashboard-hero-actions {
+    min-width: 0 !important;
+}
+
+#adminPage .dashboard-hero-actions button {
+    white-space: nowrap !important;
+}
+
+#adminPage .quick-tips-traveller {
+    max-width: 55% !important;
+    pointer-events: none !important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1200px) and (min-width: 801px) {
+    #adminPage .admin-sidebar {
+        width: 240px !important;
     }
 
-    #adminPage #dashboardSection .premium-stat {
-        height: 125px !important;
-        min-height: 125px !important;
+    #adminPage .topbar,
+    #adminPage #dashboardSection,
+    #adminPage .dashboard-section,
+    #adminPage .admin-footer {
+        left: 258px !important;
+    }
+
+    #adminPage .dashboard-stats {
+        gap: 10px !important;
+    }
+
+    #adminPage .dashboard-stats .stat-content strong {
+        font-size: 25px !important;
     }
 }
 
@@ -4879,15 +4959,106 @@ html, body {
         overflow: visible !important;
     }
 
-    #adminPage #dashboardSection {
+    #adminPage .admin-sidebar {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 10px !important;
+    }
+
+    #adminPage .topbar {
+        position: sticky !important;
+        left: auto !important;
+        right: auto !important;
+        top: 0 !important;
+        width: 100% !important;
+    }
+
+    #adminPage #dashboardSection,
+    #adminPage .dashboard-section {
         position: relative !important;
-        inset: auto !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
         width: 100% !important;
         height: auto !important;
-        min-height: 0 !important;
         padding: 20px 16px 30px !important;
         overflow: visible !important;
     }
+
+    #adminPage .dashboard-hero,
+    #adminPage .dashboard-stats,
+    #adminPage .dashboard-panels,
+    #adminPage .dashboard-bottom-panels {
+        height: auto !important;
+        min-height: 0 !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    #adminPage .dashboard-hero {
+        min-height: 0 !important;
+    }
+
+    #adminPage .premium-stat,
+    #adminPage .dashboard-panels > .dashboard-panel,
+    #adminPage .dashboard-bottom-panels > .dashboard-panel {
+        height: auto !important;
+        min-height: 120px !important;
+    }
+
+    #adminPage .admin-footer {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+
+/* FINAL MICRO-FIXES */
+#adminPage .admin-search {
+    flex-basis: 350px !important;
+    width: 350px !important;
+    max-width: 350px !important;
+}
+
+#adminPage .admin-profile {
+    width: 185px !important;
+    min-width: 185px !important;
+    max-width: 185px !important;
+}
+
+#adminPage .hm-dashboard-badge {
+    display: inline-flex !important;
+    width: max-content !important;
+    max-width: max-content !important;
+    min-width: 0 !important;
+    height: 36px !important;
+    box-sizing: border-box !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    position: absolute !important;
+    top: 12px !important;
+    right: 18px !important;
+    padding: 0 14px !important;
+    border-radius: 999px !important;
+    background: #e9f8f2 !important;
+    border: 1px solid #d6eee5 !important;
+    color: #0f9d72 !important;
+    z-index: 80 !important;
+}
+
+#adminPage .hm-dashboard-badge * {
+    white-space: nowrap !important;
+}
+
+#adminPage #dashboardSection,
+#adminPage .dashboard-section {
+    scrollbar-gutter: stable !important;
 }
 
 </style>
