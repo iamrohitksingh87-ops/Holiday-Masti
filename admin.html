@@ -3375,6 +3375,487 @@ body {
     white-space: nowrap;
 }
 
+
+/* ==================================================
+   HOLIDAY MASTI — BLUE 3D TRAVEL DASHBOARD
+================================================== */
+
+#adminPage {
+    --hm-blue: #1477e8;
+    --hm-blue-dark: #0d4eaa;
+    --hm-orange: #ff9f1c;
+    --hm-ink: #102f59;
+
+    background:
+        radial-gradient(circle at 84% 15%, rgba(70,158,255,.18), transparent 28%),
+        radial-gradient(circle at 19% 88%, rgba(255,196,80,.10), transparent 25%),
+        linear-gradient(135deg,#f9fcff 0%,#edf6ff 50%,#f7fbff 100%);
+}
+
+#adminPage .dashboard-section {
+    width: calc(100% - 270px);
+    max-width: none;
+    box-sizing: border-box;
+    padding: 26px 28px 34px;
+}
+
+#adminPage .dashboard-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.0fr 1.5fr .72fr;
+    align-items: center;
+    gap: 12px;
+    min-height: 224px;
+    margin-bottom: 14px;
+}
+
+#adminPage .dashboard-welcome-copy {
+    position: relative;
+    z-index: 4;
+    padding-left: 4px;
+}
+
+.dashboard-welcome-greeting {
+    color: #123f78;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+#adminPage .dashboard-welcome-copy h1 {
+    margin: 8px 0 0;
+    color: var(--hm-ink);
+    font-size: clamp(36px,3.3vw,50px);
+    line-height: .98;
+    letter-spacing: -2px;
+    font-weight: 900;
+}
+
+.welcome-wave {
+    width: 108px;
+    overflow: hidden;
+    margin: 1px 0 12px;
+    color: #2e91ff;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 8px;
+}
+
+.welcome-lead {
+    margin: 0 0 4px;
+    color: #214f7b;
+    font-size: 14px;
+    font-weight: 650;
+}
+
+.welcome-sub {
+    max-width: 350px;
+    margin: 0;
+    color: #6e89a3;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.welcome-sub strong {
+    color: #176fe5;
+}
+
+#adminPage .dashboard-hero-visual {
+    height: 224px;
+    min-width: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+#adminPage .dashboard-hero-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+}
+
+#adminPage .dashboard-hero-actions {
+    align-self: start;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 12px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 5;
+}
+
+#adminPage .dashboard-hero-actions .dashboard-enquiry-btn,
+#adminPage .dashboard-hero-actions .dashboard-add-btn {
+    min-height: 48px;
+    padding: 0 20px;
+    border-radius: 15px;
+    border: 0;
+    font-size: 13px;
+}
+
+#adminPage .dashboard-enquiry-btn,
+#adminPage .dashboard-add-btn {
+    color: #fff;
+    background: linear-gradient(135deg,#2e91ff,#1264d7);
+    box-shadow: 0 13px 28px rgba(23,111,229,.19);
+}
+
+.grow-note {
+    width: 100%;
+    padding: 4px 6px 0;
+    text-align: right;
+    color: #6b82a0;
+    font-size: 11px;
+}
+
+.grow-note strong {
+    display: block;
+    margin-top: 2px;
+    color: #1477e8;
+    font-size: 15px;
+}
+
+#adminPage .dashboard-stats {
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+#adminPage .premium-stat {
+    min-height: 116px;
+    padding: 18px 16px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.78);
+    border: 1px solid rgba(204,226,247,.85);
+    box-shadow: 0 16px 34px rgba(47,105,154,.08);
+}
+
+#adminPage .premium-stat::before {
+    height: 3px;
+    background: linear-gradient(90deg,#2e91ff,#86c4ff);
+}
+
+#adminPage .premium-stat:nth-child(2)::before {
+    background: linear-gradient(90deg,#3caeff,#8bd7ff);
+}
+
+#adminPage .premium-stat:nth-child(3)::before {
+    background: linear-gradient(90deg,#ff9d21,#ffc764);
+}
+
+#adminPage .premium-stat:nth-child(4)::before {
+    background: linear-gradient(90deg,#287de4,#69b0ff);
+}
+
+#adminPage .stat-content span {
+    color: #52718e;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+#adminPage .stat-content strong {
+    color: #123e70;
+    font-size: 31px;
+}
+
+#adminPage .dashboard-panels {
+    grid-template-columns: 1.05fr .95fr;
+    gap: 16px;
+}
+
+#adminPage .dashboard-panel {
+    min-height: 255px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.76);
+    border: 1px solid rgba(211,230,247,.85);
+    box-shadow: 0 16px 36px rgba(47,105,154,.07);
+}
+
+.dashboard-enquiry-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 40px minmax(110px,1fr) minmax(100px,1fr) auto 18px;
+    align-items: center;
+    gap: 10px;
+    min-height: 62px;
+    padding: 8px 0;
+    border: 0;
+    border-bottom: 1px solid rgba(120,145,165,.11);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.dashboard-enquiry-row:hover {
+    background: rgba(235,246,255,.55);
+    transform: translateX(2px);
+}
+
+.dashboard-enquiry-avatar {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(145deg,#51a9ff,#176bd8);
+    font-size: 11px;
+    font-weight: 850;
+    box-shadow: 0 7px 14px rgba(25,105,208,.18);
+}
+
+.dashboard-enquiry-main strong {
+    display: block;
+    color: #163f6c;
+    font-size: 11px;
+}
+
+.dashboard-enquiry-main small {
+    display: block;
+    margin-top: 4px;
+    color: #8197ab;
+    font-size: 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dashboard-enquiry-meta {
+    min-width: 0;
+    text-align: right;
+}
+
+.dashboard-enquiry-meta small {
+    display: block;
+    color: #7892a8;
+    font-size: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dashboard-enquiry-meta span {
+    display: block;
+    margin-top: 4px;
+    color: #9aabb9;
+    font-size: 8px;
+}
+
+.dashboard-enquiry-status {
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: #e8f3ff;
+    color: #176fe5;
+    font-size: 8px;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.dashboard-enquiry-status.converted {
+    background: #e6f8ef;
+    color: #18a66d;
+}
+
+.dashboard-enquiry-status.closed {
+    background: #fff0df;
+    color: #e98812;
+}
+
+.dashboard-row-arrow {
+    color: #176fe5;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.visual-top-package {
+    display: grid;
+    grid-template-columns: 60px minmax(0,1fr) auto;
+    align-items: center;
+    gap: 10px;
+    min-height: 63px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(120,145,165,.11);
+}
+
+.top-package-image {
+    width: 60px;
+    height: 49px;
+    border-radius: 11px;
+    object-fit: cover;
+    background: #eaf4ff;
+}
+
+.top-package-info {
+    min-width: 0;
+}
+
+.top-package-info strong {
+    display: block;
+    color: #183f6a;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-package-info small {
+    display: block;
+    margin-top: 4px;
+    color: #8a9fb2;
+    font-size: 9px;
+}
+
+.top-package-right {
+    text-align: right;
+}
+
+.top-package-right strong {
+    display: block;
+    color: #1475dc;
+    font-size: 11px;
+}
+
+.top-package-right span {
+    display: block;
+    margin-top: 4px;
+    color: #f29b18;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+#adminPage .dashboard-bottom-panels {
+    grid-template-columns: 1.1fr .95fr 1.2fr;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+#adminPage .dashboard-bottom-panels .dashboard-panel {
+    min-height: 220px;
+}
+
+#adminPage .donut-chart {
+    width: 132px;
+    height: 132px;
+    background: conic-gradient(
+        #2e91ff 0deg 105deg,
+        #59b4ff 105deg 205deg,
+        #1b74dc 205deg 305deg,
+        #ff9d21 305deg 360deg
+    );
+}
+
+#adminPage .donut-inner {
+    width: 86px;
+    height: 86px;
+}
+
+#adminPage .legend-dot.legend-new {
+    background: #2e91ff;
+}
+
+#adminPage .legend-dot.legend-contacted {
+    background: #59b4ff;
+}
+
+#adminPage .legend-dot.legend-converted {
+    background: #1b74dc;
+}
+
+#adminPage .legend-dot.legend-closed {
+    background: #ff9d21;
+}
+
+#adminPage .quick-tip-card {
+    border: 0;
+    background: transparent;
+}
+
+#adminPage .quick-tip-card:hover {
+    background: #f1f8ff;
+}
+
+#adminPage .admin-footer {
+    font-size: 9px;
+}
+
+#adminPage .admin-footer span:last-child {
+    font-size: 11px !important;
+    font-weight: 750;
+}
+
+#adminPage .admin-footer b {
+    font-size: 15px;
+}
+
+#adminPage .admin-profile-text span,
+#adminPage .profile-card-head span {
+    max-width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@media (max-width:1150px) {
+    #adminPage .dashboard-hero {
+        grid-template-columns: 1fr 1.2fr;
+    }
+
+    #adminPage .dashboard-hero-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+        padding-top: 0;
+    }
+
+    #adminPage .dashboard-stats {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+
+    #adminPage .dashboard-bottom-panels {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width:800px) {
+    #adminPage .dashboard-section {
+        width: 100%;
+        margin-left: 0;
+        padding: 20px 16px 30px;
+    }
+
+    #adminPage .dashboard-hero {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    #adminPage .dashboard-hero-visual {
+        height: 190px;
+    }
+
+    #adminPage .dashboard-hero-actions {
+        justify-content: flex-start;
+    }
+
+    #adminPage .dashboard-panels {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-enquiry-row {
+        grid-template-columns: 38px minmax(0,1fr) auto 18px;
+    }
+
+    .dashboard-enquiry-meta {
+        display: none;
+    }
+}
+
 </style>
 </head>
 
@@ -3587,8 +4068,8 @@ body {
                     <img id="adminAvatarImage" src="" alt="Admin">
                 </div>
                 <div class="admin-profile-text">
-                    <strong>Admin</strong>
-                    <span>Super Admin</span>
+                    <strong id="adminDisplayName">Admin</strong>
+                    <span id="adminDisplayEmail">Super Admin</span>
                 </div>
                 <span class="profile-chevron">⌄</span>
             </button>
@@ -3602,8 +4083,8 @@ body {
                         <img id="adminAvatarImageLarge" src="" alt="Admin">
                     </div>
                     <div>
-                        <strong>Admin</strong>
-                        <span>Super Admin</span>
+                        <strong id="adminPanelDisplayName">Admin</strong>
+                        <span id="adminPanelDisplayEmail">Super Admin</span>
                     </div>
                 </div>
 
@@ -3730,34 +4211,132 @@ body {
     </div>
 
 
-    <div class="dashboard-heading">
+    <div class="dashboard-hero">
 
-        <div>
-            <div class="dashboard-kicker">HOLIDAY MASTI ADMIN</div>
-            <h1>Dashboard</h1>
-            <p>Welcome back, Admin! Here's an overview of your business.</p>
+        <div class="dashboard-welcome-copy">
+
+            <div id="dashboardWelcomeGreeting" class="dashboard-welcome-greeting">
+                Good Morning, Admin! 👋
+            </div>
+
+            <h1>Welcome back!</h1>
+            <div class="welcome-wave">~~~~~~~</div>
+
+            <p class="welcome-lead">Great to see you again.</p>
+
+            <p class="welcome-sub">
+                Here's what's happening with your
+                <strong>Holiday Masti</strong> business today.
+            </p>
+
         </div>
 
-        <div class="dashboard-actions">
-            <button
-                id="dashboardEnquiriesBtn"
-                class="dashboard-enquiry-btn"
-                type="button"
-            >
+        <div class="dashboard-hero-visual" aria-hidden="true">
+            <svg viewBox="0 0 620 280">
+
+                <defs>
+                    <linearGradient id="hmHeroBlue" x1="0" x2="1">
+                        <stop offset="0" stop-color="#2f91ff"/>
+                        <stop offset="1" stop-color="#1166d9"/>
+                    </linearGradient>
+                    <linearGradient id="hmHeroSuit" x1="0" x2="1">
+                        <stop offset="0" stop-color="#3b9cff"/>
+                        <stop offset="1" stop-color="#155fc6"/>
+                    </linearGradient>
+                    <filter id="hmHeroShadow">
+                        <feDropShadow dx="0" dy="9" stdDeviation="8" flood-opacity=".14"/>
+                    </filter>
+                </defs>
+
+                <!-- clouds -->
+                <g fill="#fff" opacity=".9">
+                    <ellipse cx="465" cy="54" rx="42" ry="18"/>
+                    <ellipse cx="500" cy="56" rx="30" ry="15"/>
+                    <ellipse cx="435" cy="62" rx="26" ry="13"/>
+                </g>
+
+                <!-- palm -->
+                <g transform="translate(450 72)">
+                    <path d="M27 135Q34 72 28 22" fill="none" stroke="#8a664d" stroke-width="9" stroke-linecap="round"/>
+                    <path d="M28 28Q-8 8-20 26Q8 35 28 36" fill="#35b879"/>
+                    <path d="M30 28Q35-8 56-14Q58 10 38 31" fill="#2ba96e"/>
+                    <path d="M31 29Q69 3 87 21Q60 36 35 39" fill="#49c987"/>
+                    <path d="M28 29Q10-10-4-2Q-2 17 24 37" fill="#58d18d"/>
+                </g>
+
+                <!-- location pin -->
+                <g transform="translate(86 155)" filter="url(#hmHeroShadow)">
+                    <path d="M20 0C5 0-3 12 2 26L20 53 38 26C43 12 35 0 20 0Z" fill="#ff9d21"/>
+                    <circle cx="20" cy="19" r="7" fill="#fff"/>
+                </g>
+
+                <!-- suitcase -->
+                <g transform="translate(405 151)" filter="url(#hmHeroShadow)">
+                    <rect x="7" y="18" width="68" height="82" rx="12" fill="url(#hmHeroBlue)"/>
+                    <rect x="26" y="4" width="30" height="20" rx="8" fill="none" stroke="#164c88" stroke-width="7"/>
+                    <rect x="15" y="31" width="52" height="5" rx="2" fill="#7ac1ff"/>
+                    <circle cx="19" cy="105" r="7" fill="#163f67"/>
+                    <circle cx="64" cy="105" r="7" fill="#163f67"/>
+                </g>
+
+                <!-- traveller -->
+                <g transform="translate(204 23)" filter="url(#hmHeroShadow)">
+                    <path d="M105 117Q127 100 147 118L153 202Q132 218 105 203Z" fill="#0f65d1"/>
+                    <path d="M94 117Q125 96 155 117L179 207Q135 224 86 205Z" fill="url(#hmHeroSuit)"/>
+
+                    <!-- head -->
+                    <circle cx="128" cy="77" r="43" fill="#e7a67d"/>
+                    <path d="M87 69Q88 25 128 20Q166 21 173 65Q151 45 126 50Q104 51 87 69Z" fill="#26394d"/>
+
+                    <!-- glasses -->
+                    <path d="M95 70h25l-2 17H99zM134 70h25l-2 17h-19z" fill="#172f4c"/>
+                    <path d="M120 76h14" stroke="#172f4c" stroke-width="5"/>
+
+                    <!-- smile -->
+                    <path d="M116 103Q130 115 144 103" fill="none" stroke="#934d45" stroke-width="4" stroke-linecap="round"/>
+
+                    <!-- pointing arm -->
+                    <path d="M92 129Q57 102 35 86" fill="none" stroke="#e7a67d" stroke-width="16" stroke-linecap="round"/>
+                    <path d="M38 86l-24-8" stroke="#e7a67d" stroke-width="11" stroke-linecap="round"/>
+
+                    <!-- map -->
+                    <g transform="translate(8 50) rotate(-12)">
+                        <path d="M0 0l55 13-6 70L-6 69Z" fill="#fff" stroke="#c7d9e8" stroke-width="3"/>
+                        <path d="M15 7l10 61M36 13l-7 62" stroke="#72aee0" stroke-width="2"/>
+                        <path d="M4 38q18-13 41 3" fill="none" stroke="#ff9d21" stroke-width="4"/>
+                    </g>
+                </g>
+
+                <!-- plane -->
+                <g transform="translate(108 43) rotate(-15)">
+                    <path d="M0 12L85 0 61 18 84 30 42 23 24 37 26 21Z" fill="#2f91ff"/>
+                    <path d="M42 23L27 43" stroke="#1166d9" stroke-width="6" stroke-linecap="round"/>
+                </g>
+
+                <!-- ground -->
+                <path d="M70 245Q285 215 520 245Q405 271 205 263Q120 260 70 245Z" fill="#e1f4e9"/>
+                <path d="M88 246Q294 224 503 246" fill="none" stroke="#8bd9ad" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div class="dashboard-hero-actions">
+
+            <button id="dashboardEnquiriesBtn" class="dashboard-enquiry-btn" type="button">
                 ✉ Enquiries
             </button>
 
-            <button
-                id="dashboardAddPackageBtn"
-                class="dashboard-add-btn"
-                type="button"
-            >
+            <button id="dashboardAddPackageBtn" class="dashboard-add-btn" type="button">
                 + Add Package
             </button>
+
+            <div class="grow-note">
+                <span>Let's</span>
+                <strong>Grow! ↗</strong>
+            </div>
+
         </div>
 
     </div>
-
 
     <div class="dashboard-stats">
 
@@ -3899,6 +4478,11 @@ body {
                         <i class="legend-dot legend-converted"></i>
                         <span>Converted</span>
                         <strong id="dashboardConvertedLegend">—</strong>
+                    </div>
+                    <div>
+                        <i class="legend-dot legend-closed"></i>
+                        <span>Closed</span>
+                        <strong id="dashboardClosedLegend">—</strong>
                     </div>
                 </div>
 
@@ -4504,89 +5088,110 @@ if (imageFileInput) {
 
 function showAdminGreeting(user) {
 
-    const greetingBox =
-        document.getElementById(
-            "adminGreeting"
-        );
+    const dashboardGreeting =
+        document.getElementById("dashboardWelcomeGreeting");
 
-    if (!greetingBox) {
-        return;
-    }
+    const displayName =
+        document.getElementById("adminDisplayName");
 
+    const displayEmail =
+        document.getElementById("adminDisplayEmail");
+
+    const panelDisplayName =
+        document.getElementById("adminPanelDisplayName");
+
+    const panelDisplayEmail =
+        document.getElementById("adminPanelDisplayEmail");
+
+    const oldGreetingBox =
+        document.getElementById("adminGreeting");
 
     const hour =
         new Date().getHours();
 
+    const greeting =
+        hour < 12
+            ? "Good Morning"
+            : hour < 17
+                ? "Good Afternoon"
+                : "Good Evening";
 
-    let greeting;
-
-    if (hour < 12) {
-
-        greeting = "Good Morning";
-
-    } else if (hour < 17) {
-
-        greeting = "Good Afternoon";
-
-    } else {
-
-        greeting = "Good Evening";
-
-    }
-
-
+    let email = "";
     let name = "";
 
+    if (user && user.email) {
+        email = user.email;
+    } else if (typeof user === "string") {
+        email = user;
+    }
 
     if (
         user &&
         user.user_metadata &&
-        user.user_metadata.full_name
+        (
+            user.user_metadata.full_name ||
+            user.user_metadata.name
+        )
     ) {
-
         name =
-            user.user_metadata.full_name;
-
-    } else if (user && user.email) {
-
-        name =
-            user.email
-                .split("@")[0]
-                .replace(/^iam/i, "")
-                .split(/[._-]/)[0];
-
-    } else if (typeof user === "string") {
-
-        name =
-            user
-                .split("@")[0]
-                .replace(/^iam/i, "")
-                .split(/[._-]/)[0];
-
+            user.user_metadata.full_name ||
+            user.user_metadata.name;
     }
 
+    if (!name && email) {
+
+        const localPart =
+            email
+                .split("@")[0]
+                .replace(/^iam/i, "");
+
+        name =
+            localPart
+                .split(/[._-]+/)
+                .filter(Boolean)
+                .map(function (part) {
+                    return (
+                        part.charAt(0).toUpperCase() +
+                        part.slice(1).toLowerCase()
+                    );
+                })
+                .join(" ");
+
+    }
 
     if (!name) {
         name = "Admin";
     }
 
+    if (displayName) {
+        displayName.textContent = name;
+    }
 
-    name =
-        name.charAt(0).toUpperCase() +
-        name.slice(1);
+    if (displayEmail) {
+        displayEmail.textContent =
+            email || "Super Admin";
+    }
 
+    if (panelDisplayName) {
+        panelDisplayName.textContent = name;
+    }
 
-    greetingBox.innerHTML = `
+    if (panelDisplayEmail) {
+        panelDisplayEmail.textContent =
+            email || "Super Admin";
+    }
 
-        <strong>
-            ${greeting}, ${name} 👋
-        </strong>
+    if (dashboardGreeting) {
+        dashboardGreeting.innerHTML =
+            `${escapeHTML(greeting)}, ${escapeHTML(name)}! 👋`;
+    }
 
-        <span>
-            Welcome back to Holiday Masti
-        </span>
-
-    `;
+    if (oldGreetingBox) {
+        oldGreetingBox.innerHTML = `
+            <strong>${escapeHTML(greeting)}, ${escapeHTML(name)} 👋</strong>
+            <span>Welcome back to Holiday Masti</span>
+        `;
+    }
 
 }
     loginForm.addEventListener(
@@ -4917,10 +5522,34 @@ function showAdminGreeting(user) {
        SHOW ADMIN
     ================================================== */
 
-    function showAdmin() {
+    async function showAdmin() {
 
     loginPage.classList.add("hidden");
     adminPage.classList.remove("hidden");
+
+    try {
+
+        const result =
+            await supabaseClient.auth.getUser();
+
+        if (
+            result &&
+            result.data &&
+            result.data.user
+        ) {
+            showAdminGreeting(
+                result.data.user
+            );
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Could not load admin profile:",
+            error
+        );
+
+    }
 
     showDashboard();
 
@@ -7348,6 +7977,18 @@ async function loadDashboardData() {
         dashboardConvertedLegend.textContent = convertedEnquiries;
     }
 
+    const closedEnquiries =
+        enquiryList.filter(function (item) {
+            return String(item.status || "").toLowerCase() === "closed";
+        }).length;
+
+    const dashboardClosedLegend =
+        document.getElementById("dashboardClosedLegend");
+
+    if (dashboardClosedLegend) {
+        dashboardClosedLegend.textContent = closedEnquiries;
+    }
+
     const topPackagesList =
         document.getElementById("topPackagesList");
 
@@ -7387,19 +8028,55 @@ async function loadDashboardData() {
             topPackagesList.innerHTML =
                 topPackages.map(function (entry, index) {
 
+                    const packageTitle = entry[0];
+
+                    const matchingPackage =
+                        allPackages.find(function (pkg) {
+                            return String(
+                                pkg.title || pkg.name || ""
+                            ).toLowerCase() ===
+                            String(packageTitle).toLowerCase();
+                        });
+
+                    const packageImage =
+                        matchingPackage && matchingPackage.image
+                            ? matchingPackage.image
+                            : "images/logo.png";
+
+                    const packagePrice =
+                        matchingPackage &&
+                        matchingPackage.price !== undefined &&
+                        matchingPackage.price !== null &&
+                        matchingPackage.price !== ""
+                            ? "₹" + Number(
+                                matchingPackage.price
+                            ).toLocaleString("en-IN")
+                            : "";
+
                     return `
-                        <div class="top-package-row">
-                            <span class="top-package-rank">
-                                ${index + 1}.
-                            </span>
+                        <div class="top-package-row visual-top-package">
+                            <img
+                                class="top-package-image"
+                                src="${escapeAttribute(packageImage)}"
+                                alt="${escapeAttribute(packageTitle)}"
+                                onerror="this.src='images/logo.png';"
+                            >
 
-                            <span class="top-package-name">
-                                ${escapeHTML(entry[0])}
-                            </span>
+                            <div class="top-package-info">
+                                <strong>${escapeHTML(packageTitle)}</strong>
+                                <small>
+                                    ${matchingPackage
+                                        ? escapeHTML(matchingPackage.location || "")
+                                        : entry[1] + " enquiries"}
+                                </small>
+                            </div>
 
-                            <span class="top-package-count">
-                                ${entry[1]}
-                            </span>
+                            <div class="top-package-right">
+                                ${packagePrice
+                                    ? `<strong>${escapeHTML(packagePrice)}</strong>`
+                                    : ""}
+                                <span>★ ${entry[1]}</span>
+                            </div>
                         </div>
                     `;
 
@@ -7433,74 +8110,71 @@ async function loadDashboardData() {
                     const status =
                         String(item.status || "new").toLowerCase();
 
+                    const initials =
+                        name
+                            .split(/\s+/)
+                            .filter(Boolean)
+                            .slice(0, 2)
+                            .map(function (part) {
+                                return part.charAt(0).toUpperCase();
+                            })
+                            .join("") || "C";
+
+                    let timeText = "Recently";
+
+                    if (item.created_at) {
+
+                        const minutes =
+                            Math.max(
+                                1,
+                                Math.floor(
+                                    (
+                                        Date.now() -
+                                        new Date(item.created_at).getTime()
+                                    ) / 60000
+                                )
+                            );
+
+                        if (minutes < 60) {
+                            timeText =
+                                minutes + " min ago";
+                        } else if (minutes < 1440) {
+                            timeText =
+                                Math.floor(minutes / 60) + " hr ago";
+                        } else {
+                            timeText =
+                                Math.floor(minutes / 1440) + " day ago";
+                        }
+
+                    }
+
                     return `
                         <button
                             type="button"
+                            class="dashboard-enquiry-row"
                             onclick="viewEnquiry(${Number(item.id)})"
-                            style="
-                                width:100%;
-                                display:flex;
-                                align-items:center;
-                                justify-content:space-between;
-                                gap:15px;
-                                padding:13px 0;
-                                border:0;
-                                border-bottom:1px solid rgba(120,145,165,.12);
-                                background:transparent;
-                                text-align:left;
-                                cursor:pointer;
-                                font-family:inherit;
-                            "
                         >
-                            <div style="min-width:0;">
-                                <strong style="
-                                    display:block;
-                                    color:#16476c;
-                                    font-size:13px;
-                                ">
-                                    ${escapeHTML(name)}
-                                </strong>
-                                <span style="
-                                    display:block;
-                                    margin-top:3px;
-                                    color:#8a9eaf;
-                                    font-size:11px;
-                                    white-space:nowrap;
-                                    overflow:hidden;
-                                    text-overflow:ellipsis;
-                                ">
-                                    ${escapeHTML(packageName)}
-                                </span>
-                            </div>
-                            <div style="
-                                text-align:right;
-                                flex-shrink:0;
-                            ">
-                                <span style="
-                                    display:block;
-                                    color:#7891a6;
-                                    font-size:10px;
-                                ">
-                                    ${escapeHTML(email)}
-                                </span>
-                                <span style="
-                                    display:inline-block;
-                                    margin-top:5px;
-                                    padding:4px 9px;
-                                    border-radius:20px;
-                                    background:rgba(47,139,255,.10);
-                                    color:#1475dc;
-                                    font-size:10px;
-                                    font-weight:700;
-                                    text-transform:capitalize;
-                                ">
-                                    ${escapeHTML(status)}
-                                </span>
-                            </div>
-                        </div>
-                    `;
+                            <span class="dashboard-enquiry-avatar">
+                                ${escapeHTML(initials)}
+                            </span>
 
-                }).join("");
+                            <span class="dashboard-enquiry-main">
+                                <strong>${escapeHTML(name)}</strong>
+                                <small>${escapeHTML(packageName)}</small>
+                            </span>
+
+                            <span class="dashboard-enquiry-meta">
+                                <small>${escapeHTML(email)}</small>
+                                <span>${escapeHTML(timeText)}</span>
+                            </span>
+
+                            <span class="dashboard-enquiry-status ${escapeAttribute(status)}">
+                                ${escapeHTML(status)}
+                            </span>
+
+                            <span class="dashboard-row-arrow">›</span>
+                        </button>
+                    `;                }).join("");
 
         }
 
