@@ -2998,6 +2998,338 @@ body {
     vertical-align: -1px;
 }
 
+
+/* ==================================================
+   QUICK TIP ILLUSTRATIONS
+================================================== */
+
+.quick-tips-panel {
+    overflow: hidden;
+}
+
+.quick-tips-badge {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #fff2df;
+    color: #f09218;
+    font-size: 14px;
+}
+
+.quick-tip-card {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 9px;
+    padding: 8px 9px;
+    border: 1px solid rgba(224,235,242,.65);
+    border-radius: 12px;
+    background: rgba(255,255,255,.42);
+    transition: .18s ease;
+}
+
+.quick-tip-card:hover {
+    transform: translateX(2px);
+    background: rgba(255,255,255,.72);
+}
+
+.quick-tip-image {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    overflow: hidden;
+}
+
+.quick-tip-image svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.quick-tip-card strong {
+    display: block;
+    color: #173f62;
+    font-size: 10px;
+}
+
+.quick-tip-card p {
+    margin: 3px 0 0;
+    color: #7b92a6;
+    font-size: 8px;
+    line-height: 1.35;
+}
+
+
+.admin-search {
+    cursor: text;
+}
+
+.admin-search:focus-within {
+    border-color: rgba(23,111,229,.35);
+    box-shadow:
+        0 0 0 3px rgba(23,111,229,.08),
+        0 8px 20px rgba(45,93,125,.08);
+}
+
+.admin-search > span {
+    cursor: pointer;
+}
+
+
+/* ==================================================
+   FUNKY TRAVEL DASHBOARD POLISH
+================================================== */
+
+#adminPage {
+    --hm-blue: #1477e8;
+    --hm-orange: #ff9f1c;
+    --hm-purple: #7d5be7;
+    --hm-mint: #21b982;
+}
+
+#adminPage::before,
+#adminPage::after {
+    content: "";
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(2px);
+}
+
+#adminPage::before {
+    width: 330px;
+    height: 330px;
+    right: -120px;
+    top: 120px;
+    background: rgba(47,158,255,.10);
+}
+
+#adminPage::after {
+    width: 260px;
+    height: 260px;
+    left: 250px;
+    bottom: -120px;
+    background: rgba(255,159,28,.08);
+}
+
+#adminPage .content,
+#adminPage .admin-sidebar,
+#adminPage .admin-footer {
+    position: relative;
+    z-index: 2;
+}
+
+#adminPage .admin-search {
+    border-radius: 15px;
+    transition: .22s ease;
+}
+
+#adminPage .admin-search:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(45,93,125,.10);
+}
+
+#adminPage .dashboard-heading h1 {
+    letter-spacing: -1.2px;
+}
+
+#adminPage .dashboard-heading h1::after {
+    content: "✈";
+    display: inline-block;
+    margin-left: 10px;
+    color: var(--hm-orange);
+    font-size: .45em;
+    transform: rotate(-8deg) translateY(-3px);
+}
+
+#adminPage .premium-stat {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.90);
+    transition: transform .22s ease, box-shadow .22s ease;
+}
+
+#adminPage .premium-stat::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg,var(--hm-blue),#66b5ff,var(--hm-purple));
+    opacity: .75;
+}
+
+#adminPage .premium-stat:nth-child(2)::before {
+    background: linear-gradient(90deg,#18ae79,#75dfb5);
+}
+
+#adminPage .premium-stat:nth-child(3)::before {
+    background: linear-gradient(90deg,#ff9414,#ffd166);
+}
+
+#adminPage .premium-stat:nth-child(4)::before {
+    background: linear-gradient(90deg,#7654df,#b39cff);
+}
+
+#adminPage .premium-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(45,93,125,.13);
+}
+
+#adminPage .stat-icon {
+    transition: transform .25s ease;
+}
+
+#adminPage .premium-stat:hover .stat-icon {
+    transform: rotate(-7deg) scale(1.08);
+}
+
+#adminPage .dashboard-panel {
+    position: relative;
+    overflow: hidden;
+    transition: transform .22s ease, box-shadow .22s ease;
+}
+
+#adminPage .dashboard-panel::after {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    right: -65px;
+    bottom: -65px;
+    border-radius: 50%;
+    background: rgba(20,119,232,.035);
+    pointer-events: none;
+}
+
+#adminPage .dashboard-panel:hover {
+    box-shadow: 0 22px 55px rgba(45,93,125,.12);
+}
+
+#adminPage .panel-heading h2 {
+    letter-spacing: -.35px;
+}
+
+#adminPage .package-overview-panel button:hover {
+    transform: translateX(4px);
+    background: rgba(235,246,255,.45) !important;
+    border-radius: 12px;
+}
+
+#adminPage #recentEnquiriesList > * {
+    transition: transform .18s ease, background .18s ease;
+}
+
+#adminPage #recentEnquiriesList > *:hover {
+    transform: translateX(3px);
+}
+
+#adminPage .quick-action,
+#adminPage .sidebar-item {
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+#adminPage .quick-action:hover,
+#adminPage .sidebar-item:hover {
+    transform: translateX(3px);
+}
+
+#adminPage .admin-sidebar .travel-card {
+    position: relative;
+    overflow: hidden;
+}
+
+#adminPage .admin-sidebar .travel-card::before {
+    content: "✦";
+    position: absolute;
+    right: 17px;
+    top: 13px;
+    color: rgba(255,255,255,.72);
+    font-size: 15px;
+    animation: hmTwinkle 2.4s ease-in-out infinite;
+}
+
+#adminPage .admin-sidebar .travel-card::after {
+    content: "✈  •  ☀  •  🏔";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    text-align: center;
+    color: rgba(255,255,255,.62);
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+@keyframes hmTwinkle {
+    0%,100% { opacity:.35; transform:scale(.9) rotate(0); }
+    50% { opacity:1; transform:scale(1.15) rotate(12deg); }
+}
+
+#adminPage .dashboard-actions button,
+#adminPage .add-btn {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+#adminPage .dashboard-actions button:hover,
+#adminPage .add-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 13px 28px rgba(20,119,232,.18);
+}
+
+#adminPage ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+#adminPage ::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: rgba(76,126,161,.28);
+}
+
+#adminPage ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.hm-dashboard-badge {
+    position: absolute;
+    right: 18px;
+    top: 17px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.62);
+    border: 1px solid rgba(255,255,255,.85);
+    color: #7590a6;
+    font-size: 8px;
+    font-weight: 750;
+    box-shadow: 0 8px 20px rgba(45,93,125,.06);
+    backdrop-filter: blur(10px);
+}
+
+.hm-dashboard-badge b {
+    color: var(--hm-orange);
+    font-size: 10px;
+}
+
+@media (max-width:800px) {
+    .hm-dashboard-badge {
+        display:none;
+    }
+}
+
 </style>
 </head>
 
@@ -3141,9 +3473,11 @@ body {
         <div class="admin-search">
             <span>⌕</span>
             <input
+                id="globalSearch"
                 type="search"
-                placeholder="Search here..."
-                aria-label="Search"
+                placeholder="Search packages, enquiries..."
+                aria-label="Search packages and enquiries"
+                autocomplete="off"
             >
             <kbd>Ctrl + /</kbd>
         </div>
@@ -3549,26 +3883,69 @@ body {
                     <h2>Quick Tips</h2>
                     <p>Small things that help</p>
                 </div>
+
+                <span class="quick-tips-badge">✦</span>
             </div>
 
-            <div class="quick-tip">
-                <span>✓</span>
-                <p>Add high-quality images to get more enquiries.</p>
+            <div class="quick-tip-card">
+                <div class="quick-tip-image tip-image-camera">
+                    <svg viewBox="0 0 80 80" aria-hidden="true">
+                        <rect x="16" y="25" width="48" height="34" rx="8" fill="#2589ff"/>
+                        <rect x="28" y="19" width="17" height="9" rx="4" fill="#6eb6ff"/>
+                        <circle cx="40" cy="42" r="12" fill="#fff"/>
+                        <circle cx="40" cy="42" r="7" fill="#9bd0ff"/>
+                        <circle cx="57" cy="31" r="3" fill="#fff"/>
+                    </svg>
+                </div>
+                <div>
+                    <strong>Use attractive photos</strong>
+                    <p>Good package images can make visitors stop and explore.</p>
+                </div>
             </div>
 
-            <div class="quick-tip">
-                <span>✓</span>
-                <p>Keep packages and prices updated.</p>
+            <div class="quick-tip-card">
+                <div class="quick-tip-image tip-image-price">
+                    <svg viewBox="0 0 80 80" aria-hidden="true">
+                        <circle cx="40" cy="40" r="28" fill="#fff0d8"/>
+                        <circle cx="40" cy="40" r="22" fill="#ff9e21"/>
+                        <path d="M40 27v26M48 32c-3-5-14-5-15 1-1 6 13 5 14 11 1 7-12 8-16 2" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <strong>Keep prices updated</strong>
+                    <p>Fresh pricing keeps your packages trustworthy and clear.</p>
+                </div>
             </div>
 
-            <div class="quick-tip">
-                <span>✓</span>
-                <p>Respond to new enquiries as soon as possible.</p>
+            <div class="quick-tip-card">
+                <div class="quick-tip-image tip-image-reply">
+                    <svg viewBox="0 0 80 80" aria-hidden="true">
+                        <rect x="13" y="18" width="54" height="42" rx="12" fill="#e7f7ef"/>
+                        <path d="M25 32h30M25 41h21" stroke="#2fbe7a" stroke-width="5" stroke-linecap="round"/>
+                        <path d="M25 53l8-8" stroke="#2fbe7a" stroke-width="5" stroke-linecap="round"/>
+                        <circle cx="58" cy="56" r="10" fill="#fff"/>
+                        <path d="M53 56l4 4 7-8" fill="none" stroke="#2fbe7a" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <strong>Reply quickly</strong>
+                    <p>New enquiries deserve a quick response while interest is high.</p>
+                </div>
             </div>
 
-            <div class="quick-tip">
-                <span>✓</span>
-                <p>Mark enquiries as converted after closing.</p>
+            <div class="quick-tip-card">
+                <div class="quick-tip-image tip-image-check">
+                    <svg viewBox="0 0 80 80" aria-hidden="true">
+                        <circle cx="40" cy="40" r="27" fill="#eee9ff"/>
+                        <path d="M27 40l9 9 18-20" fill="none" stroke="#8064df" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="60" cy="22" r="8" fill="#ff9e21"/>
+                        <path d="M57 22l2 2 4-5" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <strong>Mark conversions</strong>
+                    <p>Keep enquiry statuses updated so your dashboard stays useful.</p>
+                </div>
             </div>
 
         </div>
@@ -4019,6 +4396,21 @@ body {
 
     const statusBox =
         document.getElementById("status");
+
+    const enquirySearch =
+        document.getElementById("enquirySearch");
+
+    const enquiryStatusFilter =
+        document.getElementById("enquiryStatusFilter");
+
+    const enquiryTableBody =
+        document.getElementById("enquiryTableBody");
+
+    let allEnquiries = [];
+
+    let allPackages = [];
+
+
 
 
 
@@ -4490,9 +4882,12 @@ function showAdminGreeting(user) {
 
     async function loadPackages() {
 
+        if (!packageGrid) {
+            return;
+        }
+
         packageGrid.innerHTML =
             '<div class="empty-state">Loading packages...</div>';
-
 
         const {
             data,
@@ -4504,7 +4899,6 @@ function showAdminGreeting(user) {
                 ascending: false
             });
 
-
         if (error) {
 
             packageGrid.innerHTML =
@@ -4515,22 +4909,66 @@ function showAdminGreeting(user) {
             return;
         }
 
+        allPackages =
+            Array.isArray(data)
+                ? data
+                : [];
 
-        if (!data || data.length === 0) {
+        renderPackages();
+
+    }
+
+
+    function renderPackages(searchTerm = "") {
+
+        if (!packageGrid) {
+            return;
+        }
+
+        const search =
+            String(searchTerm || "")
+                .trim()
+                .toLowerCase();
+
+        const filtered =
+            allPackages.filter(function (pkg) {
+
+                if (!search) {
+                    return true;
+                }
+
+                const title =
+                    String(pkg.title || "").toLowerCase();
+
+                const location =
+                    String(pkg.location || "").toLowerCase();
+
+                const category =
+                    String(pkg.category || "").toLowerCase();
+
+                return (
+                    title.includes(search) ||
+                    location.includes(search) ||
+                    category.includes(search)
+                );
+
+            });
+
+        if (!filtered.length) {
 
             packageGrid.innerHTML = `
                 <div class="empty-state">
-                    <h3>No packages yet</h3>
-                    <p>Click "+ Add Package" to create your first package.</p>
+                    <h3>No packages found</h3>
+                    <p>Try another search term.</p>
                 </div>
             `;
 
             return;
+
         }
 
-
         packageGrid.innerHTML =
-            data.map(renderPackageCard).join("");
+            filtered.map(renderPackageCard).join("");
 
     }
 
@@ -5841,6 +6279,201 @@ if (imageFileInput) {
 
 }
 
+
+/* ==================================================
+   GLOBAL SEARCH
+================================================== */
+
+const globalSearch =
+    document.getElementById("globalSearch");
+
+let globalSearchTimer = null;
+
+function runGlobalSearch() {
+
+    if (!globalSearch) {
+        return;
+    }
+
+    const query =
+        globalSearch.value.trim();
+
+    if (!query) {
+        return;
+    }
+
+    const lower =
+        query.toLowerCase();
+
+    const packageMatch =
+        allPackages.some(function (pkg) {
+
+            return (
+                String(pkg.title || "")
+                    .toLowerCase()
+                    .includes(lower) ||
+                String(pkg.location || "")
+                    .toLowerCase()
+                    .includes(lower) ||
+                String(pkg.category || "")
+                    .toLowerCase()
+                    .includes(lower)
+            );
+
+        });
+
+    const enquiryMatch =
+        allEnquiries.some(function (item) {
+
+            return (
+                String(item.name || "")
+                    .toLowerCase()
+                    .includes(lower) ||
+                String(item.email || "")
+                    .toLowerCase()
+                    .includes(lower) ||
+                String(item.phone || "")
+                    .toLowerCase()
+                    .includes(lower) ||
+                String(
+                    item.package ||
+                    item.destination ||
+                    ""
+                )
+                    .toLowerCase()
+                    .includes(lower)
+            );
+
+        });
+
+    if (packageMatch) {
+
+        showPackages();
+
+        renderPackages(query);
+
+        return;
+
+    }
+
+    if (enquiryMatch) {
+
+        showEnquiries();
+
+        if (enquirySearch) {
+            enquirySearch.value = query;
+        }
+
+        renderEnquiries();
+
+        return;
+
+    }
+
+    // If there is no exact match, show Packages first so the
+    // user gets immediate feedback instead of a dead search bar.
+    showPackages();
+
+    renderPackages(query);
+
+}
+
+if (globalSearch) {
+
+    globalSearch.addEventListener(
+        "input",
+        function () {
+
+            clearTimeout(globalSearchTimer);
+
+            const query =
+                this.value.trim();
+
+            if (!query) {
+                return;
+            }
+
+            globalSearchTimer =
+                setTimeout(
+                    runGlobalSearch,
+                    180
+                );
+
+        }
+    );
+
+    globalSearch.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                clearTimeout(globalSearchTimer);
+
+                runGlobalSearch();
+
+            }
+
+        }
+    );
+
+}
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            (event.ctrlKey || event.metaKey) &&
+            event.key === "/"
+        ) {
+
+            event.preventDefault();
+
+            if (globalSearch) {
+                globalSearch.focus();
+                globalSearch.select();
+            }
+
+        }
+
+        if (
+            event.key === "Escape" &&
+            document.activeElement === globalSearch
+        ) {
+
+            globalSearch.value = "";
+
+            if (packageGrid) {
+                renderPackages("");
+            }
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   LIVE ENQUIRY SEARCH
+================================================== */
+
+if (enquirySearch) {
+    enquirySearch.addEventListener(
+        "input",
+        renderEnquiries
+    );
+}
+
+if (enquiryStatusFilter) {
+    enquiryStatusFilter.addEventListener(
+        "change",
+        renderEnquiries
+    );
+}
+
 /* ==================================================
    ADMIN NAVIGATION
 ================================================== */
@@ -5878,6 +6511,11 @@ function setActiveNav(activeButton) {
 
 function showDashboard() {
 
+    if (globalSearch && document.activeElement !== globalSearch) {
+        globalSearch.value = "";
+    }
+
+
     if (dashboardSection) {
         dashboardSection.classList.remove("hidden");
     }
@@ -5897,6 +6535,11 @@ function showDashboard() {
 }
 
 function showPackages() {
+
+    if (globalSearch && document.activeElement !== globalSearch) {
+        globalSearch.value = "";
+    }
+
 
     if (dashboardSection) {
         dashboardSection.classList.add("hidden");
@@ -5921,6 +6564,11 @@ function showPackages() {
 }
 
 function showEnquiries() {
+
+    if (globalSearch && document.activeElement !== globalSearch) {
+        globalSearch.value = "";
+    }
+
 
     if (dashboardSection) {
         dashboardSection.classList.add("hidden");
@@ -6396,6 +7044,8 @@ async function loadDashboardData() {
                 ? packagesResult.data
                 : [];
 
+        allPackages = packageList;
+
         if (totalPackagesStat) {
             totalPackagesStat.textContent = packageList.length;
         }
@@ -6544,6 +7194,8 @@ async function loadDashboardData() {
         Array.isArray(enquiriesResult.data)
             ? enquiriesResult.data
             : [];
+
+    allEnquiries = enquiryList;
 
     if (totalEnquiriesStat) {
         totalEnquiriesStat.textContent = enquiryList.length;
