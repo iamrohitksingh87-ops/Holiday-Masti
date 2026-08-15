@@ -596,32 +596,35 @@
 
     <main class="content">
 
-        <div class="page-heading">
+     <div class="page-heading">
 
-            <div>
-                <h1>Holiday Packages</h1>
-                <p>Add, edit and manage your travel packages.</p>
-            </div>
-         <button
-    id="enquiriesBtn"
-    class="add-btn"
-    type="button"
-    onclick="showEnquiries()"
->
-    Enquiries
-</button>
+    <div>
+        <h1>Holiday Packages</h1>
+        <p>Add, edit and manage your travel packages.</p>
+    </div>
 
-    + Add Package
-</button>
-           <button
-               id="addPackageBtn"
-               class="add-btn"
-               type="button"
-               onclick="openAddPackageModal()">
-               + Add Package
-           </button>
+    <div style="display:flex; gap:10px;">
 
-        </div>
+        <button
+            id="enquiriesBtn"
+            class="add-btn"
+            type="button"
+            onclick="showEnquiries()"
+        >
+            Enquiries
+        </button>
+
+        <button
+            id="addPackageBtn"
+            class="add-btn"
+            type="button"
+        >
+            + Add Package
+        </button>
+
+    </div>
+
+</div>
 
         <div id="status" class="status hidden"></div>
 
