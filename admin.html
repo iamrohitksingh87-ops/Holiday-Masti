@@ -2750,7 +2750,22 @@ if (!content) {
 
 }
 
-    content.innerHTML = `
+   const enquiryContent =
+    modal.querySelector(
+        "#enquiryDetailContent"
+    );
+
+if (!enquiryContent) {
+
+    alert(
+        "Enquiry details container not found."
+    );
+
+    return;
+
+}
+
+enquiryContent.innerHTML = `
 
         <div style="
             display:grid;
