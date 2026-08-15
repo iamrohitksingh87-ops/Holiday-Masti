@@ -1603,6 +1603,140 @@ body {
 .content {
     display: none !important;
 }
+        /* ==================================================
+   DASHBOARD NAVIGATION
+================================================== */
+
+const dashboardSection =
+    document.getElementById("dashboardSection");
+
+const dashboardNavBtn =
+    document.getElementById("dashboardNavBtn");
+
+const packagesNavBtn =
+    document.getElementById("packagesNavBtn");
+
+const enquiriesNavBtn =
+    document.getElementById("enquiriesNavBtn");
+
+const contentSection =
+    document.querySelector(".content");
+
+
+function setActiveNav(activeButton) {
+
+    document
+        .querySelectorAll(".sidebar-item")
+        .forEach(function (button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    if (activeButton) {
+
+        activeButton.classList.add("active");
+
+    }
+
+}
+
+
+/* ================= DASHBOARD ================= */
+
+if (dashboardNavBtn) {
+
+    dashboardNavBtn.addEventListener(
+        "click",
+        function () {
+
+            dashboardSection.classList.remove("hidden");
+
+            contentSection.style.display = "none";
+
+            if (enquiriesSection) {
+
+                enquiriesSection.classList.add("hidden");
+
+            }
+
+            setActiveNav(
+                dashboardNavBtn
+            );
+
+        }
+    );
+
+}
+
+
+/* ================= PACKAGES ================= */
+
+if (packagesNavBtn) {
+
+    packagesNavBtn.addEventListener(
+        "click",
+        function () {
+
+            dashboardSection.classList.add("hidden");
+
+            if (enquiriesSection) {
+
+                enquiriesSection.classList.add("hidden");
+
+            }
+
+            contentSection.style.display =
+                "block";
+
+            packageGrid.classList.remove(
+                "hidden"
+            );
+
+            setActiveNav(
+                packagesNavBtn
+            );
+
+            loadPackages();
+
+        }
+    );
+
+}
+
+
+/* ================= ENQUIRIES ================= */
+
+if (enquiriesNavBtn) {
+
+    enquiriesNavBtn.addEventListener(
+        "click",
+        function () {
+
+            dashboardSection.classList.add("hidden");
+
+            contentSection.style.display =
+                "none";
+
+            if (enquiriesSection) {
+
+                enquiriesSection.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+            setActiveNav(
+                enquiriesNavBtn
+            );
+
+            loadEnquiries();
+
+        }
+    );
+
+}
     </style>
 </head>
 
@@ -2833,12 +2967,30 @@ function showAdminGreeting(user) {
 
     function showAdmin() {
 
-        loginPage.classList.add("hidden");
-        adminPage.classList.remove("hidden");
+    loginPage.classList.add("hidden");
 
-        loadPackages();
+    adminPage.classList.remove("hidden");
+
+    dashboardSection.classList.remove(
+        "hidden"
+    );
+
+    contentSection.style.display =
+        "none";
+
+    if (enquiriesSection) {
+
+        enquiriesSection.classList.add(
+            "hidden"
+        );
 
     }
+
+    setActiveNav(
+        dashboardNavBtn
+    );
+
+}
 
 
     /* ==================================================
