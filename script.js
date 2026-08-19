@@ -1337,12 +1337,23 @@ function updateFeaturedOffersTicker(packages) {
     }
 
 
-    const featuredPackages =
-        packages.filter(
-            pkg =>
-                pkg.featured === true ||
-                pkg.featured === "true"
+   const featuredPackages =
+    packages.filter(pkg => {
+
+        const value =
+            String(pkg.featured ?? "")
+                .trim()
+                .toLowerCase();
+
+        return (
+            pkg.featured === true ||
+            value === "true" ||
+            value === "1" ||
+            value === "t" ||
+            value === "yes"
         );
+
+    });
 
 
     if (!featuredPackages.length) {
