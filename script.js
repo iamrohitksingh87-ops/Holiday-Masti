@@ -1319,7 +1319,121 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+/* =========================================================
+   FEATURED OFFERS TICKER
+   Shows only packages marked Featured in Admin
+========================================================= */
 
+function updateFeaturedOffersTicker(packages) {
+
+    const track =
+        document.getElementById("hmOffersTrack");
+
+    if (!track) {
+        console.warn(
+            "Featured offers ticker not found."
+        );
+        return;
+    }
+
+
+    const featuredPackages =
+        packages.filter(
+            pkg =>
+                pkg.featured === true ||
+                pkg.featured === "true"
+        );
+
+
+    if (!featuredPackages.length) {
+
+        track.innerHTML = `
+            <span>✦ HOLIDAY MASTI</span>
+            <span>✦ FEATURED OFFERS COMING SOON</span>
+            <span>🔔 DIVINE YATRA</span>
+        `;
+
+        return;
+    }
+
+
+    const offers =
+        featuredPackages.map(
+            pkg => {
+
+                const category =
+                    String(
+                        pkg.category || ""
+                    )
+                        .toLowerCase()
+                        .trim();
+
+
+                const isDivine =
+                    category === "divine" ||
+                    category === "divine yatra" ||
+                    category.includes("divine");
+
+
+                const icon =
+                    isDivine
+                        ? "🔔"
+                        : "✈️";
+
+
+                let price =
+                    pkg.price ??
+                    "On Request";
+
+
+                if (
+                    typeof price === "number"
+                ) {
+
+                    price =
+                        "₹" +
+                        price.toLocaleString(
+                            "en-IN"
+                        );
+
+                }
+
+
+                return `
+                    <span>
+                        ${icon}
+                        ${escapeHTML(
+                            pkg.title ||
+                            "Featured Package"
+                        )}
+                        — FROM
+                        ${escapeHTML(
+                            price
+                        )}
+                        <i>✦</i>
+                    </span>
+                `;
+
+            }
+        );
+
+
+    /*
+      Duplicate the offers once so the
+      existing marquee animation loops smoothly.
+    */
+
+    track.innerHTML =
+        offers.join("") +
+        offers.join("");
+
+
+    console.log(
+        "⭐ Featured offers loaded:",
+        featuredPackages
+    );
+
+}
     /* =========================================================
        LOAD SUPABASE PACKAGES
     ========================================================= */
