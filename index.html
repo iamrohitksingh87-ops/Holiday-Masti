@@ -3588,6 +3588,209 @@ footer .footer-bottom span:last-child:hover{
 }
 </style>
 
+
+<style id="holiday-masti-mobile-navbar-final-v4">
+/* =========================================================
+   HOLIDAY MASTI — FINAL MOBILE NAVBAR FIX
+   Desktop remains unchanged.
+   Mobile uses two clean rows:
+   Row 1 = Brand + Escape Now
+   Row 2 = Navigation links
+========================================================= */
+
+@media (max-width: 767px) {
+
+  .nav {
+    width: calc(100% - 16px) !important;
+    height: 88px !important;
+    min-height: 88px !important;
+
+    top: 8px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+
+    padding: 7px 9px 6px 11px !important;
+    gap: 3px !important;
+
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-content: center !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    box-sizing: border-box !important;
+  }
+
+  /* ---------- ROW 1: BRAND ---------- */
+
+  .nav .brand {
+    order: 1 !important;
+
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    font-size: 14px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  .nav .brand span {
+    padding: 2px 5px !important;
+  }
+
+  /* ---------- ROW 1: CTA ---------- */
+
+  .nav .navcta {
+    order: 2 !important;
+
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+
+    height: 38px !important;
+    min-height: 38px !important;
+
+    margin: 0 0 0 auto !important;
+    padding: 0 12px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-size: 10px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+
+    box-sizing: border-box !important;
+  }
+
+  /* ---------- ROW 2: NAV LINKS ---------- */
+
+  .nav .navlinks {
+    order: 3 !important;
+
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    height: 31px !important;
+    min-height: 31px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    gap: 3px !important;
+
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+
+    touch-action: pan-x !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-x: contain !important;
+  }
+
+  .nav .navlinks::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  .nav .navlinks a {
+    flex: 0 0 auto !important;
+
+    width: auto !important;
+    min-width: max-content !important;
+    height: 28px !important;
+    min-height: 28px !important;
+
+    margin: 0 !important;
+    padding: 0 7px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-size: 9px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+
+    border-radius: 999px !important;
+
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Touch highlight */
+  .nav .navlinks a.hm-nav-tap,
+  .nav .navlinks a.hm-nav-active {
+    background: var(--lime, #c7ff32) !important;
+    color: #111 !important;
+
+    transform: translateY(-1px) scale(1.03) !important;
+
+    box-shadow: 2px 2px 0 #111 !important;
+  }
+
+  /* Prevent desktop hover rules from making mobile links jump */
+  .nav .navlinks a:hover {
+    transform: none !important;
+    background: transparent !important;
+    color: inherit !important;
+    box-shadow: none !important;
+  }
+
+  .nav .navlinks a.hm-nav-tap:hover,
+  .nav .navlinks a.hm-nav-active:hover {
+    background: var(--lime, #c7ff32) !important;
+    color: #111 !important;
+    transform: translateY(-1px) scale(1.03) !important;
+    box-shadow: 2px 2px 0 #111 !important;
+  }
+}
+
+/* ---------- SMALL PHONES ---------- */
+
+@media (max-width: 390px) {
+
+  .nav {
+    height: 86px !important;
+    min-height: 86px !important;
+  }
+
+  .nav .brand {
+    font-size: 13px !important;
+  }
+
+  .nav .navcta {
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 10px !important;
+    font-size: 9.5px !important;
+  }
+
+  .nav .navlinks a {
+    height: 27px !important;
+    min-height: 27px !important;
+    padding: 0 6px !important;
+    font-size: 8.5px !important;
+  }
+}
+</style>
+
 </head>
 <body>
   <div class="cursor-dot" id="cursor"></div>
