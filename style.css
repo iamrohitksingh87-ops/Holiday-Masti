@@ -3887,3 +3887,55 @@
     z-index:12 !important;
     pointer-events:auto !important;
 }
+/* =========================================================
+   HOLIDAY MASTI — SAKURA HERO BACKGROUND
+========================================================= */
+
+.hero{
+    position:relative !important;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(245,241,232,.90) 0%,
+            rgba(245,241,232,.55) 42%,
+            rgba(245,241,232,.12) 72%,
+            rgba(245,241,232,.02) 100%
+        ),
+        url("images/holiday-masti-sakura-home.png") center center / cover no-repeat !important;
+    overflow:hidden !important;
+}
+
+.hero-grid{
+    position:relative !important;
+    z-index:3 !important;
+}
+
+.hero-stage{
+    position:relative !important;
+    z-index:3 !important;
+}
+
+/* Keep the 3D globe visible above the Sakura scene */
+#globe{
+    position:relative !important;
+    z-index:4 !important;
+}
+
+/* Remove old pagoda / wind-chime artwork */
+.hm-chime-art,
+.hm-chime-hotspot{
+    display:none !important;
+}
+
+/* Mobile */
+@media(max-width:900px){
+    .hero{
+        background-position:center center !important;
+    }
+}
+
+@media(max-width:560px){
+    .hero{
+        background-position:58% center !important;
+    }
+}
