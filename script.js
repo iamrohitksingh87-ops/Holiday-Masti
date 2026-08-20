@@ -1,2345 +1,2018 @@
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
 
-const $=(s,p=document)=>p.querySelector(s);
-const $$=(s,p=document)=>[...p.querySelectorAll(s)];
-const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-const scrollTo=s=>{const e=$(s);if(e)e.scrollIntoView({behavior:"smooth",block:"start"});};
+    "use strict";
 
-const year=$("#year"); 
-if(year)year.textContent=new Date().getFullYear();
-/* ================= SUPABASE ================= */
 
-const SUPABASE_URL =
-    "https://wwfatmtqrswayugaqhra.supabase.co";
+    /* =========================================================
+       HELPERS
+    ========================================================= */
 
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_IVMKY-BoIe9TYajxRHszSQ_1RUKOxDw";
+    const $ = (selector, parent = document) =>
+        parent.querySelector(selector);
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
-/* ================= MODAL ================= */
+    const $$ = (selector, parent = document) =>
+        [...parent.querySelectorAll(selector)];
 
-const modal=$("#detailsModal");
 
-const closeModal=()=>{
-    if(modal){
-        modal.classList.remove("open");
-        modal.setAttribute("aria-hidden","true");
-    }
-};
+    const escapeHTML = (value) =>
+        String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
 
-$$("[data-close-modal]").forEach(e=>e.addEventListener("click",ev=>{
-    ev.preventDefault();
-    closeModal();
 
-    if(e.getAttribute("href")==="#contact"){
-        setTimeout(()=>scrollTo("#contact"),150);
-    }
-}));
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
 
-document.addEventListener("keydown",e=>{
-    if(e.key==="Escape")closeModal();
-});
+    $$(".navlinks a, .navcta, .brand").forEach((link) => {
 
+        link.addEventListener("click", (event) => {
 
-/* ================= PACKAGE DATA ================= */
+            const href =
+                link.getAttribute("href");
 
-const data = {
+            if (!href || !href.startsWith("#")) {
+                return;
+            }
 
-"Goa Beach Escape": {
+            event.preventDefault();
 
-    image:
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=90",
 
-    loc: "GOA • INDIA",
-    rating: "4.8",
-    reviews: "120+ Reviews",
-    duration: "3 Nights / 4 Days",
+            if (href === "#home") {
 
-    description:
-    "Relax on beautiful beaches, enjoy delicious local food and experience the best of Goa with a perfect mix of relaxation, sightseeing and fun.",
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
 
-    includes: [
-
-        ["🏨","Hotel / Resort","Comfortable stay in a handpicked property."],
-
-        ["🍳","Breakfast","Daily breakfast included."],
-
-        ["🚗","Transfers","Airport and local sightseeing transfers."],
-
-        ["🏖️","Beach Experience","Explore Goa's beautiful beaches."]
-    ],
-
-    days: [
-
-    ["1","Arrival in Goa",
-    "Arrive at Goa Airport and meet your travel representative. Transfer to your hotel and complete check-in. Spend the evening relaxing by the beach and enjoy a beautiful Goan sunset."],
-
-    ["2","North Goa Exploration",
-    "After breakfast, explore the famous beaches of North Goa including Baga and Calangute. Visit Aguada Fort and enjoy time at local cafés and beachside spots. Return to the hotel in the evening."],
-
-    ["3","South Goa & Leisure",
-    "Discover the peaceful side of Goa with a visit to South Goa beaches and scenic viewpoints. Enjoy a relaxed afternoon and spend the evening exploring local markets or enjoying a beachside dinner."],
-
-    ["4","Departure",
-    "Enjoy breakfast at the hotel and check out. Depending on your departure time, enjoy some free time before your private transfer to Goa Airport."]
-]
-},
-
-
-"Bali Paradise": {
-
-    image:
-    "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=90",
-
-    loc: "BALI • INDONESIA",
-    rating: "4.9",
-    reviews: "140+ Reviews",
-    duration: "5 Nights / 6 Days",
-
-    description:
-    "Discover tropical beaches, peaceful temples, lush rice terraces and unforgettable island experiences in beautiful Bali.",
-
-    includes: [
-
-        ["🏨","Resort Stay","Comfortable stay in selected resorts."],
-
-        ["🍳","Breakfast","Daily breakfast included."],
-
-        ["🚗","Private Transfers","Airport and sightseeing transfers."],
-
-        ["🌴","Island Experiences","Curated Bali sightseeing."]
-    ],
-
-    days: [
-
-        ["1","Arrival in Bali",
-        "Arrive at Ngurah Rai International Airport and meet your representative. Private transfer to your resort, check-in and relax after your journey."],
-
-        ["2","Ubud & Rice Terraces",
-        "Explore the cultural heart of Bali with Ubud, traditional temples and beautiful rice terraces. Enjoy local cafés, art markets and scenic surroundings."],
-
-        ["3","Kintamani & Volcano Views",
-        "Travel towards the Kintamani highlands and enjoy panoramic views of Mount Batur. Visit local attractions and experience Bali's unique culture and landscapes."],
-
-        ["4","Beach & Leisure Day",
-        "Enjoy a relaxed day around Bali's beautiful beaches. Spend time at the resort, explore the coastline or enjoy optional water activities."],
-
-        ["5","Island Experience",
-        "Explore more of Bali with a scenic island experience. Discover hidden viewpoints, local culture and beautiful tropical surroundings before returning to your resort."],
-
-        ["6","Departure",
-        "Enjoy your final breakfast before checking out. Private transfer to the airport according to your flight schedule."]
-    ]
-},
-
-
-"Dubai Luxury": {
-
-    image:
-    "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1600&q=90",
-
-    loc: "DUBAI • UAE",
-    rating: "4.7",
-    reviews: "100+ Reviews",
-    duration: "4 Nights / 5 Days",
-
-    description:
-    "Experience Dubai's iconic skyline, luxury shopping, desert adventures and unforgettable city attractions.",
-
-    includes: [
-
-        ["🏨","Luxury Hotel","Premium hotel accommodation."],
-
-        ["🍳","Breakfast","Daily breakfast included."],
-
-        ["🚐","Transfers","Airport and sightseeing transfers."],
-
-        ["🏙️","City Experience","Dubai's iconic attractions."]
-    ],
-
-    days: [
-
-        ["1","Arrival in Dubai",
-        "Arrive in Dubai and meet your representative at the airport. Private transfer to your hotel followed by check-in and leisure time."],
-
-        ["2","Dubai City Tour",
-        "Explore modern Dubai including Burj Khalifa, Dubai Mall, Downtown Dubai and other iconic landmarks. Enjoy the spectacular city skyline during your evening."],
-
-        ["3","Desert Safari",
-        "Enjoy a desert adventure with dune bashing, beautiful sunset views and an evening filled with traditional entertainment and dining."],
-
-        ["4","Palm Jumeirah & Marina",
-        "Explore Palm Jumeirah, Dubai Marina and the city's famous waterfront attractions. Spend some free time shopping or enjoying Dubai's vibrant evening atmosphere."],
-
-        ["5","Departure",
-        "Enjoy breakfast and complete your check-out. Private transfer to Dubai International Airport for your onward journey."]
-    ]
-},
-
-
-"Kashmir Heaven": {
-
-    image:
-    "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1600&q=90",
-
-    loc: "KASHMIR • INDIA",
-    rating: "4.9",
-    reviews: "130+ Reviews",
-    duration: "5 Nights / 6 Days",
-
-    description:
-    "Explore serene valleys, beautiful mountain landscapes, peaceful lakes and the unforgettable natural beauty of Kashmir.",
-
-    includes: [
-
-        ["🏨","Hotel Stay","Comfortable stays in selected hotels."],
-
-        ["🍳","Breakfast","Daily breakfast included."],
-
-        ["🚗","Transfers","Private local transportation."],
-
-        ["🏔️","Sightseeing","Curated Kashmir experiences."]
-    ],
-
-    days: [
-
-        ["1","Arrival in Srinagar",
-        "Arrive in Srinagar and meet your representative. Transfer to your hotel or houseboat and enjoy a relaxed evening beside the beautiful Dal Lake."],
-
-        ["2","Srinagar Sightseeing",
-        "Explore Srinagar's famous attractions including Mughal gardens, Dal Lake and local markets. Enjoy the peaceful atmosphere and beautiful Himalayan surroundings."],
-
-        ["3","Gulmarg Excursion",
-        "Travel to Gulmarg, one of Kashmir's most beautiful mountain destinations. Enjoy panoramic views, scenic walks and optional activities depending on the season."],
-
-        ["4","Pahalgam Valley",
-        "Visit the picturesque Pahalgam valley surrounded by mountains and flowing rivers. Enjoy nature, scenic viewpoints and a peaceful day away from the city."],
-
-        ["5","Leisure in Srinagar",
-        "Enjoy a relaxed morning and explore local markets for Kashmiri handicrafts, dry fruits and souvenirs. Spend the evening enjoying the beautiful surroundings."],
-
-        ["6","Departure",
-        "Enjoy breakfast before check-out. Private transfer to Srinagar Airport according to your departure schedule."]
-    ]
-},
-
-
-"Kerala Backwaters": {
-
-    image:
-    "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1600&q=90",
-
-    loc: "KERALA • INDIA",
-    rating: "4.8",
-    reviews: "120+ Reviews",
-    duration: "4 Nights / 5 Days",
-
-    description:
-    "Enjoy calm backwaters, lush greenery, scenic hill stations and a relaxing Kerala holiday filled with nature and local experiences.",
-
-    includes: [
-
-        ["🏨","Hotel / Resort","Comfortable stay in quality properties."],
-
-        ["🍳","Breakfast","Daily breakfast included."],
-
-        ["🚗","Transfers","Airport, hotel and sightseeing transfers."],
-
-        ["🛶","Backwater Experience","Enjoy Kerala's famous waterways."]
-    ],
-
-    days: [
-
-        ["1","Arrival in Kochi",
-        "Welcome at Kochi Airport followed by a private transfer to your hotel. Complete check-in and spend the evening relaxing or exploring the nearby area. Overnight stay in Kochi."],
-
-        ["2","Kochi → Munnar",
-        "After breakfast, begin your scenic journey towards Munnar through lush green landscapes. Visit tea plantations and enjoy beautiful mountain viewpoints before checking into your resort."],
-
-        ["3","Explore Munnar",
-        "Discover the famous tea gardens and mountain scenery of Munnar. Visit popular viewpoints and local attractions, followed by a relaxed evening at the resort."],
-
-        ["4","Munnar → Alleppey",
-        "After breakfast, travel towards Alleppey, the heart of Kerala's famous backwaters. Check into your waterfront stay and enjoy a peaceful evening surrounded by coconut palms and waterways."],
-
-        ["5","Alleppey → Kochi & Departure",
-        "Enjoy breakfast before your transfer towards Kochi. Depending on your departure time, enjoy some final sightseeing or shopping before your airport drop."]
-    ]
-},
-
-
-"Thailand Adventure": {
-
-    image:
-    "https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1600&q=90",
-
-    loc: "THAILAND",
-    rating: "4.7",
-    reviews: "100+ Reviews",
-    duration: "5 Nights / 6 Days",
-
-    description:
-    "Discover tropical islands, vibrant markets, beautiful beaches and exciting adventures across Thailand.",
-
-    includes: [
-
-        ["🏨","Hotel Stay","Comfortable accommodation."],
-
-        ["🍳","Breakfast","Daily breakfast included."],
-
-        ["🚐","Transfers","Airport and local transfers."],
-
-        ["🏝️","Island Experience","Explore Thailand's tropical beauty."]
-    ],
-
-    days: [
-
-        ["1","Arrival in Bangkok",
-        "Arrive in Bangkok and meet your representative. Transfer to your hotel, complete check-in and enjoy the evening at leisure."],
-
-        ["2","Bangkok City",
-        "Explore Bangkok's famous temples, markets and cultural attractions. Enjoy the city's unique combination of traditional heritage and modern lifestyle."],
-
-        ["3","Island Escape",
-        "Travel towards one of Thailand's beautiful island destinations. Relax on the beach, enjoy the tropical surroundings and take part in optional activities."],
-
-        ["4","Adventure Day",
-        "Enjoy a day filled with water activities, sightseeing and local experiences. Discover hidden corners of the destination and enjoy a beautiful tropical sunset."],
-
-        ["5","Leisure & Shopping",
-        "Spend a relaxed day exploring local markets, shopping areas and cafés. Enjoy some free time to experience Thailand at your own pace."],
-
-        ["6","Departure",
-        "Enjoy your final breakfast before checking out. Transfer to the airport according to your flight schedule."]
-    ]
-}
-};
-
-
-/* ================= OPEN PACKAGE ================= */
-
-function openPackage(title, price, description) {
-
-    if (!modal) return;
-
-    const box = $(".modal-box", modal);
-
-    if (!box) return;
-
-    const t = $("#modalTitle");
-    const d = $("#modalDescription");
-    const p = $("#modalPrice");
-
-    if (t) t.textContent = title;
-    if (d) d.textContent = description || "";
-    if (p) p.textContent = price || "";
-
-    const old = $(".premium-package-details", box);
-
-    if (old) {
-        old.remove();
-    }
-
-    const x = data[title] || {
-        image: "",
-        loc: "HOLIDAY MASTI",
-        rating: "4.8",
-        reviews: "100+ Reviews",
-        duration: "Custom Package",
-        description:
-            description ||
-            "Experience an unforgettable holiday with Holiday Masti.",
-        includes: [
-            ["🏨","Hotel Stay","Comfortable accommodation."],
-            ["🍳","Breakfast","Daily breakfast included."],
-            ["🚗","Transfers","Local transfers included."],
-            ["📸","Sightseeing","Curated local experiences."]
-        ],
-        days: [
-            ["1","Arrival","Welcome and hotel check-in."],
-            ["2","Explore","Enjoy sightseeing and local experiences."],
-            ["3","Leisure","Free time to explore at your own pace."],
-            ["4","Departure","Breakfast and onward transfer."]
-        ]
-    };
-
-
-    const wrap = document.createElement("div");
-
-    wrap.className =
-        "premium-package-details";
-
-
-    wrap.innerHTML = `
-
-        <!-- ================= HEADER ================= -->
-
-        <div class="package-premium-header">
-
-            <div class="package-header-content">
-
-                <div class="package-kicker">
-                    HOLIDAY PACKAGE
-                </div>
-
-                <h2>
-                    ${esc(title)}
-                </h2>
-
-                <p class="package-header-description">
-                    ${esc(x.description)}
-                </p>
-
-                <span class="package-header-price-label">
-                    Starting from
-                </span>
-
-                <div class="package-header-price">
-                    ${esc(price || "On Request")}
-                </div>
-
-            </div>
-
-
-            <div class="package-header-image">
-
-                ${
-                    x.image
-                    ? `<img
-                        src="${x.image}"
-                        alt="${esc(title)}"
-                        loading="lazy"
-                    >`
-                    : ""
-                }
-
-            </div>
-
-        </div>
-
-
-        <!-- ================= META ================= -->
-
-        <div class="package-meta">
-
-            <div class="package-meta-item">
-
-                📍
-
-                ${esc(x.loc)}
-
-            </div>
-
-
-            <div class="package-meta-item rating">
-
-                ⭐
-
-                ${esc(x.rating)}
-
-                <span>
-                    (${esc(x.reviews)})
-                </span>
-
-            </div>
-
-
-            <div class="package-meta-item">
-
-                🌙
-
-                ${esc(x.duration)}
-
-            </div>
-
-        </div>
-
-
-        <!-- ================= BODY ================= -->
-
-        <div class="package-premium-body">
-
-
-            <!-- LEFT COLUMN -->
-
-            <div class="package-left-column">
-
-                <h3 class="package-premium-title">
-                    What's Included
-                </h3>
-
-
-                <div class="package-includes-grid">
-
-                    ${x.includes.map(item => `
-
-                        <div class="package-include-card">
-
-                            <div class="package-include-icon">
-                                ${item[0]}
-                            </div>
-
-                            <strong>
-                                ${esc(item[1])}
-                            </strong>
-
-                            <span>
-                                ${esc(item[2])}
-                            </span>
-
-                        </div>
-
-                    `).join("")}
-
-                </div>
-
-
-                <!-- CTA -->
-
-                <div class="package-cta-box">
-
-                    <button
-                        type="button"
-                        class="package-cta-button package-cta-enquire">
-
-                        <span class="enquire-icon">
-                            <i class="fa-solid fa phone" aria-hidden="true"></i>
-                            <span>Enquire Now</span>
-                        </span>
-
-                    </button>
-
-
-                    <a
-                        class="package-cta-button package-cta-whatsapp"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://wa.me/917851007007?text=${encodeURIComponent(
-                            "Hi Holiday Masti, I am interested in " +
-                            title +
-                            (price ? " - " + price : "") +
-                            ". Please share complete package details."
-                        )}">
-
-                       <span class="whatsapp-icon">
-                           <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-                           <span>WhatsApp Us</span>
-                       </span>
-
-                    </a>
-
-
-                    <div class="package-trust">
-
-                        <span>
-                            🛡️ 100% Secure
-                        </span>
-
-                        <span>
-                            •
-                        </span>
-
-                        <span>
-                            🏆 Best Price Guarantee
-                        </span>
-
-                        <span>
-                            •
-                        </span>
-
-                        <span>
-                            🎧 24×7 Support
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- RIGHT COLUMN -->
-
-            <div class="package-right-column">
-
-                <h3 class="package-premium-title">
-                    Your Itinerary
-                </h3>
-
-
-                <div class="package-itinerary">
-
-                    ${x.days.map(day => `
-
-                        <div class="package-day">
-
-                            <div class="package-day-number">
-                                ${esc(day[0])}
-                            </div>
-
-                            <div>
-
-                                <h4>
-                                    ${esc(day[1])}
-                                </h4>
-
-                                <p>
-                                    ${esc(day[2])}
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    `).join("")}
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-    `;
-
-
-    const oldBtn =
-        $(".modal-enquire", box);
-
-
-    if (oldBtn) {
-
-        oldBtn.style.display = "none";
-
-        box.appendChild(wrap);
-
-    } else {
-
-        box.appendChild(wrap);
-
-    }
-
-
-    /* ================= ENQUIRE ================= */
-
-    const enquire =
-        $(".package-cta-enquire", wrap);
-
-
-    if (enquire) {
-
-        enquire.addEventListener(
-            "click",
-            function () {
-
-                closeModal();
-
-                const message =
-                    $("#contactMessage");
-
-                if (message) {
-
-                    message.value =
-                        "I am interested in " +
-                        title +
-                        (price
-                            ? " (" + price + ")"
-                            : "") +
-                        ". Please share complete package details.";
-
-                }
-
-                setTimeout(
-                    function () {
-                        scrollTo("#contact");
-                    },
-                    150
+                history.replaceState(
+                    null,
+                    "",
+                    "#home"
                 );
+
+                return;
+            }
+
+
+            const target =
+                $(href);
+
+            if (!target) {
+
+                console.warn(
+                    "Navigation target not found:",
+                    href
+                );
+
+                return;
+            }
+
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+
+            history.replaceState(
+                null,
+                "",
+                href
+            );
+
+        });
+
+    });
+
+
+    /* =========================================================
+       3D GLOBE
+    ========================================================= */
+
+    const canvas =
+        $("#globe");
+
+
+    if (canvas && window.THREE) {
+
+        const renderer =
+            new THREE.WebGLRenderer({
+                canvas,
+                antialias: true,
+                alpha: true
+            });
+
+
+        renderer.setPixelRatio(
+            Math.min(
+                window.devicePixelRatio || 1,
+                2
+            )
+        );
+
+
+        const scene =
+            new THREE.Scene();
+
+
+        const camera =
+            new THREE.PerspectiveCamera(
+                34,
+                1,
+                0.1,
+                100
+            );
+
+
+        camera.position.set(
+            0,
+            0,
+            5.4
+        );
+
+
+        const globeGroup =
+            new THREE.Group();
+
+
+        scene.add(
+            globeGroup
+        );
+
+
+        const ambientLight =
+            new THREE.AmbientLight(
+                0xffffff,
+                2.2
+            );
+
+
+        scene.add(
+            ambientLight
+        );
+
+
+        const directionalLight =
+            new THREE.DirectionalLight(
+                0xffffff,
+                2.8
+            );
+
+
+        directionalLight.position.set(
+            4,
+            3,
+            5
+        );
+
+
+        scene.add(
+            directionalLight
+        );
+
+
+        const globe =
+            new THREE.Mesh(
+
+                new THREE.SphereGeometry(
+                    1.55,
+                    48,
+                    48
+                ),
+
+                new THREE.MeshStandardMaterial({
+                    color: 0x151515,
+                    roughness: 0.72,
+                    metalness: 0.12
+                })
+
+            );
+
+
+        globeGroup.add(
+            globe
+        );
+
+
+        const globeGrid =
+            new THREE.Mesh(
+
+                new THREE.SphereGeometry(
+                    1.58,
+                    24,
+                    16
+                ),
+
+                new THREE.MeshBasicMaterial({
+                    color: 0xc9ff39,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.16
+                })
+
+            );
+
+
+        globeGroup.add(
+            globeGrid
+        );
+
+
+        function addMarker(
+            latitude,
+            longitude,
+            color,
+            size
+        ) {
+
+            const phi =
+                (90 - latitude) *
+                Math.PI /
+                180;
+
+
+            const theta =
+                (longitude + 180) *
+                Math.PI /
+                180;
+
+
+            const x =
+                -1.62 *
+                Math.sin(phi) *
+                Math.cos(theta);
+
+
+            const y =
+                1.62 *
+                Math.cos(phi);
+
+
+            const z =
+                1.62 *
+                Math.sin(phi) *
+                Math.sin(theta);
+
+
+            const marker =
+                new THREE.Mesh(
+
+                    new THREE.SphereGeometry(
+                        size,
+                        16,
+                        16
+                    ),
+
+                    new THREE.MeshStandardMaterial({
+                        color,
+                        emissive: color,
+                        emissiveIntensity: 0.18
+                    })
+
+                );
+
+
+            marker.position.set(
+                x,
+                y,
+                z
+            );
+
+
+            globeGroup.add(
+                marker
+            );
+
+
+            const markerRing =
+                new THREE.Mesh(
+
+                    new THREE.RingGeometry(
+                        size * 1.8,
+                        size * 2.15,
+                        32
+                    ),
+
+                    new THREE.MeshBasicMaterial({
+                        color,
+                        side: THREE.DoubleSide,
+                        transparent: true,
+                        opacity: 0.65
+                    })
+
+                );
+
+
+            markerRing.position.copy(
+                marker.position
+            );
+
+
+            markerRing.lookAt(
+                0,
+                0,
+                0
+            );
+
+
+            globeGroup.add(
+                markerRing
+            );
+
+        }
+
+
+        addMarker(
+            1.29,
+            103.85,
+            0xc9ff39,
+            0.105
+        );
+
+
+        addMarker(
+            -8.34,
+            115.09,
+            0xff6b35,
+            0.11
+        );
+
+
+        addMarker(
+            35.68,
+            139.65,
+            0x52e7df,
+            0.10
+        );
+
+
+        addMarker(
+            4.17,
+            73.51,
+            0x7257ff,
+            0.09
+        );
+
+
+        const floatingToken =
+            new THREE.Mesh(
+
+                new THREE.IcosahedronGeometry(
+                    0.28,
+                    1
+                ),
+
+                new THREE.MeshStandardMaterial({
+                    color: 0xff6b35,
+                    roughness: 0.4,
+                    metalness: 0.1
+                })
+
+            );
+
+
+        floatingToken.position.set(
+            1.95,
+            0.95,
+            0.15
+        );
+
+
+        scene.add(
+            floatingToken
+        );
+
+
+        const orbitRing =
+            new THREE.Mesh(
+
+                new THREE.TorusGeometry(
+                    1.95,
+                    0.025,
+                    8,
+                    90
+                ),
+
+                new THREE.MeshBasicMaterial({
+                    color: 0xff6b35,
+                    transparent: true,
+                    opacity: 0.35
+                })
+
+            );
+
+
+        orbitRing.rotation.x =
+            0.8;
+
+
+        orbitRing.rotation.y =
+            0.2;
+
+
+        scene.add(
+            orbitRing
+        );
+
+
+        function resizeGlobe() {
+
+            const rect =
+                canvas.getBoundingClientRect();
+
+
+            if (!rect.width || !rect.height) {
+                return;
+            }
+
+
+            renderer.setSize(
+                rect.width,
+                rect.height,
+                false
+            );
+
+
+            camera.aspect =
+                rect.width /
+                rect.height;
+
+
+            camera.updateProjectionMatrix();
+
+        }
+
+
+        resizeGlobe();
+
+
+        window.addEventListener(
+            "resize",
+            resizeGlobe
+        );
+
+
+        let targetX = 0;
+        let targetY = 0;
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+
+        canvas.addEventListener(
+            "pointermove",
+            (event) => {
+
+                const rect =
+                    canvas.getBoundingClientRect();
+
+
+                targetX =
+                    (event.clientX - rect.left) /
+                    rect.width -
+                    0.5;
+
+
+                targetY =
+                    (event.clientY - rect.top) /
+                    rect.height -
+                    0.5;
 
             }
         );
 
+
+        function animateGlobe() {
+
+            requestAnimationFrame(
+                animateGlobe
+            );
+
+
+            mouseX +=
+                (targetX - mouseX) *
+                0.035;
+
+
+            mouseY +=
+                (targetY - mouseY) *
+                0.035;
+
+
+            globeGroup.rotation.y +=
+                0.0028 +
+                mouseX * 0.012;
+
+
+            globeGroup.rotation.x +=
+                (
+                    mouseY * 0.35 -
+                    globeGroup.rotation.x
+                ) * 0.02;
+
+
+            floatingToken.rotation.x +=
+                0.008;
+
+
+            floatingToken.rotation.y +=
+                0.011;
+
+
+            orbitRing.rotation.z +=
+                0.002;
+
+
+            renderer.render(
+                scene,
+                camera
+            );
+
+        }
+
+
+        animateGlobe();
+
     }
 
 
-    /* ================= OPEN ================= */
+    /* =========================================================
+       CUSTOM CURSOR
+    ========================================================= */
 
-    modal.classList.add("open");
-
-    modal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    /* Start modal at top */
-
-    box.scrollTop = 0;
-
-}
+    const cursor =
+        $("#cursor");
 
 
-/* ================= SUPABASE PACKAGES ================= */
+    if (cursor) {
 
+        window.addEventListener(
+            "pointermove",
+            (event) => {
 
-function packagePrice(value) {
+                cursor.style.left =
+                    event.clientX + "px";
 
-    if (
-        value === null ||
-        value === undefined ||
-        value === ""
-    ) {
-        return "On Request";
-    }
+                cursor.style.top =
+                    event.clientY + "px";
 
-    const number =
-        Number(
-            String(value)
-                .replace(/[^0-9.]/g, "")
+            }
         );
 
-    if (!Number.isNaN(number)) {
 
-        return "₹" +
-            number.toLocaleString("en-IN");
+        $$(
+            ".nav a, .btn, .dest, button"
+        ).forEach((element) => {
+
+            element.addEventListener(
+                "mouseenter",
+                () => {
+
+                    cursor.style.transform =
+                        "translate(-50%,-50%) scale(2.2)";
+
+                }
+            );
+
+
+            element.addEventListener(
+                "mouseleave",
+                () => {
+
+                    cursor.style.transform =
+                        "translate(-50%,-50%) scale(1)";
+
+                }
+            );
+
+        });
 
     }
 
-    return String(value);
-}
+
+    /* =========================================================
+       PACKAGE SYSTEM
+    ========================================================= */
+
+    const packageModal =
+        $("#packageDetailsModal");
 
 
-function normaliseIncludes(value) {
+    const packageModalContent =
+        $("#packageModalContent");
 
-    if (
-        !Array.isArray(value) ||
-        value.length === 0
-    ) {
 
-        return [
+    const packageStore =
+        {};
 
-            [
-                "🏨",
-                "Hotel Stay",
-                "Comfortable accommodation."
+
+    /* =========================================================
+       FALLBACK PACKAGES
+       Used if Supabase is unavailable.
+    ========================================================= */
+
+    const fallbackPackages = {
+
+        "Goa Beach Escape": {
+
+            category: "holiday",
+
+            location: "GOA • INDIA",
+
+            duration: "3 Nights / 4 Days",
+
+            price: "₹18,999",
+
+            rating: "4.8",
+
+            reviews: "120+ Reviews",
+
+            image:
+                "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=90",
+
+            description:
+                "Relax on beautiful beaches, enjoy delicious local food and experience the best of Goa.",
+
+            includes: [
+                ["🏨", "Hotel / Resort", "Comfortable handpicked accommodation."],
+                ["🍳", "Breakfast", "Daily breakfast included."],
+                ["🚗", "Transfers", "Airport and local transfers."],
+                ["📸", "Sightseeing", "Curated destination experiences."]
             ],
 
-            [
-                "🍳",
-                "Breakfast",
-                "Daily breakfast included."
-            ],
-
-            [
-                "🚗",
-                "Transfers",
-                "Local transfers included."
-            ],
-
-            [
-                "📸",
-                "Sightseeing",
-                "Curated local experiences."
+            days: [
+                ["1", "Arrival in Goa", "Arrive at Goa Airport, transfer to your hotel and enjoy a relaxed evening by the beach."],
+                ["2", "North Goa Exploration", "Explore Baga, Calangute and Aguada Fort. Enjoy cafés, beaches and the beautiful Goan sunset."],
+                ["3", "South Goa & Leisure", "Explore South Goa beaches and scenic viewpoints. Enjoy a relaxed afternoon and local markets."],
+                ["4", "Departure", "Breakfast, check-out and transfer to Goa Airport."]
             ]
 
-        ];
-
-    }
+        },
 
 
-    return value.map(item => {
+        "Bali Paradise": {
 
-        if (Array.isArray(item)) {
+            category: "holiday",
 
-            return [
+            location: "BALI • INDONESIA",
 
-                item[0] || "✓",
+            duration: "5 Nights / 6 Days",
 
-                item[1] || "Included",
+            price: "₹42,999",
 
-                item[2] || ""
+            rating: "4.9",
 
-            ];
+            reviews: "140+ Reviews",
+
+            image:
+                "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=90",
+
+            description:
+                "Discover tropical beaches, peaceful temples, lush rice terraces and unforgettable Bali experiences.",
+
+            includes: [
+                ["🏨", "Hotel / Resort", "Comfortable handpicked accommodation."],
+                ["🍳", "Breakfast", "Daily breakfast included."],
+                ["🚗", "Transfers", "Airport and local transfers."],
+                ["📸", "Sightseeing", "Curated destination experiences."]
+            ],
+
+            days: [
+                ["1", "Arrival in Bali", "Airport pickup, resort check-in and leisure evening."],
+                ["2", "Ubud & Rice Terraces", "Explore Ubud, temples, rice terraces, cafés and local markets."],
+                ["3", "Kintamani & Volcano Views", "Visit Kintamani and enjoy beautiful Mount Batur views."],
+                ["4", "Beach & Leisure", "Relax at Bali's beautiful beaches and enjoy optional activities."],
+                ["5", "Island Experience", "Discover scenic viewpoints, local culture and tropical surroundings."],
+                ["6", "Departure", "Breakfast, check-out and airport transfer."]
+            ]
+
+        },
+
+
+        "Dubai Luxury": {
+
+            category: "holiday",
+
+            location: "DUBAI • UAE",
+
+            duration: "4 Nights / 5 Days",
+
+            price: "₹39,999",
+
+            rating: "4.7",
+
+            reviews: "100+ Reviews",
+
+            image:
+                "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1600&q=90",
+
+            description:
+                "Experience Dubai's iconic skyline, luxury shopping, desert adventures and unforgettable attractions.",
+
+            includes: [
+                ["🏨", "Hotel / Resort", "Comfortable handpicked accommodation."],
+                ["🍳", "Breakfast", "Daily breakfast included."],
+                ["🚗", "Transfers", "Airport and local transfers."],
+                ["📸", "Sightseeing", "Curated destination experiences."]
+            ],
+
+            days: [
+                ["1", "Arrival in Dubai", "Airport pickup, hotel check-in and leisure time."],
+                ["2", "Dubai City Tour", "Explore Burj Khalifa, Dubai Mall, Downtown Dubai and iconic landmarks."],
+                ["3", "Desert Safari", "Enjoy dune bashing, sunset views, traditional entertainment and dinner."],
+                ["4", "Palm Jumeirah & Marina", "Explore Palm Jumeirah and Dubai Marina with free time for shopping."],
+                ["5", "Departure", "Breakfast, check-out and airport transfer."]
+            ]
+
+        },
+
+
+        "Kashmir Heaven": {
+
+            category: "holiday",
+
+            location: "KASHMIR • INDIA",
+
+            duration: "5 Nights / 6 Days",
+
+            price: "₹27,999",
+
+            rating: "4.9",
+
+            reviews: "120+ Reviews",
+
+            image:
+                "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1600&q=90",
+
+            description:
+                "Explore serene valleys, beautiful mountain landscapes, peaceful lakes and the natural beauty of Kashmir.",
+
+            includes: [
+                ["🏨", "Hotel / Resort", "Comfortable handpicked accommodation."],
+                ["🍳", "Breakfast", "Daily breakfast included."],
+                ["🚗", "Transfers", "Airport and local transfers."],
+                ["📸", "Sightseeing", "Curated destination experiences."]
+            ],
+
+            days: [
+                ["1", "Arrival in Srinagar", "Airport pickup, hotel or houseboat check-in and Dal Lake evening."],
+                ["2", "Srinagar Sightseeing", "Explore Mughal gardens, Dal Lake and local markets."],
+                ["3", "Gulmarg Excursion", "Visit Gulmarg and enjoy beautiful mountain views and optional activities."],
+                ["4", "Pahalgam Valley", "Explore the scenic Pahalgam valley, rivers and mountain viewpoints."],
+                ["5", "Leisure in Srinagar", "Enjoy local shopping, Kashmiri handicrafts and a relaxed evening."],
+                ["6", "Departure", "Breakfast, check-out and Srinagar Airport transfer."]
+            ]
+
+        },
+
+
+        "Kerala Backwaters": {
+
+            category: "holiday",
+
+            location: "KERALA • INDIA",
+
+            duration: "4 Nights / 5 Days",
+
+            price: "₹24,999",
+
+            rating: "4.8",
+
+            reviews: "110+ Reviews",
+
+            image:
+                "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1600&q=90",
+
+            description:
+                "Enjoy calm backwaters, lush greenery, scenic hill stations and a relaxing Kerala holiday.",
+
+            includes: [
+                ["🏨", "Hotel / Resort", "Comfortable handpicked accommodation."],
+                ["🍳", "Breakfast", "Daily breakfast included."],
+                ["🚗", "Transfers", "Airport and local transfers."],
+                ["📸", "Sightseeing", "Curated destination experiences."]
+            ],
+
+            days: [
+                ["1", "Arrival in Kochi", "Airport pickup, hotel check-in and evening leisure."],
+                ["2", "Kochi → Munnar", "Scenic drive to Munnar with tea plantations and mountain viewpoints."],
+                ["3", "Explore Munnar", "Discover tea gardens, viewpoints and local attractions."],
+                ["4", "Munnar → Alleppey", "Travel to Alleppey and enjoy the famous Kerala backwaters."],
+                ["5", "Departure", "Transfer towards Kochi and airport drop."]
+            ]
+
+        },
+
+
+        "Thailand Adventure": {
+
+            category: "holiday",
+
+            location: "THAILAND",
+
+            duration: "5 Nights / 6 Days",
+
+            price: "₹34,999",
+
+            rating: "4.7",
+
+            reviews: "100+ Reviews",
+
+            image:
+                "https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1600&q=90",
+
+            description:
+                "Discover tropical islands, vibrant markets, beautiful beaches and exciting adventures across Thailand.",
+
+            includes: [
+                ["🏨", "Hotel / Resort", "Comfortable handpicked accommodation."],
+                ["🍳", "Breakfast", "Daily breakfast included."],
+                ["🚗", "Transfers", "Airport and local transfers."],
+                ["📸", "Sightseeing", "Curated destination experiences."]
+            ],
+
+            days: [
+                ["1", "Arrival in Bangkok", "Airport pickup, hotel check-in and leisure evening."],
+                ["2", "Bangkok City", "Explore temples, markets and Bangkok's famous cultural attractions."],
+                ["3", "Island Escape", "Travel to a beautiful island destination and relax on the beach."],
+                ["4", "Adventure Day", "Enjoy water activities, sightseeing and local experiences."],
+                ["5", "Leisure & Shopping", "Explore markets, shopping areas and cafés."],
+                ["6", "Departure", "Breakfast, check-out and airport transfer."]
+            ]
+
+        }
+
+    };
+
+
+    /* =========================================================
+       NORMALIZE INCLUDES
+    ========================================================= */
+
+    function normalizeIncludes(value) {
+
+        if (!value) {
+            return [];
+        }
+
+
+        if (typeof value === "string") {
+
+            try {
+                value =
+                    JSON.parse(value);
+            }
+
+            catch {
+                return value
+                    .split(",")
+                    .map(item => [
+                        "✦",
+                        item.trim(),
+                        ""
+                    ]);
+            }
 
         }
 
 
-        if (
-            typeof item === "object" &&
-            item !== null
-        ) {
-
-            return [
-
-                item.icon ||
-                    "✓",
-
-                item.title ||
-                    item.name ||
-                    "Included",
-
-                item.description ||
-                    ""
-
-            ];
-
+        if (!Array.isArray(value)) {
+            return [];
         }
 
 
-        return [
-
-            "✓",
-
-            String(item),
-
-            ""
-
-        ];
-
-    });
-
-}
-
-
-function normaliseDays(value) {
-
-    if (
-        !Array.isArray(value) ||
-        value.length === 0
-    ) {
-
-        return [
-
-            [
-                "1",
-                "Arrival",
-                "Welcome and hotel check-in."
-            ],
-
-            [
-                "2",
-                "Explore",
-                "Enjoy sightseeing and local experiences."
-            ],
-
-            [
-                "3",
-                "Leisure",
-                "Free time to explore at your own pace."
-            ],
-
-            [
-                "4",
-                "Departure",
-                "Breakfast and onward transfer."
-            ]
-
-        ];
-
-    }
-
-
-    return value.map(
-        (item, index) => {
+        return value.map((item) => {
 
             if (Array.isArray(item)) {
 
                 return [
-
-                    item[0] ||
-                        String(index + 1),
-
-                    item[1] ||
-                        "Day Experience",
-
-                    item[2] ||
-                        ""
-
+                    item[0] || "✦",
+                    item[1] || "Included",
+                    item[2] || ""
                 ];
 
             }
 
 
-            if (
-                typeof item === "object" &&
-                item !== null
-            ) {
+            if (typeof item === "object") {
 
                 return [
-
-                    item.day ||
-                        item.number ||
-                        String(index + 1),
+                    item.icon ||
+                    item.emoji ||
+                    "✦",
 
                     item.title ||
-                        "Day Experience",
+                    item.name ||
+                    "Included",
 
                     item.description ||
-                        ""
-
+                    item.text ||
+                    ""
                 ];
 
             }
 
 
             return [
-
-                String(index + 1),
-
-                "Day Experience",
-
-                String(item)
-
+                "✦",
+                String(item),
+                ""
             ];
 
+        });
+
+    }
+
+
+    /* =========================================================
+       NORMALIZE ITINERARY
+    ========================================================= */
+
+    function normalizeDays(value) {
+
+        if (!value) {
+            return [];
         }
-    );
 
-}
 
+        if (typeof value === "string") {
 
-function renderSupabasePackage(pkg) {
+            try {
+                value =
+                    JSON.parse(value);
+            }
 
-    const title =
-        pkg.title ||
-        "Holiday Package";
+            catch {
+                return [];
+            }
 
+        }
 
-    const price =
-        packagePrice(pkg.price);
 
+        if (!Array.isArray(value)) {
+            return [];
+        }
 
-    const image =
-        pkg.image ||
-        "images/logo.png";
 
+        return value.map(
+            (day, index) => {
 
-    const location =
-        pkg.location ||
-        "INDIA";
+                if (Array.isArray(day)) {
 
+                    return [
+                        day[0] ||
+                        String(index + 1),
 
-    const duration =
-        pkg.duration ||
-        "Custom Package";
+                        day[1] ||
+                        `Day ${index + 1}`,
 
-
-    const rating =
-        pkg.rating ||
-        "4.8";
-
-
-    const reviews =
-        pkg.reviews ||
-        "100+ Reviews";
-
-
-    /*
-     * Put complete Supabase package data
-     * into the existing premium View Details
-     * system.
-     */
-
-    data[title] = {
-
-        image: image,
-
-        loc: location,
-
-        rating:
-            String(rating),
-
-        reviews:
-            String(reviews),
-
-        duration:
-            duration,
-
-        description:
-            pkg.description ||
-            "Experience an unforgettable holiday with Holiday Masti.",
-
-        includes:
-            normaliseIncludes(
-                pkg.includes
-            ),
-
-        days:
-            normaliseDays(
-                pkg.days
-            )
-
-    };
-
-
-    return `
-
-        <article
-            class="package-card"
-            data-name="${esc(
-                title.toLowerCase()
-            )}"
-            data-filter="${esc(
-                (
-                    title +
-                    " " +
-                    location +
-                    " " +
-                    duration
-                ).toLowerCase()
-            )}">
-
-
-            <div class="card-image">
-
-                <img
-                    src="${esc(image)}"
-                    alt="${esc(title)}"
-                    loading="lazy"
-                    onerror="this.src='images/logo.png';"
-                >
-
-
-                <span class="price-tag">
-
-                    ${esc(price)}
-
-                </span>
-
-            </div>
-
-
-            <div class="card-body">
-
-                <p class="card-location">
-
-                    ${esc(location)}
-
-                    ·
-
-                    ${esc(duration)}
-
-                </p>
-
-
-                <h3>
-
-                    ${esc(title)}
-
-                </h3>
-
-
-                <p class="rating">
-
-                    ★ ${esc(
-                        String(rating)
-                    )}
-
-                    <span>·</span>
-
-                    ${esc(
-                        String(reviews)
-                    )}
-
-                </p>
-
-
-                <button
-                    class="details-button"
-                    type="button"
-                    data-title="${esc(title)}"
-                    data-price="${esc(price)}"
-                    data-description="${esc(
-                        pkg.description || ""
-                    )}"
-                >
-
-                    View Details
-
-                </button>
-
-            </div>
-
-        </article>
-
-    `;
-
-}
-
-
-async function loadSupabasePackages() {
-
-    const holidayGrid =
-        $("#packageGrid");
-
-    const divineGrid =
-        $("#divineYatraGrid");
-
-    const holidayEmpty =
-        $("#emptyState");
-
-
-    try {
-
-        const response =
-            await fetch(
-
-                SUPABASE_URL +
-                "/rest/v1/packages?select=*&order=created_at.desc",
-
-                {
-
-                    method: "GET",
-
-                    headers: {
-
-                        "apikey":
-                            SUPABASE_PUBLISHABLE_KEY,
-
-                        "Authorization":
-                            "Bearer " +
-                            SUPABASE_PUBLISHABLE_KEY
-
-                    }
+                        day[2] ||
+                        ""
+                    ];
 
                 }
 
-            );
+
+                if (typeof day === "object") {
+
+                    return [
+                        day.day ||
+                        day.number ||
+                        String(index + 1),
+
+                        day.title ||
+                        day.name ||
+                        `Day ${index + 1}`,
+
+                        day.description ||
+                        day.details ||
+                        day.text ||
+                        ""
+                    ];
+
+                }
 
 
-        if (!response.ok) {
+                return [
+                    String(index + 1),
+                    String(day),
+                    ""
+                ];
 
-            throw new Error(
-                "Package service returned HTTP " +
-                response.status
-            );
+            }
+        );
 
-        }
-
-
-        const packages =
-            await response.json();
+    }
 
 
-        if (!Array.isArray(packages)) {
+    /* =========================================================
+       NORMALIZE PACKAGE
+    ========================================================= */
 
-            return;
+    function normalizePackage(pkg) {
 
-        }
+        const title =
+            pkg.title ||
+            "Holiday Package";
 
 
-        /* =========================================
-           HOLIDAY PACKAGES
-        ========================================= */
+        const category =
+            String(
+                pkg.category ||
+                ""
+            )
+                .toLowerCase()
+                .trim();
 
-        const holidayPackages =
-            packages.filter(
-                pkg =>
-                    !pkg.category ||
-                    pkg.category === "holiday"
-            );
+
+        const isDivine =
+            category === "divine" ||
+            category === "divine yatra" ||
+            category.includes("divine");
+
+
+        let price =
+            pkg.price ??
+            "On Request";
 
 
         if (
-            holidayGrid &&
-            holidayPackages.length > 0
+            typeof price === "number"
         ) {
 
-            holidayGrid.insertAdjacentHTML(
-
-                "beforeend",
-
-                holidayPackages
-                    .map(renderSupabasePackage)
-                    .join("")
-
-            );
+            price =
+                "₹" +
+                price.toLocaleString(
+                    "en-IN"
+                );
 
         }
 
 
-        if (holidayEmpty) {
+        return {
 
-            if (holidayPackages.length > 0) {
+            ...pkg,
 
-                holidayEmpty.style.display =
-                    "none";
+            title,
 
-            }
+            category:
+                isDivine
+                    ? "divine"
+                    : "holiday",
 
-        }
+            location:
+                pkg.location ||
+                (
+                    isDivine
+                        ? "DIVINE YATRA"
+                        : "INDIA"
+                ),
 
+            duration:
+                pkg.duration ||
+                "Custom Journey",
 
-        /* =========================================
-           DIVINE YATRA PACKAGES
-        ========================================= */
+            price,
 
-        const divinePackages =
-            packages.filter(
-                pkg =>
-                    pkg.category === "divine"
-            );
+            rating:
+                pkg.rating ||
+                "4.8",
 
+            reviews:
+                pkg.reviews ||
+                "100+ Reviews",
 
-        if (divineGrid) {
+            image:
+                pkg.image ||
+                "",
 
-            if (divinePackages.length > 0) {
+            description:
+                pkg.description ||
+                "A carefully planned Holiday Masti experience.",
 
-                divineGrid.innerHTML =
+            includes:
+                normalizeIncludes(
+                    pkg.includes
+                ),
 
-                    divinePackages
-                        .map(renderSupabasePackage)
-                        .join("");
+            days:
+                normalizeDays(
+                    pkg.days
+                )
 
-            }
-
-            else {
-
-                divineGrid.innerHTML = `
-
-                    <div class="empty-state">
-
-                        <h3>
-                            Divine Yatra coming soon
-                        </h3>
-
-                        <p>
-                            Sacred journeys will be available here soon.
-                        </p>
-
-                    </div>
-
-                `;
-
-            }
-
-        }
-
-
-        console.log(
-
-            "Holiday Masti: " +
-            holidayPackages.length +
-            " holiday package(s), " +
-            divinePackages.length +
-            " Divine Yatra package(s) loaded."
-
-        );
-
+        };
 
     }
 
-    catch (error) {
 
-        console.error(
+    /* =========================================================
+       STORE PACKAGE
+    ========================================================= */
 
-            "Holiday Masti package loading failed:",
+    function storePackage(pkg) {
 
-            error
-
-        );
-
-
-        if (holidayEmpty) {
-
-            holidayEmpty.style.display =
-                "block";
-
-            holidayEmpty.textContent =
-                "Showing our featured packages.";
-
-        }
+        const normalized =
+            normalizePackage(pkg);
 
 
-        if (divineGrid) {
+        packageStore[
+            normalized.title
+        ] = normalized;
 
-            divineGrid.innerHTML = `
 
-                <div class="empty-state">
+        return normalized;
 
-                    <h3>
-                        Divine Yatra
-                    </h3>
+    }
 
-                    <p>
-                        Packages are temporarily unavailable.
-                    </p>
+
+    /* =========================================================
+       PACKAGE CARD
+    ========================================================= */
+
+    function renderSupabasePackage(
+        rawPackage
+    ) {
+
+        const pkg =
+            storePackage(
+                rawPackage
+            );
+
+
+        const isDivine =
+            pkg.category ===
+            "divine";
+
+
+        const imageHTML =
+            pkg.image
+                ? `
+                    <img
+                        src="${escapeHTML(pkg.image)}"
+                        alt="${escapeHTML(pkg.title)}"
+                        loading="lazy"
+                        onerror="this.style.display='none'"
+                    >
+                `
+                : `
+                    <div class="package-image-placeholder">
+                        ${isDivine ? "🔔" : "✦"}
+                    </div>
+                `;
+
+
+        return `
+
+            <article
+                class="dest ${isDivine ? "divine-card" : ""}"
+                data-package-title="${escapeHTML(pkg.title)}"
+                tabindex="0"
+                role="button"
+                aria-label="View ${escapeHTML(pkg.title)} details"
+            >
+
+                ${imageHTML}
+
+
+                <div class="dest-top">
+
+                    <span class="pill">
+                        ${escapeHTML(pkg.location)}
+                    </span>
+
+
+                    <span class="pill">
+
+                        ${
+                            isDivine
+                                ? "🔔"
+                                : "★"
+                        }
+
+                        ${escapeHTML(pkg.rating)}
+
+                    </span>
 
                 </div>
 
-            `;
+
+                <div class="mini3d ${
+                    isDivine
+                        ? "divine-mini"
+                        : ""
+                }">
+
+                    ${
+                        isDivine
+                            ? `
+                                <div class="divine-bell">
+                                    🔔
+                                </div>
+                            `
+                            : `
+                                <div class="cube"></div>
+                            `
+                    }
+
+                </div>
+
+
+                <div class="dest-info">
+
+                    <h3>
+                        ${escapeHTML(pkg.title)}
+                    </h3>
+
+
+                    <p>
+                        ${escapeHTML(pkg.location)}
+                        ·
+                        ${escapeHTML(pkg.duration)}
+                    </p>
+
+
+                    <div class="price">
+
+                        <strong>
+                            ${escapeHTML(pkg.price)}
+                        </strong>
+
+
+                        <span>
+                            ${
+                                isDivine
+                                    ? "Sacred journey ↗"
+                                    : escapeHTML(pkg.reviews)
+                            }
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        `;
+
+    }
+
+
+    /* =========================================================
+       FALLBACK RENDER
+    ========================================================= */
+
+    function renderFallbackPackages() {
+
+        Object.values(
+            fallbackPackages
+        ).forEach(
+            storePackage
+        );
+
+
+        const holidayGrid =
+            $("#packageGrid");
+
+
+        const divineGrid =
+            $("#divineYatraGrid");
+
+
+        const holidayPackages =
+            Object.values(
+                fallbackPackages
+            )
+                .filter(
+                    pkg =>
+                        pkg.category !==
+                        "divine"
+                );
+
+
+        if (holidayGrid) {
+
+            holidayGrid.innerHTML =
+                holidayPackages
+                    .map(
+                        renderSupabasePackage
+                    )
+                    .join("");
+
+        }
+
+
+        if (divineGrid) {
+
+            divineGrid.innerHTML =
+                `
+                <div
+                    class="divine-empty-fallback"
+                    style="display:none"
+                ></div>
+                `;
 
         }
 
     }
 
-}
+
+    /* =========================================================
+       LOAD SUPABASE PACKAGES
+    ========================================================= */
+
+    async function loadSupabasePackages() {
+
+        const holidayGrid =
+            $("#packageGrid");
 
 
-/* Load packages from Supabase */
+        const divineGrid =
+            $("#divineYatraGrid");
 
-loadSupabasePackages();
+
+        const holidayEmpty =
+            $("#emptyState");
 
 
-/* ================= PACKAGE BUTTONS ================= */
+        const SUPABASE_URL =
+            "https://wwfatmtqrswayugaqhra.supabase.co/rest/v1/packages?select=*&order=created_at.desc";
 
-document.addEventListener(
-    "click",
-    event => {
 
-        const button =
-            event.target.closest(
-                ".details-button"
+        const SUPABASE_KEY =
+            "sb_publishable_IVMKY-BoIe9TYajxRHszSQ_1RUKOxDw";
+
+
+        if (!holidayGrid &&
+            !divineGrid) {
+
+            console.warn(
+                "Package grids not found."
             );
-
-
-        if (!button) {
 
             return;
 
         }
 
 
-        openPackage(
+        try {
 
-            button.dataset.title ||
-                "Holiday Package",
-
-            button.dataset.price ||
-                "",
-
-            button.dataset.description ||
-                ""
-
-        );
-
-    }
-);
-
-/* ================= DESTINATIONS ================= */
-
-$$(".destination-card").forEach(
-    c=>c.addEventListener(
-        "click",
-        ()=>{
-
-            const h=
-                $("h3",c);
-
-            const p=
-                $("p",c);
-
-            openPackage(
-
-                h
-                    ? h.textContent.trim()
-                    : "Holiday Destination",
-
-                p
-                    ? p.textContent.trim()
-                    : "",
-
-                "Explore this popular destination with Holiday Masti."
-            );
-
-        }
-    )
-);
+            const controller =
+                new AbortController();
 
 
-/* ================= HERO BUTTON ================= */
-
-const heroBtn=
-    $(".hero-button") ||
-    $(".hero-actions .btn-primary");
-
-if(heroBtn){
-
-    heroBtn.addEventListener(
-        "click",
-        e=>{
-
-            e.preventDefault();
-
-            scrollTo("#search");
-
-        }
-    );
-
-}
+            const timeout =
+                setTimeout(
+                    () =>
+                        controller.abort(),
+                    12000
+                );
 
 
-/* ================= HOLIDAY SEARCH ================= */
+            const response =
+                await fetch(
+                    SUPABASE_URL,
+                    {
+                        method: "GET",
 
-const sf=
-    $("#searchForm");
+                        headers: {
 
-if(sf){
+                            "apikey":
+                                SUPABASE_KEY,
 
-    sf.addEventListener(
-        "submit",
-        e=>{
+                            "Authorization":
+                                "Bearer " +
+                                SUPABASE_KEY
+                        },
 
-            e.preventDefault();
+                        signal:
+                            controller.signal
 
-            const dest=
-                $("#destinationInput")
-                    ?.value.trim() ||
-                "";
-
-            const start=
-                $("#startDate")
-                    ?.value ||
-                "";
-
-            const end=
-                $("#endDate")
-                    ?.value ||
-                "";
-
-            const trav=
-                $("#travellers")
-                    ?.value ||
-                "1";
-
-            const msg=
-                $("#searchMessage");
+                    }
+                );
 
 
-            if(!dest){
-
-                if(msg){
-
-                    msg.textContent=
-                        "Please enter your destination.";
-
-                    msg.style.color=
-                        "#d9534f";
-
-                }
-
-                $("#destinationInput")
-                    ?.focus();
-
-                return;
-            }
-
-
-            if(
-                start &&
-                end &&
-                end<start
-            ){
-
-                if(msg){
-
-                    msg.textContent=
-                        "Return date cannot be before departure date.";
-
-                    msg.style.color=
-                        "#d9534f";
-
-                }
-
-                return;
-            }
-
-
-            sessionStorage.setItem(
-                "holidayDestination",
-                dest
-            );
-
-            sessionStorage.setItem(
-                "holidayStartDate",
-                start
-            );
-
-            sessionStorage.setItem(
-                "holidayEndDate",
-                end
-            );
-
-            sessionStorage.setItem(
-                "holidayTravellers",
-                trav
+            clearTimeout(
+                timeout
             );
 
 
-            if(msg){
+            if (!response.ok) {
 
-                msg.textContent=
-                    "Great! We found your holiday request. Taking you to enquiry...";
-
-                msg.style.color=
-                    "#0b7a53";
+                throw new Error(
+                    "Supabase HTTP " +
+                    response.status
+                );
 
             }
 
 
-            setTimeout(
-                ()=>{
-
-                    scrollTo(
-                        "#contact"
-                    );
+            const packages =
+                await response.json();
 
 
-                    const m=
-                        $("#contactMessage");
+            if (!Array.isArray(packages)) {
+
+                throw new Error(
+                    "Invalid package data."
+                );
+
+            }
 
 
-                    if(m){
+            console.log(
+                "Supabase packages:",
+                packages
+            );
 
-                        m.value=
-`Holiday enquiry
-Destination: ${dest}
-From: ${start||"Not specified"}
-To: ${end||"Not specified"}
-Travellers: ${trav}`;
+
+            const holidayPackages =
+                packages.filter(
+                    pkg => {
+
+                        const category =
+                            String(
+                                pkg.category ||
+                                ""
+                            )
+                                .toLowerCase()
+                                .trim();
+
+
+                        return !category.includes(
+                            "divine"
+                        );
+
+                    }
+                );
+
+
+            const divinePackages =
+                packages.filter(
+                    pkg => {
+
+                        const category =
+                            String(
+                                pkg.category ||
+                                ""
+                            )
+                                .toLowerCase()
+                                .trim();
+
+
+                        return (
+                            category === "divine" ||
+                            category === "divine yatra" ||
+                            category.includes("divine")
+                        );
+
+                    }
+                );
+
+
+            console.log(
+                "Holiday packages:",
+                holidayPackages
+            );
+
+
+            console.log(
+                "Divine packages:",
+                divinePackages
+            );
+
+
+            /* -----------------------------------------
+               HOLIDAY
+            ----------------------------------------- */
+
+            if (holidayGrid) {
+
+                if (
+                    holidayPackages.length
+                ) {
+
+                    holidayGrid.innerHTML =
+                        holidayPackages
+                            .map(
+                                renderSupabasePackage
+                            )
+                            .join("");
+
+
+                    if (holidayEmpty) {
+
+                        holidayEmpty.style.display =
+                            "none";
 
                     }
 
-                },
-                500
-            );
-
-        }
-    );
-
-}
-
-
-/* ================= CONTACT FORM ================= */
-
-const cf =
-    $("#contactForm");
-
-if(cf){
-
-    cf.addEventListener(
-        "submit",
-        async e => {
-
-            e.preventDefault();
-
-
-            const name =
-                $("#contactName")
-                    ?.value.trim() || "";
-
-
-            const email =
-                $("#contactEmail")
-                    ?.value.trim() || "";
-
-
-            const phone =
-                $("#contactPhone")
-                    ?.value.trim() || "";
-
-
-            const message =
-                $("#contactMessage")
-                    ?.value.trim() || "";
-
-
-            const success =
-                $("#contactSuccess");
-
-
-            /*
-             * Basic validation
-             */
-
-            if(!name){
-
-                if(success){
-
-                    success.textContent =
-                        "Please enter your name.";
-
-                    success.style.color =
-                        "#d9534f";
-
                 }
 
-                return;
-
-            }
-
-
-            if(!email){
-
-                if(success){
-
-                    success.textContent =
-                        "Please enter your email address.";
-
-                    success.style.color =
-                        "#d9534f";
-
-                }
-
-                return;
-
-            }
-
-
-            if(!phone){
-
-                if(success){
-
-                    success.textContent =
-                        "Please enter your phone number.";
-
-                    success.style.color =
-                        "#d9534f";
-
-                }
-
-                return;
-
-            }
-
-
-            if(!message){
-
-                if(success){
-
-                    success.textContent =
-                        "Please enter your enquiry.";
-
-                    success.style.color =
-                        "#d9534f";
-
-                }
-
-                return;
-
-            }
-
-
-            /*
-             * Show sending status
-             */
-
-            if(success){
-
-                success.textContent =
-                    "Sending your enquiry...";
-
-                success.style.color =
-                    "#6b7f95";
-
-            }
-
-
-            /*
-             * Get package/destination information
-             * from the enquiry message when available.
-             */
-
-            let packageName = "";
-
-
-            const storedDestination =
-                sessionStorage.getItem(
-                    "holidayDestination"
-                );
-
-
-            if(storedDestination){
-
-                packageName =
-                    storedDestination;
-
-            }
-
-
-            /*
-             * Save enquiry to Supabase
-             */
-
-            const result =
-                await supabaseClient
-                    .from("enquiries")
-                    .insert({
-
-                        name:
-                            name,
-
-                        email:
-                            email,
-
-                        phone:
-                            phone,
-
-                        message:
-                            message,
-
-                        package_name:
-                            packageName,
-
-                        status:
-                            "New"
-
-                    });
-
-
-            /*
-             * Database error
-             */
-
-            if(result.error){
-
-                console.error(
-                    "Enquiry save failed:",
-                    result.error
-                );
-
-
-                if(success){
-
-                    success.textContent =
-                        "We couldn't send your enquiry. Please try WhatsApp instead.";
-
-                    success.style.color =
-                        "#d9534f";
-
-                }
-
-                return;
-
-            }
-
-
-            /*
-             * Build WhatsApp message
-             */
-
-            const whatsappMessage =
-`🌴 Holiday Masti Enquiry
-
-👤 Name: ${name}
-
-📧 Email: ${email}
-
-📱 Phone: ${phone}
-
-${packageName
-    ? "🏖️ Destination: " +
-      packageName +
-      "\n\n"
-    : ""}💬 Enquiry:
-${message}`;
-
-
-            const whatsappUrl =
-                "https://wa.me/917851007007?text=" +
-                encodeURIComponent(
-                    whatsappMessage
-                );
-
-
-            /*
-             * Success message
-             */
-
-            if(success){
-
-                success.textContent =
-                    "Thanks! Your enquiry has been received. Opening WhatsApp...";
-
-                success.style.color =
-                    "#0b7a53";
-
-            }
-
-
-            /*
-             * Open WhatsApp
-             */
-
-            window.open(
-                whatsappUrl,
-                "_blank",
-                "noopener,noreferrer"
-            );
-
-
-            /*
-             * Reset form after successful save
-             */
-
-            cf.reset();
-
-        }
-    );
-
-}
-
-
-/* ================= FLIGHTS ================= */
-
-
-/* ================= FLIGHTS ================= */
-
-const ff=
-    $("#flightForm");
-
-if(ff){
-
-    let r=
-        $("#flight-results");
-
-
-    if(!r){
-
-        r=
-            document.createElement(
-                "div"
-            );
-
-        r.id=
-            "flight-results";
-
-        r.className=
-            "flight-results";
-
-
-        ff.insertAdjacentElement(
-            "afterend",
-            r
-        );
-
-    }
-
-
-    const swap=
-        $("#swapFlight");
-
-
-    if(swap){
-
-        swap.addEventListener(
-            "click",
-            ()=>{
-
-                const a=
-                    $("#flightFrom");
-
-                const b=
-                    $("#flightTo");
-
-
-                if(a&&b){
-
-                    const v=
-                        a.value;
-
-                    a.value=
-                        b.value;
-
-                    b.value=
-                        v;
+                else {
+
+                    const fallbackHoliday =
+                        Object.values(
+                            fallbackPackages
+                        )
+                            .filter(
+                                pkg =>
+                                    pkg.category !==
+                                    "divine"
+                            );
+
+
+                    holidayGrid.innerHTML =
+                        fallbackHoliday
+                            .map(
+                                renderSupabasePackage
+                            )
+                            .join("");
 
                 }
 
             }
-        );
-
-    }
 
 
-    ff.addEventListener(
-        "submit",
-        e=>{
+            /* -----------------------------------------
+               DIVINE
+            ----------------------------------------- */
 
-            e.preventDefault();
+            if (divineGrid) {
 
+                if (
+                    divinePackages.length
+                ) {
 
-            const from=
-                $("#flightFrom")
-                    ?.value.trim() ||
-                "";
+                    divineGrid.innerHTML =
+                        divinePackages
+                            .map(
+                                renderSupabasePackage
+                            )
+                            .join("");
 
-            const to=
-                $("#flightTo")
-                    ?.value.trim() ||
-                "";
+                }
 
-            const dep=
-                $("#flightDeparture")
-                    ?.value ||
-                "";
+                else {
 
-            const ret=
-                $("#flightReturn")
-                    ?.value ||
-                "";
+                    divineGrid.innerHTML = `
 
-            const ts=
-                $("#flightTravellers");
+                        <div
+                            class="empty-state"
+                            style="
+                                grid-column:1/-1;
+                                text-align:center;
+                                padding:50px;
+                                background:#fff;
+                                border-radius:28px;
+                            "
+                        >
 
-
-            const trav=
-                ts
-                    ? ts.options[
-                        ts.selectedIndex
-                    ].text
-                    : "1 Adult";
-
-
-            if(!from){
-
-                alert(
-                    "Please enter your departure city."
-                );
-
-                return;
-            }
-
-
-            if(!to){
-
-                alert(
-                    "Please enter your destination."
-                );
-
-                return;
-            }
-
-
-            if(!dep){
-
-                alert(
-                    "Please select your departure date."
-                );
-
-                return;
-            }
-
-
-            if(
-                ret &&
-                ret<dep
-            ){
-
-                alert(
-                    "Return date cannot be before departure date."
-                );
-
-                return;
-            }
-
-
-            r.innerHTML=`
-
-                <div class="flight-loading">
-
-                    <div class="loader"></div>
-
-                    <h3>
-                        Finding the best flights...
-                    </h3>
-
-                    <p>
-                        Searching
-                        <strong>
-                            ${esc(from)}
-                        </strong>
-                        →
-                        <strong>
-                            ${esc(to)}
-                        </strong>
-                    </p>
-
-                </div>
-
-            `;
-
-
-            r.scrollIntoView({
-                behavior:"smooth",
-                block:"start"
-            });
-
-
-            setTimeout(
-                ()=>{
-
-                    r.innerHTML=`
-
-                        <div class="flight-results-heading">
-
-                            <div>
-
-                                <span class="results-label">
-                                    FLIGHT SEARCH
-                                </span>
-
-                                <h2>
-                                    ${esc(from)}
-                                    →
-                                    ${esc(to)}
-                                </h2>
-
-                                <p>
-                                    Departure:
-                                    ${esc(dep)}
-
-                                    ${
-                                        ret
-                                            ? " • Return: "+
-                                              esc(ret)
-                                            : " • One Way"
-                                    }
-
-                                    •
-                                    ${esc(trav)}
-
-                                </p>
-
-                            </div>
-
-                            <span class="result-count">
-                                Demo Results
-                            </span>
-
-                        </div>
-
-
-                        <div class="flight-card">
-
-                            <div class="flight-airline">
-
-                                <div class="airline-icon">
-                                    ✈️
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        IndiGo
-                                    </strong>
-
-                                    <span>
-                                        Economy
-                                    </span>
-
-                                </div>
-
+                            <div
+                                style="
+                                    font-size:42px;
+                                    margin-bottom:12px;
+                                "
+                            >
+                                🔔
                             </div>
 
 
-                            <div class="flight-time">
+                            <h3>
+                                No Divine Yatra packages yet
+                            </h3>
 
-                                <strong>
-                                    09:15
-                                </strong>
-
-                                <span>
-                                    ${esc(from)}
-                                </span>
-
-                            </div>
-
-
-                            <div class="flight-duration">
-
-                                <span>
-                                    6h 20m
-                                </span>
-
-                                <div class="flight-line">
-                                    <span>✈</span>
-                                </div>
-
-                                <small>
-                                    1 Stop
-                                </small>
-
-                            </div>
-
-
-                            <div class="flight-time">
-
-                                <strong>
-                                    14:25
-                                </strong>
-
-                                <span>
-                                    ${esc(to)}
-                                </span>
-
-                            </div>
-
-
-                            <div class="flight-price">
-
-                                <span>
-                                    Starting from
-                                </span>
-
-                                <strong>
-                                    ₹18,450
-                                </strong>
-
-                                <button
-                                    type="button"
-                                    class="view-flight-btn"
-                                    onclick="checkCurrentFare()">
-
-                                    Check Current Fare ✈️
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="flight-card">
-
-                            <div class="flight-airline">
-
-                                <div class="airline-icon">
-                                    ✈️
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Air India
-                                    </strong>
-
-                                    <span>
-                                        Economy
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="flight-time">
-
-                                <strong>
-                                    06:40
-                                </strong>
-
-                                <span>
-                                    ${esc(from)}
-                                </span>
-
-                            </div>
-
-
-                            <div class="flight-duration">
-
-                                <span>
-                                    4h 55m
-                                </span>
-
-                                <div class="flight-line">
-                                    <span>✈</span>
-                                </div>
-
-                                <small>
-                                    Non-stop
-                                </small>
-
-                            </div>
-
-
-                            <div class="flight-time">
-
-                                <strong>
-                                    11:35
-                                </strong>
-
-                                <span>
-                                    ${esc(to)}
-                                </span>
-
-                            </div>
-
-
-                            <div class="flight-price">
-
-                                <span>
-                                    Starting from
-                                </span>
-
-                                <strong>
-                                    ₹21,990
-                                </strong>
-
-                                <button
-                                    type="button"
-                                    class="view-flight-btn"
-                                    onclick="checkCurrentFare()">
-
-                                    Check Current Fare ✈️
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="demo-note">
-
-                            <strong>
-                                Demo flight results
-                            </strong>
 
                             <p>
-                                Prices shown are indicative.
-                                Check the current fare with our booking
-                                partner before booking.
+                                Add a Divine Yatra package
+                                from the admin panel.
                             </p>
 
                         </div>
 
                     `;
 
-                },
-                700
-            );
+                }
+
+            }
 
         }
-    );
 
-}
+        catch (error) {
 
-
-window.checkCurrentFare=
-    ()=>window.open(
-        "https://www.google.com/travel/flights",
-        "_blank",
-        "noopener,noreferrer"
-    );
+            console.error(
+                "Package loading failed:",
+                error
+            );
 
 
-/* ================= CHATBOT ================= */
+            /*
+              If Supabase fails,
+              keep the website usable.
+            */
 
-if(!$("#chatbotToggle")){
-
-    document.body.insertAdjacentHTML(
-        "beforeend",
-
-        `
-
-        <button
-            class="chatbot-toggle"
-            id="chatbotToggle"
-            aria-label="Open Holiday Masti Assistant">
-
-            🤖
-
-        </button>
+            renderFallbackPackages();
 
 
-        <div
-            class="chatbot-box"
-            id="chatbotBox">
+            if (divineGrid) {
 
+                divineGrid.innerHTML = `
 
-            <div class="chatbot-header">
+                    <div
+                        class="empty-state"
+                        style="
+                            grid-column:1/-1;
+                            text-align:center;
+                            padding:50px;
+                            background:#fff;
+                            border-radius:28px;
+                        "
+                    >
 
+                        <div
+                            style="
+                                font-size:42px;
+                                margin-bottom:12px;
+                            "
+                        >
+                            🔔
+                        </div>
 
-                <div class="chatbot-header-left">
-
-                    <div class="chatbot-avatar">
-                        🤖
-                    </div>
-
-
-                    <div>
 
                         <h3>
-                            Holiday Masti
+                            Divine Yatra packages unavailable
                         </h3>
 
+
                         <p>
-                            Travel Assistant • Online
+                            Please check your connection
+                            or admin package data.
                         </p>
 
                     </div>
 
+                `;
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================================================
+       PACKAGE DETAILS MODAL
+    ========================================================= */
+
+    function showPackage(
+        title
+    ) {
+
+        if (
+            !packageModal ||
+            !packageModalContent
+        ) {
+
+            console.error(
+                "Package details modal is missing."
+            );
+
+            return;
+
+        }
+
+
+        let pkg =
+            packageStore[title];
+
+
+        /*
+          Fallback if package was not
+          loaded into the store.
+        */
+
+        if (!pkg) {
+
+            pkg =
+                fallbackPackages[title];
+
+        }
+
+
+        if (!pkg) {
+
+            console.warn(
+                "Package data not found:",
+                title
+            );
+
+            return;
+
+        }
+
+
+        pkg =
+            normalizePackage(pkg);
+
+
+        const isDivine =
+            pkg.category ===
+            "divine";
+
+
+        const includes =
+            pkg.includes.length
+                ? pkg.includes
+                : [
+                    [
+                        "🏨",
+                        "Hotel / Resort",
+                        "Comfortable handpicked accommodation."
+                    ],
+                    [
+                        "🍳",
+                        "Breakfast",
+                        "Daily breakfast included."
+                    ],
+                    [
+                        "🚗",
+                        "Transfers",
+                        "Airport and local transfers."
+                    ],
+                    [
+                        "📸",
+                        "Sightseeing",
+                        "Curated destination experiences."
+                    ]
+                ];
+
+
+        const days =
+            pkg.days.length
+                ? pkg.days
+                : [
+                    [
+                        "1",
+                        "Journey Begins",
+                        "Your carefully planned journey begins."
+                    ]
+                ];
+
+
+        const imageHTML =
+            pkg.image
+                ? `
+                    <div class="package-header-image">
+
+                        <img
+                            src="${escapeHTML(pkg.image)}"
+                            alt="${escapeHTML(pkg.title)}"
+                        >
+
+                    </div>
+                `
+                : `
+                    <div
+                        class="package-header-image package-no-image"
+                    >
+
+                        <div>
+                            ${
+                                isDivine
+                                    ? "🔔"
+                                    : "✦"
+                            }
+                        </div>
+
+                    </div>
+                `;
+
+
+        packageModalContent.innerHTML = `
+
+            <div
+                class="
+                    package-premium-header
+                    ${isDivine ? "package-divine-header" : ""}
+                "
+            >
+
+                <div class="package-header-content">
+
+                    <div class="package-kicker">
+
+                        ${
+                            isDivine
+                                ? "DIVINE YATRA 🔔"
+                                : "HOLIDAY PACKAGE"
+                        }
+
+                    </div>
+
+
+                    <h2 id="packageModalTitle">
+
+                        ${escapeHTML(
+                            pkg.title
+                        )}
+
+                    </h2>
+
+
+                    <p class="package-header-description">
+
+                        ${escapeHTML(
+                            pkg.description
+                        )}
+
+                    </p>
+
+
+                    <span class="package-header-price-label">
+                        Starting from
+                    </span>
+
+
+                    <div class="package-header-price">
+
+                        ${escapeHTML(
+                            pkg.price
+                        )}
+
+                    </div>
+
                 </div>
 
 
-                <button
-                    class="chatbot-close"
-                    id="chatbotClose">
-
-                    ×
-
-                </button>
-
+                ${imageHTML}
 
             </div>
 
 
-            <div
-                class="chatbot-messages"
-                id="chatbotMessages">
+            <div class="package-meta">
+
+                <div class="package-meta-item">
+
+                    📍
+                    ${escapeHTML(
+                        pkg.location
+                    )}
+
+                </div>
 
 
-                <div class="chat-message bot">
+                <div class="package-meta-item rating">
 
-                    👋 Hi! I'm the Holiday Masti Assistant.
+                    ${
+                        isDivine
+                            ? "🔔"
+                            : "⭐"
+                    }
 
-                    <br><br>
+                    ${escapeHTML(
+                        pkg.rating
+                    )}
 
-                    Where would you like to travel?
-
-
-                    <div class="chat-options">
-
-
-                        <button
-                            class="chat-option"
-                            data-question="Goa">
-
-                            🏖️ Goa
-
-                        </button>
+                </div>
 
 
-                        <button
-                            class="chat-option"
-                            data-question="Dubai">
+                <div class="package-meta-item">
 
-                            🌆 Dubai
+                    🌙
+                    ${escapeHTML(
+                        pkg.duration
+                    )}
 
-                        </button>
+                </div>
 
-
-                        <button
-                            class="chat-option"
-                            data-question="Bali">
-
-                            🌴 Bali
-
-                        </button>
+            </div>
 
 
-                        <button
-                            class="chat-option"
-                            data-question="Flights">
+            <div class="package-premium-body">
 
-                            ✈️ Flights
 
-                        </button>
+                <div>
 
+                    <h3 class="package-premium-title">
+
+                        What's Included
+
+                    </h3>
+
+
+                    <div class="package-includes-grid">
+
+                        ${includes
+                            .map(
+                                (item) => `
+
+                                    <div
+                                        class="package-include-card"
+                                    >
+
+                                        <div
+                                            class="package-include-icon"
+                                        >
+
+                                            ${escapeHTML(
+                                                item[0]
+                                            )}
+
+                                        </div>
+
+
+                                        <strong>
+
+                                            ${escapeHTML(
+                                                item[1]
+                                            )}
+
+                                        </strong>
+
+
+                                        <span>
+
+                                            ${escapeHTML(
+                                                item[2]
+                                            )}
+
+                                        </span>
+
+                                    </div>
+
+                                `
+                            )
+                            .join("")
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="package-premium-title">
+
+                        Your Itinerary
+
+                    </h3>
+
+
+                    <div class="package-itinerary">
+
+                        ${days
+                            .map(
+                                (day) => `
+
+                                    <div
+                                        class="
+                                            package-day
+                                            ${isDivine ? "package-day-divine" : ""}
+                                        "
+                                    >
+
+                                        <div
+                                            class="package-day-number"
+                                        >
+
+                                            ${escapeHTML(
+                                                day[0]
+                                            )}
+
+                                        </div>
+
+
+                                        <div>
+
+                                            <h4>
+
+                                                ${escapeHTML(
+                                                    day[1]
+                                                )}
+
+                                            </h4>
+
+
+                                            <p>
+
+                                                ${escapeHTML(
+                                                    day[2]
+                                                )}
+
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                `
+                            )
+                            .join("")
+                        }
 
                     </div>
 
@@ -2347,466 +2020,176 @@ if(!$("#chatbotToggle")){
 
             </div>
 
-
-            <div class="chatbot-input-area">
-
-                <input
-                    id="chatbotInput"
-                    class="chatbot-input"
-                    type="text"
-                    placeholder="Ask me anything...">
+        `;
 
 
-                <button
-                    id="chatbotSend"
-                    class="chatbot-send"
-                    aria-label="Send message">
-
-                    ➤
-
-                </button>
-
-            </div>
-
-        </div>
-
-        `
-    );
-
-}
+        packageModal.classList.add(
+            "open"
+        );
 
 
-const toggle=
-    $("#chatbotToggle");
-
-const box=
-    $("#chatbotBox");
-
-const close=
-    $("#chatbotClose");
-
-const ci=
-    $("#chatbotInput");
-
-const send=
-    $("#chatbotSend");
-
-const msgs=
-    $("#chatbotMessages");
+        packageModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
 
-if(
-    toggle &&
-    box &&
-    close &&
-    ci &&
-    send &&
-    msgs
-){
+        document.body.style.overflow =
+            "hidden";
 
-    toggle.addEventListener(
-        "click",
-        ()=>{
 
-            box.classList.toggle(
-                "active"
+        console.log(
+            "Opened package:",
+            pkg.title
+        );
+
+    }
+
+
+   /* =========================================================
+   PACKAGE CLICK
+========================================================= */
+
+document.addEventListener(
+    "click",
+    (event) => {
+
+        const card =
+            event.target.closest(".dest");
+
+        if (!card) {
+            return;
+        }
+
+        /*
+          Dynamic Supabase card
+        */
+        let title =
+            card.getAttribute(
+                "data-package-title"
             );
 
-            if(
-                box.classList.contains(
-                    "active"
-                )
-            ){
+        /*
+          Existing/static package card
+          fallback to its <h3>
+        */
+        if (!title) {
 
-                ci.focus();
+            const titleElement =
+                card.querySelector(
+                    ".dest-info h3"
+                );
+
+            if (titleElement) {
+
+                title =
+                    titleElement.textContent.trim();
 
             }
+
+        }
+
+        if (!title) {
+
+            console.warn(
+                "Package title not found."
+            );
+
+            return;
+        }
+
+        console.log(
+            "Opening package:",
+            title
+        );
+
+        showPackage(title);
+
+    }
+);
+
+
+    /* =========================================================
+       KEYBOARD PACKAGE OPEN
+    ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key !== "Enter" &&
+                event.key !== " "
+            ) {
+                return;
+            }
+
+
+            const card =
+               event.target.closest(".dest")
+
+
+            if (!card) {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            const title =
+                card.getAttribute(
+                    "data-package-title"
+                );
+
+
+            showPackage(
+                title
+            );
 
         }
     );
 
 
-    close.addEventListener(
+    /* =========================================================
+       CLOSE MODAL
+    ========================================================= */
+
+    function closePackageModal() {
+
+        if (!packageModal) {
+            return;
+        }
+
+
+        packageModal.classList.remove(
+            "open"
+        );
+
+
+        packageModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+    document.addEventListener(
         "click",
-        ()=>box.classList.remove(
-            "active"
-        )
-    );
-
-
-    const add=
-        (text,type)=>{
-
-            const m=
-                document.createElement(
-                    "div"
-                );
-
-            m.className=
-                "chat-message "+
-                type;
-
-            m.innerHTML=
-                text;
-
-            msgs.appendChild(
-                m
-            );
-
-            msgs.scrollTop=
-                msgs.scrollHeight;
-
-        };
-
-
-    const reply=
-        q=>{
-
-            q=
-                q.toLowerCase();
-
-            let x;
-
-
-            if(q.includes("goa")){
-
-                x=`
-
-                    🏖️
-                    <strong>
-                        Goa Beach Escape
-                    </strong>
-
-                    <br><br>
-
-                    ⭐ 4.8 rating
-
-                    <br>
-
-                    🌙 3 Nights / 4 Days
-
-                    <br>
-
-                    💰 Starting from
-                    <strong>
-                        ₹18,999
-                    </strong>
-
-                    <br><br>
-
-                    Goa is perfect for beaches,
-                    nightlife and a relaxing holiday.
-
-                    <br><br>
-
-                    <button
-                        class="chat-option"
-                        onclick="scrollToPackages()">
-
-                        View Package
-
-                    </button>
-
-                `;
-
-            }
-
-
-            else if(q.includes("dubai")){
-
-                x=`
-
-                    🌆
-                    <strong>
-                        Dubai Luxury
-                    </strong>
-
-                    <br><br>
-
-                    ⭐ 4.7 rating
-
-                    <br>
-
-                    🌙 4 Nights / 5 Days
-
-                    <br>
-
-                    💰 Starting from
-                    <strong>
-                        ₹39,999
-                    </strong>
-
-                    <br><br>
-
-                    Dubai is perfect for luxury,
-                    shopping, desert adventures
-                    and sightseeing.
-
-                    <br><br>
-
-                    <button
-                        class="chat-option"
-                        onclick="scrollToPackages()">
-
-                        View Package
-
-                    </button>
-
-                `;
-
-            }
-
-
-            else if(q.includes("bali")){
-
-                x=`
-
-                    🌴
-                    <strong>
-                        Bali Paradise
-                    </strong>
-
-                    <br><br>
-
-                    ⭐ 4.9 rating
-
-                    <br>
-
-                    🌙 5 Nights / 6 Days
-
-                    <br>
-
-                    💰 Starting from
-                    <strong>
-                        ₹42,999
-                    </strong>
-
-                    <br><br>
-
-                    Bali is great for beaches,
-                    nature, resorts and romantic getaways.
-
-                    <br><br>
-
-                    <button
-                        class="chat-option"
-                        onclick="scrollToPackages()">
-
-                        View Package
-
-                    </button>
-
-                `;
-
-            }
-
-
-            else if(
-                q.includes("flight") ||
-                q.includes("fly") ||
-                q.includes("airline")
-            ){
-
-                x=`
-
-                    ✈️ You can use our
-                    <strong>
-                        Flight Search
-                    </strong>
-                    to search your route.
-
-                    <br><br>
-
-                    We currently show
-                    indicative/demo results.
-
-                    <br><br>
-
-                    <button
-                        class="chat-option"
-                        onclick="scrollToFlights()">
-
-                        Search Flights
-
-                    </button>
-
-                `;
-
-            }
-
-
-            else if(
-                q.includes("price") ||
-                q.includes("cost") ||
-                q.includes("budget")
-            ){
-
-                x=`
-
-                    💰 Our holiday packages
-                    start from around
-                    <strong>
-                        ₹18,999
-                    </strong>.
-
-                    <br><br>
-
-                    Tell me a destination like
-                    <strong>Goa</strong>,
-                    <strong>Bali</strong> or
-                    <strong>Dubai</strong>.
-
-                `;
-
-            }
-
-
-            else if(
-                q.includes("contact") ||
-                q.includes("enquiry") ||
-                q.includes("book")
-            ){
-
-                x=`
-
-                    📞 Sure!
-
-                    You can send us an enquiry
-                    and our travel team can help you.
-
-                    <br><br>
-
-                    <button
-                        class="chat-option"
-                        onclick="scrollToContact()">
-
-                        Make an Enquiry
-
-                    </button>
-
-                `;
-
-            }
-
-
-            else if(
-                q.includes("hello") ||
-                q.includes("hi") ||
-                q.includes("hey")
-            ){
-
-                x=`
-
-                    👋 Hello!
-
-                    <br><br>
-
-                    I'm your Holiday Masti
-                    travel assistant.
-
-                    <br><br>
-
-                    Try asking:
-
-                    <br>
-
-                    • Goa package?
-
-                    <br>
-
-                    • Dubai price?
-
-                    <br>
-
-                    • Bali?
-
-                    <br>
-
-                    • Flights?
-
-                `;
-
-            }
-
-
-            else{
-
-                x=`
-
-                    🤔 I can help with:
-
-                    <br><br>
-
-                    🏖️ Holiday packages
-
-                    <br>
-
-                    ✈️ Flights
-
-                    <br>
-
-                    💰 Package prices
-
-                    <br>
-
-                    📞 Enquiries
-
-                    <br><br>
-
-                    Try asking about
-                    <strong>Goa</strong>,
-                    <strong>Bali</strong>
-                    or
-                    <strong>Dubai</strong>.
-
-                `;
-
-            }
-
-
-            setTimeout(
-                ()=>add(x,"bot"),
-                350
-            );
-
-        };
-
-
-    const sendMsg=
-        ()=>{
-
-            const t=
-                ci.value.trim();
-
-            if(!t)return;
-
-            add(
-                esc(t),
-                "user"
-            );
-
-            ci.value="";
-
-            reply(t);
-
-        };
-
-
-    send.addEventListener(
-        "click",
-        sendMsg
-    );
-
-
-    ci.addEventListener(
-        "keydown",
-        e=>{
-
-            if(
-                e.key==="Enter"
-            ){
-
-                sendMsg();
+        (event) => {
+
+            if (
+                event.target.closest(
+                    "[data-package-close]"
+                )
+            ) {
+
+                closePackageModal();
 
             }
 
@@ -2815,30 +2198,18 @@ if(
 
 
     document.addEventListener(
-        "click",
-        e=>{
+        "keydown",
+        (event) => {
 
-            const o=
-                e.target.closest(
-                    ".chat-option"
-                );
+            if (
+                event.key === "Escape" &&
+                packageModal &&
+                packageModal.classList.contains(
+                    "open"
+                )
+            ) {
 
-
-            if(
-                o &&
-                o.dataset.question
-            ){
-
-                add(
-                    esc(
-                        o.dataset.question
-                    ),
-                    "user"
-                );
-
-                reply(
-                    o.dataset.question
-                );
+                closePackageModal();
 
             }
 
@@ -2846,263 +2217,19 @@ if(
     );
 
 
-    window.scrollToPackages=
-        ()=>{
+    /* =========================================================
+       LOAD PACKAGES
+    ========================================================= */
 
-            box.classList.remove(
-                "active"
-            );
-
-            scrollTo(
-                "#packages"
-            );
-
-        };
+    loadSupabasePackages();
 
 
-    window.scrollToFlights=
-        ()=>{
+    /* =========================================================
+       DEBUG
+    ========================================================= */
 
-            box.classList.remove(
-                "active"
-            );
-
-            scrollTo(
-                "#flights"
-            );
-
-        };
-
-
-    window.scrollToContact=
-        ()=>{
-
-            box.classList.remove(
-                "active"
-            );
-
-            scrollTo(
-                "#contact"
-            );
-
-        };
-
-}
-
-
-/* ================= OLD HERO SLIDESHOW REMOVED ================= */
-
-});
-
-
-
-/* =========================================================
-   HOLIDAY MASTI — HERO 3D GLOBE + WIND CHIME
-   Permanent version of the DevTools changes.
-   ========================================================= */
-
-(function initHolidayMastiHero(){
-    const stage = document.getElementById("heroStage");
-    const canvas = document.getElementById("globe");
-    const chime = document.querySelector(".hm-chime-art");
-    const hotspot = document.querySelector(".hm-chime-hotspot");
-
-    if(!stage || !canvas) return;
-
-    /* ---------- WIND CHIME INTERACTION ---------- */
-
-    let audioCtx = null;
-
-    function playChime(){
-        try{
-            audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
-            if(audioCtx.state === "suspended") audioCtx.resume();
-
-            const now = audioCtx.currentTime;
-            [784, 988, 1175].forEach((freq, i)=>{
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-
-                osc.type = "sine";
-                osc.frequency.setValueAtTime(freq, now + i * .035);
-                gain.gain.setValueAtTime(0.0001, now + i * .035);
-                gain.gain.exponentialRampToValueAtTime(0.055, now + i * .035 + .012);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + i * .035 + .9);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now + i * .035);
-                osc.stop(now + i * .035 + .95);
-            });
-        }catch(e){}
-    }
-
-    function moveChime(){
-        if(!chime) return;
-        chime.classList.remove("hm-chime-moving");
-        void chime.offsetWidth;
-        chime.classList.add("hm-chime-moving");
-        playChime();
-    }
-
-    if(hotspot){
-        hotspot.addEventListener("pointerenter", moveChime);
-        hotspot.addEventListener("click", moveChime);
-        hotspot.addEventListener("keydown", e=>{
-            if(e.key === "Enter" || e.key === " ") moveChime();
-        });
-    }
-
-    /* ---------- THREE.JS GLOBE ---------- */
-
-    if(!window.THREE) return;
-
-    const THREE = window.THREE;
-
-    const renderer = new THREE.WebGLRenderer({
-        canvas,
-        alpha:true,
-        antialias:true
-    });
-
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(30, 1, .1, 100);
-    camera.position.set(0, 0, 5.5);
-
-    const globeGroup = new THREE.Group();
-    scene.add(globeGroup);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 2.25));
-
-    const light = new THREE.DirectionalLight(0xffffff, 3);
-    light.position.set(4, 4, 6);
-    scene.add(light);
-
-    const globe = new THREE.Mesh(
-        new THREE.SphereGeometry(1.48, 48, 48),
-        new THREE.MeshStandardMaterial({
-            color:0x151515,
-            roughness:.72,
-            metalness:.12
-        })
+    console.log(
+        "✅ Holiday Masti script loaded"
     );
-    globeGroup.add(globe);
 
-    const grid = new THREE.Mesh(
-        new THREE.SphereGeometry(1.505, 28, 20),
-        new THREE.MeshBasicMaterial({
-            color:0xc9ff39,
-            wireframe:true,
-            transparent:true,
-            opacity:.20
-        })
-    );
-    globeGroup.add(grid);
-
-    function addMarker(lat, lon, color, size){
-        const phi = (90-lat)*Math.PI/180;
-        const theta = (lon+180)*Math.PI/180;
-        const r = 1.535;
-
-        const pos = new THREE.Vector3(
-            -r*Math.sin(phi)*Math.cos(theta),
-            r*Math.cos(phi),
-            r*Math.sin(phi)*Math.sin(theta)
-        );
-
-        const marker = new THREE.Mesh(
-            new THREE.SphereGeometry(size, 16, 16),
-            new THREE.MeshStandardMaterial({
-                color,
-                emissive:color,
-                emissiveIntensity:.22
-            })
-        );
-        marker.position.copy(pos);
-        globeGroup.add(marker);
-
-        const ring = new THREE.Mesh(
-            new THREE.RingGeometry(size*1.7, size*2.15, 32),
-            new THREE.MeshBasicMaterial({
-                color,
-                side:THREE.DoubleSide,
-                transparent:true,
-                opacity:.7
-            })
-        );
-        ring.position.copy(pos);
-        ring.lookAt(0,0,0);
-        globeGroup.add(ring);
-    }
-
-    addMarker(1.29,103.85,0xc9ff39,.09);
-    addMarker(-8.34,115.09,0xff6b35,.10);
-    addMarker(26.85,80.95,0x52e7df,.08);
-
-    function resize(){
-        const w = Math.max(1, stage.clientWidth);
-        const h = Math.max(1, stage.clientHeight);
-
-        const size = Math.min(
-            510,
-            Math.max(300, Math.min(w*.78, h*.84))
-        );
-
-        canvas.style.width = size + "px";
-        canvas.style.height = size + "px";
-
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        renderer.setPixelRatio(dpr);
-        renderer.setSize(size, size, false);
-
-        camera.aspect = 1;
-        camera.updateProjectionMatrix();
-    }
-
-    resize();
-    window.addEventListener("resize", resize, {passive:true});
-
-    let targetX = 0;
-    let targetY = 0;
-
-    stage.addEventListener("pointermove", e=>{
-        const r = stage.getBoundingClientRect();
-        targetX = ((e.clientX-r.left)/r.width-.5) * .22;
-        targetY = ((e.clientY-r.top)/r.height-.5) * .12;
-    }, {passive:true});
-
-    function animate(){
-        requestAnimationFrame(animate);
-
-        globeGroup.rotation.y += .0026;
-        globeGroup.rotation.x += (targetY - globeGroup.rotation.x) * .025;
-        globeGroup.rotation.z += (targetX - globeGroup.rotation.z) * .025;
-
-        renderer.render(scene,camera);
-    }
-
-    animate();
-})();
-
-
-/* Target-look search tabs */
-document.addEventListener('DOMContentLoaded', () => {
-  const search = document.querySelector('.hm-search');
-  const tabs = document.querySelectorAll('.hm-search-tab');
-  tabs.forEach(tab => tab.addEventListener('click', () => {
-    const mode = tab.dataset.searchMode;
-    tabs.forEach(t => t.classList.toggle('active', t === tab));
-    search?.classList.toggle('flight-mode', mode === 'flight');
-  }));
-  const flightBtn = document.getElementById('hmFlightSearchButton');
-  flightBtn?.addEventListener('click', () => {
-    const form = document.getElementById('flightForm');
-    if (form) form.dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}));
-    const msg = document.getElementById('searchMessage');
-    if (msg) msg.textContent = 'Flight search ready — enter your route and departure date.';
-  });
 });
