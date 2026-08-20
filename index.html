@@ -10,6 +10,47 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <style id="hm-sakura-homepage-v1">
+    /* Holiday Masti — Sakura Mountain homepage hero */
+    .hero{
+      background-image:url("holiday-masti-sakura-home.png") !important;
+      background-size:cover !important;
+      background-position:center center !important;
+      background-repeat:no-repeat !important;
+      position:relative !important;
+      overflow:hidden !important;
+      isolation:isolate !important;
+    }
+    .hero::before{
+      content:"" !important;
+      position:absolute !important;
+      inset:0 !important;
+      z-index:0 !important;
+      pointer-events:none !important;
+      background:linear-gradient(90deg,rgba(255,253,246,.78) 0%,rgba(255,253,246,.42) 38%,rgba(255,253,246,.10) 72%,rgba(255,253,246,.18) 100%) !important;
+    }
+    .hero > *{position:relative !important;z-index:2 !important;}
+    .hero .hero-stage{position:relative !important;z-index:4 !important;}
+    .hero #globe{position:relative !important;z-index:5 !important;}
+    .hero .hero-dots{display:none !important;}
+
+    /* Pagoda / wind-chime artwork is intentionally removed. */
+    .hero .hm-chime-art,
+    .hero .hm-chime-hotspot,
+    .hero .hm-wind-chime,
+    .hero .hmwc-hotspot,
+    .hero [class*="pagoda"],
+    .hero [class*="chime"]{display:none !important;}
+
+    @media (max-width:900px){
+      .hero{
+        background-position:center center !important;
+      }
+      .hero::before{
+        background:linear-gradient(180deg,rgba(255,253,246,.78) 0%,rgba(255,253,246,.42) 48%,rgba(255,253,246,.18) 100%) !important;
+      }
+    }
+  </style>
   <style>
 #contact .contact-info-grid {
     display: grid !important;
@@ -2767,7 +2808,7 @@ footer .footer-bottom span:last-child:hover{
           </div>
           <div class="micro">✦ Handpicked trips &nbsp; ✦ Flexible plans &nbsp; ✦ Human support</div>
         </div>
-        <div class="hero-stage">
+        <div class="hero-stage" id="heroStage">
           <canvas id="globe"></canvas>
           <div class="orbit-label label-1">TOKYO • 7D</div>
           <div class="orbit-label label-2">GOA • 4D ✦</div>
@@ -3254,6 +3295,44 @@ footer .footer-bottom span:last-child:hover{
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
+<script id="hm-sakura-homepage-lock">
+(function(){
+  const HOME_IMAGE = "holiday-masti-sakura-home.png";
+  const heroText = {
+    eyebrow: "Trips for the main character",
+    titleHTML: 'Travel loud.<br><span class="tilt">Live louder.</span>',
+    copy: 'Holiday Masti turns “someday” into “booked.” Curated escapes, unreal stays and zero boring itineraries — made for your kind of adventure.'
+  };
+
+  function lockHomepageHero(){
+    const hero = document.querySelector('.hero');
+    if(!hero) return;
+    hero.style.setProperty('background-image', 'url("'+HOME_IMAGE+'")', 'important');
+    hero.classList.remove('cinematic-zoom','hero-changing');
+
+    const eyebrow = hero.querySelector('.eyebrow');
+    const heading = hero.querySelector('h1');
+    const copy = hero.querySelector('.hero-copy');
+    if(eyebrow && eyebrow.innerHTML !== '<span class="dot"></span> '+heroText.eyebrow){
+      eyebrow.innerHTML = '<span class="dot"></span> '+heroText.eyebrow;
+    }
+    if(heading && heading.innerHTML !== heroText.titleHTML){
+      heading.innerHTML = heroText.titleHTML;
+    }
+    if(copy && copy.textContent !== heroText.copy){
+      copy.textContent = heroText.copy;
+    }
+
+    hero.querySelectorAll('.hero-dots').forEach(el => el.remove());
+    hero.querySelectorAll('.hm-chime-art,.hm-chime-hotspot,.hm-wind-chime,.hmwc-hotspot').forEach(el => el.remove());
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    lockHomepageHero();
+    setInterval(lockHomepageHero, 300);
+  });
+})();
+</script>
 <!-- ================= PACKAGE DETAILS MODAL ================= -->
 
 <div
