@@ -4269,62 +4269,71 @@
    PAGODA ART
 ========================= */
 
+/* =========================================================
+   HOLIDAY MASTI — FINAL PAGODA + WIND CHIME
+   One clean implementation. No duplicate overrides.
+========================================================= */
+
+.hero-stage {
+    min-height: 590px;
+    position: relative !important;
+    display: grid;
+    place-items: center;
+    overflow: visible !important;
+    isolation: isolate !important;
+}
+
+/* Pagoda / chime artwork */
 .hm-chime-art {
     position: absolute !important;
 
-    /* TOP HANGING */
-    top: -210px !important;
-    right: -35px !important;
+    /* Desktop: hang from the top-right of the hero stage */
+    top: -155px !important;
+    right: -25px !important;
 
-    width: 560px !important;
-    height: 500px !important;
+    width: 520px !important;
+    height: 470px !important;
 
     z-index: 3 !important;
     pointer-events: none !important;
     overflow: visible !important;
 
-    opacity: .82 !important;
+    opacity: .76 !important;
 
-    /* soft integration */
+    /*
+      The artwork has a pale baked-in background.
+      Multiply + opacity lets it merge into the paper background
+      instead of reading like a separate rectangular photo.
+    */
     mix-blend-mode: multiply !important;
 
     filter:
-        saturate(.86)
+        saturate(.84)
         contrast(.90)
-        brightness(1.06) !important;
+        brightness(1.08) !important;
 
-    /* fade into cream background */
+    /* Soft edge fade */
     -webkit-mask-image:
-        linear-gradient(
-            to bottom,
-            transparent 0%,
-            rgba(0,0,0,.15) 8%,
-            black 20%,
-            black 82%,
-            rgba(0,0,0,.45) 94%,
+        radial-gradient(
+            ellipse 78% 88% at 72% 30%,
+            #000 0%,
+            rgba(0,0,0,.96) 58%,
+            rgba(0,0,0,.55) 78%,
             transparent 100%
         ) !important;
 
     mask-image:
-        linear-gradient(
-            to bottom,
-            transparent 0%,
-            rgba(0,0,0,.15) 8%,
-            black 20%,
-            black 82%,
-            rgba(0,0,0,.45) 94%,
+        radial-gradient(
+            ellipse 78% 88% at 72% 30%,
+            #000 0%,
+            rgba(0,0,0,.96) 58%,
+            rgba(0,0,0,.55) 78%,
             transparent 100%
         ) !important;
 }
 
-
-/* =========================
-   IMAGE
-========================= */
-
 .hm-chime-art img {
     position: absolute !important;
-
     inset: 0 !important;
 
     width: 100% !important;
@@ -4337,276 +4346,46 @@
 
     border: 0 !important;
     box-shadow: none !important;
-
     background: transparent !important;
 
     mix-blend-mode: multiply !important;
+
+    transform-origin: 76% 8% !important;
 }
 
-
-/* =========================
-   GLOBE BELOW PAGODA
-========================= */
-
-.hero-stage #globe {
-    position: relative !important;
-    z-index: 5 !important;
+/* Wind-chime swing */
+.hm-chime-art.is-ringing img {
+    animation: hmChimeSwing .82s cubic-bezier(.22,.72,.30,1) both !important;
 }
 
-
-/* Labels / stickers above artwork */
-
-.hero-stage .orbit-label,
-.hero-stage .sticker {
-    z-index: 8 !important;
+@keyframes hmChimeSwing {
+    0%   { transform: rotate(0deg); }
+    14%  { transform: rotate(1.7deg); }
+    30%  { transform: rotate(-1.35deg); }
+    46%  { transform: rotate(1deg); }
+    62%  { transform: rotate(-.65deg); }
+    78%  { transform: rotate(.35deg); }
+    100% { transform: rotate(0deg); }
 }
 
-
-/* =========================
-   WIND CHIME HOTSPOT
-========================= */
-
+/* Invisible interaction area over the hanging chimes */
 .hm-chime-hotspot {
     position: absolute !important;
 
-    top: 5% !important;
-    right: 4% !important;
+    top: 28% !important;
+    right: 2% !important;
 
-    width: 45% !important;
-    height: 60% !important;
+    width: 38% !important;
+    height: 58% !important;
 
     z-index: 12 !important;
 
     pointer-events: auto !important;
     cursor: pointer !important;
+    outline: none !important;
 }
 
-
-/* =========================
-   WIND CHIME ANIMATION
-========================= */
-
-.hm-chime-art.is-ringing img {
-    animation:
-        hmChimeSwing
-        .82s
-        cubic-bezier(.22,.72,.30,1)
-        both !important;
-}
-
-@keyframes hmChimeSwing {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    14% {
-        transform: rotate(1.5deg);
-    }
-
-    30% {
-        transform: rotate(-1.2deg);
-    }
-
-    46% {
-        transform: rotate(.9deg);
-    }
-
-    62% {
-        transform: rotate(-.6deg);
-    }
-
-    78% {
-        transform: rotate(.3deg);
-    }
-
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 1000px) {
-
-    .hm-chime-art {
-        top: -155px !important;
-        right: -55px !important;
-
-        width: 500px !important;
-        height: 450px !important;
-
-        opacity: .78 !important;
-    }
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 767px) {
-
-    .hm-chime-art {
-        top: -95px !important;
-        right: -70px !important;
-
-        width: 350px !important;
-        height: 330px !important;
-
-        opacity: .72 !important;
-    }
-
-    .hm-chime-hotspot {
-        top: 4% !important;
-        right: 3% !important;
-
-        width: 58% !important;
-        height: 55% !important;
-    }
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 390px) {
-
-    .hm-chime-art {
-        top: -75px !important;
-        right: -65px !important;
-
-        width: 320px !important;
-        height: 300px !important;
-    }
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 767px) {
-
-    .hm-chime-art {
-        width: 280px !important;
-        height: 300px !important;
-
-        top: -35px !important;
-        right: -20px !important;
-
-        opacity: .84 !important;
-    }
-
-    .hm-chime-hotspot {
-        top: 5% !important;
-        right: 3% !important;
-
-        width: 60% !important;
-        height: 55% !important;
-    }
-}
-
-
-/* SMALL MOBILE */
-@media (max-width: 390px) {
-
-    .hm-chime-art {
-        width: 255px !important;
-        height: 275px !important;
-
-        top: -30px !important;
-        right: -15px !important;
-    }
-}
-
-
-/* Wind-chime swing */
-.hm-chime-art.is-ringing img {
-    animation:
-        hmChimeSwing
-        .82s
-        cubic-bezier(.22,.72,.30,1)
-        both !important;
-}
-
-@keyframes hmChimeSwing {
-    0%   { transform: rotate(0deg); }
-    14%  { transform: rotate(1.5deg); }
-    30%  { transform: rotate(-1.2deg); }
-    46%  { transform: rotate(.9deg); }
-    62%  { transform: rotate(-.6deg); }
-    78%  { transform: rotate(.3deg); }
-    100% { transform: rotate(0deg); }
-}
-
-/* =========================================================
-   PAGODA — TOP HANG + SOFT BLEND
-========================================================= */
-
-.hm-chime-art {
-    position: absolute !important;
-
-    /* smaller and controlled */
-    width: 520px !important;
-    height: 560px !important;
-
-    /* MOVE IT UP */
-    top: -135px !important;
-
-    /* keep it on the right */
-    right: -20px !important;
-
-    z-index: 3 !important;
-    pointer-events: none !important;
-
-    /* blend with website cream */
-    mix-blend-mode: multiply !important;
-
-    /* fade only the LEFT + BOTTOM edges */
-    -webkit-mask-image:
-        linear-gradient(
-            to right,
-            transparent 0%,
-            rgba(0,0,0,.25) 8%,
-            black 20%,
-            black 100%
-        ) !important;
-
-    mask-image:
-        linear-gradient(
-            to right,
-            transparent 0%,
-            rgba(0,0,0,.25) 8%,
-            black 20%,
-            black 100%
-        ) !important;
-}
-
-.hm-chime-art img {
-    position: absolute !important;
-    inset: 0 !important;
-
-    width: 100% !important;
-    height: 100% !important;
-
-    object-fit: contain !important;
-    object-position: top right !important;
-
-    display: block !important;
-
-    background: transparent !important;
-    border: 0 !important;
-    box-shadow: none !important;
-
-    /* makes pale image background less noticeable */
-    mix-blend-mode: multiply !important;
-}
-
-
-/* Keep website elements above the artwork */
+/* Keep the globe and its labels readable */
 .hero-stage #globe {
     position: relative !important;
     z-index: 5 !important;
@@ -4618,18 +4397,60 @@
     z-index: 8 !important;
 }
 
+/* Tablet */
+@media (max-width: 1000px) {
+    .hm-chime-art {
+        top: -125px !important;
+        right: -45px !important;
+        width: 455px !important;
+        height: 415px !important;
+        opacity: .72 !important;
+    }
 
-/* =========================================================
-   MOBILE
-========================================================= */
+    .hm-chime-hotspot {
+        top: 27% !important;
+        right: 3% !important;
+        width: 43% !important;
+        height: 56% !important;
+    }
+}
 
+/* Mobile */
 @media (max-width: 767px) {
+    .hero-stage {
+        min-height: 480px !important;
+    }
 
     .hm-chime-art {
-        width: 300px !important;
+        top: -105px !important;
+        right: -60px !important;
+        width: 360px !important;
         height: 330px !important;
+        opacity: .70 !important;
+    }
 
-        top: -45px !important;
-        right: -15px !important;
+    .hm-chime-hotspot {
+        top: 22% !important;
+        right: 2% !important;
+        width: 55% !important;
+        height: 55% !important;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 390px) {
+    .hm-chime-art {
+        top: -85px !important;
+        right: -55px !important;
+        width: 325px !important;
+        height: 300px !important;
+    }
+}
+
+/* Respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+    .hm-chime-art.is-ringing img {
+        animation: none !important;
+        transform: rotate(.3deg) !important;
     }
 }
