@@ -3129,3 +3129,197 @@ console.log(
 );
 
 });
+
+
+
+/* =========================================================
+   HOLIDAY MASTI — HERO 3D GLOBE + WIND CHIME
+   Permanent version of the DevTools changes.
+   ========================================================= */
+
+(function initHolidayMastiHero(){
+    const stage = document.getElementById("heroStage");
+    const canvas = document.getElementById("globe");
+    const chime = document.querySelector(".hm-chime-art");
+    const hotspot = document.querySelector(".hm-chime-hotspot");
+
+    if(!stage || !canvas) return;
+
+    /* ---------- WIND CHIME INTERACTION ---------- */
+
+    let audioCtx = null;
+
+    function playChime(){
+        try{
+            audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
+            if(audioCtx.state === "suspended") audioCtx.resume();
+
+            const now = audioCtx.currentTime;
+            [784, 988, 1175].forEach((freq, i)=>{
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = "sine";
+                osc.frequency.setValueAtTime(freq, now + i * .035);
+                gain.gain.setValueAtTime(0.0001, now + i * .035);
+                gain.gain.exponentialRampToValueAtTime(0.055, now + i * .035 + .012);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + i * .035 + .9);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now + i * .035);
+                osc.stop(now + i * .035 + .95);
+            });
+        }catch(e){}
+    }
+
+    function moveChime(){
+        if(!chime) return;
+        chime.classList.remove("hm-chime-moving");
+        void chime.offsetWidth;
+        chime.classList.add("hm-chime-moving");
+        playChime();
+    }
+
+    if(hotspot){
+        hotspot.addEventListener("pointerenter", moveChime);
+        hotspot.addEventListener("click", moveChime);
+        hotspot.addEventListener("keydown", e=>{
+            if(e.key === "Enter" || e.key === " ") moveChime();
+        });
+    }
+
+    /* ---------- THREE.JS GLOBE ---------- */
+
+    if(!window.THREE) return;
+
+    const THREE = window.THREE;
+
+    const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha:true,
+        antialias:true
+    });
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(30, 1, .1, 100);
+    camera.position.set(0, 0, 5.5);
+
+    const globeGroup = new THREE.Group();
+    scene.add(globeGroup);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 2.25));
+
+    const light = new THREE.DirectionalLight(0xffffff, 3);
+    light.position.set(4, 4, 6);
+    scene.add(light);
+
+    const globe = new THREE.Mesh(
+        new THREE.SphereGeometry(1.48, 48, 48),
+        new THREE.MeshStandardMaterial({
+            color:0x151515,
+            roughness:.72,
+            metalness:.12
+        })
+    );
+    globeGroup.add(globe);
+
+    const grid = new THREE.Mesh(
+        new THREE.SphereGeometry(1.505, 28, 20),
+        new THREE.MeshBasicMaterial({
+            color:0xc9ff39,
+            wireframe:true,
+            transparent:true,
+            opacity:.20
+        })
+    );
+    globeGroup.add(grid);
+
+    function addMarker(lat, lon, color, size){
+        const phi = (90-lat)*Math.PI/180;
+        const theta = (lon+180)*Math.PI/180;
+        const r = 1.535;
+
+        const pos = new THREE.Vector3(
+            -r*Math.sin(phi)*Math.cos(theta),
+            r*Math.cos(phi),
+            r*Math.sin(phi)*Math.sin(theta)
+        );
+
+        const marker = new THREE.Mesh(
+            new THREE.SphereGeometry(size, 16, 16),
+            new THREE.MeshStandardMaterial({
+                color,
+                emissive:color,
+                emissiveIntensity:.22
+            })
+        );
+        marker.position.copy(pos);
+        globeGroup.add(marker);
+
+        const ring = new THREE.Mesh(
+            new THREE.RingGeometry(size*1.7, size*2.15, 32),
+            new THREE.MeshBasicMaterial({
+                color,
+                side:THREE.DoubleSide,
+                transparent:true,
+                opacity:.7
+            })
+        );
+        ring.position.copy(pos);
+        ring.lookAt(0,0,0);
+        globeGroup.add(ring);
+    }
+
+    addMarker(1.29,103.85,0xc9ff39,.09);
+    addMarker(-8.34,115.09,0xff6b35,.10);
+    addMarker(26.85,80.95,0x52e7df,.08);
+
+    function resize(){
+        const w = Math.max(1, stage.clientWidth);
+        const h = Math.max(1, stage.clientHeight);
+
+        const size = Math.min(
+            510,
+            Math.max(300, Math.min(w*.78, h*.84))
+        );
+
+        canvas.style.width = size + "px";
+        canvas.style.height = size + "px";
+
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        renderer.setPixelRatio(dpr);
+        renderer.setSize(size, size, false);
+
+        camera.aspect = 1;
+        camera.updateProjectionMatrix();
+    }
+
+    resize();
+    window.addEventListener("resize", resize, {passive:true});
+
+    let targetX = 0;
+    let targetY = 0;
+
+    stage.addEventListener("pointermove", e=>{
+        const r = stage.getBoundingClientRect();
+        targetX = ((e.clientX-r.left)/r.width-.5) * .22;
+        targetY = ((e.clientY-r.top)/r.height-.5) * .12;
+    }, {passive:true});
+
+    function animate(){
+        requestAnimationFrame(animate);
+
+        globeGroup.rotation.y += .0026;
+        globeGroup.rotation.x += (targetY - globeGroup.rotation.x) * .025;
+        globeGroup.rotation.z += (targetX - globeGroup.rotation.z) * .025;
+
+        renderer.render(scene,camera);
+    }
+
+    animate();
+})();
