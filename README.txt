@@ -1,0 +1,1 @@
+CURRENT NEW LOOK — replace index.html, style.css and script.js in GitHub main. Keep CNAME and existing images/assets. This is a visual implementation of the current new-look design; existing JS/Supabase functionality is retained.
