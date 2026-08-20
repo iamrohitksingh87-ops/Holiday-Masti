@@ -4253,290 +4253,327 @@
 
 }
 /* =========================================================
-   HOLIDAY MASTI — PAGODA + INTERACTIVE WIND CHIME
+   HOLIDAY MASTI — PAGODA CHIME v2
+   Keep globe visible + blend pagoda into hero
 ========================================================= */
 
 .hero-stage {
-  overflow: visible;
-  isolation: isolate;
+    position: relative !important;
+    overflow: visible !important;
+    isolation: isolate !important;
 }
 
+/* Existing globe MUST stay visible */
 .hero-stage #globe {
-  position: relative;
-  z-index: 2;
+    position: relative !important;
+    z-index: 5 !important;
 }
 
 /* Pagoda artwork */
 .hm-chime-art {
-  position: absolute;
-  z-index: 1;
-  top: -8%;
-  right: -8%;
-  width: min(640px, 72%);
-  height: 500px;
-  pointer-events: none;
+    position: absolute !important;
 
-  filter: saturate(.94) contrast(.98);
-  mix-blend-mode: multiply;
+    width: 570px !important;
+    height: 430px !important;
+
+    right: -30px !important;
+    top: -25px !important;
+
+    z-index: 2 !important;
+
+    pointer-events: none !important;
+
+    /* blend the cream background into website */
+    mix-blend-mode: multiply !important;
+
+    opacity: .72 !important;
+
+    overflow: hidden !important;
+
+    border-radius: 0 !important;
+
+    filter:
+        saturate(.88)
+        contrast(.94)
+        brightness(1.04) !important;
 }
 
+/* Image itself */
 .hm-chime-art img {
-  position: absolute;
-  inset: 0;
+    position: absolute !important;
 
-  width: 100%;
-  height: 100%;
+    width: 100% !important;
+    height: 100% !important;
 
-  object-fit: contain;
-  object-position: top right;
+    inset: 0 !important;
 
-  display: block;
+    object-fit: cover !important;
 
-  transform-origin: 74% 28%;
+    /*
+       Focus mostly on the pagoda roof
+       and hanging chimes.
+    */
+    object-position: 72% 28% !important;
 
-  transition:
-    transform .28s cubic-bezier(.2,.8,.2,1),
-    filter .28s ease;
+    display: block !important;
+
+    transform-origin: 72% 28% !important;
+
+    transition:
+        transform .3s ease,
+        filter .3s ease !important;
 }
 
-/* Swing animation */
-.hm-chime-art.is-ringing img {
-  animation:
-    hmChimeSwing
-    .85s
-    cubic-bezier(.22,.72,.3,1)
-    both;
 
-  filter:
-    saturate(1.05)
-    contrast(1.03);
+/* ---------------------------------------------------------
+   Make artwork fade toward the left/bottom
+--------------------------------------------------------- */
+
+.hm-chime-art::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--paper) 0%,
+            rgba(245,241,232,.72) 12%,
+            rgba(245,241,232,.18) 42%,
+            transparent 70%
+        ),
+        linear-gradient(
+            180deg,
+            transparent 55%,
+            rgba(245,241,232,.65) 100%
+        );
+
+    z-index: 2;
+}
+
+
+/* ---------------------------------------------------------
+   Interactive area
+--------------------------------------------------------- */
+
+.hm-chime-hotspot {
+    position: absolute !important;
+
+    z-index: 10 !important;
+
+    top: 20% !important;
+    right: 8% !important;
+
+    width: 55% !important;
+    height: 65% !important;
+
+    border-radius: 50%;
+
+    pointer-events: auto !important;
+
+    cursor: pointer;
+
+    outline: none;
+}
+
+
+/* ---------------------------------------------------------
+   Chime swing
+--------------------------------------------------------- */
+
+.hm-chime-art.is-ringing img {
+    animation:
+        hmChimeSwing
+        .85s
+        cubic-bezier(.22,.72,.3,1)
+        both !important;
 }
 
 @keyframes hmChimeSwing {
 
-  0% {
-    transform: rotate(0deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
 
-  16% {
-    transform: rotate(2.2deg);
-  }
+    15% {
+        transform: rotate(1.8deg);
+    }
 
-  32% {
-    transform: rotate(-2deg);
-  }
+    30% {
+        transform: rotate(-1.6deg);
+    }
 
-  48% {
-    transform: rotate(1.55deg);
-  }
+    45% {
+        transform: rotate(1.2deg);
+    }
 
-  64% {
-    transform: rotate(-1.1deg);
-  }
+    60% {
+        transform: rotate(-.8deg);
+    }
 
-  82% {
-    transform: rotate(.55deg);
-  }
+    75% {
+        transform: rotate(.4deg);
+    }
 
-  100% {
-    transform: rotate(0deg);
-  }
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
-/* Invisible interaction area */
-.hm-chime-hotspot {
-  position: absolute;
-  z-index: 5;
 
-  top: 25%;
-  right: 10%;
+/* ---------------------------------------------------------
+   Small hint
+--------------------------------------------------------- */
 
-  width: 55%;
-  height: 58%;
-
-  border-radius: 50%;
-
-  pointer-events: auto;
-  cursor: pointer;
-
-  outline: none;
-}
-
-/* Small instruction */
 .hm-chime-hint {
-  position: absolute;
-  z-index: 6;
+    position: absolute !important;
 
-  left: 3%;
-  top: 52%;
+    z-index: 12 !important;
 
-  display: flex;
-  align-items: center;
-  gap: 9px;
+    left: 12% !important;
+    top: 50% !important;
 
-  padding: 10px 13px;
+    padding: 9px 12px !important;
 
-  border: 1px solid rgba(16,16,16,.10);
-  border-radius: 16px;
+    border-radius: 14px !important;
 
-  background: rgba(255,253,246,.78);
+    background: rgba(255,253,246,.72) !important;
 
-  backdrop-filter: blur(12px);
+    border:
+        1px solid
+        rgba(16,16,16,.08) !important;
 
-  box-shadow:
-    0 10px 30px rgba(16,16,16,.06);
+    backdrop-filter: blur(10px);
 
-  color: #111;
+    font-size: 10px !important;
 
-  font-size: 11px;
-  line-height: 1.25;
+    line-height: 1.25 !important;
 
-  pointer-events: none;
+    color: #111;
+
+    pointer-events: none !important;
+
+    opacity: .78;
 }
 
 .hm-chime-hint em {
-  color: #777;
-  font-style: italic;
+    color: #777;
+    font-style: italic;
 }
 
 .hm-chime-hand {
-  font-size: 21px;
-
-  animation:
-    hmHandFloat
-    2.4s
-    ease-in-out
-    infinite;
-}
-
-@keyframes hmHandFloat {
-
-  0%,
-  100% {
-    transform: translate(0,0);
-  }
-
-  50% {
-    transform: translate(4px,-3px);
-  }
-}
-
-.hm-chime-hotspot:focus-visible {
-  box-shadow:
-    0 0 0 3px var(--lime);
+    margin-right: 5px;
 }
 
 
-/* TABLET */
+/* =========================================================
+   TABLET
+========================================================= */
+
 @media (max-width: 900px) {
 
-  .hm-chime-art {
-    top: -3%;
-    right: -8%;
-    width: 78%;
-    height: 390px;
-    opacity: .92;
-  }
+    .hm-chime-art {
 
-  .hm-chime-hint {
-    left: 1%;
-    top: 47%;
+        width: 500px !important;
+        height: 370px !important;
 
-    font-size: 10px;
-    padding: 8px 10px;
-  }
+        right: -50px !important;
+        top: -10px !important;
 
-  .hm-chime-hotspot {
-    top: 20%;
-    right: 5%;
+        opacity: .62 !important;
+    }
 
-    width: 60%;
-    height: 55%;
-  }
+    .hm-chime-hotspot {
+        right: 5% !important;
+    }
 }
 
 
-/* MOBILE */
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media (max-width: 767px) {
 
-  .hero-stage {
-    min-height: 520px !important;
-    height: 520px !important;
-  }
+    .hero-stage {
 
-  .hm-chime-art {
-    top: -5%;
-    right: -17%;
+        min-height: 480px !important;
+        height: 480px !important;
 
-    width: 118%;
-    height: 300px;
+        position: relative !important;
+    }
 
-    opacity: .90;
-  }
+    /*
+       Pagoda sits behind the globe,
+       not on top of the whole hero.
+    */
+    .hm-chime-art {
 
-  .hm-chime-hotspot {
-    top: 8%;
-    right: 7%;
+        width: 430px !important;
+        height: 300px !important;
 
-    width: 62%;
-    height: 58%;
-  }
+        right: -105px !important;
+        top: -15px !important;
 
-  .hm-chime-hint {
-    left: 5%;
-    top: 45%;
+        opacity: .55 !important;
 
-    transform: scale(.92);
-    transform-origin: left top;
-  }
+        z-index: 1 !important;
+    }
 
-  .hero-stage #globe {
-    position: absolute;
+    .hero-stage #globe {
 
-    left: 0;
-    right: 0;
-    bottom: 0;
+        position: absolute !important;
 
-    width: 100% !important;
-    height: 365px !important;
+        left: 0 !important;
+        bottom: 0 !important;
 
-    z-index: 2;
-  }
+        width: 100% !important;
+        height: 350px !important;
 
-  .orbit-label,
-  .sticker {
-    z-index: 4;
-  }
+        z-index: 5 !important;
+    }
+
+    .hm-chime-hotspot {
+
+        top: 8% !important;
+        right: 5% !important;
+
+        width: 60% !important;
+        height: 52% !important;
+    }
+
+    .hm-chime-hint {
+
+        left: 5% !important;
+        top: 38% !important;
+
+        transform: scale(.85);
+
+        transform-origin: left top;
+    }
 }
 
 
-/* VERY SMALL MOBILE */
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
 @media (max-width: 390px) {
 
-  .hero-stage {
-    min-height: 495px !important;
-    height: 495px !important;
-  }
+    .hm-chime-art {
 
-  .hm-chime-art {
-    height: 275px;
-  }
+        width: 390px !important;
+        height: 270px !important;
 
-  .hero-stage #globe {
-    height: 345px !important;
-  }
-}
+        right: -100px !important;
+    }
 
+    .hero-stage #globe {
 
-/* REDUCED MOTION */
-@media (prefers-reduced-motion: reduce) {
-
-  .hm-chime-hand {
-    animation: none;
-  }
-
-  .hm-chime-art.is-ringing img {
-    animation: none;
-    transform: rotate(1deg);
-  }
+        height: 325px !important;
+    }
 }
