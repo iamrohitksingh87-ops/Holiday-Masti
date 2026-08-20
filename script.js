@@ -2347,264 +2347,90 @@ document.addEventListener(
     ========================================================= */
 
     loadSupabasePackages();
+
+
+
+
     /* =========================================================
-   INTERACTIVE PAGODA WIND CHIME
-========================================================= */
+       INTERACTIVE PAGODA WIND CHIME
+       Uses Web Audio so no external sound file is required.
+    ========================================================= */
 
-const chimeArt =
-    document.querySelector(".hm-chime-art");
+    const chimeArt = document.querySelector(".hm-chime-art");
+    const chimeHotspot = document.querySelector(".hm-chime-hotspot");
+    let chimeAudioContext = null;
+    let chimeBusy = false;
 
-const chimeHotspot =
-    document.querySelector(".hm-chime-hotspot");
-
-let chimeAudioContext = null;
-let chimeBusy = false;
-
-
-/* Unlock browser audio */
-function unlockChimeAudio() {
-
-    if (!chimeAudioContext) {
-
-        const AudioContext =
-            window.AudioContext ||
-            window.webkitAudioContext;
-
-        if (!AudioContext) {
-            return;
+    function unlockChimeAudio() {
+        if (!chimeAudioContext) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            chimeAudioContext = new AudioContext();
         }
-
-        chimeAudioContext =
-            new AudioContext();
+        if (chimeAudioContext.state === "suspended") {
+            chimeAudioContext.resume().catch(() => {});
+        }
     }
 
-    if (
-        chimeAudioContext.state ===
-        "suspended"
-    ) {
+    function playWindChime() {
+        unlockChimeAudio();
+        if (!chimeAudioContext || chimeBusy) return;
+        chimeBusy = true;
 
-        chimeAudioContext
-            .resume()
-            .catch(() => {});
+        const now = chimeAudioContext.currentTime;
+        const master = chimeAudioContext.createGain();
+        master.gain.setValueAtTime(0.0001, now);
+        master.gain.exponentialRampToValueAtTime(0.055, now + 0.015);
+        master.gain.exponentialRampToValueAtTime(0.0001, now + 1.25);
+        master.connect(chimeAudioContext.destination);
 
-    }
-}
-
-
-/* Create wind-chime sound */
-function playWindChime() {
-
-    unlockChimeAudio();
-
-    if (
-        !chimeAudioContext ||
-        chimeBusy
-    ) {
-        return;
-    }
-
-    chimeBusy = true;
-
-    const now =
-        chimeAudioContext.currentTime;
-
-
-    const master =
-        chimeAudioContext.createGain();
-
-
-    master.gain.setValueAtTime(
-        0.0001,
-        now
-    );
-
-
-    master.gain.exponentialRampToValueAtTime(
-        0.055,
-        now + 0.015
-    );
-
-
-    master.gain.exponentialRampToValueAtTime(
-        0.0001,
-        now + 1.25
-    );
-
-
-    master.connect(
-        chimeAudioContext.destination
-    );
-
-
-    /* Three metallic notes */
-    [
-        659.25,
-        783.99,
-        987.77
-    ].forEach(
-        (frequency, index) => {
-
-            const osc =
-                chimeAudioContext
-                    .createOscillator();
-
-
-            const gain =
-                chimeAudioContext
-                    .createGain();
-
-
-            osc.type =
-                index === 1
-                    ? "sine"
-                    : "triangle";
-
-
-            osc.frequency.setValueAtTime(
-                frequency,
-                now
-            );
-
-
-            osc.detune.setValueAtTime(
-                index * 4 - 4,
-                now
-            );
-
-
-            gain.gain.setValueAtTime(
-                0.0001,
-                now
-            );
-
-
-            gain.gain.exponentialRampToValueAtTime(
-                0.35 / (index + 1),
-                now + 0.02
-            );
-
-
-            gain.gain.exponentialRampToValueAtTime(
-                0.0001,
-                now + 0.75 + index * 0.16
-            );
-
-
+        [659.25, 783.99, 987.77].forEach((frequency, index) => {
+            const osc = chimeAudioContext.createOscillator();
+            const gain = chimeAudioContext.createGain();
+            osc.type = index === 1 ? "sine" : "triangle";
+            osc.frequency.setValueAtTime(frequency, now);
+            osc.detune.setValueAtTime(index * 4 - 4, now);
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.35 / (index + 1), now + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.75 + index * 0.16);
             osc.connect(gain);
             gain.connect(master);
-
-
             osc.start(now);
             osc.stop(now + 1.35);
+        });
 
-        }
-    );
-
-
-    setTimeout(
-        () => {
-            chimeBusy = false;
-        },
-        650
-    );
-}
-
-
-/* Swing + sound */
-function ringChime() {
-
-    if (!chimeArt) {
-        return;
+        setTimeout(() => { chimeBusy = false; }, 650);
     }
 
+    function ringChime() {
+        if (!chimeArt) return;
+        chimeArt.classList.remove("is-ringing");
+        void chimeArt.offsetWidth;
+        chimeArt.classList.add("is-ringing");
+        playWindChime();
+    }
 
-    chimeArt.classList.remove(
-        "is-ringing"
-    );
-
-
-    /* Restart CSS animation */
-    void chimeArt.offsetWidth;
-
-
-    chimeArt.classList.add(
-        "is-ringing"
-    );
-
-
-    playWindChime();
-}
-
-
-/* Mouse + touch */
-if (chimeHotspot) {
-
-    [
-        "pointerenter",
-        "pointerdown"
-    ].forEach(
-        (eventName) => {
-
-            chimeHotspot.addEventListener(
-                eventName,
-                () => {
-
-                    if (
-                        eventName ===
-                        "pointerdown"
-                    ) {
-                        unlockChimeAudio();
-                    }
-
-                    ringChime();
-
-                }
-            );
-
-        }
-    );
-
-
-    /* Keyboard accessibility */
-    chimeHotspot.addEventListener(
-        "focus",
-        () => {
-            unlockChimeAudio();
-        }
-    );
-
-
-    chimeHotspot.addEventListener(
-        "keydown",
-        (event) => {
-
-            if (
-                event.key === "Enter" ||
-                event.key === " "
-            ) {
-
-                event.preventDefault();
-
+    if (chimeHotspot) {
+        ["pointerenter", "pointerdown"].forEach((eventName) => {
+            chimeHotspot.addEventListener(eventName, () => {
+                if (eventName === "pointerdown") unlockChimeAudio();
                 ringChime();
+            });
+        });
 
+        chimeHotspot.addEventListener("focus", () => {
+            unlockChimeAudio();
+        });
+
+        chimeHotspot.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                ringChime();
             }
-
-        }
-    );
-
-}
-
-
-/* Browser audio permission */
-window.addEventListener(
-    "pointerdown",
-    unlockChimeAudio,
-    {
-        once: true,
-        passive: true
+        });
     }
-);
 
+    window.addEventListener("pointerdown", unlockChimeAudio, { once: true, passive: true });
 
     /* =========================================================
        DEBUG
