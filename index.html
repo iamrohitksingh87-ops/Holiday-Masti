@@ -36,13 +36,13 @@
             </button>
 
             <nav class="main-nav" id="mainNav">
-                <a href="#home">Home</a>
-                <a href="#divine-yatra">Divine Yatra</a>
-                <a href="#packages">Packages</a>
-                <a href="#destinations">Destinations</a>
-                <a href="#features">Why Us</a>
-                <a href="#contact">Contact</a>
-                <a class="nav-cta" href="#search">Book Now</a>
+                <a href="#home">Explore ✦</a>
+                <a href="#divine-yatra">Divine Yatra ☼</a>
+                <a href="#packages">Trip Drops ✦</a>
+                <a href="#destinations">Roam ✦</a>
+                <a href="#features">Our Vibe ✦</a>
+                <a href="#contact">Say Hi 👋</a>
+                <a class="nav-cta" href="#search">Escape Now ↗</a>
             </nav>
         </div>
     </header>
@@ -50,22 +50,47 @@
 
     <!-- ==================== HERO ==================== -->
     <main>
-        <section class="hero" id="home">
+        <section class="hero hm-hero" id="home">
             <div class="hero-overlay"></div>
+            <div class="hm-mountain-backdrop" aria-hidden="true"></div>
 
-            <div class="hero-content">
-                <p class="eyebrow">HOLIDAY MASTI</p>
+            <div class="hero-content hm-hero-copy">
+                <p class="eyebrow"><span class="hm-hero-dot"></span> TRIPS FOR THE MAIN CHARACTER</p>
 
-                <h1>Discover Your Next<br>Dream Destination</h1>
+                <h1>Travel loud.<br><span>Live louder.</span></h1>
 
                 <p class="hero-subtitle">
-                    Travel more. Spend less. Create unforgettable memories.
+                    Holiday Masti turns “someday” into “booked.” Curated escapes,
+                    unreal stays and zero boring itineraries — made for your kind of adventure.
                 </p>
 
                 <div class="hero-actions">
-                    <a class="btn btn-primary" href="#search">Explore Packages</a>
-                    <a class="btn btn-ghost" href="#destinations">View Destinations</a>
+                    <a class="btn btn-dark" href="#destinations">Explore escapes ↗</a>
+                    <a class="btn btn-ghost hm-light-btn" href="#search">How it works ↓</a>
                 </div>
+
+                <div class="hm-micro">✦ Handpicked trips &nbsp;&nbsp; ✦ Flexible plans &nbsp;&nbsp; ✦ Human support</div>
+            </div>
+
+            <div class="hero-stage" id="heroStage">
+                <div class="hm-chime-art" aria-label="Interactive pagoda wind chime">
+                    <img src="images/pagoda_chime_hero_clean.png"
+                         alt="Golden pagoda roof with hanging wind chimes"
+                         loading="eager"
+                         onerror="this.style.display='none'">
+                    <div class="hm-chime-hotspot" tabindex="0" aria-label="Move over the wind chime to make it ring"></div>
+                </div>
+
+                <canvas id="globe" aria-hidden="true"></canvas>
+
+                <div class="hm-orbit-ring hm-ring-one" aria-hidden="true"></div>
+                <div class="hm-orbit-ring hm-ring-two" aria-hidden="true"></div>
+
+                <div class="orbit-label label-1">TOKYO • 7D</div>
+                <div class="orbit-label label-2">GOA • 4D ✦</div>
+                <div class="orbit-label label-3">BALI • 6D</div>
+
+                <div class="sticker">NO<br>FOMO<br>TRIPS</div>
             </div>
 
             <a class="scroll-indicator" href="#search" aria-label="Scroll to search">
@@ -497,6 +522,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
     <script src="script.js"></script>
 
 <a
