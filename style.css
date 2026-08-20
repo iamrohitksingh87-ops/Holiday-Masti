@@ -3940,3 +3940,35 @@
         background-position:58% center !important;
     }
 }
+/* =========================================================
+   FINAL SAKURA HERO — KEEP THIS AS THE LAST HERO OVERRIDE
+========================================================= */
+
+.hero.hm-hero {
+    background-image: url("images/holiday-masti-sakura-home.png") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Hide the old mountain layer */
+.hero.hm-hero .hm-mountain-backdrop {
+    display: none !important;
+}
+
+/* Remove the old hero overlay that washes out the Sakura image */
+.hero.hm-hero .hero-overlay {
+    display: none !important;
+}
+
+/* Keep hero content and globe visible */
+.hero.hm-hero .hero-content,
+.hero.hm-hero .hero-stage {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+.hero.hm-hero #globe {
+    position: relative !important;
+    z-index: 6 !important;
+}
