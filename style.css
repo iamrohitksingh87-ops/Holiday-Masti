@@ -4339,3 +4339,116 @@
 }
 
 @media(prefers-reduced-motion:reduce){.hm-chime-art.is-ringing img{animation:none !important;transform:rotate(.4deg) !important}}
+/* =========================================================
+   PAGODA + WIND CHIME — FINAL SIZE / POSITION
+========================================================= */
+
+.hm-chime-art {
+    position: absolute !important;
+
+    /* MUCH SMALLER */
+    width: 390px !important;
+    height: 310px !important;
+
+    /* Position on right */
+    right: 15px !important;
+    top: 25px !important;
+
+    z-index: 3 !important;
+
+    pointer-events: none !important;
+
+    opacity: 0.92 !important;
+
+    overflow: visible !important;
+
+    mix-blend-mode: normal !important;
+
+    filter: none !important;
+
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+}
+
+.hm-chime-art img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+
+    object-position: right top !important;
+
+    display: block !important;
+
+    transform-origin: 75% 20% !important;
+}
+
+
+/* Keep globe in front */
+.hero-stage #globe {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+
+/* Chime interaction area */
+.hm-chime-hotspot {
+    position: absolute !important;
+
+    top: 25% !important;
+    right: 5% !important;
+
+    width: 55% !important;
+    height: 65% !important;
+
+    z-index: 10 !important;
+
+    pointer-events: auto !important;
+}
+
+
+/* Chime swing */
+.hm-chime-art.is-ringing img {
+    animation:
+        hmChimeSwing
+        .85s
+        cubic-bezier(.22,.72,.30,1)
+        both !important;
+}
+
+@keyframes hmChimeSwing {
+
+    0%   { transform: rotate(0deg); }
+    15%  { transform: rotate(1.8deg); }
+    30%  { transform: rotate(-1.5deg); }
+    45%  { transform: rotate(1.1deg); }
+    60%  { transform: rotate(-.7deg); }
+    75%  { transform: rotate(.4deg); }
+    100% { transform: rotate(0deg); }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .hm-chime-art {
+        width: 285px !important;
+        height: 225px !important;
+
+        right: -5px !important;
+        top: 10px !important;
+
+        opacity: 0.88 !important;
+    }
+
+    .hm-chime-hotspot {
+        top: 10% !important;
+        right: 3% !important;
+
+        width: 65% !important;
+        height: 60% !important;
+    }
+}
