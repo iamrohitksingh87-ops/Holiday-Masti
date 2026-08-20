@@ -3920,7 +3920,7 @@
     position:relative !important;
     background-color:#f5f1e8 !important;
     background-image:url("images/holiday-masti-sakura-home.png") !important;
-    background-position:center center !important;
+    background-position:center top !important;
     background-size:cover !important;
     background-repeat:no-repeat !important;
     overflow:hidden !important;
@@ -3951,13 +3951,13 @@
 /* Mobile */
 @media(max-width:900px){
     .hero{
-        background-position:center center !important;
+        background-position:center top !important;
     }
 }
 
 @media(max-width:560px){
     .hero{
-        background-position:58% center !important;
+        background-position:58% top !important;
     }
 }
 .hero-stage{
