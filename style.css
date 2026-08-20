@@ -4256,67 +4256,168 @@
 
 
 /* =========================================================
-   HOLIDAY MASTI — FINAL PAGODA + WIND CHIME
-   Transparent artwork: no rectangular photo background.
+   HOLIDAY MASTI — PAGODA FINAL
 ========================================================= */
-.hero-stage{
-  position:relative !important;
-  overflow:visible !important;
-  isolation:isolate !important;
+
+.hero-stage {
+    position: relative !important;
+    overflow: visible !important;
 }
 
-.hm-chime-art{
-  position:absolute !important;
-  top:-24px !important;
-  right:-22px !important;
-  width:600px !important;
-  height:520px !important;
-  z-index:3 !important;
-  pointer-events:none !important;
-  opacity:.88 !important;
-  overflow:visible !important;
-  mix-blend-mode:normal !important;
-  filter:saturate(.92) contrast(.96) brightness(1.03) !important;
+/* PAGODA ART */
+.hm-chime-art {
+    position: absolute !important;
+
+    /* controlled size */
+    width: 430px !important;
+    height: 430px !important;
+
+    /* hang from the TOP */
+    top: -70px !important;
+    right: -15px !important;
+
+    z-index: 3 !important;
+    pointer-events: none !important;
+
+    opacity: .88 !important;
+
+    overflow: visible !important;
+
+    /* blend with cream website */
+    mix-blend-mode: multiply !important;
+
+    filter:
+        saturate(.90)
+        contrast(.94)
+        brightness(1.04) !important;
+
+    /* soft fade on left/bottom edges */
+    -webkit-mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0,0,0,.45) 10%,
+            black 25%,
+            black 100%
+        ) !important;
+
+    mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0,0,0,.45) 10%,
+            black 25%,
+            black 100%
+        ) !important;
 }
 
-.hm-chime-art.is-ringing img{animation:hmChimeSwing .82s cubic-bezier(.22,.72,.30,1) both !important;}
-@keyframes hmChimeSwing{
-  0%{transform:rotate(0)} 14%{transform:rotate(1.6deg)} 30%{transform:rotate(-1.35deg)}
-  46%{transform:rotate(1deg)} 62%{transform:rotate(-.65deg)} 78%{transform:rotate(.35deg)} 100%{transform:rotate(0)}
+/* IMAGE ITSELF */
+.hm-chime-art img {
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+    object-position: top right !important;
+
+    display: block !important;
+
+    border: 0 !important;
+    box-shadow: none !important;
+
+    background: transparent !important;
+
+    mix-blend-mode: multiply !important;
 }
 
-.hm-chime-hint{
-  position:absolute !important; z-index:13 !important; left:4% !important; top:52% !important;
-  display:flex !important; align-items:center !important; gap:7px !important; padding:8px 11px !important;
-  border-radius:14px !important; background:rgba(255,253,246,.82) !important;
-  border:1px solid rgba(16,16,16,.07) !important; backdrop-filter:blur(10px) !important;
-  color:#111 !important; font-size:10px !important; line-height:1.25 !important;
-  pointer-events:none !important; opacity:.82 !important; box-shadow:0 8px 24px rgba(16,16,16,.05) !important;
-}
-.hm-chime-hint em{color:#777 !important;font-style:italic !important}
-.hm-chime-hand{font-size:18px !important}
-
-@media(max-width:1000px){
-  .hm-chime-art{width:520px !important;height:450px !important;right:-55px !important;top:-8px !important;opacity:.80 !important;}
-  .hm-chime-hotspot{right:4% !important;width:52% !important;height:58% !important}
+/* Keep globe and labels above pagoda */
+.hero-stage #globe {
+    position: relative !important;
+    z-index: 5 !important;
 }
 
-@media(max-width:767px){
-  .hero-stage{min-height:500px !important;height:500px !important;}
-  .hm-chime-art{width:430px !important;height:340px !important;right:-105px !important;top:-8px !important;opacity:.72 !important;z-index:3 !important;}
-  .hero-stage #globe{position:absolute !important;left:0 !important;right:0 !important;bottom:0 !important;width:100% !important;height:350px !important;z-index:5 !important;}
-  .hm-chime-hotspot{top:6% !important;right:4% !important;width:60% !important;height:54% !important}
-  .hm-chime-hint{left:5% !important;top:37% !important;transform:scale(.80) !important;transform-origin:left top !important;}
+.hero-stage .orbit-label,
+.hero-stage .sticker {
+    z-index: 8 !important;
 }
 
-@media(max-width:390px){
-  .hm-chime-art{width:390px !important;height:305px !important;right:-100px !important}
-  .hero-stage{min-height:475px !important;height:475px !important}
-  .hero-stage #globe{height:325px !important}
+/* Wind-chime hover area */
+.hm-chime-hotspot {
+    position: absolute !important;
+
+    top: 8% !important;
+    right: 3% !important;
+
+    width: 42% !important;
+    height: 58% !important;
+
+    z-index: 12 !important;
+
+    pointer-events: auto !important;
+    cursor: pointer !important;
 }
 
-@media(prefers-reduced-motion:reduce){.hm-chime-art.is-ringing img{animation:none !important;transform:rotate(.4deg) !important}}
-/* FINAL PAGODA POSITION */
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .hm-chime-art {
+        width: 280px !important;
+        height: 300px !important;
+
+        top: -35px !important;
+        right: -20px !important;
+
+        opacity: .84 !important;
+    }
+
+    .hm-chime-hotspot {
+        top: 5% !important;
+        right: 3% !important;
+
+        width: 60% !important;
+        height: 55% !important;
+    }
+}
+
+
+/* SMALL MOBILE */
+@media (max-width: 390px) {
+
+    .hm-chime-art {
+        width: 255px !important;
+        height: 275px !important;
+
+        top: -30px !important;
+        right: -15px !important;
+    }
+}
+
+
+/* Wind-chime swing */
+.hm-chime-art.is-ringing img {
+    animation:
+        hmChimeSwing
+        .82s
+        cubic-bezier(.22,.72,.30,1)
+        both !important;
+}
+
+@keyframes hmChimeSwing {
+    0%   { transform: rotate(0deg); }
+    14%  { transform: rotate(1.5deg); }
+    30%  { transform: rotate(-1.2deg); }
+    46%  { transform: rotate(.9deg); }
+    62%  { transform: rotate(-.6deg); }
+    78%  { transform: rotate(.3deg); }
+    100% { transform: rotate(0deg); }
+}
 
 /* =========================================================
    PAGODA — TOP HANG + SOFT BLEND
@@ -4408,42 +4509,4 @@
         top: -45px !important;
         right: -15px !important;
     }
-}
-/* =========================================================
-   HOLIDAY MASTI — REMOVE PAGODA IMAGE OVERRIDE
-   Keep original wind-chime system
-========================================================= */
-
-.hm-chime-art,
-.hm-chime-art img,
-.hm-chime-hotspot {
-    display: none !important;
-}
-
-/* Original wind chime */
-.hm-wind-chime {
-    position: absolute !important;
-    z-index: 12 !important;
-
-    top: 3% !important;
-    right: 9% !important;
-
-    width: 150px !important;
-    height: 230px !important;
-
-    pointer-events: none !important;
-
-    transform-origin: 50% 0 !important;
-}
-
-/* Desktop sound button */
-.hm-sound-toggle {
-    position: absolute !important;
-    z-index: 20 !important;
-
-    top: 38% !important;
-    right: 4% !important;
-
-    width: 58px !important;
-    height: 58px !important;
 }
