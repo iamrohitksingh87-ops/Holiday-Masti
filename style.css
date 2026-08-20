@@ -4401,3 +4401,41 @@
         height: 60% !important;
     }
 }
+/* =========================================================
+   HOLIDAY MASTI — REMOVE PAGODA IMAGE OVERRIDE
+   Keep original wind-chime system
+========================================================= */
+
+.hm-chime-art,
+.hm-chime-art img,
+.hm-chime-hotspot {
+    display: none !important;
+}
+
+/* Original wind chime */
+.hm-wind-chime {
+    position: absolute !important;
+    z-index: 12 !important;
+
+    top: 3% !important;
+    right: 9% !important;
+
+    width: 150px !important;
+    height: 230px !important;
+
+    pointer-events: none !important;
+
+    transform-origin: 50% 0 !important;
+}
+
+/* Desktop sound button */
+.hm-sound-toggle {
+    position: absolute !important;
+    z-index: 20 !important;
+
+    top: 38% !important;
+    right: 4% !important;
+
+    width: 58px !important;
+    height: 58px !important;
+}
