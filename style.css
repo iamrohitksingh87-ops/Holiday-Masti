@@ -3940,3 +3940,7 @@
         background-position:58% center !important;
     }
 }
+.hero-stage{
+    transform:scale(.60) !important;
+    transform-origin:center center !important;
+}
