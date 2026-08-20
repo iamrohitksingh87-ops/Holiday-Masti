@@ -3598,3 +3598,482 @@ body {
 .feature-box::before {
     opacity: 0.18;
 }
+
+
+
+/* =========================================================
+   HOLIDAY MASTI — HERO VISUAL SYSTEM
+   Permanent version of the DevTools visual changes.
+   ========================================================= */
+
+:root{
+    --hm-paper:#f5f1e8;
+    --hm-ink:#101010;
+    --hm-lime:#c9ff39;
+    --hm-orange:#ff6b35;
+    --hm-purple:#7257ff;
+}
+
+body{
+    background:var(--hm-paper) !important;
+    color:var(--hm-ink);
+}
+
+/* ---------- floating pill header ---------- */
+
+.site-header{
+    position:fixed !important;
+    top:20px !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    width:min(1240px,calc(100% - 48px)) !important;
+    height:92px !important;
+    border:1px solid rgba(16,16,16,.10) !important;
+    border-radius:999px !important;
+    background:rgba(250,248,242,.82) !important;
+    backdrop-filter:blur(20px) saturate(120%) !important;
+    -webkit-backdrop-filter:blur(20px) saturate(120%) !important;
+    box-shadow:0 12px 38px rgba(16,16,16,.08) !important;
+    z-index:1000 !important;
+}
+
+.header-inner{
+    width:100% !important;
+    padding:0 16px 0 20px !important;
+}
+
+.brand{width:auto !important;min-width:190px !important;}
+.brand img{width:190px !important;height:auto !important;}
+
+.main-nav{gap:30px !important;}
+.main-nav a{
+    color:#101010 !important;
+    font-size:15px !important;
+    font-weight:600 !important;
+}
+.main-nav a:not(.nav-cta)::after{
+    display:none !important;
+}
+.main-nav a:hover{color:#101010 !important;}
+.main-nav .nav-cta{
+    color:#fff !important;
+    background:#101010 !important;
+    padding:17px 28px !important;
+    border-radius:999px !important;
+    box-shadow:7px 7px 0 var(--hm-lime) !important;
+    white-space:nowrap !important;
+}
+
+/* ---------- hero canvas ---------- */
+
+.hero.hm-hero{
+    position:relative !important;
+    min-height:780px !important;
+    height:780px !important;
+    max-height:none !important;
+    padding:145px 0 35px !important;
+    display:flex !important;
+    align-items:center !important;
+    overflow:hidden !important;
+    isolation:isolate !important;
+    background:var(--hm-paper) !important;
+}
+
+.hero.hm-hero::after{
+    display:none !important;
+}
+
+.hero.hm-hero .hero-overlay{
+    position:absolute !important;
+    inset:0 !important;
+    z-index:0 !important;
+    background:
+        radial-gradient(circle at 58% 35%,rgba(255,255,255,.92),transparent 30%),
+        linear-gradient(180deg,rgba(245,241,232,.2),rgba(245,241,232,.7)) !important;
+}
+
+.hm-mountain-backdrop{
+    position:absolute;
+    z-index:0;
+    left:36%;
+    right:0;
+    top:0;
+    bottom:0;
+    pointer-events:none;
+    opacity:.38;
+    background:
+        linear-gradient(90deg,var(--hm-paper) 0%,rgba(245,241,232,.68) 17%,rgba(245,241,232,.08) 55%,rgba(245,241,232,.22) 100%),
+        linear-gradient(180deg,rgba(245,241,232,.30) 0%,rgba(245,241,232,.02) 45%,rgba(245,241,232,.55) 100%),
+        url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=88") center 42%/cover no-repeat;
+    filter:saturate(.72) contrast(.86);
+    mix-blend-mode:multiply;
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,black 22%,black 100%);
+    mask-image:linear-gradient(to right,transparent 0%,black 22%,black 100%);
+}
+
+/* ---------- left copy ---------- */
+
+.hm-hero-copy{
+    position:relative !important;
+    z-index:10 !important;
+    width:min(760px,52vw) !important;
+    margin-left:max(20px,calc((100vw - 1240px)/2)) !important;
+    padding:0 !important;
+    text-align:left !important;
+    color:var(--hm-ink) !important;
+    animation:none !important;
+}
+
+.hm-hero-copy .eyebrow{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--hm-ink) !important;
+    margin-bottom:24px !important;
+    font-size:13px !important;
+    letter-spacing:.16em !important;
+}
+
+.hm-hero-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--hm-orange);
+    box-shadow:0 0 0 7px rgba(255,107,53,.12);
+    flex:0 0 auto;
+}
+
+.hm-hero-copy h1{
+    color:var(--hm-ink) !important;
+    font-family:"Poppins",sans-serif !important;
+    font-size:clamp(64px,7vw,108px) !important;
+    line-height:.88 !important;
+    letter-spacing:-.075em !important;
+    font-weight:800 !important;
+    text-shadow:none !important;
+}
+
+.hm-hero-copy h1 span{
+    display:inline-block;
+    padding:2px 15px 10px;
+    border-radius:18px;
+    background:var(--hm-lime);
+    transform:rotate(-1.8deg);
+}
+
+.hm-hero-copy .hero-subtitle{
+    max-width:640px !important;
+    margin:28px 0 0 !important;
+    color:#343434 !important;
+    font-size:18px !important;
+    line-height:1.55 !important;
+}
+
+.hm-hero-copy .hero-actions{
+    justify-content:flex-start !important;
+    margin-top:30px !important;
+}
+
+.hm-hero-copy .btn-dark{
+    color:#fff !important;
+    background:var(--hm-ink) !important;
+    border-color:var(--hm-ink) !important;
+}
+
+.hm-light-btn{
+    color:var(--hm-ink) !important;
+    border-color:var(--hm-ink) !important;
+    background:transparent !important;
+}
+
+.hm-micro{
+    margin-top:17px;
+    color:#6e6b66;
+    font-size:12px;
+}
+
+/* ---------- hero stage / pagoda ---------- */
+
+.hero-stage{
+    position:absolute !important;
+    z-index:4 !important;
+    top:0 !important;
+    right:0 !important;
+    width:57% !important;
+    height:100% !important;
+    min-height:0 !important;
+    display:block !important;
+    overflow:visible !important;
+    isolation:isolate !important;
+}
+
+.hm-chime-art{
+    position:absolute !important;
+    z-index:5 !important;
+    top:-35px !important;
+    right:-18px !important;
+    width:650px !important;
+    height:610px !important;
+    overflow:visible !important;
+    pointer-events:none !important;
+    opacity:.96 !important;
+    mix-blend-mode:multiply !important;
+    filter:saturate(.95) contrast(.94) brightness(1.04) !important;
+    -webkit-mask-image:radial-gradient(ellipse 83% 90% at 73% 30%,#000 0%,rgba(0,0,0,.98) 55%,rgba(0,0,0,.55) 78%,transparent 100%);
+    mask-image:radial-gradient(ellipse 83% 90% at 73% 30%,#000 0%,rgba(0,0,0,.98) 55%,rgba(0,0,0,.55) 78%,transparent 100%);
+}
+
+.hm-chime-art img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain !important;
+    object-position:top right !important;
+    background:transparent !important;
+    mix-blend-mode:multiply !important;
+}
+
+.hm-chime-art.hm-chime-moving img{
+    transform-origin:72% 12%;
+    animation:hmChimeSwing 1.9s ease-in-out infinite;
+}
+
+@keyframes hmChimeSwing{
+    0%,100%{transform:rotate(0deg)}
+    18%{transform:rotate(1.4deg)}
+    38%{transform:rotate(-1.1deg)}
+    58%{transform:rotate(.75deg)}
+    78%{transform:rotate(-.4deg)}
+}
+
+.hm-chime-hotspot{
+    position:absolute;
+    right:70px;
+    top:145px;
+    width:240px;
+    height:300px;
+    border-radius:50%;
+    cursor:pointer;
+    pointer-events:auto;
+    background:transparent;
+}
+
+/* ---------- globe foreground ---------- */
+
+#globe{
+    position:absolute !important;
+    z-index:9 !important;
+    width:510px !important;
+    height:510px !important;
+    right:72px !important;
+    bottom:-15px !important;
+    display:block !important;
+    pointer-events:none !important;
+}
+
+.hm-orbit-ring{
+    position:absolute;
+    z-index:10;
+    width:500px;
+    height:165px;
+    right:80px;
+    bottom:115px;
+    border:2px solid var(--hm-lime);
+    border-radius:50%;
+    pointer-events:none;
+    transform:rotate(-13deg);
+    box-shadow:0 0 0 1px rgba(201,255,57,.08);
+}
+
+.hm-ring-two{
+    width:470px;
+    height:145px;
+    right:96px;
+    bottom:122px;
+    border-color:rgba(255,255,255,.85);
+    border-width:1px;
+    transform:rotate(11deg);
+}
+
+.hm-ring-one{
+    animation:hmOrbit 8s linear infinite;
+}
+
+.hm-ring-two{
+    animation:hmOrbitReverse 11s linear infinite;
+}
+
+@keyframes hmOrbit{
+    to{transform:rotate(347deg)}
+}
+@keyframes hmOrbitReverse{
+    to{transform:rotate(-349deg)}
+}
+
+/* ---------- fixed-in-hero labels ---------- */
+
+.hero-stage .orbit-label,
+.hero-stage .sticker{
+    position:absolute !important;
+    z-index:25 !important;
+    pointer-events:none !important;
+}
+
+.hero-stage .label-1{
+    top:66% !important;
+    right:4% !important;
+    transform:rotate(4deg) !important;
+}
+
+.hero-stage .label-2{
+    top:78% !important;
+    left:22% !important;
+    bottom:auto !important;
+    transform:rotate(-6deg) !important;
+    background:var(--hm-lime) !important;
+    color:var(--hm-ink) !important;
+}
+
+.hero-stage .label-3{
+    top:70% !important;
+    left:8% !important;
+    transform:rotate(0deg) !important;
+}
+
+.hero-stage .sticker{
+    top:42% !important;
+    right:0 !important;
+    width:86px !important;
+    height:86px !important;
+    background:var(--hm-orange) !important;
+    color:#fff !important;
+    border-radius:50% !important;
+    display:grid !important;
+    place-items:center !important;
+    text-align:center !important;
+    font-size:12px !important;
+    font-weight:900 !important;
+    line-height:1.05 !important;
+    transform:rotate(10deg) !important;
+    box-shadow:0 15px 35px rgba(255,107,53,.22) !important;
+}
+
+/* Header must stay over pagoda, while pagoda stays visible behind it */
+.site-header,
+.site-header *{
+    position:relative;
+}
+.site-header{z-index:1000 !important;}
+.hm-chime-art{z-index:5 !important;}
+
+/* Hero ends cleanly; globe remains visually in hero, never in search flow */
+.search-section{
+    position:relative !important;
+    z-index:40 !important;
+    margin-top:0 !important;
+}
+
+/* ---------- mobile ---------- */
+
+@media(max-width:900px){
+    .site-header{
+        width:calc(100% - 24px) !important;
+        height:72px !important;
+        top:10px !important;
+    }
+    .header-inner{padding:0 10px 0 12px !important;}
+    .brand img{width:145px !important;}
+    .main-nav{display:none !important;}
+    .menu-toggle{display:block !important;}
+
+    .hero.hm-hero{
+        min-height:900px !important;
+        height:auto !important;
+        padding:125px 0 20px !important;
+        align-items:flex-start !important;
+    }
+
+    .hm-hero-copy{
+        width:calc(100% - 36px) !important;
+        margin:0 18px !important;
+    }
+
+    .hm-hero-copy h1{
+        font-size:clamp(52px,14vw,82px) !important;
+    }
+
+    .hm-hero-copy .hero-subtitle{
+        font-size:16px !important;
+    }
+
+    .hero-stage{
+        top:330px !important;
+        right:0 !important;
+        width:100% !important;
+        height:570px !important;
+    }
+
+    .hm-chime-art{
+        width:480px !important;
+        height:500px !important;
+        top:-20px !important;
+        right:-80px !important;
+    }
+
+    #globe{
+        width:420px !important;
+        height:420px !important;
+        right:-20px !important;
+        bottom:0 !important;
+    }
+
+    .hm-orbit-ring{
+        width:410px;
+        height:135px;
+        right:0;
+        bottom:105px;
+    }
+
+    .hm-ring-two{
+        width:385px;
+        height:120px;
+        right:10px;
+        bottom:112px;
+    }
+
+    .hero-stage .sticker{
+        top:38% !important;
+        right:5% !important;
+    }
+
+    .hero-stage .label-1{
+        top:66% !important;
+        right:2% !important;
+    }
+
+    .hero-stage .label-2{
+        top:76% !important;
+        left:10% !important;
+    }
+
+    .hero-stage .label-3{
+        top:68% !important;
+        left:2% !important;
+    }
+
+    .hm-mountain-backdrop{
+        left:0;
+        top:300px;
+        opacity:.30;
+    }
+}
+
+@media(max-width:560px){
+    .hero.hm-hero{min-height:850px !important;}
+    .hero-stage{top:360px !important;height:490px !important;}
+    .hm-chime-art{width:360px !important;height:390px !important;right:-55px !important;}
+    #globe{width:330px !important;height:330px !important;right:-10px !important;bottom:0 !important;}
+    .hm-orbit-ring{width:320px;height:105px;right:0;bottom:75px;}
+    .hm-ring-two{width:300px;height:95px;right:5px;bottom:80px;}
+    .hero-stage .sticker{width:72px !important;height:72px !important;font-size:10px !important;top:32% !important;}
+    .hero-stage .orbit-label{font-size:10px !important;padding:7px 9px !important;}
+}
