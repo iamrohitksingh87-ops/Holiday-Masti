@@ -4250,3 +4250,754 @@ body{
 .site-header .brand img[src*="logo.png"]{
     display:none !important;
 }
+
+
+/* =========================================================
+   HOLIDAY MASTI — CURRENT NEW LOOK / LIVE BUILD
+   ========================================================= */
+
+:root{
+    --hm-lime:#c9ff39;
+    --hm-ink:#111;
+    --hm-paper:#f5f1e8;
+}
+
+.site-header{
+    background:rgba(245,241,232,.84)!important;
+    border-bottom:1px solid rgba(17,17,17,.10)!important;
+    backdrop-filter:blur(18px)!important;
+    -webkit-backdrop-filter:blur(18px)!important;
+}
+
+.site-header .brand{
+    width:auto!important;
+    min-width:max-content!important;
+}
+
+.site-header .brand .hm-new-logo{
+    display:inline-flex!important;
+    align-items:center!important;
+    gap:7px!important;
+    font-family:Arial,Helvetica,sans-serif!important;
+    font-size:24px!important;
+    line-height:1!important;
+    letter-spacing:-1.2px!important;
+    white-space:nowrap!important;
+}
+
+.site-header .brand .hm-new-logo b{
+    display:inline-block!important;
+    padding:7px 9px 6px!important;
+    background:var(--hm-lime)!important;
+    color:var(--hm-ink)!important;
+    border:2px solid var(--hm-ink)!important;
+    border-radius:6px!important;
+    box-shadow:3px 3px 0 var(--hm-ink)!important;
+    font-weight:900!important;
+}
+
+.site-header .brand .hm-new-logo strong{
+    color:var(--hm-ink)!important;
+    font-weight:900!important;
+}
+
+.site-header .main-nav a{
+    color:var(--hm-ink)!important;
+}
+
+.site-header .main-nav .nav-cta{
+    color:#fff!important;
+    background:var(--hm-ink)!important;
+    box-shadow:none!important;
+}
+
+/* ---------- NEW HERO ---------- */
+
+.hero.hm-hero{
+    position:relative!important;
+    min-height:780px!important;
+    height:780px!important;
+    max-height:none!important;
+    display:block!important;
+    overflow:hidden!important;
+    isolation:isolate!important;
+    background:var(--hm-paper)!important;
+}
+
+.hero.hm-hero::after{
+    display:none!important;
+}
+
+.hero.hm-hero .hero-overlay{
+    z-index:1!important;
+    background:
+        radial-gradient(circle at 68% 36%,rgba(255,255,255,.72),transparent 34%),
+        linear-gradient(90deg,rgba(245,241,232,1) 0%,rgba(245,241,232,.88) 34%,rgba(245,241,232,.15) 72%,rgba(245,241,232,.34) 100%)!important;
+}
+
+.hm-mountain-backdrop{
+    position:absolute!important;
+    z-index:0!important;
+    top:0!important;
+    right:0!important;
+    bottom:0!important;
+    left:27%!important;
+    opacity:.64!important;
+    background:
+        linear-gradient(90deg,
+            var(--hm-paper) 0%,
+            rgba(245,241,232,.82) 18%,
+            rgba(245,241,232,.18) 60%,
+            rgba(245,241,232,.28) 100%),
+        linear-gradient(180deg,
+            rgba(245,241,232,.18) 0%,
+            rgba(245,241,232,.02) 50%,
+            rgba(245,241,232,.72) 100%),
+        url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")
+        center 43%/cover no-repeat!important;
+    filter:saturate(.68) contrast(.82) brightness(1.06)!important;
+    mix-blend-mode:multiply!important;
+}
+
+.hm-hero-copy{
+    position:absolute!important;
+    z-index:10!important;
+    left:6.5%!important;
+    top:50%!important;
+    width:min(570px,45%)!important;
+    padding:0!important;
+    margin:0!important;
+    text-align:left!important;
+    color:var(--hm-ink)!important;
+    transform:translateY(-43%)!important;
+    animation:none!important;
+}
+
+.hm-hero .eyebrow{
+    display:flex!important;
+    align-items:center!important;
+    gap:9px!important;
+    margin:0 0 18px!important;
+    color:#555!important;
+    font-size:11px!important;
+    font-weight:800!important;
+    letter-spacing:.18em!important;
+}
+
+.hm-hero-dot{
+    width:8px!important;
+    height:8px!important;
+    border-radius:50%!important;
+    background:var(--hm-lime)!important;
+    border:1px solid #111!important;
+}
+
+.hm-hero h1{
+    color:var(--hm-ink)!important;
+    font-size:clamp(52px,6.3vw,88px)!important;
+    line-height:.94!important;
+    letter-spacing:-.065em!important;
+    text-shadow:none!important;
+    font-weight:800!important;
+}
+
+.hm-hero h1 span{
+    color:var(--hm-ink)!important;
+    text-decoration:underline!important;
+    text-decoration-color:var(--hm-lime)!important;
+    text-decoration-thickness:12px!important;
+    text-underline-offset:5px!important;
+}
+
+.hm-hero .hero-subtitle{
+    max-width:510px!important;
+    margin:25px 0 0!important;
+    color:#4f4f4b!important;
+    font-size:16px!important;
+    line-height:1.7!important;
+}
+
+.hm-hero .hero-actions{
+    justify-content:flex-start!important;
+    margin-top:28px!important;
+}
+
+.hm-hero .btn-dark{
+    color:#fff!important;
+    background:#111!important;
+    border-radius:10px!important;
+    box-shadow:5px 5px 0 var(--hm-lime)!important;
+}
+
+.hm-hero .hm-light-btn{
+    color:#111!important;
+    border:1px solid rgba(17,17,17,.24)!important;
+    background:rgba(255,255,255,.36)!important;
+    border-radius:10px!important;
+}
+
+.hm-micro{
+    margin-top:25px!important;
+    color:#777!important;
+    font-size:11px!important;
+    font-weight:600!important;
+}
+
+/* ---------- HERO ARTWORK STAGE ---------- */
+
+.hero-stage{
+    position:absolute!important;
+    z-index:5!important;
+    top:0!important;
+    right:0!important;
+    width:60%!important;
+    height:100%!important;
+    overflow:visible!important;
+    isolation:isolate!important;
+}
+
+.hero-stage .hm-chime-art{
+    position:absolute!important;
+    z-index:6!important;
+    top:-18px!important;
+    right:-34px!important;
+    width:625px!important;
+    height:575px!important;
+    overflow:visible!important;
+    pointer-events:none!important;
+    opacity:.9!important;
+    mix-blend-mode:multiply!important;
+    filter:saturate(.78) contrast(.88) brightness(1.08)!important;
+    -webkit-mask-image:radial-gradient(ellipse 84% 88% at 72% 30%,#000 0%,rgba(0,0,0,.98) 50%,rgba(0,0,0,.58) 76%,transparent 100%)!important;
+    mask-image:radial-gradient(ellipse 84% 88% at 72% 30%,#000 0%,rgba(0,0,0,.98) 50%,rgba(0,0,0,.58) 76%,transparent 100%)!important;
+}
+
+.hero-stage .hm-chime-art img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:contain!important;
+    object-position:top right!important;
+    background:transparent!important;
+    mix-blend-mode:multiply!important;
+    transform-origin:74% 10%!important;
+}
+
+.hero-stage .hm-chime-hotspot{
+    position:absolute!important;
+    top:20%!important;
+    right:1%!important;
+    width:44%!important;
+    height:62%!important;
+    z-index:30!important;
+    pointer-events:auto!important;
+}
+
+.hero-stage #globe{
+    position:absolute!important;
+    z-index:12!important;
+    width:430px!important;
+    height:430px!important;
+    right:72px!important;
+    top:330px!important;
+    bottom:auto!important;
+    left:auto!important;
+    display:block!important;
+    pointer-events:none!important;
+}
+
+.hero-stage .hm-orbit-ring{
+    position:absolute!important;
+    z-index:13!important;
+    right:56px!important;
+    top:472px!important;
+    width:455px!important;
+    height:145px!important;
+    bottom:auto!important;
+    pointer-events:none!important;
+}
+
+.hero-stage .hm-ring-two{
+    right:70px!important;
+    top:482px!important;
+    width:430px!important;
+    height:128px!important;
+}
+
+.hero-stage .orbit-label,
+.hero-stage .sticker{
+    position:absolute!important;
+    z-index:40!important;
+    pointer-events:none!important;
+}
+
+.hero-stage .label-1{
+    top:60%!important;
+    right:1%!important;
+    transform:rotate(4deg)!important;
+}
+
+.hero-stage .label-2{
+    top:74%!important;
+    left:19%!important;
+    bottom:auto!important;
+    transform:rotate(-6deg)!important;
+}
+
+.hero-stage .label-3{
+    top:67%!important;
+    left:3%!important;
+}
+
+.hero-stage .sticker{
+    top:37%!important;
+    right:0!important;
+    z-index:45!important;
+}
+
+.site-header .nav-cta{
+    position:relative!important;
+    z-index:10001!important;
+}
+
+.search-section{
+    position:relative!important;
+    z-index:100!important;
+    margin-top:0!important;
+}
+
+/* ---------- NEW SECTION LANGUAGE ---------- */
+
+.search-section,
+.flight-section,
+.packages-section,
+.destinations-section,
+.features-section,
+.contact-section{
+    background:#f5f1e8!important;
+}
+
+.search-card,
+.flight-shell,
+.package-card,
+.feature-box,
+.contact-card{
+    border:2px solid #111!important;
+    border-radius:18px!important;
+    box-shadow:6px 6px 0 #111!important;
+}
+
+.search-heading h2,
+.flight-heading h2,
+.section-heading h2{
+    color:#111!important;
+}
+
+.section-kicker{
+    color:#111!important;
+    font-weight:800!important;
+}
+
+.btn-primary{
+    background:#c9ff39!important;
+    color:#111!important;
+    border:2px solid #111!important;
+    box-shadow:4px 4px 0 #111!important;
+}
+
+.btn-primary:hover{
+    background:#d8ff73!important;
+    color:#111!important;
+}
+
+.card-image{
+    border-bottom:2px solid #111!important;
+}
+
+.price-tag{
+    color:#111!important;
+    background:#c9ff39!important;
+    border:2px solid #111!important;
+    box-shadow:3px 3px 0 #111!important;
+}
+
+.details-button{
+    color:#111!important;
+    border:2px solid #111!important;
+    background:#fff!important;
+}
+
+.details-button:hover{
+    color:#111!important;
+    background:#c9ff39!important;
+    border-color:#111!important;
+}
+
+.destination-card{
+    border:2px solid #111!important;
+    border-radius:18px!important;
+    box-shadow:6px 6px 0 #111!important;
+}
+
+.feature-icon{
+    color:#111!important;
+    background:#c9ff39!important;
+    border:2px solid #111!important;
+}
+
+.contact-card{
+    color:#111!important;
+    background:#c9ff39!important;
+}
+
+.contact-card .section-kicker{
+    color:#111!important;
+}
+
+.contact-card > div > p:last-child{
+    color:#222!important;
+}
+
+.site-footer{
+    background:#111!important;
+    color:#fff!important;
+}
+
+.hm-footer-logo{
+    display:inline-flex!important;
+    align-items:center!important;
+    gap:6px!important;
+    margin-bottom:10px!important;
+    font-family:Arial,Helvetica,sans-serif!important;
+    font-size:22px!important;
+    font-weight:900!important;
+}
+
+.hm-footer-logo b{
+    padding:6px 8px!important;
+    color:#111!important;
+    background:#c9ff39!important;
+    border:2px solid #fff!important;
+    border-radius:5px!important;
+}
+
+.hm-footer-logo strong{
+    color:#fff!important;
+}
+
+/* Chime motion from the current interaction */
+.hero-stage .hm-chime-art.hm-chime-moving img{
+    animation:hmFinalChimeSwing 1.15s cubic-bezier(.22,.72,.30,1) both!important;
+}
+
+@keyframes hmFinalChimeSwing{
+    0%{transform:rotate(0)}
+    15%{transform:rotate(1.7deg)}
+    32%{transform:rotate(-1.35deg)}
+    49%{transform:rotate(.95deg)}
+    66%{transform:rotate(-.6deg)}
+    82%{transform:rotate(.3deg)}
+    100%{transform:rotate(0)}
+}
+
+@media(max-width:1000px){
+    .hm-hero-copy{
+        left:5%!important;
+        width:48%!important;
+    }
+
+    .hero-stage{
+        width:60%!important;
+    }
+
+    .hero-stage .hm-chime-art{
+        width:500px!important;
+        height:470px!important;
+        right:-48px!important;
+        top:-12px!important;
+    }
+
+    .hero-stage #globe{
+        width:365px!important;
+        height:365px!important;
+        right:28px!important;
+        top:390px!important;
+    }
+
+    .hero-stage .hm-orbit-ring{
+        right:10px!important;
+        top:505px!important;
+        width:385px!important;
+        height:122px!important;
+    }
+
+    .hero-stage .hm-ring-two{
+        right:22px!important;
+        top:513px!important;
+        width:365px!important;
+        height:110px!important;
+    }
+}
+
+@media(max-width:767px){
+    .site-header{
+        height:72px!important;
+    }
+
+    .site-header .brand .hm-new-logo{
+        font-size:18px!important;
+        gap:5px!important;
+    }
+
+    .site-header .brand .hm-new-logo b{
+        padding:5px 7px!important;
+        border-width:1.5px!important;
+        box-shadow:2px 2px 0 #111!important;
+    }
+
+    .hero.hm-hero{
+        height:900px!important;
+        min-height:900px!important;
+    }
+
+    .hm-hero-copy{
+        left:20px!important;
+        top:125px!important;
+        width:calc(100% - 40px)!important;
+        transform:none!important;
+    }
+
+    .hm-hero h1{
+        font-size:52px!important;
+    }
+
+    .hm-hero .hero-subtitle{
+        font-size:14px!important;
+        line-height:1.55!important;
+    }
+
+    .hero-stage{
+        top:335px!important;
+        right:0!important;
+        width:100%!important;
+        height:565px!important;
+    }
+
+    .hero-stage .hm-chime-art{
+        width:390px!important;
+        height:365px!important;
+        top:-50px!important;
+        right:-48px!important;
+        opacity:.8!important;
+    }
+
+    .hero-stage #globe{
+        width:310px!important;
+        height:310px!important;
+        right:16px!important;
+        top:240px!important;
+    }
+
+    .hero-stage .hm-orbit-ring{
+        right:5px!important;
+        top:335px!important;
+        width:325px!important;
+        height:105px!important;
+    }
+
+    .hero-stage .hm-ring-two{
+        right:15px!important;
+        top:343px!important;
+        width:307px!important;
+        height:95px!important;
+    }
+
+    .hero-stage .label-1{
+        top:47%!important;
+        right:3%!important;
+    }
+
+    .hero-stage .label-2{
+        top:69%!important;
+        left:8%!important;
+    }
+
+    .hero-stage .label-3{
+        top:58%!important;
+        left:3%!important;
+    }
+
+    .hero-stage .sticker{
+        top:25%!important;
+        right:4%!important;
+    }
+
+    .search-section{
+        margin-top:-45px!important;
+    }
+
+    .search-card,
+    .flight-shell,
+    .contact-card{
+        box-shadow:4px 4px 0 #111!important;
+    }
+}
+
+@media(max-width:390px){
+    .hm-hero h1{
+        font-size:47px!important;
+    }
+
+    .hero-stage .hm-chime-art{
+        width:350px!important;
+        height:330px!important;
+        right:-46px!important;
+    }
+
+    .hero-stage #globe{
+        width:285px!important;
+        height:285px!important;
+        right:9px!important;
+        top:250px!important;
+    }
+
+    .hero-stage .hm-orbit-ring{
+        right:0!important;
+        top:335px!important;
+        width:300px!important;
+    }
+
+    .hero-stage .hm-ring-two{
+        right:8px!important;
+        top:342px!important;
+        width:284px!important;
+    }
+}
+
+/* =========================================================
+   TARGET LOOK — matches the supplied reference screenshots
+   ========================================================= */
+.hm-search{
+    padding:0 20px 18px!important;
+    margin-top:-2px!important;
+    position:relative!important;
+    z-index:100!important;
+    background:#f5f1e8!important;
+}
+.hm-search-card{
+    max-width:1400px!important;
+    margin:0 auto!important;
+    padding:18px 20px 20px!important;
+    border:2px solid rgba(17,17,17,.12)!important;
+    border-radius:24px!important;
+    background:rgba(255,253,248,.92)!important;
+    box-shadow:0 12px 26px rgba(17,17,17,.08),0 8px 0 rgba(201,255,57,.72)!important;
+    backdrop-filter:blur(12px)!important;
+}
+.hm-search-tabs{display:flex;gap:10px;margin-bottom:12px}
+.hm-search-tab{
+    border:2px solid #111!important;border-radius:24px!important;padding:9px 17px!important;
+    background:#fff!important;color:#111!important;font-weight:800!important;letter-spacing:.01em!important;
+    box-shadow:2px 3px 0 #c9ff39!important;cursor:pointer!important
+}
+.hm-search-tab.active{background:#111!important;color:#fff!important;box-shadow:3px 4px 0 #8d42ff!important}
+.hm-search-row{display:grid;grid-template-columns:1.45fr 1fr 1fr auto;gap:14px;align-items:end}
+.hm-flight-fields{grid-template-columns:1fr 1fr 1fr 1fr auto;margin-top:9px}
+.hm-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.hm-field span{font-size:10px;font-weight:800;letter-spacing:.16em;color:#777}
+.hm-field input,.hm-field select{
+    height:56px!important;border:2px solid #ddd!important;border-radius:15px!important;background:#fff!important;
+    padding:0 16px!important;font-size:15px!important;font-weight:600!important;color:#222!important;outline:none!important;
+}
+.hm-field input:focus,.hm-field select:focus{border-color:#111!important;box-shadow:0 0 0 3px rgba(201,255,57,.28)!important}
+.hm-search-action{
+    height:56px!important;min-width:138px!important;border:2px solid #111!important;border-radius:16px!important;
+    background:#c9ff39!important;color:#111!important;font-weight:900!important;box-shadow:4px 5px 0 #111!important;cursor:pointer!important;
+}
+.hm-flight-fields{display:none}
+.hm-search.flight-mode .hm-package-fields{display:none}
+.hm-search.flight-mode .hm-flight-fields{display:grid}
+
+.hm-package-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:22px!important;max-width:1280px!important;margin:0 auto!important}
+.hm-package-card{height:365px!important;border:0!important;border-radius:25px!important;overflow:hidden!important;background:transparent!important;box-shadow:0 10px 20px rgba(17,17,17,.10)!important;cursor:pointer!important}
+.hm-package-card:hover{transform:translateY(-4px)!important;box-shadow:0 16px 28px rgba(17,17,17,.16)!important}
+.hm-package-card .card-image{height:100%!important;border:0!important;border-radius:25px!important;overflow:hidden!important;position:relative!important;background:#ddd!important}
+.hm-package-card .card-image::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04) 20%,rgba(0,0,0,.08) 42%,rgba(0,0,0,.72) 100%);z-index:1}
+.hm-package-card .card-image img{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important;transition:transform .45s ease!important}
+.hm-package-card:hover .card-image img{transform:scale(1.045)!important}
+.hm-card-pill,.hm-card-rating{position:absolute;top:14px;z-index:4;background:rgba(255,255,255,.92);color:#111;border-radius:20px;padding:8px 12px;font-size:12px;font-weight:900}
+.hm-card-pill{left:14px}.hm-card-rating{right:14px}
+.hm-card-copy{position:absolute;z-index:4;left:28px;right:24px;bottom:25px;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.18)}
+.hm-card-copy h3{font-size:25px!important;line-height:1.05!important;margin:0 0 7px!important;color:#fff!important;letter-spacing:-.035em!important}
+.hm-card-copy p{font-size:12px!important;text-transform:uppercase!important;margin:0 0 18px!important;color:#fff!important;font-weight:600!important}
+.hm-card-copy strong{font-size:25px!important;color:#fff!important;display:inline-block!important}
+.hm-card-copy small{float:right;margin-top:8px;font-size:11px;color:#fff;font-weight:600}
+.hm-card-orb{position:absolute;z-index:3;right:20px;top:76px;width:82px;height:82px;border-radius:50%;border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.18);backdrop-filter:blur(8px)}
+.hm-card-orb::after{content:"";position:absolute;left:23px;top:22px;width:36px;height:36px;background:#c9ff39;transform:rotate(45deg);box-shadow:0 6px 12px rgba(0,0,0,.24)}
+.hm-card-orb.cyan::after{border-radius:50%;background:#22d3ee;transform:none}.hm-card-orb.orange::after{background:#ff8b32;clip-path:polygon(0 50%,100% 0,75% 100%)}
+
+#packages{padding-top:165px!important}
+#packages .section-heading{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:40px;max-width:1280px;margin:0 auto 30px!important}
+#packages .section-heading .section-kicker{grid-column:1/-1;margin-bottom:-22px!important}
+#packages .section-heading h2{font-size:58px!important;line-height:.92!important;letter-spacing:-.055em!important;margin:0!important}
+#packages .section-heading>p:last-child{font-size:26px!important;line-height:1.05!important;margin:0!important;max-width:360px!important;color:#111!important}
+#packages .empty-state{display:none!important}
+
+@media(max-width:900px){
+ .hm-search-row,.hm-flight-fields{grid-template-columns:1fr 1fr!important}.hm-search-action{width:100%}
+ .hm-package-grid{grid-template-columns:1fr 1fr!important}
+ #packages .section-heading{grid-template-columns:1fr!important}
+ #packages .section-heading h2{font-size:48px!important}
+}
+@media(max-width:620px){
+ .hm-search{padding:0 10px 12px!important}.hm-search-card{padding:12px!important;border-radius:18px!important}
+ .hm-search-row,.hm-flight-fields{grid-template-columns:1fr!important}.hm-package-grid{grid-template-columns:1fr!important;gap:16px!important}
+ .hm-package-card{height:330px!important}.hm-card-copy{left:20px;bottom:20px}.hm-card-copy h3{font-size:22px!important}
+ #packages{padding-top:80px!important}#packages .section-heading h2{font-size:42px!important}
+ #packages .section-heading>p:last-child{font-size:20px!important}
+}
+
+/* =========================================================
+   FINAL PAGODA LAYER — target look
+   The pagoda/chimes must sit behind the Escape Now button,
+   but above the hero background and mountain layer.
+   ========================================================= */
+.hero.hm-hero .hero-stage{
+    z-index:1001!important;
+    pointer-events:none!important;
+}
+.hero.hm-hero .hm-chime-art{
+    z-index:1002!important;
+    top:-34px!important;
+    right:-38px!important;
+    width:min(760px,58vw)!important;
+    height:620px!important;
+    opacity:.96!important;
+    mix-blend-mode:multiply!important;
+    filter:saturate(.88) contrast(.92) brightness(1.08)!important;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.15) 16%,#000 35%,#000 100%)!important;
+    mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.15) 16%,#000 35%,#000 100%)!important;
+}
+.hero.hm-hero .hm-chime-art img{
+    position:relative!important;
+    z-index:1003!important;
+    object-fit:contain!important;
+    object-position:right top!important;
+    mix-blend-mode:multiply!important;
+}
+/* Header remains above the artwork, while the artwork visually extends behind it. */
+.hero.hm-hero ~ * .site-header,
+.site-header{z-index:10000!important}
+.site-header .nav-cta{z-index:10002!important;position:relative!important}
+/* Keep interactive labels above the pagoda/globe. */
+.hero.hm-hero .orbit-label,
+.hero.hm-hero .sticker{z-index:10004!important}
+
+@media (max-width: 900px){
+    .hero.hm-hero .hm-chime-art{
+        top:-10px!important;
+        right:-95px!important;
+        width:610px!important;
+        height:520px!important;
+        opacity:.78!important;
+    }
+}

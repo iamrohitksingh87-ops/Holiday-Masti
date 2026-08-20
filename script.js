@@ -3323,3 +3323,22 @@ console.log(
 
     animate();
 })();
+
+
+/* Target-look search tabs */
+document.addEventListener('DOMContentLoaded', () => {
+  const search = document.querySelector('.hm-search');
+  const tabs = document.querySelectorAll('.hm-search-tab');
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    const mode = tab.dataset.searchMode;
+    tabs.forEach(t => t.classList.toggle('active', t === tab));
+    search?.classList.toggle('flight-mode', mode === 'flight');
+  }));
+  const flightBtn = document.getElementById('hmFlightSearchButton');
+  flightBtn?.addEventListener('click', () => {
+    const form = document.getElementById('flightForm');
+    if (form) form.dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}));
+    const msg = document.getElementById('searchMessage');
+    if (msg) msg.textContent = 'Flight search ready — enter your route and departure date.';
+  });
+});

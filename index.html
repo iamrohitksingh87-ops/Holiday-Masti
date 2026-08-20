@@ -100,129 +100,84 @@
 
 
         <!-- ==================== SEARCH ==================== -->
-        <section class="search-section" id="search">
-            <div class="search-card">
-                <div class="search-heading">
-                    <p class="section-kicker">PLAN YOUR ESCAPE</p>
-                    <h2>Find Your Dream Holiday</h2>
-                    <p>Tell us where you want to go and when you want to travel.</p>
+        <section class="search-section hm-search" id="search">
+            <div class="hm-search-card">
+                <div class="hm-search-tabs">
+                    <button class="hm-search-tab active" type="button" data-search-mode="package">✦ Package Search</button>
+                    <button class="hm-search-tab" type="button" data-search-mode="flight">✈ Flight Search</button>
                 </div>
 
-                <form class="search-form" id="searchForm">
-                    
-                    <label>
-                        <span>Destination</span>
-                        <input id="destinationInput" type="text"
-                               placeholder="e.g. Goa, Bali, Dubai">
-                    </label>
+                <form class="hm-search-form" id="searchForm">
+                    <div class="hm-search-row hm-package-fields">
+                        <label class="hm-field hm-wide">
+                            <span>DESTINATION / PACKAGE</span>
+                            <input id="destinationInput" type="text" placeholder="Goa, Bali, Dubai...">
+                        </label>
+                        <label class="hm-field">
+                            <span>TRIP TYPE</span>
+                            <select id="tripType">
+                                <option value="all">All trips</option>
+                                <option value="beach">Beach</option>
+                                <option value="mountains">Mountains</option>
+                                <option value="spiritual">Spiritual</option>
+                            </select>
+                        </label>
+                        <label class="hm-field">
+                            <span>BUDGET</span>
+                            <select id="budget">
+                                <option value="any">Any budget</option>
+                                <option value="under25">Under ₹25,000</option>
+                                <option value="25to40">₹25,000 – ₹40,000</option>
+                                <option value="40plus">₹40,000+</option>
+                            </select>
+                        </label>
+                        <button class="hm-search-action" type="submit">Find Trips ↗</button>
+                    </div>
 
-                    <label>
-                        <span>From</span>
-                        <input id="startDate" type="date">
-                    </label>
+                    <div class="hm-search-row hm-flight-fields">
+                        <label class="hm-field">
+                            <span>FROM</span>
+                            <input id="flightFrom" type="text" list="airportList" placeholder="Lucknow / LKO" autocomplete="off">
+                        </label>
+                        <label class="hm-field">
+                            <span>TO</span>
+                            <input id="flightTo" type="text" list="airportList" placeholder="Goa / GOI" autocomplete="off">
+                        </label>
+                        <label class="hm-field">
+                            <span>DEPARTURE</span>
+                            <input id="flightDeparture" type="date">
+                        </label>
+                        <label class="hm-field">
+                            <span>TRAVELLERS</span>
+                            <select id="flightTravellers">
+                                <option value="1">1 Traveller</option>
+                                <option value="2">2 Travellers</option>
+                                <option value="3">3 Travellers</option>
+                                <option value="4">4 Travellers</option>
+                                <option value="5">5 Travellers</option>
+                                <option value="6">6 Travellers</option>
+                            </select>
+                        </label>
+                        <button class="hm-search-action" type="button" id="hmFlightSearchButton">Search Flights ↗</button>
+                    </div>
 
-                    <label>
-                        <span>To</span>
-                        <input id="endDate" type="date">
-                    </label>
-
-                    <label>
-                        <span>Travellers</span>
-                        <select id="travellers">
-                            <option value="1">1 Traveller</option>
-                            <option value="2">2 Travellers</option>
-                            <option value="3">3 Travellers</option>
-                            <option value="4">4 Travellers</option>
-                            <option value="family">Family</option>
-                            <option value="group">Group</option>
-                        </select>
-                    </label>
-
-                    <button class="btn btn-dark search-button" type="submit">
-                        Search
-                    </button>
+                    <datalist id="airportList">
+                        <option value="Lucknow (LKO)"></option>
+                        <option value="Delhi (DEL)"></option>
+                        <option value="Mumbai (BOM)"></option>
+                        <option value="Bengaluru (BLR)"></option>
+                        <option value="Goa (GOI)"></option>
+                        <option value="Dubai (DXB)"></option>
+                        <option value="Singapore (SIN)"></option>
+                        <option value="Bangkok (BKK)"></option>
+                        <option value="Bali (DPS)"></option>
+                    </datalist>
                 </form>
-
                 <p class="search-message" id="searchMessage"></p>
             </div>
         </section>
 
-
-        <!-- ==================== FLIGHT SEARCH ==================== -->
-        <section class="flight-section" id="flights">
-            <div class="flight-shell">
-                <div class="flight-heading">
-                    <div>
-                        <p class="section-kicker">FLY SMART</p>
-                        <h2>Search Flights</h2>
-                        <p>Compare sample fares and find the best option for your journey.</p>
-                    </div>
-                    <span class="flight-badge">✈ Flight Finder</span>
-                </div>
-
-                <form class="flight-form" id="flightForm">
-                    <label class="flight-field">
-                        <span>From</span>
-                        <input id="flightFrom" type="text" list="airportList" placeholder="Lucknow or LKO" autocomplete="off" required>
-                    </label>
-
-                    <button class="swap-flight" id="swapFlight" type="button" aria-label="Swap departure and arrival">
-                        ⇄
-                    </button>
-
-                    <label class="flight-field">
-                        <span>To</span>
-                        <input id="flightTo" type="text" list="airportList" placeholder="Dubai or DXB" autocomplete="off" required>
-                    </label>
-
-                    <label class="flight-field">
-                        <span>Departure</span>
-                        <input id="flightDeparture" type="date" required>
-                    </label>
-
-                    <label class="flight-field">
-                        <span>Return</span>
-                        <input id="flightReturn" type="date">
-                    </label>
-
-                    <label class="flight-field">
-                        <span>Travellers</span>
-                        <select id="flightTravellers">
-                            <option value="1">1 Adult</option>
-                            <option value="2">2 Adults</option>
-                            <option value="3">3 Adults</option>
-                            <option value="4">4 Adults</option>
-                            <option value="5">5 Adults</option>
-                            <option value="6">6 Adults</option>
-                        </select>
-                    </label>
-
-                    <button class="btn btn-primary flight-search-button" type="submit">
-                        Search Flights
-                    </button>
-                </form>
-                <!-- FLIGHT RESULTS -->
-                <div id="flight-results" class="flight-results"></div>
-                <datalist id="airportList">
-                    <option value="Lucknow (LKO)"></option>
-                    <option value="Delhi (DEL)"></option>
-                    <option value="Mumbai (BOM)"></option>
-                    <option value="Bengaluru (BLR)"></option>
-                    <option value="Goa (GOI)"></option>
-                    <option value="Dubai (DXB)"></option>
-                    <option value="Singapore (SIN)"></option>
-                    <option value="Bangkok (BKK)"></option>
-                    <option value="Bali (DPS)"></option>
-                    <option value="London (LHR)"></option>
-                    <option value="Paris (CDG)"></option>
-                </datalist>
-
-                <p class="flight-note" id="flightMessage">Enter your route and date to see available sample fares.</p>
-
-                <div class="flight-results" id="flightResults" aria-live="polite"></div>
-            </div>
-        </section>
-
+        <!-- Flight search is integrated into the main search card above. -->
 
         <!-- ==================== PACKAGES ==================== -->
         <section class="content-section packages-section" id="packages">
@@ -232,113 +187,59 @@
                 <p>Handpicked experiences for your next unforgettable escape.</p>
             </div>
 
-            <div class="package-grid" id="packageGrid">
+            <div class="package-grid hm-package-grid" id="packageGrid">
 
-                <article class="package-card" data-name="goa beach escape" data-filter="goa india beach">
+                <article class="package-card hm-package-card" data-name="goa beach escape" data-filter="goa india beach">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85" alt="Goa beach">
-                        <span class="price-tag">₹18,999</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-location">INDIA · 3 NIGHTS / 4 DAYS</p>
-                        <h3>Goa Beach Escape</h3>
-                        <p class="rating">★ 4.8 <span>·</span> Beach getaway</p>
-                        <button class="details-button" type="button"
-                                data-title="Goa Beach Escape"
-                                data-price="₹18,999"
-                                data-description="Relax on beautiful beaches, enjoy local food and experience the best of Goa.">
-                            View Details
-                        </button>
+                        <span class="hm-card-pill">INDIA</span><span class="hm-card-rating">★ 4.8</span>
+                        <div class="hm-card-copy"><h3>Goa Beach Escape</h3><p>GOA · INDIA · 3 Nights / 4 Days</p><strong>₹18,999</strong><small>120+ Reviews</small></div>
+                        <span class="hm-card-orb lime"></span>
                     </div>
                 </article>
 
-                <article class="package-card" data-name="bali paradise" data-filter="bali indonesia island">
+                <article class="package-card hm-package-card" data-name="bali paradise" data-filter="bali indonesia island">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85" alt="Bali tropical destination">
-                        <span class="price-tag">₹42,999</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-location">INDONESIA · 5 NIGHTS / 6 DAYS</p>
-                        <h3>Bali Paradise</h3>
-                        <p class="rating">★ 4.9 <span>·</span> Tropical escape</p>
-                        <button class="details-button" type="button"
-                                data-title="Bali Paradise"
-                                data-price="₹42,999"
-                                data-description="Discover tropical beaches, peaceful temples and unforgettable island experiences in Bali.">
-                            View Details
-                        </button>
+                        <span class="hm-card-pill">INDONESIA</span><span class="hm-card-rating">★ 4.9</span>
+                        <div class="hm-card-copy"><h3>Bali Paradise</h3><p>BALI · INDONESIA · 5 Nights / 6 Days</p><strong>₹42,999</strong><small>110+ Reviews</small></div>
+                        <span class="hm-card-orb cyan"></span>
                     </div>
                 </article>
 
-                <article class="package-card" data-name="dubai luxury" data-filter="dubai uae city luxury">
+                <article class="package-card hm-package-card" data-name="dubai luxury" data-filter="dubai uae city luxury">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85" alt="Dubai skyline">
-                        <span class="price-tag">₹39,999</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-location">UAE · 4 NIGHTS / 5 DAYS</p>
-                        <h3>Dubai Luxury</h3>
-                        <p class="rating">★ 4.7 <span>·</span> City adventure</p>
-                        <button class="details-button" type="button"
-                                data-title="Dubai Luxury"
-                                data-price="₹39,999"
-                                data-description="Experience Dubai's skyline, shopping, entertainment and luxury attractions.">
-                            View Details
-                        </button>
+                        <span class="hm-card-pill">UAE</span><span class="hm-card-rating">★ 4.7</span>
+                        <div class="hm-card-copy"><h3>Dubai Luxury</h3><p>DUBAI · UAE · 4 Nights / 5 Days</p><strong>₹39,999</strong><small>100+ Reviews</small></div>
+                        <span class="hm-card-orb orange"></span>
                     </div>
                 </article>
 
-                <article class="package-card" data-name="kashmir heaven" data-filter="kashmir india mountains">
+                <article class="package-card hm-package-card" data-name="kashmir heaven" data-filter="kashmir india mountains">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1200&q=85" alt="Kashmir mountains">
-                        <span class="price-tag">₹27,999</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-location">INDIA · 5 NIGHTS / 6 DAYS</p>
-                        <h3>Kashmir Heaven</h3>
-                        <p class="rating">★ 4.9 <span>·</span> Mountain retreat</p>
-                        <button class="details-button" type="button"
-                                data-title="Kashmir Heaven"
-                                data-price="₹27,999"
-                                data-description="Explore serene valleys, mountain views and beautiful landscapes across Kashmir.">
-                            View Details
-                        </button>
+                        <span class="hm-card-pill">INDIA</span><span class="hm-card-rating">★ 4.9</span>
+                        <div class="hm-card-copy"><h3>Kashmir Heaven</h3><p>KASHMIR · INDIA · 5 Nights / 6 Days</p><strong>₹27,999</strong><small>130+ Reviews</small></div>
+                        <span class="hm-card-orb lime"></span>
                     </div>
                 </article>
 
-                <article class="package-card" data-name="kerala backwaters" data-filter="kerala india backwaters">
+                <article class="package-card hm-package-card" data-name="kerala backwaters" data-filter="kerala india backwaters">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1200&q=85" alt="Kerala backwaters">
-                        <span class="price-tag">₹24,999</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-location">INDIA · 4 NIGHTS / 5 DAYS</p>
-                        <h3>Kerala Backwaters</h3>
-                        <p class="rating">★ 4.8 <span>·</span> Slow travel</p>
-                        <button class="details-button" type="button"
-                                data-title="Kerala Backwaters"
-                                data-price="₹24,999"
-                                data-description="Enjoy calm backwaters, lush greenery and a relaxing Kerala holiday.">
-                            View Details
-                        </button>
+                        <span class="hm-card-pill">INDIA</span><span class="hm-card-rating">★ 4.8</span>
+                        <div class="hm-card-copy"><h3>Kerala Backwaters</h3><p>KERALA · INDIA · 4 Nights / 5 Days</p><strong>₹24,999</strong><small>120+ Reviews</small></div>
+                        <span class="hm-card-orb lime"></span>
                     </div>
                 </article>
 
-                <article class="package-card" data-name="thailand adventure" data-filter="thailand asia adventure">
+                <article class="package-card hm-package-card" data-name="thailand adventure" data-filter="thailand asia adventure">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1200&q=85" alt="Thailand tropical landscape">
-                        <span class="price-tag">₹34,999</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-location">THAILAND · 5 NIGHTS / 6 DAYS</p>
-                        <h3>Thailand Adventure</h3>
-                        <p class="rating">★ 4.7 <span>·</span> Island adventure</p>
-                        <button class="details-button" type="button"
-                                data-title="Thailand Adventure"
-                                data-price="₹34,999"
-                                data-description="Discover tropical islands, vibrant markets and exciting adventures in Thailand.">
-                            View Details
-                        </button>
+                        <span class="hm-card-pill">THAILAND</span><span class="hm-card-rating">★ 4.7</span>
+                        <div class="hm-card-copy"><h3>Thailand Adventure</h3><p>THAILAND · 5 Nights / 6 Days</p><strong>₹34,999</strong><small>100+ Reviews</small></div>
+                        <span class="hm-card-orb lime"></span>
                     </div>
                 </article>
 
@@ -479,7 +380,7 @@
     <!-- ==================== FOOTER ==================== -->
     <footer class="site-footer">
         <div class="footer-inner">
-            <img src="images/logo.png" alt="Holiday Masti logo">
+            <span class="hm-footer-logo"><b>HOLIDAY</b><strong>MASTI</strong></span>
             <p>Travel more. Spend less. Create unforgettable memories.</p>
             <span>
     © <span id="year"></span> Holiday Masti. All Rights Reserved.
