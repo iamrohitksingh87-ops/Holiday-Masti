@@ -4279,29 +4279,6 @@
   filter:saturate(.92) contrast(.96) brightness(1.03) !important;
 }
 
-.hm-chime-art img{
-  position:absolute !important;
-  inset:0 !important;
-  width:100% !important;
-  height:100% !important;
-  display:block !important;
-  object-fit:contain !important;
-  object-position:top right !important;
-  border:0 !important;
-  box-shadow:none !important;
-  transform-origin:76% 23% !important;
-  transition:filter .25s ease !important;
-}
-
-.hero-stage #globe{position:relative !important;z-index:5 !important;}
-.hero-stage .orbit-label,.hero-stage .sticker{z-index:8 !important;}
-
-.hm-chime-hotspot{
-  position:absolute !important; z-index:12 !important; top:17% !important; right:5% !important;
-  width:45% !important; height:62% !important; border-radius:50% !important;
-  pointer-events:auto !important; cursor:pointer !important; outline:none !important;
-}
-
 .hm-chime-art.is-ringing img{animation:hmChimeSwing .82s cubic-bezier(.22,.72,.30,1) both !important;}
 @keyframes hmChimeSwing{
   0%{transform:rotate(0)} 14%{transform:rotate(1.6deg)} 30%{transform:rotate(-1.35deg)}
