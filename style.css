@@ -3897,15 +3897,11 @@
 
 .hero{
     position:relative !important;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(245,241,232,.90) 0%,
-            rgba(245,241,232,.55) 42%,
-            rgba(245,241,232,.12) 72%,
-            rgba(245,241,232,.02) 100%
-        ),
-        url("images/holiday-masti-sakura-home.png") center center / cover no-repeat !important;
+    background-color:#f5f1e8 !important;
+    background-image:url("images/holiday-masti-sakura-home.png") !important;
+    background-position:center center !important;
+    background-size:cover !important;
+    background-repeat:no-repeat !important;
     overflow:hidden !important;
 }
 
