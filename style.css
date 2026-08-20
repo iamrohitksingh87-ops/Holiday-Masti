@@ -4319,63 +4319,46 @@
 /* FINAL PAGODA POSITION */
 
 /* =========================================================
-   PAGODA — BLEND INTO HERO BACKGROUND
+   PAGODA — TOP HANG + SOFT BLEND
 ========================================================= */
 
 .hm-chime-art {
     position: absolute !important;
 
-    width: 330px !important;
-    height: 355px !important;
+    /* smaller and controlled */
+    width: 520px !important;
+    height: 560px !important;
 
-    top: 45px !important;
-    right: 25px !important;
+    /* MOVE IT UP */
+    top: -135px !important;
+
+    /* keep it on the right */
+    right: -20px !important;
 
     z-index: 3 !important;
     pointer-events: none !important;
 
-    /* blend the image into the cream hero */
+    /* blend with website cream */
     mix-blend-mode: multiply !important;
 
-    /* fade the edges */
+    /* fade only the LEFT + BOTTOM edges */
     -webkit-mask-image:
         linear-gradient(
             to right,
             transparent 0%,
-            rgba(0,0,0,.35) 7%,
-            black 16%,
-            black 88%,
-            rgba(0,0,0,.85) 96%,
-            transparent 100%
-        ),
-        linear-gradient(
-            to bottom,
-            transparent 0%,
-            black 8%,
-            black 88%,
-            transparent 100%
+            rgba(0,0,0,.25) 8%,
+            black 20%,
+            black 100%
         ) !important;
 
     mask-image:
         linear-gradient(
             to right,
             transparent 0%,
-            rgba(0,0,0,.35) 7%,
-            black 16%,
-            black 88%,
-            rgba(0,0,0,.85) 96%,
-            transparent 100%
-        ),
-        linear-gradient(
-            to bottom,
-            transparent 0%,
-            black 8%,
-            black 88%,
-            transparent 100%
+            rgba(0,0,0,.25) 8%,
+            black 20%,
+            black 100%
         ) !important;
-
-    -webkit-mask-composite: source-in !important;
-    mask-composite: intersect !important;
 }
 
 .hm-chime-art img {
@@ -4386,42 +4369,44 @@
     height: 100% !important;
 
     object-fit: contain !important;
-    object-position: center !important;
+    object-position: top right !important;
 
     display: block !important;
 
+    background: transparent !important;
     border: 0 !important;
     box-shadow: none !important;
 
-    background: transparent !important;
+    /* makes pale image background less noticeable */
+    mix-blend-mode: multiply !important;
 }
-.hm-chime-hotspot {
+
+
+/* Keep website elements above the artwork */
+.hero-stage #globe {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+.hero-stage .orbit-label,
+.hero-stage .sticker {
     position: absolute !important;
-
-    top: 20% !important;
-    right: 5% !important;
-
-    width: 60% !important;
-    height: 65% !important;
-
-    z-index: 10 !important;
-    pointer-events: auto !important;
+    z-index: 8 !important;
 }
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 767px) {
+
     .hm-chime-art {
-        width: 240px !important;
-        height: 260px !important;
+        width: 300px !important;
+        height: 330px !important;
 
-        top: 15px !important;
-        right: 10px !important;
-    }
-
-    .hm-chime-hotspot {
-        top: 10% !important;
-        right: 3% !important;
-        width: 65% !important;
-        height: 60% !important;
+        top: -45px !important;
+        right: -15px !important;
     }
 }
 /* =========================================================
