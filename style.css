@@ -4318,23 +4318,70 @@
 @media(prefers-reduced-motion:reduce){.hm-chime-art.is-ringing img{animation:none !important;transform:rotate(.4deg) !important}}
 /* FINAL PAGODA POSITION */
 
+/* =========================================================
+   PAGODA — BLEND INTO HERO BACKGROUND
+========================================================= */
+
 .hm-chime-art {
     position: absolute !important;
+
     width: 330px !important;
     height: 355px !important;
 
     top: 45px !important;
-    right: 85px !important;
+    right: 25px !important;
 
     z-index: 3 !important;
     pointer-events: none !important;
 
-    opacity: .88 !important;
+    /* blend the image into the cream hero */
+    mix-blend-mode: multiply !important;
 
-    overflow: visible !important;
+    /* fade the edges */
+    -webkit-mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0,0,0,.35) 7%,
+            black 16%,
+            black 88%,
+            rgba(0,0,0,.85) 96%,
+            transparent 100%
+        ),
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 8%,
+            black 88%,
+            transparent 100%
+        ) !important;
+
+    mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0,0,0,.35) 7%,
+            black 16%,
+            black 88%,
+            rgba(0,0,0,.85) 96%,
+            transparent 100%
+        ),
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 8%,
+            black 88%,
+            transparent 100%
+        ) !important;
+
+    -webkit-mask-composite: source-in !important;
+    mask-composite: intersect !important;
 }
 
 .hm-chime-art img {
+    position: absolute !important;
+    inset: 0 !important;
+
     width: 100% !important;
     height: 100% !important;
 
@@ -4342,13 +4389,12 @@
     object-position: center !important;
 
     display: block !important;
-}
 
-.hero-stage #globe {
-    position: relative !important;
-    z-index: 5 !important;
-}
+    border: 0 !important;
+    box-shadow: none !important;
 
+    background: transparent !important;
+}
 .hm-chime-hotspot {
     position: absolute !important;
 
