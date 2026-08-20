@@ -4256,8 +4256,8 @@
 
 
 /* =========================================================
-   HOLIDAY MASTI — PAGODA + WIND CHIME FINAL
-   Softly blended into the existing cream hero.
+   HOLIDAY MASTI — FINAL PAGODA + WIND CHIME
+   Transparent artwork: no rectangular photo background.
 ========================================================= */
 .hero-stage{
   position:relative !important;
@@ -4265,21 +4265,18 @@
   isolation:isolate !important;
 }
 
-/* The artwork is deliberately behind the existing globe. */
 .hm-chime-art{
   position:absolute !important;
-  top:-34px !important;
-  right:-42px !important;
-  width:560px !important;
+  top:-24px !important;
+  right:-22px !important;
+  width:600px !important;
   height:520px !important;
-  z-index:1 !important;
+  z-index:3 !important;
   pointer-events:none !important;
-  opacity:.56 !important;
-  mix-blend-mode:multiply !important;
+  opacity:.88 !important;
   overflow:visible !important;
-  -webkit-mask-image:radial-gradient(ellipse 68% 72% at 66% 30%,#000 0%,rgba(0,0,0,.96) 42%,rgba(0,0,0,.58) 66%,rgba(0,0,0,.16) 82%,transparent 100%);
-  mask-image:radial-gradient(ellipse 68% 72% at 66% 30%,#000 0%,rgba(0,0,0,.96) 42%,rgba(0,0,0,.58) 66%,rgba(0,0,0,.16) 82%,transparent 100%);
-  filter:saturate(.70) contrast(.88) brightness(1.08);
+  mix-blend-mode:normal !important;
+  filter:saturate(.92) contrast(.96) brightness(1.03) !important;
 }
 
 .hm-chime-art img{
@@ -4288,140 +4285,57 @@
   width:100% !important;
   height:100% !important;
   display:block !important;
-  object-fit:cover !important;
-  object-position:top center !important;
+  object-fit:contain !important;
+  object-position:top right !important;
   border:0 !important;
   box-shadow:none !important;
-  transform-origin:73% 23% !important;
+  transform-origin:76% 23% !important;
   transition:filter .25s ease !important;
 }
 
-/* Softens the lower scenery even further so the globe owns that area. */
-.hm-chime-art::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:3;
-  background:
-    linear-gradient(to bottom,transparent 45%,rgba(245,241,232,.35) 70%,#f5f1e8 100%),
-    radial-gradient(ellipse at 72% 24%,transparent 22%,rgba(245,241,232,.08) 48%,rgba(245,241,232,.52) 78%,#f5f1e8 100%);
-}
-
-.hero-stage #globe{
-  position:relative !important;
-  z-index:5 !important;
-}
-
-.hero-stage .orbit-label,
-.hero-stage .sticker{
-  z-index:8 !important;
-}
+.hero-stage #globe{position:relative !important;z-index:5 !important;}
+.hero-stage .orbit-label,.hero-stage .sticker{z-index:8 !important;}
 
 .hm-chime-hotspot{
-  position:absolute !important;
-  z-index:12 !important;
-  top:16% !important;
-  right:8% !important;
-  width:48% !important;
-  height:60% !important;
-  border-radius:50% !important;
-  pointer-events:auto !important;
-  cursor:pointer !important;
-  outline:none !important;
+  position:absolute !important; z-index:12 !important; top:17% !important; right:5% !important;
+  width:45% !important; height:62% !important; border-radius:50% !important;
+  pointer-events:auto !important; cursor:pointer !important; outline:none !important;
 }
 
-.hm-chime-art.is-ringing img{
-  animation:hmChimeSwing .82s cubic-bezier(.22,.72,.30,1) both !important;
-  filter:saturate(.82) contrast(.92) brightness(1.10) !important;
-}
-
+.hm-chime-art.is-ringing img{animation:hmChimeSwing .82s cubic-bezier(.22,.72,.30,1) both !important;}
 @keyframes hmChimeSwing{
-  0%{transform:rotate(0)}
-  14%{transform:rotate(1.55deg)}
-  30%{transform:rotate(-1.30deg)}
-  46%{transform:rotate(.92deg)}
-  62%{transform:rotate(-.62deg)}
-  78%{transform:rotate(.32deg)}
-  100%{transform:rotate(0)}
+  0%{transform:rotate(0)} 14%{transform:rotate(1.6deg)} 30%{transform:rotate(-1.35deg)}
+  46%{transform:rotate(1deg)} 62%{transform:rotate(-.65deg)} 78%{transform:rotate(.35deg)} 100%{transform:rotate(0)}
 }
 
 .hm-chime-hint{
-  position:absolute !important;
-  z-index:13 !important;
-  left:2% !important;
-  top:50% !important;
-  display:flex !important;
-  align-items:center !important;
-  gap:7px !important;
-  padding:8px 11px !important;
-  border-radius:14px !important;
-  background:rgba(255,253,246,.68) !important;
-  border:1px solid rgba(16,16,16,.07) !important;
-  backdrop-filter:blur(10px) !important;
-  color:#111 !important;
-  font-size:10px !important;
-  line-height:1.25 !important;
-  pointer-events:none !important;
-  opacity:.70 !important;
-  box-shadow:0 8px 24px rgba(16,16,16,.05) !important;
+  position:absolute !important; z-index:13 !important; left:4% !important; top:52% !important;
+  display:flex !important; align-items:center !important; gap:7px !important; padding:8px 11px !important;
+  border-radius:14px !important; background:rgba(255,253,246,.82) !important;
+  border:1px solid rgba(16,16,16,.07) !important; backdrop-filter:blur(10px) !important;
+  color:#111 !important; font-size:10px !important; line-height:1.25 !important;
+  pointer-events:none !important; opacity:.82 !important; box-shadow:0 8px 24px rgba(16,16,16,.05) !important;
 }
 .hm-chime-hint em{color:#777 !important;font-style:italic !important}
 .hm-chime-hand{font-size:18px !important}
 
 @media(max-width:1000px){
-  .hm-chime-art{
-    width:500px !important;
-    height:440px !important;
-    right:-55px !important;
-    top:-10px !important;
-    opacity:.48 !important;
-  }
-  .hm-chime-hotspot{right:5% !important;width:55% !important;height:56% !important}
+  .hm-chime-art{width:520px !important;height:450px !important;right:-55px !important;top:-8px !important;opacity:.80 !important;}
+  .hm-chime-hotspot{right:4% !important;width:52% !important;height:58% !important}
 }
 
 @media(max-width:767px){
-  .hero-stage{
-    min-height:500px !important;
-    height:500px !important;
-  }
-  .hm-chime-art{
-    width:430px !important;
-    height:320px !important;
-    right:-112px !important;
-    top:-12px !important;
-    opacity:.42 !important;
-    z-index:1 !important;
-  }
-  .hero-stage #globe{
-    position:absolute !important;
-    left:0 !important;
-    right:0 !important;
-    bottom:0 !important;
-    width:100% !important;
-    height:350px !important;
-    z-index:5 !important;
-  }
-  .hm-chime-hotspot{
-    top:7% !important;
-    right:4% !important;
-    width:62% !important;
-    height:54% !important;
-  }
-  .hm-chime-hint{
-    left:5% !important;
-    top:37% !important;
-    transform:scale(.80) !important;
-    transform-origin:left top !important;
-  }
+  .hero-stage{min-height:500px !important;height:500px !important;}
+  .hm-chime-art{width:430px !important;height:340px !important;right:-105px !important;top:-8px !important;opacity:.72 !important;z-index:3 !important;}
+  .hero-stage #globe{position:absolute !important;left:0 !important;right:0 !important;bottom:0 !important;width:100% !important;height:350px !important;z-index:5 !important;}
+  .hm-chime-hotspot{top:6% !important;right:4% !important;width:60% !important;height:54% !important}
+  .hm-chime-hint{left:5% !important;top:37% !important;transform:scale(.80) !important;transform-origin:left top !important;}
 }
 
 @media(max-width:390px){
-  .hm-chime-art{width:390px !important;height:290px !important;right:-100px !important}
+  .hm-chime-art{width:390px !important;height:305px !important;right:-100px !important}
   .hero-stage{min-height:475px !important;height:475px !important}
   .hero-stage #globe{height:325px !important}
 }
 
-@media(prefers-reduced-motion:reduce){
-  .hm-chime-art.is-ringing img{animation:none !important;transform:rotate(.4deg) !important}
-}
+@media(prefers-reduced-motion:reduce){.hm-chime-art.is-ringing img{animation:none !important;transform:rotate(.4deg) !important}}
