@@ -3877,7 +3877,7 @@
 .hero{
     background-color: #f5f1e8 !important;
     background-image: url("images/holiday-masti-sakura-home.png") !important;
-    background-position: center center !important;
+    background-position: center top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
 }
