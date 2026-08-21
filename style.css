@@ -4083,5 +4083,5 @@
 }
 /* HERO CONTENT — MOVE ENTIRE BLOCK LEFT ONLY */
 .hero-grid{
-    transform:translateX(-190px) !important;
+    transform:translate(-190px, 60px) !important;
 }
