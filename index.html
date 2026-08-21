@@ -3310,14 +3310,7 @@ footer .footer-bottom span:last-child:hover{
     if(!hero) return;
     hero.style.setProperty('background-image', 'url("images/holiday-masti-sakura-home.png")', 'important');
     hero.classList.remove('cinematic-zoom','hero-changing');
-    const suitcase = document.createElement('img');
-
-suitcase.src = 'suitcase-slab.png';
-suitcase.alt = 'Travel suitcase';
-suitcase.className = 'hm-suitcase';
-
-hero.appendChild(suitcase);
-
+    
     const eyebrow = hero.querySelector('.eyebrow');
     const heading = hero.querySelector('h1');
     const copy = hero.querySelector('.hero-copy');
