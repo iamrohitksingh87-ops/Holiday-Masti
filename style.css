@@ -3973,89 +3973,87 @@
     inset:0 !important;
     z-index:50 !important;
     pointer-events:none !important;
-    overflow:hidden !important;
+    overflow:visible !important;
 }
 
 .hm-floating-flower{
     position:absolute !important;
-    top:-40px !important;
-    left:0;
-    width:24px;
-    height:24px;
+    top:-35px !important;
+    width:30px !important;
+    height:30px !important;
     pointer-events:none !important;
+    z-index:50 !important;
     will-change:transform,opacity;
-    animation:hmFlowerFall linear infinite !important;
 }
 
-/* Individual flower petals */
-.hm-floating-flower .petal{
+/* Sakura petals */
+.hm-floating-flower span{
     position:absolute !important;
+    display:block !important;
+
     width:10px !important;
     height:10px !important;
 
     background:
-        radial-gradient(
-            circle at 35% 30%,
+        linear-gradient(
+            135deg,
             #fffafd 0%,
-            #ffe8f0 35%,
-            #f6bfd1 72%,
-            #eda7bf 100%
+            #ffe3ec 45%,
+            #f5b9ce 100%
         ) !important;
 
-    border-radius:50% 50% 48% 48% !important;
+    border-radius:50% 50% 45% 45% !important;
 
     box-shadow:
-        0 1px 3px rgba(130,60,85,.12) !important;
+        0 1px 3px rgba(120,60,80,.12) !important;
 }
 
-/* 5-petal Sakura flower */
-.hm-floating-flower .petal:nth-child(1){
-    left:7px;
-    top:0;
+/* 5 Sakura petals */
+.hm-floating-flower span:nth-child(1){
+    left:7px !important;
+    top:0 !important;
 }
 
-.hm-floating-flower .petal:nth-child(2){
-    left:14px;
-    top:5px;
+.hm-floating-flower span:nth-child(2){
+    left:14px !important;
+    top:6px !important;
 }
 
-.hm-floating-flower .petal:nth-child(3){
-    left:11px;
-    top:13px;
+.hm-floating-flower span:nth-child(3){
+    left:11px !important;
+    top:14px !important;
 }
 
-.hm-floating-flower .petal:nth-child(4){
-    left:3px;
-    top:13px;
+.hm-floating-flower span:nth-child(4){
+    left:3px !important;
+    top:14px !important;
 }
 
-.hm-floating-flower .petal:nth-child(5){
-    left:0;
-    top:5px;
+.hm-floating-flower span:nth-child(5){
+    left:0 !important;
+    top:6px !important;
 }
 
-/* Flower center */
-.hm-floating-flower .center{
-    position:absolute !important;
+/* Sakura center */
+.hm-floating-flower span:nth-child(6){
     left:9px !important;
     top:9px !important;
 
-    width:6px !important;
-    height:6px !important;
+    width:5px !important;
+    height:5px !important;
 
-    border-radius:50% !important;
     background:#f3c56b !important;
+    border-radius:50% !important;
 
-    box-shadow:
-        0 0 0 1px rgba(190,120,50,.15) !important;
+    box-shadow:none !important;
 }
 
-/* Natural falling motion */
+/* Falling animation */
 @keyframes hmFlowerFall{
 
     0%{
         transform:
-            translate3d(0,-50px,0)
+            translate3d(0,-40px,0)
             rotate(0deg);
         opacity:0;
     }
@@ -4068,14 +4066,12 @@
         transform:
             translate3d(55px,32vh,0)
             rotate(110deg);
-        opacity:.88;
     }
 
     65%{
         transform:
             translate3d(-35px,68vh,0)
             rotate(235deg);
-        opacity:.78;
     }
 
     100%{
@@ -4085,4 +4081,3 @@
         opacity:0;
     }
 }
-
