@@ -3971,8 +3971,6 @@
 .hm-floating-petals {
     position: absolute !important;
     inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
     z-index: 50 !important;
     pointer-events: none !important;
     overflow: hidden !important;
