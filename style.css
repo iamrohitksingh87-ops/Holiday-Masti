@@ -3964,3 +3964,45 @@
     transform:scale(.60) !important;
     transform-origin:center center !important;
 }
+/* =========================================================
+   HOLIDAY MASTI — FLOATING SAKURA PETALS
+========================================================= */
+
+.hm-floating-petals{
+    position:absolute;
+    inset:0;
+    z-index:6;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.hm-floating-petal{
+    position:absolute;
+    top:-30px;
+    width:13px;
+    height:8px;
+    background:#f4a6ba;
+    border-radius:100% 0 100% 0;
+    opacity:.7;
+    animation:hmPetalFloat linear infinite;
+}
+
+@keyframes hmPetalFloat{
+    0%{
+        transform:translate3d(0,-40px,0) rotate(0deg);
+        opacity:0;
+    }
+
+    10%{
+        opacity:.75;
+    }
+
+    50%{
+        transform:translate3d(70px,50vh,0) rotate(180deg);
+    }
+
+    100%{
+        transform:translate3d(-60px,110vh,0) rotate(360deg);
+        opacity:0;
+    }
+}
