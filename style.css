@@ -4067,3 +4067,17 @@
     margin-top: -80px !important;
     padding-top: 80px !important;
 }
+/* REMOVE HERO GLOBE ONLY */
+.hero-stage{
+    display:none !important;
+}
+
+.hero-grid{
+    grid-template-columns:1fr !important;
+}
+
+#globe,
+.orbit-label,
+.sticker{
+    display:none !important;
+}
