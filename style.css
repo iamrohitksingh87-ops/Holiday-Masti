@@ -4006,3 +4006,27 @@
         opacity:0;
     }
 }
+/* Sakura petals — final natural look */
+
+.hm-floating-petals{
+    position:absolute !important;
+    inset:0 !important;
+    z-index:50 !important;
+    overflow:visible !important;
+    pointer-events:none !important;
+}
+
+.hm-floating-petal{
+    position:absolute !important;
+    display:block !important;
+    background:linear-gradient(
+        135deg,
+        #fff1f5 0%,
+        #f8c4d3 55%,
+        #eda8bd 100%
+    ) !important;
+    border-radius:100% 0 100% 0 !important;
+    box-shadow:0 1px 3px rgba(120,60,80,.12) !important;
+    animation:hmPetalFloat linear infinite !important;
+    will-change:transform,opacity !important;
+}
