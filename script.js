@@ -2233,3 +2233,107 @@ document.addEventListener(
     );
 
 });
+/* =========================================================
+   HOLIDAY MASTI — SAKURA FLOWER FALL
+========================================================= */
+
+(function () {
+
+    function createSakuraFlowers() {
+
+        const hero = document.querySelector('.hero');
+
+        if (!hero) return;
+
+        let container =
+            hero.querySelector('.hm-floating-petals');
+
+        if (!container) {
+
+            container =
+                document.createElement('div');
+
+            container.className =
+                'hm-floating-petals';
+
+            hero.appendChild(container);
+        }
+
+        /* Prevent duplicate flowers */
+        if (
+            container.querySelector('.hm-floating-flower')
+        ) {
+            return;
+        }
+
+        const flowerCount =
+            window.innerWidth <= 600 ? 12 : 18;
+
+        for (let i = 0; i < flowerCount; i++) {
+
+            const flower =
+                document.createElement('div');
+
+            flower.className =
+                'hm-floating-flower';
+
+            const positions = [
+                [7, 0],
+                [14, 6],
+                [11, 14],
+                [3, 14],
+                [0, 6]
+            ];
+
+            positions.forEach(function (pos) {
+
+                const petal =
+                    document.createElement('span');
+
+                petal.className =
+                    'petal';
+
+                petal.style.left =
+                    pos[0] + 'px';
+
+                petal.style.top =
+                    pos[1] + 'px';
+
+                flower.appendChild(petal);
+            });
+
+            const center =
+                document.createElement('span');
+
+            center.className =
+                'center';
+
+            flower.appendChild(center);
+
+            flower.style.left =
+                Math.random() * 100 + '%';
+
+            flower.style.animationDuration =
+                (6 + Math.random() * 6) + 's';
+
+            flower.style.animationDelay =
+                (-Math.random() * 12) + 's';
+
+            container.appendChild(flower);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            createSakuraFlowers
+        );
+
+    } else {
+
+        createSakuraFlowers();
+
+    }
+
+})();
