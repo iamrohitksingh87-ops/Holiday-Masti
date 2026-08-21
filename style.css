@@ -4063,3 +4063,14 @@
         opacity: 0;
     }
 }
+/* Move only the Sakura background upward */
+body {
+    background-image: url("images/holiday-masti-sakura-home.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.hero {
+    background-position: center top !important;
+}
