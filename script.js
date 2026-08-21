@@ -2222,6 +2222,81 @@ document.addEventListener(
     ========================================================= */
 
     loadSupabasePackages();
+    /* =========================================================
+   SAKURA FLOWERS
+========================================================= */
+
+function createSakuraFlowers() {
+
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+
+    const container = document.createElement("div");
+
+    container.className = "hm-floating-petals";
+
+    Object.assign(container.style, {
+        position: "absolute",
+        top: "0",
+        left: "0",
+        width: `${hero.clientWidth}px`,
+        height: `${hero.clientHeight}px`,
+        pointerEvents: "none",
+        zIndex: "50",
+        overflow: "hidden"
+    });
+
+    hero.appendChild(container);
+
+    for (let i = 0; i < 18; i++) {
+
+        const flower = document.createElement("div");
+
+        flower.className = "hm-floating-flower";
+
+        flower.style.left =
+            Math.random() * 100 + "%";
+
+        flower.style.animationDuration =
+            (6 + Math.random() * 6) + "s";
+
+        flower.style.animationDelay =
+            (-Math.random() * 12) + "s";
+
+        const positions = [
+            [7, 0],
+            [14, 6],
+            [11, 14],
+            [3, 14],
+            [0, 6]
+        ];
+
+        positions.forEach(([left, top]) => {
+
+            const petal =
+                document.createElement("span");
+
+            petal.className = "petal";
+
+            petal.style.left = left + "px";
+            petal.style.top = top + "px";
+
+            flower.appendChild(petal);
+        });
+
+        const center =
+            document.createElement("span");
+
+        center.className = "center";
+
+        flower.appendChild(center);
+
+        container.appendChild(flower);
+    }
+
+}
+
+createSakuraFlowers();
 
 
     /* =========================================================
