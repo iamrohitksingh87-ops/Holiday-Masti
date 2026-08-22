@@ -4081,5 +4081,47 @@
 .sticker{
     display:none !important;
 }
+/* NAVBAR — OPTION 3 */
+.nav{
+  background:#101010 !important;
+  color:#fff !important;
+}
 
+.navlinks{
+  font-family:"DM Sans",sans-serif !important;
+  font-size:15px !important;
+  font-weight:600 !important;
+  letter-spacing:.02em !important;
+}
+
+.navlinks a{
+  color:#fff !important;
+  opacity:.9 !important;
+  transition:.25s ease !important;
+}
+
+.navlinks a:hover{
+  color:#c9ff39 !important;
+  opacity:1 !important;
+  transform:translateY(-1px);
+}
+
+/* HOLIDAY MASTI — KEEP ORIGINAL */
+.brand{
+  font-family:"Space Grotesk" !important;
+  font-weight:700 !important;
+  color:var(--ink) !important;
+}
+
+.brand span{
+  background:var(--lime) !important;
+  color:#101010 !important;
+  transform:rotate(-2deg) !important;
+}
+
+/* Escape Now — KEEP BLACK/WHITE */
+.navcta{
+  background:#fff !important;
+  color:#101010 !important;
+}
 
