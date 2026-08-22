@@ -4081,8 +4081,5 @@
 .sticker{
     display:none !important;
 }
-/* HERO CONTENT — MOVE ENTIRE BLOCK LEFT ONLY */
-.hero-grid{
-    transform:translate(-190px, 60px) !important;
-}
+
 
