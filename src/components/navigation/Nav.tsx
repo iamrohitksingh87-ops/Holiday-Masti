@@ -43,7 +43,7 @@ export function Nav() {
           <ul>
             {LINKS.map((link) => (
               <li key={link.label}>
-                <a href={link.to}>{link.label}</a>
+                <Link to={link.to}>{link.label}</Link>
               </li>
             ))}
           </ul>
@@ -72,9 +72,9 @@ export function Nav() {
         <ul className="nav__panel-list">
           {[...LINKS, { label: 'Plan a trip', to: '/#plan' }].map((link, i) => (
             <li key={link.label} style={{ '--i': i } as React.CSSProperties}>
-              <a href={link.to} className="display">
+              <Link to={link.to} className="display">
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
