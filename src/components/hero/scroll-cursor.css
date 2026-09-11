@@ -1,0 +1,67 @@
+.scroll-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  width: 116px;
+  height: 116px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.7s var(--ease-out);
+  mix-blend-mode: difference;
+}
+
+.scroll-cursor.is-awake {
+  opacity: 1;
+}
+
+.scroll-cursor__ring {
+  width: 100%;
+  height: 100%;
+  animation: cursor-turn 22s linear infinite;
+}
+
+.scroll-cursor__text {
+  fill: var(--ivory);
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.scroll-cursor__dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--ivory);
+  animation: cursor-pulse 2.6s var(--ease-io) infinite;
+}
+
+@keyframes cursor-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cursor-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.9);
+    opacity: 0.45;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .scroll-cursor {
+    display: none;
+  }
+}

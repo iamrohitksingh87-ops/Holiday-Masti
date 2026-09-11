@@ -1,0 +1,71 @@
+.holiday-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.holiday-cursor.is-visible {
+  opacity: 1;
+}
+
+.holiday-cursor__dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--ivory);
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    background 0.3s ease;
+}
+
+.holiday-cursor__trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  color: var(--ivory);
+  font-family: var(--font-sans);
+  font-size: 7px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.72;
+  transform-origin: center;
+  animation: holiday-trail-drift 8s linear infinite;
+}
+
+.holiday-cursor__trail span:nth-child(even) {
+  opacity: 0.45;
+}
+
+@keyframes holiday-trail-drift {
+  0% {
+    letter-spacing: 0.24em;
+  }
+
+  50% {
+    letter-spacing: 0.34em;
+  }
+
+  100% {
+    letter-spacing: 0.24em;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .holiday-cursor {
+    display: none;
+  }
+}

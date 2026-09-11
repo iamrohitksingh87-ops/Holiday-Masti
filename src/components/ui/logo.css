@@ -1,0 +1,37 @@
+/* Height-driven, so the supplied aspect ratio is never touched. */
+.logo {
+  display: block;
+  width: auto;
+  height: var(--logo-h, 2.25rem);
+  object-fit: contain;
+  transition: filter 0.6s var(--ease-out), height 0.6s var(--ease-out);
+}
+
+/* Header ---------------------------------------------------------------- */
+
+.logo--nav {
+  --logo-h: clamp(1.9rem, 3.1vw, 2.75rem);
+}
+
+.nav.is-settled .logo--nav {
+  --logo-h: clamp(1.7rem, 2.4vw, 2.25rem);
+  /* The bar turns ivory when it settles; invert keeps the same artwork. */
+  filter: invert(1);
+}
+
+/* The panel and the bar behind it are dark again while the menu is open. */
+.nav.is-open .logo--nav {
+  filter: none;
+}
+
+/* Footer ---------------------------------------------------------------- */
+
+.logo--foot {
+  --logo-h: clamp(2.75rem, 6.5vw, 4.25rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo {
+    transition: none;
+  }
+}

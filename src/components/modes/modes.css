@@ -1,0 +1,154 @@
+.mode {
+  position: relative;
+}
+
+/* ---- Cinematic frame --------------------------------------------------- */
+
+.mode__stage {
+  position: relative;
+  min-height: 76vh;
+  min-height: 76svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(4.5rem, 12vh, 8rem) clamp(3.5rem, 8vh, 5.5rem);
+  background: var(--soot);
+}
+
+.mode__frame {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.mode__frame img {
+  height: 112%;
+  margin-top: -6%;
+  will-change: transform;
+}
+
+.mode__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--soot) 90%, transparent) 0%,
+      color-mix(in srgb, var(--soot) 62%, transparent) 34%,
+      color-mix(in srgb, var(--soot) 12%, transparent) 74%,
+      transparent 96%
+    ),
+    linear-gradient(to right, color-mix(in srgb, var(--soot) 52%, transparent), transparent 62%);
+}
+
+.mode__body {
+  position: relative;
+  width: 100%;
+}
+
+.mode__label {
+  color: var(--ember);
+  margin-bottom: clamp(0.9rem, 2vh, 1.5rem);
+}
+
+.mode__title {
+  font-size: var(--t-h2);
+  max-width: 22ch;
+}
+
+.mode__title span {
+  display: block;
+}
+
+.mode__copy {
+  margin-top: clamp(1.1rem, 2.4vh, 1.8rem);
+  max-width: 52ch;
+  font-size: var(--t-body);
+  font-weight: 300;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--ivory) 74%, transparent);
+  text-wrap: pretty;
+}
+
+.mode__slate {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(1.1rem, 3vh, 1.8rem);
+  color: color-mix(in srgb, var(--ivory) 52%, transparent);
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .mode__slate {
+    position: static;
+    margin: clamp(1.5rem, 4vh, 2.5rem) var(--gutter) 0;
+    text-align: left;
+  }
+  .mode__stage {
+    display: block;
+    min-height: 0;
+  }
+  .mode__frame {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    aspect-ratio: 4 / 5;
+    margin-bottom: clamp(1.75rem, 5vh, 2.5rem);
+  }
+  .mode__frame img {
+    height: 100%;
+    margin-top: 0;
+  }
+  .mode__stage {
+    padding-top: 0;
+  }
+}
+
+/* ---- The search bar ---------------------------------------------------- */
+
+/* `.find` already carries the package-search look; this only removes the
+   large heading block that the section headline has already covered. */
+.find--mode {
+  padding-block: clamp(2.5rem, 6vh, 4rem);
+}
+
+.find--mode .find__legend {
+  color: var(--fg-faint);
+  margin-bottom: clamp(1.25rem, 3vh, 2rem);
+}
+
+/* On a tablet these forms carry four or five fields, so they pair up rather
+   than stacking into a very long column. Scoped to the mode sections so the
+   package search keeps exactly the behaviour it already had. */
+@media (min-width: 600px) and (max-width: 799px) {
+  .find--mode .find__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .find--mode .find__go {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+/* Five fields need their own rhythm; four fall through to the shared rule. */
+@media (min-width: 800px) {
+  .find__row--five .find__go {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  .find__row--five {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .find__row--five {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
+  }
+  .find__row--five .find__go {
+    grid-column: auto;
+    justify-self: auto;
+  }
+}

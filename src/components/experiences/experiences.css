@@ -1,0 +1,194 @@
+.exp {
+  position: relative;
+  overflow: hidden;
+}
+
+.exp__inner {
+  display: flex;
+  flex-direction: column;
+  padding-block: clamp(3.5rem, 9vh, 6rem);
+}
+
+.exp__head {
+  display: grid;
+  gap: 1.75rem;
+  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+}
+
+@media (min-width: 900px) {
+  .exp__head {
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    align-items: end;
+  }
+}
+
+.exp__title {
+  font-size: var(--t-h2);
+  margin-top: 1.1rem;
+}
+
+.exp__title span {
+  display: block;
+}
+
+.exp__progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.exp__bar {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  overflow: hidden;
+}
+
+.exp__bar i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ---- Vertical read (default, and everything under 1024px) -------------- */
+
+.exp__track {
+  display: grid;
+  gap: clamp(3.5rem, 10vh, 6rem);
+  padding-inline: var(--gutter);
+}
+
+.exp__frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--espresso);
+}
+
+.exp__hour {
+  position: absolute;
+  right: 0.9rem;
+  bottom: 0.75rem;
+  color: var(--ivory);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 6px color-mix(in srgb, var(--soot) 70%, transparent);
+}
+
+.exp__meta {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-top: 1.25rem;
+}
+
+.exp__index {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1;
+  color: var(--accent);
+}
+
+.exp__name {
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  line-height: 1.05;
+}
+
+.exp__place {
+  margin-top: 0.4rem;
+  color: var(--fg-faint);
+}
+
+.exp__copy {
+  margin-top: 0.85rem;
+  max-width: 40ch;
+}
+
+/* ---- Horizontal stage -------------------------------------------------- */
+
+@media (min-width: 1024px) {
+  .exp__inner {
+    min-height: 100vh;
+    min-height: 100svh;
+    justify-content: center;
+  }
+
+  .exp__track {
+    display: flex;
+    grid-template-columns: none;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+    padding-inline: var(--gutter);
+    /* One clear gutter of air after the final panel, and not a pixel more. */
+    padding-right: calc(var(--gutter) + 4vw);
+    width: max-content;
+    will-change: transform;
+  }
+
+  /* Panels are sized by height so a whole one — frame, number and copy —
+     always fits between the heading and the bottom of the screen. Widths
+     then fall out of the crop, which is what makes the strip feel cut
+     rather than laid out. */
+  /* The heading gives up some size here so that a whole panel — frame,
+     number and copy — always clears the bottom of the screen. */
+  .exp__title {
+    font-size: clamp(1.9rem, 3.5vw, 3.5rem);
+  }
+
+  .exp__panel {
+    flex: none;
+    width: 32vw;
+    max-width: 520px;
+  }
+
+  .exp__frame {
+    height: clamp(12rem, 31vh, 20rem);
+    aspect-ratio: auto;
+  }
+
+  .exp__copy {
+    max-width: 34ch;
+  }
+
+  .exp__panel:nth-child(2) {
+    width: 23vw;
+    transform: translateY(-2vh);
+  }
+  .exp__panel:nth-child(2) .exp__frame {
+    height: clamp(10rem, 25vh, 16rem);
+  }
+  .exp__panel:nth-child(3) {
+    width: 28vw;
+    transform: translateY(2vh);
+  }
+  .exp__panel:nth-child(3) .exp__frame {
+    height: clamp(11rem, 28vh, 18rem);
+  }
+  .exp__panel:nth-child(4) {
+    width: 21vw;
+    transform: translateY(-1vh);
+  }
+  .exp__panel:nth-child(4) .exp__frame {
+    height: clamp(13rem, 35vh, 22rem);
+  }
+  .exp__panel:nth-child(5) {
+    width: 30vw;
+    transform: translateY(1vh);
+  }
+  .exp__panel:nth-child(5) .exp__frame {
+    height: clamp(10.5rem, 27vh, 17rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp__track {
+    display: grid;
+    width: auto;
+    transform: none !important;
+  }
+  .exp__panel {
+    width: auto !important;
+    max-width: 46rem;
+    transform: none !important;
+  }
+}

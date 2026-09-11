@@ -1,0 +1,175 @@
+﻿.jrn {
+  position: relative;
+  background: var(--ivory);
+  color: var(--ink);
+  --fg: var(--ink);
+  --fg-soft: color-mix(in srgb, var(--ink) 62%, transparent);
+  --fg-faint: color-mix(in srgb, var(--ink) 56%, transparent);
+  --rule: color-mix(in srgb, var(--ink) 14%, transparent);
+  --accent: var(--terracotta);
+  overflow: hidden;
+}
+
+.jrn__head {
+  display: grid;
+  gap: 1.2rem;
+  padding-bottom: clamp(2.5rem, 7vh, 5rem);
+}
+
+@media (min-width: 900px) {
+  .jrn__head {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: end;
+    column-gap: clamp(2rem, 6vw, 6rem);
+  }
+  .jrn__head > .meta {
+    grid-column: 1;
+  }
+  .jrn__title {
+    grid-column: 1;
+  }
+  .jrn__intro {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: end;
+    padding-bottom: 0.6rem;
+  }
+}
+
+.jrn__title {
+  font-size: var(--t-h2);
+}
+
+.jrn__title span {
+  display: block;
+}
+
+/* ---- Rows -------------------------------------------------------------- */
+
+.jrn__row {
+  border-top: 1px solid var(--rule);
+}
+
+.jrn__row:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.jrn__link {
+  display: grid;
+  gap: 0.5rem 1.5rem;
+  padding-block: clamp(1.4rem, 3vw, 2.2rem);
+  align-items: center;
+  position: relative;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+.jrn__no {
+  color: var(--accent);
+}
+
+.jrn__name {
+  font-size: clamp(2.1rem, 6.4vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.jrn__tag {
+  display: block;
+  color: var(--fg-soft);
+  font-weight: 300;
+  margin-top: 0.3rem;
+  max-width: 34ch;
+}
+
+.jrn__region {
+  color: var(--fg-faint);
+}
+
+.jrn__nights {
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.jrn__go {
+  display: inline-flex;
+  gap: 0.6em;
+  color: var(--accent);
+}
+
+.jrn__inline {
+  display: block;
+  overflow: hidden;
+  background: var(--sand);
+  margin-block: 0.9rem;
+}
+
+@media (min-width: 900px) {
+  .jrn__link {
+    grid-template-columns: 3rem minmax(0, 1fr) minmax(0, 0.95fr) 7rem 11rem;
+    gap: 1.5rem clamp(1rem, 2.5vw, 2.5rem);
+  }
+  .jrn__inline {
+    display: none;
+  }
+  .jrn__go {
+    justify-self: end;
+    opacity: 0;
+    transform: translateX(-0.6rem);
+    transition: opacity 0.45s var(--ease-out), transform 0.55s var(--ease-out);
+  }
+  .jrn__row.is-active .jrn__go {
+    opacity: 1;
+    transform: none;
+  }
+  .jrn__row.is-active .jrn__name {
+    transform: translateX(0.6rem);
+  }
+  /* Everything else recedes a little while one row is being read. */
+  .jrn__list:hover .jrn__row:not(.is-active) .jrn__link {
+    opacity: 0.42;
+  }
+}
+
+@media (max-width: 899px) {
+  .jrn__no {
+    grid-row: 1;
+  }
+  .jrn__go {
+    margin-top: 0.6rem;
+  }
+}
+
+/* ---- Trailing frame ---------------------------------------------------- */
+
+.jrn__peek {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(14rem, 22vw, 22rem);
+  aspect-ratio: 4 / 5;
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity 0.5s var(--ease-out);
+  overflow: hidden;
+  z-index: 3;
+  box-shadow: 0 2rem 4rem -1.5rem color-mix(in srgb, var(--ink) 40%, transparent);
+}
+
+.jrn__peek.is-live {
+  opacity: 1;
+}
+
+.jrn__peek .fig {
+  animation: peek-in 0.85s var(--ease-out) both;
+}
+
+@keyframes peek-in {
+  from {
+    transform: scale(1.14);
+  }
+  to {
+    transform: scale(1);
+  }
+}

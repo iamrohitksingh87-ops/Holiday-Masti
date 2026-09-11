@@ -1,0 +1,99 @@
+.why__grid {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+@media (min-width: 900px) {
+  .why__grid {
+    grid-template-columns: repeat(12, 1fr);
+    align-items: start;
+  }
+  .why__lede {
+    grid-column: 1 / span 6;
+  }
+  .why__plate--tall {
+    grid-column: 8 / span 4;
+    grid-row: 1 / span 2;
+    margin-top: clamp(1rem, 4vw, 3.5rem);
+  }
+  .why__list {
+    grid-column: 1 / span 6;
+  }
+  .why__plate--wide {
+    grid-column: 7 / span 6;
+    margin-top: clamp(1rem, 3vw, 2rem);
+  }
+  .why__closing {
+    grid-column: 1 / span 6;
+    align-self: center;
+  }
+}
+
+.why__title {
+  font-size: var(--t-h2);
+  margin-top: 1rem;
+}
+
+.why__title span {
+  display: block;
+}
+
+.why__lead {
+  margin-top: clamp(1.4rem, 3vw, 2.2rem);
+  max-width: 42ch;
+}
+
+.why__list {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.why__item {
+  border-top: 1px solid var(--rule);
+  padding-top: clamp(1rem, 2vw, 1.4rem);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.why__item dt {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.why__no {
+  color: var(--accent);
+  flex: none;
+}
+
+.why__label {
+  font-size: clamp(1.3rem, 2.1vw, 1.9rem);
+  line-height: 1.1;
+}
+
+.why__item dd {
+  margin: 0;
+  padding-left: clamp(0rem, 3.5vw, 3.2rem);
+  max-width: 52ch;
+}
+
+.why__plate {
+  position: relative;
+}
+
+.why__plate .fig {
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.why__plate figcaption {
+  margin-top: 0.75rem;
+  color: var(--fg-faint);
+}
+
+.why__closing {
+  font-size: clamp(1.5rem, 2.9vw, 2.5rem);
+  line-height: 1.22;
+  max-width: 26ch;
+  color: var(--fg);
+}

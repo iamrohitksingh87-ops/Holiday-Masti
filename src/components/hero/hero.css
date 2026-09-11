@@ -1,0 +1,302 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---- The film ------------------------------------------------------- */
+
+.hero__film {
+  position: absolute;
+  inset: -6% 0 0;
+  z-index: -1;
+  will-change: transform;
+}
+
+.film {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--soot);
+}
+
+.film__shot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.9s var(--ease-io);
+}
+
+.film__shot.is-live {
+  opacity: 1;
+}
+
+.film__frame,
+.film__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+}
+
+.film__frame.is-drifting {
+  animation: film-drift 9.5s linear both;
+}
+
+@keyframes film-drift {
+  from {
+    transform: scale(1.03) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.11) translate3d(-1.1%, -0.8%, 0);
+  }
+}
+
+/* A tungsten wash over the whole frame. Indian stations are lit half by
+   sodium and half by painted steel; this pulls the two together and keeps the
+   opening inside the site's palette. */
+.film__warm {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 60%, var(--clay), var(--terracotta));
+  mix-blend-mode: soft-light;
+  opacity: 0.55;
+}
+
+/* Legible type, visible photograph. The scrim is weighted to the corner the
+   headline occupies and stays off the rest of the frame. */
+.film__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--soot) 88%, transparent) 0%,
+      color-mix(in srgb, var(--soot) 55%, transparent) 26%,
+      transparent 62%
+    ),
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--soot) 72%, transparent) 0%,
+      transparent 62%
+    ),
+    linear-gradient(to bottom, color-mix(in srgb, var(--soot) 46%, transparent), transparent 26%);
+}
+
+/* ---- Type ----------------------------------------------------------- */
+
+.hero__content {
+  position: relative;
+  padding-bottom: clamp(1rem, 3vh, 2.5rem);
+  padding-top: clamp(7rem, 16vh, 10rem);
+  will-change: transform, opacity;
+}
+
+.hero__label {
+  color: color-mix(in srgb, var(--ivory) 72%, transparent);
+  margin-bottom: clamp(1.2rem, 3vh, 2.4rem);
+}
+
+.js-motion [data-hero-fade] {
+  opacity: 0;
+  transform: translate3d(0, 1.4rem, 0);
+}
+
+.hero__title {
+  font-size: var(--t-hero);
+  margin: 0;
+  max-width: 15ch;
+}
+
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.02em;
+}
+
+.hero__line > span {
+  display: block;
+}
+
+.js-motion [data-hero-line] > span {
+  transform: translate3d(0, 105%, 0);
+}
+
+/* The third line runs past the measure of the first two on purpose. */
+.hero__line--wide {
+  margin-left: clamp(0rem, 4.5vw, 5.5rem);
+}
+
+.hero__coda {
+  font-size: clamp(1.5rem, 3.1vw, 3rem);
+  line-height: 1.1;
+  margin-top: clamp(0.9rem, 2.4vh, 1.8rem);
+  margin-left: clamp(0rem, 4.5vw, 5.5rem);
+  color: color-mix(in srgb, var(--ivory) 82%, transparent);
+}
+
+.hero__note {
+  margin-top: clamp(0.9rem, 2vh, 1.4rem);
+  margin-left: clamp(0rem, 4.5vw, 5.5rem);
+  max-width: 42ch;
+  font-size: var(--t-small);
+  font-weight: 300;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--ivory) 68%, transparent);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2.4rem);
+  margin-top: clamp(1.8rem, 4.5vh, 3.2rem);
+}
+
+/* ---- Slate + sound -------------------------------------------------- */
+
+.hero__foot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: clamp(1.1rem, 3vh, 2.2rem);
+}
+
+/* The rule lines up with the type, not with the edge of the screen — so it
+   stays inside the measure on very wide displays. */
+.hero__foot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--gutter);
+  right: var(--gutter);
+  height: 1px;
+  background: color-mix(in srgb, var(--ivory) 14%, transparent);
+}
+
+.hero__slate {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: color-mix(in srgb, var(--ivory) 60%, transparent);
+  min-width: 0;
+}
+
+.hero__slate-time {
+  font-variant-numeric: tabular-nums;
+  color: var(--ember);
+}
+
+.hero__slate-sep {
+  width: 1.6rem;
+  height: 1px;
+  background: currentColor;
+  flex: none;
+  opacity: 0.5;
+}
+
+.sound {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: color-mix(in srgb, var(--ivory) 68%, transparent);
+  padding: 0.5rem 0;
+  transition: color 0.4s var(--ease-out);
+  flex: none;
+}
+
+.sound:hover,
+.sound:focus-visible,
+.sound.is-on {
+  color: var(--ivory);
+}
+
+.sound__bars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 0.85rem;
+}
+
+.sound__bars i {
+  display: block;
+  width: 2px;
+  height: 100%;
+  background: currentColor;
+  transform-origin: center;
+  transform: scaleY(0.18);
+  transition: transform 0.22s var(--ease-io);
+}
+
+.sound.is-on .sound__bars i {
+  background: var(--ember);
+}
+
+.sound__label {
+  color: inherit;
+}
+
+/* ---- Small screens --------------------------------------------------- */
+
+@media (max-width: 640px) {
+  /* A narrow screen puts the type over the busiest part of the frame, so the
+     scrim carries further up and the copy sits lower in the shot. */
+  .film__scrim {
+    background:
+      linear-gradient(
+        to top,
+        color-mix(in srgb, var(--soot) 94%, transparent) 0%,
+        color-mix(in srgb, var(--soot) 88%, transparent) 40%,
+        color-mix(in srgb, var(--soot) 62%, transparent) 62%,
+        color-mix(in srgb, var(--soot) 22%, transparent) 80%,
+        transparent 93%
+      ),
+      linear-gradient(to bottom, color-mix(in srgb, var(--soot) 52%, transparent), transparent 18%);
+  }
+
+  .hero__content {
+    padding-top: clamp(5rem, 34vh, 16rem);
+  }
+
+  .hero__title {
+    max-width: none;
+  }
+  .hero__line--wide,
+  .hero__coda,
+  .hero__note {
+    margin-left: 0;
+  }
+  .hero__note {
+    max-width: 34ch;
+  }
+  .hero__actions .cta--solid {
+    width: 100%;
+    justify-content: center;
+  }
+  .hero__slate span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sound__label {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .film__shot {
+    transition: none;
+  }
+  .film__frame.is-drifting {
+    animation: none;
+  }
+}

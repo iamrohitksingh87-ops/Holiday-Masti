@@ -1,0 +1,364 @@
+/* ------------------------------------------------------------------
+   Reset + typographic base
+   ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+body {
+  background-color: var(--ink);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* Lenis is only mounted when smooth scrolling is actually wanted. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+img,
+picture,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--terracotta);
+  color: var(--ivory);
+}
+
+/* ------------------------------------------------------------------
+   Layout primitives
+   ------------------------------------------------------------------ */
+
+.shell {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+.rule {
+  height: 1px;
+  background: var(--rule);
+  border: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 200;
+  padding: 0.7rem 1.1rem;
+  background: var(--ivory);
+  color: var(--ink);
+  font-size: var(--t-meta);
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  transform: translateY(-160%);
+  transition: transform var(--dur-s) var(--ease-out);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------------
+   Type utilities
+   ------------------------------------------------------------------ */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  text-wrap: balance;
+}
+
+.display--tight {
+  line-height: var(--lh-tight);
+}
+
+.meta {
+  font-family: var(--font-sans);
+  font-size: var(--t-meta);
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--fg-soft);
+}
+
+.meta--accent {
+  color: var(--accent);
+}
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  font-weight: 300;
+  color: var(--fg-soft);
+  text-wrap: pretty;
+}
+
+.copy {
+  color: var(--fg-soft);
+  max-width: 46ch;
+  font-weight: 300;
+  text-wrap: pretty;
+}
+
+.italic {
+  font-style: italic;
+}
+
+/* ------------------------------------------------------------------
+   Links & buttons
+   ------------------------------------------------------------------ */
+
+.cta {
+  --cta-fg: var(--fg);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.85em;
+  font-size: var(--t-meta);
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--cta-fg);
+  padding-block: 0.9rem;
+  position: relative;
+}
+
+.cta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left;
+  transform: scaleX(1);
+  transition: transform 0.55s var(--ease-out);
+}
+
+.cta:hover::after,
+.cta:focus-visible::after {
+  transform-origin: right;
+  animation: rule-sweep 0.6s var(--ease-io);
+}
+
+@keyframes rule-sweep {
+  0% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  49% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+  50% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+.cta__arrow {
+  transition: transform 0.5s var(--ease-out);
+}
+.cta:hover .cta__arrow,
+.cta:focus-visible .cta__arrow {
+  transform: translateX(0.35em);
+}
+
+.cta--solid {
+  background: var(--accent);
+  color: var(--ivory);
+  padding: 1.05rem 1.6rem;
+  align-items: center;
+}
+.cta--solid::after {
+  display: none;
+}
+.cta--solid:hover,
+.cta--solid:focus-visible {
+  background: var(--ember);
+}
+
+.cta--ghost {
+  border: 1px solid var(--rule);
+  padding: 1.05rem 1.6rem;
+  align-items: center;
+}
+.cta--ghost::after {
+  display: none;
+}
+.cta--ghost:hover,
+.cta--ghost:focus-visible {
+  border-color: currentColor;
+}
+
+/* ------------------------------------------------------------------
+   Reveal primitives (CSS drives the resting state; GSAP drives motion.
+   Without JS or with reduced motion, everything is simply visible.)
+   ------------------------------------------------------------------ */
+
+.js-motion [data-reveal] {
+  opacity: 0;
+}
+.js-motion [data-reveal='up'] {
+  transform: translate3d(0, 2.2rem, 0);
+}
+.js-motion [data-reveal='mask'] > * {
+  transform: translate3d(0, 105%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  /* Every hidden-until-animated state in the app is listed here, so nothing
+     can ever be left invisible because its animation did not run. */
+  .js-motion [data-reveal],
+  .js-motion [data-reveal] > *,
+  .js-motion [data-hero-fade],
+  .js-motion [data-hero-line] > span,
+  .js-motion [data-opening-line] > span,
+  .js-motion [data-jp-fade],
+  .js-motion [data-jp-line] > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Tablet measure
+
+   Between 640 and 1024 the layout is still a single column, and a
+   full-width portrait plate becomes a 900px-tall block that turns the page
+   into an endless scroll. Capping the picture column keeps the reading
+   measure sane and the page roughly half as long.
+   ------------------------------------------------------------------ */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .feel__media,
+  .exp__panel,
+  .india__card,
+  .jrn__inline,
+  .motion__plate,
+  .tale__portrait,
+  .why__plate,
+  .jp__plate {
+    max-width: 34rem;
+  }
+}
+
+/* Grain: one tiny tile, composited once. */
+.grain {
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.55'/></svg>");
+  mix-blend-mode: overlay;
+  will-change: transform;
+}

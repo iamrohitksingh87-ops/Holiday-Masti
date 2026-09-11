@@ -1,0 +1,209 @@
+.feelings {
+  position: relative;
+  padding-bottom: var(--section-y);
+}
+
+/* ---- The opening ----------------------------------------------------- */
+
+.opening {
+  height: 175vh;
+  position: relative;
+}
+
+.opening__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.opening__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(19% 13% 19% 13%);
+}
+
+.opening__img {
+  position: absolute;
+  inset: 0;
+  transform: scale(1.22);
+}
+
+/* A pocket of shade for the title to sit in, the way a title card is graded,
+   plus a light overall wash so the picture keeps its light. */
+.opening__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      62% 48% at 50% 50%,
+      color-mix(in srgb, var(--soot) 76%, transparent),
+      color-mix(in srgb, var(--soot) 30%, transparent) 68%,
+      transparent 88%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--soot) 48%, transparent),
+      color-mix(in srgb, var(--soot) 20%, transparent) 45%,
+      color-mix(in srgb, var(--soot) 62%, transparent)
+    );
+}
+
+.opening__title {
+  position: relative;
+  font-size: var(--t-display);
+  text-align: center;
+  color: var(--ivory);
+  padding-inline: var(--gutter);
+  text-shadow: 0 0.04em 0.6em color-mix(in srgb, var(--soot) 55%, transparent);
+}
+
+.opening__line {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.015em;
+}
+
+.opening__line > span {
+  display: block;
+}
+
+.js-motion [data-opening-line] > span {
+  transform: translateY(118%);
+}
+
+/* ---- Intro ----------------------------------------------------------- */
+
+.feelings__intro {
+  padding-top: clamp(4.5rem, 12vh, 9rem);
+  padding-bottom: clamp(3rem, 8vh, 6rem);
+  display: grid;
+  gap: 1.75rem;
+}
+
+@media (min-width: 900px) {
+  .feelings__intro {
+    grid-template-columns: 16rem minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+}
+
+.feelings__lead {
+  max-width: 54ch;
+  font-size: clamp(1.15rem, 1.7vw, 1.7rem);
+  line-height: 1.45;
+  color: var(--fg-soft);
+}
+
+/* ---- The six --------------------------------------------------------- */
+
+.feelings__list {
+  display: grid;
+  gap: clamp(5rem, 13vh, 11rem);
+}
+
+.feel__grid {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .feel__grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .feel__media {
+    grid-column: 1 / span 6;
+  }
+  .feel__text {
+    grid-column: 8 / span 5;
+  }
+  /* Alternating measure: the even rows sit the other way round and lower. */
+  .feel:nth-child(even) .feel__media {
+    grid-column: 7 / span 6;
+    grid-row: 1;
+  }
+  .feel:nth-child(even) .feel__text {
+    grid-column: 1 / span 5;
+    grid-row: 1;
+  }
+  .feel:nth-child(even) .feel__grid {
+    transform: translateY(clamp(0rem, 4vw, 4rem));
+  }
+}
+
+.feel__media {
+  position: relative;
+}
+
+.feel__frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--espresso);
+}
+
+.feel__frame .fig {
+  aspect-ratio: 4 / 5;
+}
+
+@media (min-width: 900px) {
+  .feel__frame .fig {
+    aspect-ratio: 5 / 6;
+  }
+}
+
+/* The state word breaks the frame — the one deliberate overlap on the page. */
+.feel__word {
+  position: absolute;
+  right: clamp(-0.5rem, -1vw, -2.5rem);
+  bottom: clamp(-0.55rem, -1.6vw, -2rem);
+  font-size: clamp(3.2rem, 8.5vw, 8.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.035em;
+  color: var(--ivory);
+  text-shadow: 0 0.06em 0.5em color-mix(in srgb, var(--soot) 55%, transparent);
+  pointer-events: none;
+}
+
+@media (min-width: 900px) {
+  .feel:nth-child(even) .feel__word {
+    right: auto;
+    left: clamp(-0.5rem, -1vw, -2.5rem);
+  }
+}
+
+.feel__index {
+  color: var(--accent);
+}
+
+.feel__line {
+  font-size: var(--t-h3);
+  line-height: 1.12;
+  margin: 1.1rem 0 1.4rem;
+  max-width: 18ch;
+}
+
+.feel__copy {
+  font-size: var(--t-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening {
+    height: auto;
+  }
+  .opening__stage {
+    position: static;
+    height: 78vh;
+  }
+  .opening__frame {
+    clip-path: none;
+  }
+  .opening__img {
+    transform: none;
+  }
+}

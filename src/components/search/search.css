@@ -1,0 +1,175 @@
+﻿.find {
+  background: var(--sand);
+  color: var(--ink);
+  --fg: var(--ink);
+  --fg-soft: color-mix(in srgb, var(--ink) 62%, transparent);
+  --fg-faint: color-mix(in srgb, var(--ink) 56%, transparent);
+  --rule: color-mix(in srgb, var(--ink) 20%, transparent);
+  --accent: var(--terracotta);
+  padding-block: clamp(4rem, 11vh, 8rem);
+}
+
+.find__head {
+  display: grid;
+  gap: 1.6rem;
+  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+}
+
+@media (min-width: 800px) {
+  .find__head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+}
+
+.find__title {
+  font-size: clamp(2.1rem, 5vw, 4.2rem);
+  margin-top: 1rem;
+}
+
+.find__title span {
+  display: block;
+}
+
+.find__modes {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.find__mode {
+  color: var(--fg-faint);
+  position: relative;
+  padding-bottom: 0.45rem;
+  transition: color 0.4s var(--ease-out);
+}
+
+.find__mode::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.find__mode.is-on {
+  color: var(--ink);
+}
+
+.find__mode.is-on::after {
+  transform: scaleX(1);
+}
+
+/* ---- Fields ------------------------------------------------------------ */
+
+.find__row,
+.find__more {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 2.25rem);
+}
+
+.find__more[hidden] {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .find__row {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+    align-items: end;
+  }
+  .find__more {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 2fr);
+    margin-top: clamp(1.4rem, 3vw, 2.25rem);
+  }
+}
+
+.find__more {
+  animation: find-open 0.6s var(--ease-out) both;
+  margin-top: clamp(1.4rem, 3vw, 2.25rem);
+}
+
+@keyframes find-open {
+  from {
+    opacity: 0;
+    transform: translateY(-0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.find__field {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.find__field label {
+  color: var(--fg-faint);
+}
+
+.find__field input,
+.find__field select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 0.55rem 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.5vw, 1.45rem);
+  line-height: 1.25;
+  color: var(--ink);
+  border-radius: 0;
+  transition: border-color 0.4s var(--ease-out);
+}
+
+.find__field select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.find__field input::placeholder {
+  color: color-mix(in srgb, var(--ink) 32%, transparent);
+}
+
+.find__field input:focus,
+.find__field select:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+}
+
+.find__field input:focus-visible,
+.find__field select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+
+.find__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85em;
+  background: var(--ink);
+  color: var(--ivory);
+  font-size: var(--t-meta);
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  padding: 1.05rem 1.7rem;
+  transition: background-color 0.4s var(--ease-out);
+  white-space: nowrap;
+}
+
+.find__go:hover,
+.find__go:focus-visible {
+  background: var(--terracotta);
+}
+
+.find__status {
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+  color: var(--fg-soft);
+}

@@ -1,0 +1,220 @@
+﻿.india {
+  background: var(--parchment);
+  color: var(--ink);
+  --fg: var(--ink);
+  --fg-soft: color-mix(in srgb, var(--ink) 62%, transparent);
+  --fg-faint: color-mix(in srgb, var(--ink) 56%, transparent);
+  --rule: color-mix(in srgb, var(--ink) 14%, transparent);
+  --accent: var(--terracotta);
+}
+
+.india__head {
+  display: grid;
+  gap: 1.4rem;
+  padding-bottom: clamp(2.5rem, 7vh, 5rem);
+}
+
+.india__title {
+  font-size: var(--t-h2);
+  max-width: 20ch;
+}
+
+.india__title span {
+  display: block;
+}
+
+/* ---- Desktop stage ---------------------------------------------------- */
+
+.india__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.india__list {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(7rem, 10vw, 11rem);
+  gap: clamp(1rem, 2vw, 2rem);
+  align-items: start;
+}
+
+.india__pick {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.62rem 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--fg-faint);
+  transition: color 0.45s var(--ease-out);
+}
+
+.india__pick-name {
+  display: block;
+  font-size: clamp(1.35rem, 2.1vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  transition: transform 0.55s var(--ease-out);
+}
+
+.india__pick-sub {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: 0.625rem;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.45s var(--ease-out), max-height 0.45s var(--ease-out);
+}
+
+.india__pick.is-active {
+  color: var(--ink);
+}
+
+.india__pick.is-active .india__pick-name {
+  transform: translateX(0.5rem);
+}
+
+.india__pick.is-active .india__pick-sub {
+  opacity: 1;
+  max-height: 2rem;
+  color: var(--accent);
+}
+
+/* ---- The index drawing ------------------------------------------------ */
+
+.atlas {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  margin-top: 0.4rem;
+  overflow: visible;
+}
+
+.atlas__thread {
+  stroke: color-mix(in srgb, var(--ink) 32%, transparent);
+  stroke-width: 0.55;
+  stroke-dasharray: 1.8 2.4;
+  stroke-linecap: round;
+}
+
+.atlas__hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.atlas__dot {
+  fill: color-mix(in srgb, var(--ink) 52%, transparent);
+  transition: fill 0.4s var(--ease-out);
+  pointer-events: none;
+}
+
+.atlas__ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.7;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.4);
+  transition: opacity 0.45s var(--ease-out), transform 0.55s var(--ease-out);
+  pointer-events: none;
+}
+
+.atlas__node.is-active .atlas__dot {
+  fill: var(--accent);
+}
+
+.atlas__node.is-active .atlas__ring {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---- Panel ------------------------------------------------------------ */
+
+.india__panel {
+  position: sticky;
+  top: 7rem;
+}
+
+.india__frame {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: var(--espresso);
+}
+
+.india__img {
+  animation: india-fade 1.1s var(--ease-out) both;
+}
+
+@keyframes india-fade {
+  from {
+    opacity: 0;
+    transform: scale(1.045);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.india__caption {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: clamp(1rem, 2vw, 2rem);
+  padding-top: 1.5rem;
+  animation: india-rise 0.8s var(--ease-out) both;
+}
+
+@keyframes india-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.7rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.india__season {
+  color: var(--accent);
+}
+
+.india__copy {
+  max-width: 48ch;
+}
+
+/* ---- Small screens: a vertical read ------------------------------------ */
+
+.india__scroll {
+  display: grid;
+  gap: clamp(3rem, 9vh, 5rem);
+  padding-inline: var(--gutter);
+}
+
+.india__card-frame {
+  overflow: hidden;
+  background: var(--espresso);
+  margin-bottom: 1.3rem;
+}
+
+.india__card-index {
+  color: var(--accent);
+}
+
+.india__card-name {
+  font-size: clamp(2.1rem, 10vw, 3rem);
+  line-height: 1.02;
+  margin-top: 0.5rem;
+}
+
+.india__card-sub {
+  margin-top: 0.35rem;
+  color: var(--fg-faint);
+}
+
+.india__card-copy {
+  margin-top: 0.9rem;
+}

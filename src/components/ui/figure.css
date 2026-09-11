@@ -1,0 +1,39 @@
+.fig {
+  --fig-ratio: auto;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--espresso);
+  background-image: var(--fig-lqip);
+  background-size: cover;
+  background-position: var(--fig-focus);
+}
+
+/* Opt out where a picture needs to stay literal. */
+.fig--ungraded .fig__img {
+  filter: none;
+}
+
+.fig__img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--fig-ratio);
+  object-fit: cover;
+  object-position: var(--fig-focus);
+  filter: var(--grade);
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out);
+}
+
+.fig.is-loaded .fig__img {
+  opacity: 1;
+}
+
+/* A frame that clips a parallaxing child needs the child taller than the box. */
+.fig--parallax .fig__img {
+  height: 118%;
+  margin-top: -9%;
+  will-change: transform;
+}
