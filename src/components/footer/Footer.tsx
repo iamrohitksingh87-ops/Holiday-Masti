@@ -71,7 +71,7 @@ export function Footer() {
           <span>Made with <span aria-hidden="true">♥</span> by</span>
           <img
             className="foot__webnex-logo"
-            src="/brand/webnexstudio-logo.svg"
+            src="/brand/webnexstudio-logo.png"
             alt="WebnexStudio"
             width="130"
             height="20"
