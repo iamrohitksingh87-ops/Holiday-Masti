@@ -33,7 +33,7 @@ export const journeys: Journey[] = [
     standfirst: 'Three cities, one desert, and the good sense to move slowly between them.',
     intro:
       'Rajasthan is usually sold as a checklist of forts. This is the other version: fewer places, longer in each, and the drives timed so you arrive when the stone is warm and the light is doing something. It ends on a dune, well past the last road, which is the only honest way to end it.',
-    from: '₹1,86,000',
+    from: '₹19,999',
     best: 'October — March',
     pace: 'Unhurried',
     hero: 'udaipur-night',
@@ -74,7 +74,7 @@ export const journeys: Journey[] = [
     standfirst: 'A journey that loses altitude for six days and gets slower the whole way.',
     intro:
       'Kerala rewards doing less. This runs downhill — from a colonial port to the tea at two thousand metres, then all the way down to a boat you will not want to get off. Three places in six nights. The rest is deliberately empty.',
-    from: '₹1,42,000',
+    from: '₹17,499',
     best: 'September — March',
     pace: 'Slow',
     hero: 'kerala-houseboat-sunset',
@@ -114,7 +114,7 @@ export const journeys: Journey[] = [
     standfirst: 'Eight days above three thousand metres, paced so the altitude never wins.',
     intro:
       'The Ladakh trip everybody wants to do badly. Two full days doing nothing in Leh first, because that is what makes the rest of it possible. Then over the passes, into Nubra, and out to the lake — with enough time at each to actually be there.',
-    from: '₹2,24,000',
+    from: '₹19,500',
     best: 'June — September',
     pace: 'Measured',
     hero: 'mountain-road',
@@ -156,7 +156,7 @@ export const journeys: Journey[] = [
     standfirst: 'Five nights south of the noise, half of them nowhere near the beach.',
     intro:
       'Goa has a reputation it earned in the wrong decade. Skip the strip entirely: the south coast, the river islands, the old Portuguese quarters at siesta hour, and a stretch of sand that has one shack on it. Very little is planned, which is the point.',
-    from: '₹98,000',
+    from: '₹14,999',
     best: 'November — February',
     pace: 'Horizontal',
     hero: 'goa-shore-dark',
@@ -187,7 +187,7 @@ export const journeys: Journey[] = [
     standfirst: 'Two enormous places, both seen at the hour when they are almost empty.',
     intro:
       'These two are usually rushed. Here they get three nights and two, with the overnight train between them because that is the honest way to travel this stretch — and because it is the best part. Everything is timed for first light.',
-    from: '₹1,54,000',
+    from: '₹18,499',
     best: 'November — March',
     pace: 'Early',
     hero: 'ganges-dawn-boats',
