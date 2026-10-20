@@ -13,8 +13,21 @@ export function ScrollCursor({ active }: { active: boolean }) {
 
   const ref = useRef<HTMLDivElement>(null);
   const [awake, setAwake] = useState(true);
+  const [footerVisible, setFooterVisible] = useState(false);
 
-  const visible = active && fine && !reduced;
+  useEffect(() => {
+    const footer = document.querySelector('footer.foot');
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setFooterVisible(entry.isIntersecting);
+    }, { threshold: 0 });
+
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
+
+  const visible = (active || footerVisible) && fine && !reduced;
 
   useEffect(() => {
     if (!visible) return;
@@ -81,7 +94,7 @@ export function ScrollCursor({ active }: { active: boolean }) {
             href="#hm-cursor-arc"
             startOffset="0"
           >
-            SCROLL DOWN · SCROLL DOWN ·
+            {footerVisible ? 'SCROLL UP · SCROLL UP ·' : 'SCROLL DOWN · SCROLL DOWN ·'}
           </textPath>
         </text>
       </svg>
