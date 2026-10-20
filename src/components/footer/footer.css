@@ -157,9 +157,9 @@
 
 .foot__webnex-logo {
   display: block;
-  width: 130px;
+  width: 148px;
   height: auto;
-  max-width: 34vw;
+  max-width: 38vw;
   object-fit: contain;
 }
 
@@ -194,7 +194,7 @@
   }
 
   .foot__webnex-logo {
-    width: 118px;
-    max-width: 38vw;
+    width: 132px;
+    max-width: 42vw;
   }
 }
