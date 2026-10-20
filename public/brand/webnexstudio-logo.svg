@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="80" viewBox="0 0 520 80" role="img" aria-labelledby="title">
+  <title id="title">WebnexStudio</title>
+  <g fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 27V16Q22 10 29 10H48"/>
+    <path d="M75 10H88Q96 10 96 18V34"/>
+    <path d="M22 54V65Q22 72 29 72H48"/>
+    <path d="M75 72H88Q96 72 96 64V57"/>
+  </g>
+  <circle cx="59" cy="56" r="15" fill="#ed302c"/>
+  <text x="125" y="60" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="59" font-weight="700" letter-spacing="-2.5">webnex</text>
+  <text x="333" y="60" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="59" font-weight="400" letter-spacing="-2.5">studio</text>
+</svg>
