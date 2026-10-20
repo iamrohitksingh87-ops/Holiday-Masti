@@ -61,6 +61,18 @@ export function Footer() {
 
       <div className="shell foot__base">
         <p className="meta">© {new Date().getFullYear()} Holiday Masti</p>
+        <a
+          className="foot__made-by meta"
+          href="https://www.webnexstudio.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Made with love by WebnexStudio — opens in a new tab"
+        >
+          <span>Made with <span aria-hidden="true">♥</span> by</span>
+          <span className="foot__webnex-logo" aria-label="WebnexStudio">
+            <span className="foot__webnex-name">webnex</span><span className="foot__webnex-studio">studio</span>
+          </span>
+        </a>
         {/* CC BY-SA requires the photographer to be named wherever the image
             is used, so the credit line is functional, not decorative. */}
         <p className="meta foot__credit">
