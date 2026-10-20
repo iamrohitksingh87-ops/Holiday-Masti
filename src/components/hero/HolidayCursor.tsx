@@ -8,25 +8,37 @@ export function HolidayCursor() {
 
   useEffect(() => {
     const hero = document.getElementById('top');
-    let observer: IntersectionObserver | null = null;
+    const footer = document.querySelector('footer.foot');
+    let heroVisible = Boolean(hero);
+    let footerVisible = false;
+    const observers: IntersectionObserver[] = [];
 
-    // Homepage has the Hero. Dedicated pages such as Flights / Trains do not.
+    const syncVisibility = () => {
+      // Hide the secondary Holiday Masti trail over the footer to avoid overlap.
+      setVisible(!heroVisible && !footerVisible);
+    };
+
     if (hero) {
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          // Holiday cursor is active only after the Hero is no longer visible.
-          setVisible(!entry.isIntersecting);
-        },
-        {
-          threshold: 0,
-        }
-      );
-
-      observer.observe(hero);
+      const heroObserver = new IntersectionObserver(([entry]) => {
+        heroVisible = entry.isIntersecting;
+        syncVisibility();
+      }, { threshold: 0 });
+      heroObserver.observe(hero);
+      observers.push(heroObserver);
     } else {
-      // Flights / Trains pages: no Hero, so keep the cursor active.
-      setVisible(true);
+      heroVisible = false;
     }
+
+    if (footer) {
+      const footerObserver = new IntersectionObserver(([entry]) => {
+        footerVisible = entry.isIntersecting;
+        syncVisibility();
+      }, { threshold: 0 });
+      footerObserver.observe(footer);
+      observers.push(footerObserver);
+    }
+
+    syncVisibility();
 
     let targetX = window.innerWidth / 2;
     let targetY = window.innerHeight / 2;
@@ -60,7 +72,7 @@ export function HolidayCursor() {
     raf = requestAnimationFrame(tick);
 
     return () => {
-      observer?.disconnect();
+      observers.forEach((observer) => observer.disconnect());
       window.removeEventListener('mousemove', onMove);
       cancelAnimationFrame(raf);
     };
