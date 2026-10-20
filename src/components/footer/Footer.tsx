@@ -60,7 +60,7 @@ export function Footer() {
       </div>
 
       <div className="shell foot__base">
-        <p className="meta">© {new Date().getFullYear()} Holiday Masti</p>
+        <p className="meta foot__copyright">© {new Date().getFullYear()} Holiday Masti</p>
         <a
           className="foot__made-by meta"
           href="https://www.webnexstudio.in/"
@@ -69,23 +69,14 @@ export function Footer() {
           aria-label="Made with love by WebnexStudio — opens in a new tab"
         >
           <span>Made with <span aria-hidden="true">♥</span> by</span>
-          <span className="foot__webnex-logo" aria-label="WebnexStudio">
-            <span className="foot__webnex-name">webnex</span><span className="foot__webnex-studio">studio</span>
-          </span>
+          <img
+            className="foot__webnex-logo"
+            src="/brand/webnexstudio-logo.svg"
+            alt="WebnexStudio"
+            width="130"
+            height="20"
+          />
         </a>
-        {/* CC BY-SA requires the photographer to be named wherever the image
-            is used, so the credit line is functional, not decorative. */}
-        <p className="meta foot__credit">
-          
-          <a
-            href="https://commons.wikimedia.org/wiki/File:Charbagh_Railway.jpg"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            
-          </a>{' '}
-          
-        </p>
         <ul className="foot__legal meta">
           <li>
             <a href="/#about">Privacy</a>
