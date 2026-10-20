@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="520" height="80" viewBox="0 0 520 80" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="94" viewBox="0 0 760 94" role="img" aria-labelledby="title">
   <title id="title">WebnexStudio</title>
-  <g fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M22 27V16Q22 10 29 10H48"/>
-    <path d="M75 10H88Q96 10 96 18V34"/>
-    <path d="M22 54V65Q22 72 29 72H48"/>
-    <path d="M75 72H88Q96 72 96 64V57"/>
+  <g fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 33V18Q10 8 21 8H42"/>
+    <path d="M65 8H80Q90 8 90 19V35"/>
+    <path d="M10 59V75Q10 85 21 85H42"/>
+    <path d="M65 85H80Q90 85 90 74V59"/>
   </g>
-  <circle cx="59" cy="56" r="15" fill="#ed302c"/>
-  <text x="125" y="60" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="59" font-weight="700" letter-spacing="-2.5">webnex</text>
-  <text x="333" y="60" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="59" font-weight="400" letter-spacing="-2.5">studio</text>
+  <circle cx="53" cy="70" r="16" fill="#ed302c"/>
+  <text x="124" y="77" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="79" font-weight="700" letter-spacing="-3.2">webnex</text>
+  <text x="433" y="77" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="79" font-weight="400" letter-spacing="-3.2">studio</text>
 </svg>
