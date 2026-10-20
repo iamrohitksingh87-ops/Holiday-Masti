@@ -132,3 +132,69 @@
     flex-wrap: wrap;
   }
 }
+
+
+/* Keep the WebnexStudio credit compact, crisp and centered in the footer base. */
+.foot__base {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 1.25rem;
+}
+
+.foot__copyright {
+  justify-self: start;
+}
+
+.foot__made-by {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+}
+
+.foot__webnex-logo {
+  display: block;
+  width: 130px;
+  height: auto;
+  max-width: 34vw;
+  object-fit: contain;
+}
+
+.foot__legal {
+  justify-self: end;
+}
+
+@media (max-width: 700px) {
+  .foot__base {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .foot__made-by {
+    order: 0;
+    flex-wrap: nowrap;
+  }
+
+  .foot__copyright {
+    order: 1;
+  }
+
+  .foot__legal {
+    order: 2;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .foot__webnex-logo {
+    width: 118px;
+    max-width: 38vw;
+  }
+}
