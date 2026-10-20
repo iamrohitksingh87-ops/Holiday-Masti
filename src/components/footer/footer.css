@@ -89,3 +89,46 @@
 .foot__legal a:focus-visible {
   color: var(--fg);
 }
+
+
+.foot__made-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--fg-soft);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.foot__made-by:hover,
+.foot__made-by:focus-visible {
+  color: var(--fg);
+}
+
+.foot__webnex-logo {
+  display: inline-flex;
+  align-items: baseline;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+}
+
+.foot__webnex-name {
+  color: var(--fg);
+}
+
+.foot__webnex-studio {
+  color: var(--fg-faint);
+  font-weight: 400;
+}
+
+.foot__made-by [aria-hidden="true"] {
+  color: #ff4f00;
+}
+
+@media (max-width: 600px) {
+  .foot__made-by {
+    flex-wrap: wrap;
+  }
+}
