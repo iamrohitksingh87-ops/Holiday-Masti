@@ -7,10 +7,7 @@ const MIN_MS = 1100;
 
 type Props = { onDone: () => void };
 
-/**
- * A held breath, not a spinner. It waits for the frames the hero opens on and
- * for a floor of just over a second, then lifts like a curtain.
- */
+/** A short cinematic departure cue before the travel film opens. */
 export function Loader({ onDone }: Props) {
   const [progress, setProgress] = useState(0);
   const [leaving, setLeaving] = useState(false);
@@ -60,15 +57,29 @@ export function Loader({ onDone }: Props) {
   return (
     <div className={`loader${leaving ? ' is-leaving' : ''}`} aria-hidden={leaving}>
       <div className="loader__inner">
+        <div className="loader__orbit" aria-hidden="true">
+          <span className="loader__orbit-dot" />
+          <span className="loader__orbit-core">HM</span>
+        </div>
+        <p className="loader__eyebrow meta">YOUR NEXT STORY STARTS HERE</p>
         <p className="loader__mark display">
           Holiday <span className="italic">Masti</span>
         </p>
-        <p className="meta loader__line">India / In Motion</p>
+        <div className="loader__route" aria-hidden="true">
+          <span>LUCKNOW</span>
+          <span className="loader__route-line"><i /></span>
+          <span>INDIA</span>
+          <span className="loader__route-line"><i /></span>
+          <span>ANYWHERE</span>
+        </div>
+      </div>
+      <div className="loader__progress-row">
+        <p className="loader__line meta">TRAVEL / EXPLORE / ENJOY</p>
+        <p className="loader__count meta">{String(Math.round(progress * 100)).padStart(3, '0')}<span>%</span></p>
       </div>
       <div className="loader__bar" role="progressbar" aria-label="Loading" aria-valuenow={Math.round(progress * 100)}>
         <span style={{ transform: `scaleX(${progress})` }} />
       </div>
-      <p className="loader__count meta">{String(Math.round(progress * 100)).padStart(3, '0')}</p>
     </div>
   );
 }
