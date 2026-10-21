@@ -23,21 +23,24 @@ export function HeroFilm({
   poster,
   muted,
   onShotChange,
+  playing = true,
 }: {
   shots: Shot[];
   videoSrc?: string;
   poster?: string;
   muted?: boolean;
   onShotChange?: (index: number) => void;
+  /** Hold on the first frame until the opening shot has finished. */
+  playing?: boolean;
 }) {
   const reduced = useReducedMotion();
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (videoSrc || reduced || shots.length < 2) return;
+    if (videoSrc || reduced || !playing || shots.length < 2) return;
     const id = window.setInterval(() => setIndex((i) => (i + 1) % shots.length), 6200);
     return () => window.clearInterval(id);
-  }, [videoSrc, reduced, shots.length]);
+  }, [videoSrc, reduced, playing, shots.length]);
 
   // Reported from an effect rather than from inside the updater, so the slate
   // can never drift out of step with the frame on screen.
