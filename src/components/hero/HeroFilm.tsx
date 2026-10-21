@@ -30,7 +30,7 @@ export function HeroFilm({
   poster?: string;
   muted?: boolean;
   onShotChange?: (index: number) => void;
-  /** Hold on the first frame until the opening shot has finished. */
+  /** Hold the first frame until the page is actually revealed. */
   playing?: boolean;
 }) {
   const reduced = useReducedMotion();

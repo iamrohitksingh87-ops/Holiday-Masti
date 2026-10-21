@@ -13,16 +13,19 @@ import { useSmoothScroll } from './lib/useSmoothScroll';
 import { ScrollTrigger } from './lib/motion';
 
 export function App() {
+  // `ready` flips while the loader's doors are still opening, so the hero's
+  // headline rises into the gap; the loader itself unmounts a beat later.
   const [ready, setReady] = useState(false);
+  const [loaderGone, setLoaderGone] = useState(false);
   const { pathname, hash } = useLocation();
 
   useSmoothScroll(ready);
 
-  const onLoaderDone = useCallback(() => {
+  const onLoaderReveal = useCallback(() => {
     setReady(true);
-    // Layout has settled and the loader no longer occupies the viewport.
     requestAnimationFrame(() => ScrollTrigger.refresh());
   }, []);
+  const onLoaderDone = useCallback(() => setLoaderGone(true), []);
 
   // New page, top of page. In-page anchors keep their own behaviour.
   useEffect(() => {
@@ -38,7 +41,7 @@ export function App() {
 
   return (
     <>
-      {!ready && <Loader onDone={onLoaderDone} />}
+      {!loaderGone && <Loader onReveal={onLoaderReveal} onDone={onLoaderDone} />}
       <a className="skip-link" href="#main">
         Skip to content
       </a>

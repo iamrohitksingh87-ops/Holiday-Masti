@@ -1,280 +1,255 @@
+/* ------------------------------------------------------------------
+   Departure board loader
+   The ink stage carries everything. At the exit it is clipped to its top
+   half and lifted away, while an identical lower door drops — the screen
+   opens like a pair of doors along an ember seam through the logo.
+   ------------------------------------------------------------------ */
+
 .loader {
   position: fixed;
   inset: 0;
   z-index: var(--z-loader);
-  overflow: hidden;
-  isolation: isolate;
-  background: var(--ink);
   color: var(--ivory);
-  display: grid;
-  place-items: center;
-  padding: var(--gutter);
-  transition: transform 0.75s var(--ease-io), opacity 0.35s linear 0.3s;
-  will-change: transform;
-}
-
-.loader__backdrop,
-.loader__shade {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-}
-
-.loader__backdrop {
-  background-size: cover;
-  background-position: center 58%;
-  opacity: 0;
-  transform: scale(1.08);
-  animation: loader-landscape 1.5s ease-out forwards;
-}
-
-.loader__shade {
-  z-index: -1;
-  background:
-    linear-gradient(90deg, rgba(18, 9, 7, .87) 0%, rgba(18, 9, 7, .68) 48%, rgba(18, 9, 7, .42) 100%),
-    linear-gradient(0deg, rgba(18, 9, 7, .68), transparent 28%, rgba(18, 9, 7, .22));
-}
-
-.loader.is-leaving {
-  transform: translate3d(0, -100%, 0);
-  opacity: 0;
   pointer-events: none;
 }
 
-.loader__journey {
-  width: min(100%, 1050px);
-  position: relative;
-  z-index: 1;
-  margin-top: -1vh;
-}
-
-.loader__eyebrow {
-  margin: 0 0 1.1rem;
-  color: #f4a17f;
-  font-size: .68rem;
-  letter-spacing: .3em;
-  animation: loader-rise .7s .12s both;
-}
-
-.loader__mark {
-  margin: 0;
-  max-width: 760px;
-  font-size: clamp(3rem, 8.5vw, 7.6rem);
-  line-height: .91;
-  letter-spacing: -.065em;
-  font-weight: 400;
-  animation: loader-rise .85s .22s both;
-}
-
-.loader__mark .italic {
-  color: #ff6633;
-  font-style: italic;
-}
-
-.loader__map {
-  position: relative;
-  width: min(100%, 760px);
-  margin-top: clamp(1.2rem, 3vh, 2.4rem);
-  animation: loader-rise .9s .35s both;
-}
-
-.loader__map svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
-.loader__map-contour {
-  fill: none;
-  stroke: rgba(255, 242, 224, .17);
-  stroke-width: 1;
-  stroke-dasharray: 2 8;
-}
-
-.loader__route-track {
-  fill: none;
-  stroke: rgba(255, 242, 224, .35);
-  stroke-width: 1.5;
-  stroke-dasharray: 3 7;
-}
-
-.loader__route-active {
-  fill: none;
-  stroke: url(#routeGradient);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-dasharray: 700;
-  stroke-dashoffset: 700;
-  animation: loader-draw-route 2.5s .25s ease-in-out forwards;
-  filter: drop-shadow(0 0 5px rgba(255, 90, 31, .55));
-}
-
-.loader__pin {
-  fill: #f1d8b2;
-  stroke: rgba(255, 242, 224, .25);
-  stroke-width: 5;
-  paint-order: stroke;
-  opacity: 0;
-  animation: loader-pin-in .35s ease-out forwards;
-}
-
-.loader__pin--start { animation-delay: .2s; fill: #ff6633; }
-.loader__pin:nth-of-type(4) { animation-delay: 1.1s; }
-.loader__pin:nth-of-type(5) { animation-delay: 1.8s; }
-.loader__pin--end { animation-delay: 2.35s; fill: #ff6633; }
-
-.loader__plane {
-  font-size: 23px;
-  fill: #fff4e8;
-  opacity: 0;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,.5));
-  animation: loader-plane-in .3s .3s forwards;
-}
-
-.loader__destination {
+.ld-stage,
+.ld-door {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  gap: .3rem;
-  font-size: .58rem;
-  letter-spacing: .18em;
-  color: rgba(255, 242, 224, .62);
+  inset: 0;
+  background: var(--ink);
+  will-change: transform;
 }
 
-.loader__destination strong {
-  color: #fff4e8;
-  font-size: .72rem;
-  letter-spacing: .14em;
-  font-weight: 500;
+.ld-stage {
+  overflow: hidden;
+  pointer-events: auto;
 }
 
-.loader__destination--start { left: 0; bottom: -1.7rem; }
-.loader__destination--middle { left: 43%; bottom: -1.7rem; }
-.loader__destination--end { right: 0; top: -1.6rem; text-align: right; }
-
-.loader__brand {
-  display: flex;
-  align-items: center;
-  gap: .65rem;
-  margin-top: clamp(2.7rem, 6vh, 4.6rem);
-  color: rgba(255, 242, 224, .8);
-  font-size: .66rem;
-  letter-spacing: .22em;
-  animation: loader-rise .8s .5s both;
+/* The lower door only exists from the moment of the split. */
+.ld-door {
+  clip-path: inset(50% 0% 0% 0%);
+  opacity: 0;
+  visibility: hidden;
 }
 
-.loader__brand span {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgba(255, 242, 224, .55);
-  border-radius: 50%;
-  color: #ff6633;
-  font-size: .68rem;
-  letter-spacing: -.08em;
+.ld-door .ld-logo {
+  clip-path: none;
 }
 
-.loader__brand i {
-  width: 22px;
-  height: 1px;
-  background: #ff6633;
+.ld-door .ld-tag span {
+  opacity: 1;
 }
 
-.loader__progress-row {
-  position: absolute;
-  z-index: 1;
-  left: var(--gutter);
-  right: var(--gutter);
-  bottom: calc(var(--gutter) + 1rem);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.loader__line {
-  margin: 0;
-  color: rgba(255, 242, 224, .68);
-  font-size: .62rem;
-  letter-spacing: .16em;
-}
-
-.loader__count {
-  margin: 0;
-  color: #fff4e8;
-  font-variant-numeric: tabular-nums;
-  font-size: .72rem;
-  letter-spacing: .08em;
-}
-
-.loader__count span { color: #ff6633; margin-left: 2px; }
-
-.loader__bar {
+/* Two hairlines at the cut — one rides each door away. */
+.ld-seam {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  top: var(--split, 50%);
   height: 2px;
-  background: rgba(255, 242, 224, .16);
+  margin-top: -1px;
+  background: var(--ember);
+  box-shadow: 0 0 18px 2px color-mix(in srgb, var(--ember) 55%, transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  z-index: 2;
+}
+
+/* ---- Beams: four hairlines that shoot in from the edges ------------- */
+
+.ld-beam {
+  position: absolute;
+  background: color-mix(in srgb, var(--ivory) 70%, transparent);
+}
+
+.ld-beam--l,
+.ld-beam--r {
+  top: 50%;
+  height: 1px;
+  width: calc(50% - 4.5rem);
+}
+
+.ld-beam--l {
+  left: 0;
+  transform-origin: left;
+}
+
+.ld-beam--r {
+  right: 0;
+  transform-origin: right;
+}
+
+.ld-beam--t,
+.ld-beam--b {
+  left: 50%;
+  width: 1px;
+  height: calc(50% - 4.5rem);
+}
+
+.ld-beam--t {
+  top: 0;
+  transform-origin: top;
+}
+
+.ld-beam--b {
+  bottom: 0;
+  transform-origin: bottom;
+}
+
+/* Offset the vertical pair and one horizontal so it reads as a composition,
+   not a crosshair. */
+.ld-beam--t {
+  left: calc(50% - 6rem);
+}
+.ld-beam--b {
+  left: calc(50% + 6rem);
+}
+.ld-beam--r {
+  top: calc(50% + 2.5rem);
+}
+
+/* ---- The mark ------------------------------------------------------- */
+
+.ld-content {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.ld-content > * {
+  grid-area: 1 / 1;
+}
+
+.ld-mark {
+  position: relative;
+  width: clamp(8rem, 16vw, 10.5rem);
+  aspect-ratio: 1;
+}
+
+.ld-icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  opacity: 0;
+}
+
+.ld-fill {
+  fill: var(--ember);
+  stroke: var(--ivory);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.ld-line {
+  fill: none;
+  stroke: var(--ivory);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ld-ink {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.ld-ink-fill {
+  fill: var(--ink);
+}
+
+.ld-ember-deep {
+  fill: var(--terracotta);
+}
+
+.ld-labels {
+  position: relative;
+  align-self: center;
+  margin-top: calc(clamp(8rem, 16vw, 10.5rem) + 2.6rem);
+  height: 1.2em;
+  width: 16rem;
+}
+
+.ld-label {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  color: color-mix(in srgb, var(--ivory) 72%, transparent);
+  letter-spacing: 0.34em;
+  opacity: 0;
+}
+
+/* ---- Trail ---------------------------------------------------------- */
+
+.ld-trail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.ld-trail path {
+  fill: none;
+  stroke: var(--ember);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 7 9;
+  vector-effect: non-scaling-stroke;
+}
+
+.ld-trail {
+  clip-path: inset(0% 50% 0% 50%);
+}
+
+/* ---- Brand lockup --------------------------------------------------- */
+
+.ld-brand {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1rem, 2.4vh, 1.6rem);
+}
+
+.ld-logo {
+  width: auto;
+  height: clamp(4rem, 9vw, 6.6rem);
+  clip-path: inset(0 100% 0 0);
+}
+
+.ld-tag {
+  margin: 0;
+  color: color-mix(in srgb, var(--ivory) 64%, transparent);
+  letter-spacing: 0.36em;
+  white-space: nowrap;
+}
+
+.ld-tag span {
+  display: inline-block;
+  opacity: 0;
+}
+
+/* ---- Load progress: a hairline, not a percentage ------------------- */
+
+.ld-bar {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: var(--gutter);
+  height: 1px;
+  background: color-mix(in srgb, var(--ivory) 12%, transparent);
   overflow: hidden;
 }
 
-.loader__bar span {
+.ld-bar span {
   display: block;
   height: 100%;
-  background: #ff6633;
+  background: var(--ember);
   transform-origin: left;
-  transition: transform .55s var(--ease-out);
-  box-shadow: 0 0 14px rgba(255, 102, 51, .7);
-}
-
-@keyframes loader-landscape {
-  to { opacity: .74; transform: scale(1); }
-}
-@keyframes loader-rise {
-  from { opacity: 0; transform: translate3d(0, 18px, 0); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-@keyframes loader-draw-route {
-  to { stroke-dashoffset: 0; }
-}
-@keyframes loader-pin-in {
-  from { opacity: 0; transform: scale(.5); }
-  to { opacity: 1; transform: scale(1); }
-}
-@keyframes loader-plane-in {
-  to { opacity: 1; }
-}
-
-@media (max-width: 600px) {
-  .loader__shade {
-    background:
-      linear-gradient(90deg, rgba(18, 9, 7, .76), rgba(18, 9, 7, .55)),
-      linear-gradient(0deg, rgba(18, 9, 7, .7), transparent 35%);
-  }
-  .loader__journey { margin-top: -2vh; }
-  .loader__eyebrow { font-size: .56rem; letter-spacing: .22em; }
-  .loader__mark { font-size: clamp(3.1rem, 14vw, 5rem); }
-  .loader__map { width: 110%; margin-left: -5%; margin-top: 2rem; }
-  .loader__destination { font-size: .42rem; letter-spacing: .1em; }
-  .loader__destination strong { font-size: .5rem; letter-spacing: .08em; }
-  .loader__destination--start, .loader__destination--middle { bottom: -1.25rem; }
-  .loader__destination--middle { left: 40%; }
-  .loader__destination--end { top: -1.25rem; }
-  .loader__brand { margin-top: 2.7rem; font-size: .55rem; letter-spacing: .16em; }
-  .loader__line { font-size: .5rem; letter-spacing: .1em; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .loader, .loader__backdrop, .loader__eyebrow, .loader__mark,
-  .loader__map, .loader__brand, .loader__route-active, .loader__pin,
-  .loader__plane {
-    animation: none !important;
-    transition: opacity .25s linear;
-  }
-  .loader__backdrop { opacity: .7; transform: none; }
-  .loader__route-active { stroke-dashoffset: 0; }
-  .loader__pin, .loader__plane { opacity: 1; }
-  .loader.is-leaving { transform: none; }
+  transform: scaleX(0);
+  transition: transform 0.6s var(--ease-out);
 }
